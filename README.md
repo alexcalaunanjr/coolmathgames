@@ -30,13 +30,19 @@ npm start
     - ?
     
 
-Tailwind CSS (for styling):
+Tailwind CSS (for styling):  
+
+
+To start:
 ```
 npm install -D tailwindcss
 npx tailwindcss init
 ```
+- Please follow this tutorial:
+`https://tailwindcss.com/docs/installation`
 
-To see which versions of packages, check `frontend/coolmathgames_fe/package.json`
+### To see which versions of packages, check:
+`frontend/coolmathgames_fe/package.json`
 
 # BACKEND:
 ## Libraries to install:
