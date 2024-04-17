@@ -39,7 +39,7 @@ npm install -D tailwindcss
 npx tailwindcss init
 ```
 - Please follow this tutorial:
-`https://tailwindcss.com/docs/installation`
+`https://tailwindcss.com/docs/guides/create-react-app`
 
 ### To see which versions of packages, check:
 `frontend/coolmathgames_fe/package.json`
