@@ -5,10 +5,10 @@ I think it'll be confusing for Terence that we're doing Real Estate but we are c
 ### Development tools:
 ### Frontend
 - React
-    - Material UI
+    - Tailwind CSS
  
  ### Backend
- - ? 
+ - Flask
 
  ### Database
 - ?
