@@ -5,7 +5,7 @@ I think it'll be confusing for Terence that we're doing Real Estate but we are c
 ### Development tools:
 ### Frontend
 - React
-    - Tailwind CSS
+- Tailwind CSS
  
  ### Backend
  - Flask
@@ -15,3 +15,36 @@ I think it'll be confusing for Terence that we're doing Real Estate but we are c
 
 <br>
 Initial commit on 3 April 2024
+
+# FRONTEND:
+## Libraries to install (DO THIS FIRST BEFORE PULLING): 
+React Framework:  
+```
+npx create-react-app coolmathgames_fe
+cd coolmathgames_fe
+npm start
+```
+- React libraries required:
+    - React Router Dom (To navigate through different pages):  
+      `npm i react-router-dom`
+    - ?
+    
+
+Tailwind CSS (for styling):
+```
+npm install -D tailwindcss
+npx tailwindcss init
+```
+
+To see which versions of packages, check `frontend/coolmathgames_fe/package.json`
+
+# BACKEND:
+## Libraries to install:
+- ?
+
+<br>
+
+# DATABASE:
+## Libraries to install:
+- ?
+
