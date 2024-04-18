@@ -18,6 +18,7 @@ Initial commit on 3 April 2024
 
 # FRONTEND:
 ## Libraries to install (DO THIS FIRST BEFORE PULLING): 
+## DO THIS ONLY ONCE
 1. React Framework:  
 ```
 npx create-react-app coolmathgames_fe
@@ -46,4 +47,3 @@ npm start
 # DATABASE:
 ## Libraries to install:
 - ?
-
