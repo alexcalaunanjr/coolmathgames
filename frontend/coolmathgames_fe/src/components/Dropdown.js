@@ -11,11 +11,6 @@ function CustomDropdown({ options, label, onSelect }) {
 
     return (
         <div className="max-w-md">
-            {/* <div className="mb-2 block">
-                <label htmlFor="customDropdown" className="block text-sm font-medium text-gray-700">
-                    {label}
-                </label>
-            </div> */}
             <select
                 className="block w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                 required
