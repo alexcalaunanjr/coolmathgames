@@ -3,7 +3,7 @@ import { Label, TextInput } from "flowbite-react";
 
 function Input({type, placeholder}) {
   return (
-    <TextInput type={type} placeholder={placeholder}/>
+    <TextInput type={type} placeholder={placeholder} required/>
   );
 }
 

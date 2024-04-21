@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import CustomDropdown from '../components/Dropdown';
-import Input from '../components/Input';
 import Button from '../components/Button';
 import Image from '../assets/loginui.jpg'
 import { authenticateUser } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
+import { TextInput } from 'flowbite-react';
 
 function LoginPage() {
     const [selectedUserType, setSelectedUserType] = useState('');
@@ -76,7 +76,7 @@ function LoginPage() {
                 {/* Username */}
                 <div className="mb-4 w-full">
                     Username
-                    <Input
+                    <TextInput
                         type="text"
                         placeholder="Enter username"
                         value={username}
@@ -86,7 +86,7 @@ function LoginPage() {
                 {/* Password */}
                 <div className="mb-4 w-full">
                     Password
-                    <Input
+                    <TextInput
                         type="password"
                         placeholder="Enter password"
                         value={password}
