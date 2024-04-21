@@ -7,7 +7,7 @@ import pfp from '../assets/pfp.jpg';
 // try modal import
 import useModalContext from '../hooks/UseModalContext';
 
-function BuyerHeader() {
+function SellerHeader() {
     const { openModal, setOpenModal } = useModalContext();
 
     return (
@@ -50,13 +50,11 @@ function BuyerHeader() {
 
             {/* words on top */}
             <Navbar.Collapse>
-                <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Home</Navbar.Link>
                 <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>My Properties</Navbar.Link>
-                <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Mortgage</Navbar.Link>
-                <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Find Agent</Navbar.Link>
+                <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Find Real Estate Agent</Navbar.Link>
             </Navbar.Collapse>
         </Navbar>
         </>
     );
 }
-export default BuyerHeader;
+export default SellerHeader;
