@@ -4,16 +4,18 @@ import { UserContextProvider } from '../hooks/UseModalContext';
 
 import Button from "../components/Button";
 import SAHeader from "../components/SAHeader";
+import { Link } from "react-router-dom";
+import axios from 'axios';
 
-function SACreateUPPage() {
+function SACreateUPPage(props) {
     const [profileName, setProfileName] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     // Flag to check if the form is filled
     const [formFilled, setFormFilled] = useState(false);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    function handleSubmit(event) {
+        event.preventDefault();
         setFormFilled(true);
 
         // Check if all fields are filled
@@ -29,6 +31,21 @@ function SACreateUPPage() {
         }
 
         try {
+            axios.post('http://127.0.0.1:5000/createUserProfile', {
+                "newProfile": profileName,
+            }, {
+            headers: {
+                'Authorization': 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
+            })
+            .then((response) => {
+                console.log('User profile created successfully:', response.data);
+            })
+            .catch((error) => {
+                console.log(error, 'error');
+                alert("error did not send");
+            });
         } catch (error) {
             setError('An error occurred during account creation.');
         }

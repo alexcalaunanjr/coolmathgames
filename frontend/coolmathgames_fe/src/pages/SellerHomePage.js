@@ -1,5 +1,8 @@
 import React from "react";
 import CardProperty from "../components/CardProperty";
+import { UserContextProvider } from '../hooks/UseModalContext';
+import { Link } from "react-router-dom";
+import SellerHeader from '../components/SellerHeader';
 
 // assets
 // background image
@@ -90,6 +93,8 @@ export default function SellerHomePage() {
     return (
         // return container with background image that is slightly transparent
         <>
+        {/* Seller header component */}
+        <UserContextProvider><SellerHeader /></UserContextProvider>   
         <div className="bg-cover bg-center min-h-screen justify-center" style={{ backgroundImage: `url(${BG})` }}>
                 {/* Content here */}
                 {/* Title: My Properties */}

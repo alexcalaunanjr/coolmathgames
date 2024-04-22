@@ -1,9 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { Label, TextInput } from "flowbite-react";
+import { UserContextProvider } from '../hooks/UseModalContext';
 import Button from "../components/Button";
 import CustomTable from "../components/Table";
 import { HiPlusSm } from "react-icons/hi";
 import UserSearchBar from "../components/UserSearchBar";
+import SAHeader from '../components/SAHeader';
 import { Link } from "react-router-dom";
 
 // Testing
@@ -81,7 +83,10 @@ function SARetrieveUAPage() {
         console.log("Searching for:", query);
     };
 
-    return (       
+    return (
+        <>
+        {/* buyer header component */}
+        <UserContextProvider><SAHeader /></UserContextProvider>   
         <div>
             {/* Rounded box */}
             <div className="rounded-xl bg-gray-100 shadow-xl m-20">
@@ -96,9 +101,9 @@ function SARetrieveUAPage() {
                         <div className="flex w-1/4 mx-auto items-center">
                             <UserSearchBar placeholder="Search by username" onSubmit={handleSearch}/>
                         </div>
-                        <Link to="/create-user">
+                        <Link to="/SACreateAcc">
                             <div className="flex w-60 pt-6 pb-6 mx-auto">
-                                <Button color="bg-blue-500" text="Add User Profile" icon={<HiPlusSm />}/>
+                                <Button color="bg-blue-500" text="Add User Account" icon={<HiPlusSm />}/>
                             </div>
                         </Link>
                     </div>
@@ -114,6 +119,7 @@ function SARetrieveUAPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

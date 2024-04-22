@@ -1,26 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomDropdown from '../components/Dropdown';
 import Button from '../components/Button';
 import Image from '../assets/loginui.jpg'
 import { authenticateUser } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
 import { TextInput } from 'flowbite-react';
+import axios from 'axios';
 
-function LoginPage() {
+function LoginPage(props) {
     const [selectedUserType, setSelectedUserType] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setUserEmail] = useState('');
     const [error, setError] = useState('');
-    const history = useNavigate();
+    const [options, setOptions] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.get('http://127.0.0.1:5000/login')
+            .then(response => {
+                setOptions(response.data.user_profiles);
+            })
+            .catch(error => {
+                console.error('Error fetching user profiles:', error);
+            });
+    }, []);
 
     const handleSelect = (selectedItem) => {
         setSelectedUserType(selectedItem);
     };
 
-    const options = ["Buyer", "Seller", "Real Estate Agent", "System Admin"];
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    function handleSubmit(event) {
+        event.preventDefault();
 
         // Validate username and password
         if (!username || !password || !selectedUserType) {
@@ -28,29 +39,45 @@ function LoginPage() {
             return;
         }
         try {
-            const response = await authenticateUser(username, password);
-            // Redirect to the appropriate page based on the user type
-            if (response.success) {
-                switch (selectedUserType) {
-                    case 'Buyer':
-                        history.push('/BuyerHomePage');
-                        break;
-                    case 'Seller':
-                        history.push('/SellerHomePage');
-                        break;
-                    case 'Real Estate Agent':
-                        history.push('/REAHomePage');
-                        break;
-                    case 'System Admin':
-                        history.push('/SAHomePage');
-                        break;
-                    default:
-                        history.push('/default');
-                        break;
-                }
-            } else {
-                setError('Invalid username or password! Please try again.');
+            console.log("Username:", username);
+            console.log("Password:", password);
+            console.log("Selected User Type:", selectedUserType);
+            axios.post('http://127.0.0.1:5000/login', {
+                username: username,
+                password: password,
+                profile: selectedUserType
+            }, {
+            headers: {
+                'Content-Type': 'application/json'
             }
+            })
+            .then((response) => {
+                props.setToken(response.data.access_token)
+                //setting profile and username to local storage to be retrieved
+                localStorage.setItem('profile', selectedUserType);
+                localStorage.setItem('username', username);
+                
+                if (response.data.authenticated) {
+                    if (selectedUserType == 'System Admin') {
+                        window.location.href = "/SAHomePage";
+                    }
+                    else if (selectedUserType == 'Real Estate Agent') {
+                        window.location.href = "/REAHomePage";
+                    }
+                    else if (selectedUserType == 'Buyer') {
+                        window.location.href = "/BuyerHomePage";
+                    }
+                    else if (selectedUserType == 'Seller') {
+                        window.location.href = "/SellerHomePage";
+                    }
+                } else {
+                    alert("Invalid Credentials (front end)")
+                }
+            })
+            .catch((error) => {
+                console.log(error, 'error');
+                alert("Invalid Credentials (front end)");
+            });
         } catch (error) {
             setError('An error occurred during login');
         }

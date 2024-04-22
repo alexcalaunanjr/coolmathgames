@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Label, TextInput } from "flowbite-react";
+import { UserContextProvider } from '../hooks/UseModalContext';
 import { HiMail } from "react-icons/hi";
 import CustomDropdown from '../components/Dropdown';
 import UploadFile from "../components/UploadFile";
 import Button from "../components/Button";
+import SAHeader from '../components/SAHeader';
+import { Link } from "react-router-dom";
+import axios from 'axios';
 
-function SACreateUAPage() {
+function SACreateUAPage(props) {
+    const token = localStorage.getItem('token');
+    console.log('Current Token:', token);
     const [fullName, setFullName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [error, setError] = useState('');
@@ -16,17 +22,26 @@ function SACreateUAPage() {
     const [message, setMessage] = useState('');
     // Flag to check if the form is filled
     const [formFilled, setFormFilled] = useState(false);
+    const [options, setOptions] = useState([]);
 
     const [selectedUserType, setSelectedUserType] = useState('');
+
+    useEffect(() => {
+        axios.get('http://127.0.0.1:5000/login')
+            .then(response => {
+                setOptions(response.data.user_profiles);
+            })
+            .catch(error => {
+                console.error('Error fetching user profiles:', error);
+            });
+    }, []);
 
     const handleSelect = (selectedItem) => {
         setSelectedUserType(selectedItem);
     };
 
-    const options = ["Buyer", "Seller", "Real Estate Agent"];
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    function handleSubmit(event) {
+        event.preventDefault();
         setFormFilled(true);
 
         // Check if all fields are filled
@@ -55,6 +70,26 @@ function SACreateUAPage() {
         }
 
         try {
+            axios.post('http://127.0.0.1:5000/createUserAccount', {
+                "fullName": fullName,
+                "username": username,
+                "password": password,
+                "email": email,
+                "phone": phoneNumber,
+                "profile": selectedUserType
+            }, {
+            headers: {
+                'Authorization': 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
+            })
+            .then((response) => {
+                console.log('User created successfully:', response.data);
+            })
+            .catch((error) => {
+                console.log(error, 'error');
+                alert("error did not send");
+            });
         } catch (error) {
             setError('An error occurred during account creation.');
         }
@@ -68,7 +103,9 @@ function SACreateUAPage() {
     }, [formFilled]);
 
     return (
-        // SA Create Account Page
+        <>
+        {/* buyer header component */}
+        <UserContextProvider><SAHeader /></UserContextProvider> 
         <div className="flex flex-col h-screen">
             <div className="flex w-full text-2xl font-bold p-10">
                 <h1>User Account Details</h1>
@@ -157,7 +194,9 @@ function SACreateUAPage() {
                         </div>
                         {/* Button */}
                         <div className="w-40 flex pt-10">
-                            <Button color="bg-brown text-md" text="Create" onClick={handleSubmit}/>
+                            <Link to="/SAHomePage">
+                                <Button color="bg-brown text-md" text="Create" onClick={handleSubmit}/>
+                            </Link>
                         </div>
                         {/* Succsful Message */}
                         <div className="text-green-500 pt-10">
@@ -167,6 +206,7 @@ function SACreateUAPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 
