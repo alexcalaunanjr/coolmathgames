@@ -32,15 +32,29 @@ npm start
     
 
 3. Tailwind CSS (for styling):  
-
 - Please follow this tutorial: https://tailwindcss.com/docs/guides/create-react-app
+
+4. Flowbite-React (download Tailwind first):
+- Please follow this tutorial: https://flowbite-react.com/docs/guides/create-react-app
+
+5. axios
+```npm install axios```
 
 ### To see which versions of packages, check:
 `frontend/coolmathgames_fe/package.json`
 
 # BACKEND:
 ## Libraries to install:
-- ?
+```
+pip install -U Flask
+pip install -U Flask-SQLAlchemy
+pip install flask-login
+pip install -U Flask-WTF
+pip install flask-bcrypt
+pip install -U flask-cors
+pip install jwt
+pip install flask-jwt-extended
+```
 
 <br>
 
