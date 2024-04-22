@@ -1,9 +1,12 @@
 import React from "react";
 import { Label, TextInput } from "flowbite-react";
+import { UserContextProvider } from '../hooks/UseModalContext';
 import Button from "../components/Button";
 import { HiPlusSm } from "react-icons/hi";
 import UserSearchBar from "../components/UserSearchBar";
+import SAHeader from '../components/SAHeader';
 import UPCard from "../components/UPCard";
+import { Link } from "react-router-dom";
 
 // Testing
 const profile1 = {
@@ -33,6 +36,9 @@ function SARetrieveUPPage() {
     };
 
     return (       
+        <>
+        {/* buyer header component */}
+        <UserContextProvider><SAHeader /></UserContextProvider>   
         <div>
             {/* Rounded box */}
             <div className="rounded-xl bg-gray-100 shadow-xl pb-60 m-20">
@@ -46,9 +52,11 @@ function SARetrieveUPPage() {
                     <div className="w-1/4 mx-auto">
                         <UserSearchBar placeholder="Search by username" onSubmit={handleSearch}/>
                     </div>
-                    <div className="w-60 mx-auto">
-                        <Button color="bg-blue-500" text="Add User Profile" icon={<HiPlusSm />}/>
-                    </div>
+                    <Link to="/SACreateProfile">
+                        <div className="w-60 mx-auto">
+                            <Button color="bg-blue-500" text="Add User Profile" icon={<HiPlusSm />}/>
+                        </div>
+                    </Link>
                 </div>
                 {/* User Profile Card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-10 items-center ">
@@ -59,6 +67,7 @@ function SARetrieveUPPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
 import LogOutModal from './LogOutModal';
 import pfp from '../assets/pfp.jpg';
+import axios from 'axios';
 
 // try modal import
 import useModalContext from '../hooks/UseModalContext';
 
 function REAHeader() {
     const { openModal, setOpenModal } = useModalContext();
+    const [email, setEmail] = useState(null);
+    const username = localStorage.getItem('username');
+
+    useEffect(() => {
+        // Get the username and email from local storage
+        axios.get(`http://127.0.0.1:5000/userCredentials/${username}`)
+          .then(response => {
+              const email = response.data.email;
+              setEmail(email)
+          })
+          .catch(error => {
+              console.error("Error fetching email:", error);
+          });
+      }, []);
 
     return (
         <>
@@ -38,8 +53,8 @@ function REAHeader() {
                     label={<Avatar alt="User settings" img={pfp} rounded className='pr-2'/>}
                 >
                     <Dropdown.Header>
-                        <span className="block text-sm">pookiekevy123</span>
-                        <span className="block truncate text-sm font-medium">tiffisthebest@gmail.com</span>
+                        <span className="block text-sm">{username}</span>
+                        <span className="block truncate text-sm font-medium">{email}</span>
                     </Dropdown.Header>
 
                     {/* Log Out dropdown */}
@@ -50,7 +65,7 @@ function REAHeader() {
 
             {/* words on top */}
             <Navbar.Collapse>
-                <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>My Properties</Navbar.Link>
+                <Navbar.Link href="/REAHomePage" className='text-gray-900 hover:text-yellow-700'>My Properties</Navbar.Link>
                 <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Create Property</Navbar.Link>
             </Navbar.Collapse>
         </Navbar>
