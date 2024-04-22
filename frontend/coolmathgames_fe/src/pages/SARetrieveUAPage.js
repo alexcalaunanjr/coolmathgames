@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import CustomTable from "../components/Table";
 import { HiPlusSm } from "react-icons/hi";
 import UserSearchBar from "../components/UserSearchBar";
+import { Link } from "react-router-dom";
 
 // Testing
 // const rows = [
@@ -95,9 +96,11 @@ function SARetrieveUAPage() {
                         <div className="flex w-1/4 mx-auto items-center">
                             <UserSearchBar placeholder="Search by username" onSubmit={handleSearch}/>
                         </div>
-                        <div className="flex w-60 pt-6 pb-6 mx-auto">
-                            <Button color="bg-blue-500" text="Add User Profile" icon={<HiPlusSm />}/>
-                        </div>
+                        <Link to="/create-user">
+                            <div className="flex w-60 pt-6 pb-6 mx-auto">
+                                <Button color="bg-blue-500" text="Add User Profile" icon={<HiPlusSm />}/>
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 {/* Table */}
