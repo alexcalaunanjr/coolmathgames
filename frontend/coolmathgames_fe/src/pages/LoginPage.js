@@ -105,6 +105,7 @@ function LoginPage(props) {
                 <div className="mb-4 w-full">
                     Username
                     <TextInput
+                        id = "username"
                         type="text"
                         placeholder="Enter username"
                         value={username}
@@ -115,6 +116,7 @@ function LoginPage(props) {
                 <div className="mb-4 w-full">
                     Password
                     <TextInput
+                        id = "password"
                         type="password"
                         placeholder="Enter password"
                         value={password}

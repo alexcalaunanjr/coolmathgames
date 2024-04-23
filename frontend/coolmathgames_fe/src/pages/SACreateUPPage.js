@@ -23,12 +23,7 @@ function SACreateUPPage(props) {
             setError('Please enter all fields.');
             return;
         }
-        // If all checks pass, clear any previous errors and proceed with account creation
-        else
-        {
-            setError('');
-            setMessage('Account created successfully!');
-        }
+        // If all checks pass, clear any previous errors and proceed with serverside profile creation
 
         try {
             axios.post('http://127.0.0.1:5000/createUserProfile', {
@@ -41,10 +36,13 @@ function SACreateUPPage(props) {
             })
             .then((response) => {
                 console.log('User profile created successfully:', response.data);
+                setError('');
+                setMessage('Account created successfully!');
             })
             .catch((error) => {
                 console.log(error, 'error');
-                alert("error did not send");
+                setMessage('');
+                setError('User profile Creation Failed!');
             });
         } catch (error) {
             setError('An error occurred during account creation.');
@@ -78,15 +76,17 @@ function SACreateUPPage(props) {
                         placeholder="Enter New User Profile "
                         onChange = {(e) => setProfileName(e.target.value)}
                         />
-
-                        {/* Error Message */}
-                        <div>
-                            {error && <div className="text-red-500 pt-5">{error}</div>}
-                        </div>
-
                         {/* Button */}
                         <div className="w-40 flex pt-5">
                             <Button color="bg-brown text-md" text="Create" onClick={handleSubmit}/>
+                        </div>
+                        {/* Error Message */}
+                        <div>
+                            {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
+                        </div>
+                        {/* Succsful Message */}
+                        <div id="successPrompt" className="text-green-500 pt-10">
+                            {error === '' && message}
                         </div>
                     </div>  
                 </div>   
