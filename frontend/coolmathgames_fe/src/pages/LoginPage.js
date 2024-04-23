@@ -17,6 +17,7 @@ function LoginPage(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = 'Login Page';
         axios.get('http://127.0.0.1:5000/login')
             .then(response => {
                 setOptions(response.data.user_profiles);

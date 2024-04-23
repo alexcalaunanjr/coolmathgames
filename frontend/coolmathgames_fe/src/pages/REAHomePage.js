@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from 'react';
 import CardProperty from "../components/CardProperty";
 
 import { UserContextProvider } from '../hooks/UseModalContext';
@@ -93,6 +94,9 @@ const property4 = {
 };
 
 export default function REAHomePage() {
+    useEffect(() => {
+        document.title = 'Buyer Home Page';
+    }, []);
     return (
         <>
         <UserContextProvider><REAHeader /></UserContextProvider>

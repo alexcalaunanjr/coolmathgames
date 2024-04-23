@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from 'react';
 import CardProperty from "../components/CardProperty";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import { Link } from "react-router-dom";
@@ -90,6 +91,9 @@ const property4 = {
 };
 
 export default function SellerHomePage() {
+    useEffect(() => {
+        document.title = 'Seller Home Page';
+    }, []);
     return (
         // return container with background image that is slightly transparent
         <>

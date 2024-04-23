@@ -1,0 +1,12 @@
+Flask==3.0.3
+Flask_Bcrypt==1.0.1
+Flask_Cors==4.0.0
+Flask_JWT_Extended==4.6.0
+Flask_Login==0.6.3
+flask_sqlalchemy==3.1.1
+flask_wtf==1.2.1
+PyJWT==2.8.0
+PyJWT==2.8.0
+pytest==8.1.1
+selenium==4.19.0
+WTForms==3.1.2

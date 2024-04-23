@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from 'react';
 import { Label, TextInput } from "flowbite-react";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import Button from "../components/Button";
@@ -28,7 +29,9 @@ const profile4 = {
 const profiles = [profile1, profile2, profile3, profile4];
 
 function SARetrieveUPPage() {
-
+    useEffect(() => {
+        document.title = 'SA User Profile';
+    }, []);
     // Function to handle search
     const handleSearch = (query) => {
         // Search logic
