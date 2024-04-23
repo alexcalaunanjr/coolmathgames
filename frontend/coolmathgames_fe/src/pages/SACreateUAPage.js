@@ -63,12 +63,7 @@ function SACreateUAPage(props) {
             return;
         }
 
-        // If all checks pass, clear any previous errors and proceed with account creation
-        else
-        {
-            setError('');
-            setMessage('Account created successfully!');
-        }
+        // If all checks pass, clear any previous errors and proceed with serverside account creation
 
         try {
             axios.post('http://127.0.0.1:5000/createUserAccount', {
@@ -85,11 +80,14 @@ function SACreateUAPage(props) {
             }
             })
             .then((response) => {
-                console.log('User created successfully:', response.data);
+                console.log('User account created successfully:', response.data);
+                setError('');
+                setMessage('Account created successfully!');
             })
             .catch((error) => {
                 console.log(error, 'error');
-                alert("error did not send");
+                setMessage('');
+                setError("User account already exists")
             });
         } catch (error) {
             setError('An error occurred during account creation.');
@@ -191,7 +189,7 @@ function SACreateUAPage(props) {
                         </div>
                         {/* Error Message */}
                         <div>
-                            {error && <div className="text-red-500 pt-10">{error}</div>}
+                            {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
                         </div>
                         {/* Button */}
                         <div className="w-40 flex pt-10">
@@ -200,7 +198,7 @@ function SACreateUAPage(props) {
                             </Link>
                         </div>
                         {/* Succsful Message */}
-                        <div className="text-green-500 pt-10">
+                        <div id="successPrompt" className="text-green-500 pt-10">
                             {error === '' && message}
                         </div>
                     </div>

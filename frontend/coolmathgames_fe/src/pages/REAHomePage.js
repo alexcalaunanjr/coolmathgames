@@ -95,7 +95,7 @@ const property4 = {
 
 export default function REAHomePage() {
     useEffect(() => {
-        document.title = 'Buyer Home Page';
+        document.title = 'REA Home Page';
     }, []);
     return (
         <>
