@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useEffect } from 'react';
 import { Carousel } from 'flowbite-react';
 import { UserContextProvider } from '../hooks/UseModalContext';
 import BuyerHeader from '../components/BuyerHeader';
@@ -100,6 +101,9 @@ const property4 = {
 
 
 function BuyerHomePage() {
+    useEffect(() => {
+        document.title = 'Buyer Home Page';
+    }, []);
   return (
     <>
     {/* buyer header component */}

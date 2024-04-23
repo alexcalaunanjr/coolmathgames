@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from 'react';
 import { Label, TextInput } from "flowbite-react";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import Button from "../components/Button";
@@ -36,24 +37,9 @@ const users = [
 ];
 
 function SARetrieveUAPage() {
-    //   const [rows, setRows] = useState([]);
-
-    // Fetch data from backend
-//   useEffect(() => {
-//     async function fetchData() {
-//       try {
-//         const response = await fetch('http://localhost:5000/api/userprofiles');
-//         const data = await response.json();
-//         // Set fetched data to state
-//         setRows(data);
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     }
-//     // Call fetchData() when component mounts
-//     fetchData(); 
-//     // / Empty dependency array ensures fetchData() is called only once
-//   }, []); 
+    useEffect(() => {
+        document.title = 'SA User Account';
+    }, []);
 
     // Table headers
     const headers = ['Full Name', 'Username', 'Email', 'Type', 'Status'];

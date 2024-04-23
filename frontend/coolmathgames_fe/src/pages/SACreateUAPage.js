@@ -27,6 +27,7 @@ function SACreateUAPage(props) {
     const [selectedUserType, setSelectedUserType] = useState('');
 
     useEffect(() => {
+        document.title = 'SA Create Account Page';
         axios.get('http://127.0.0.1:5000/login')
             .then(response => {
                 setOptions(response.data.user_profiles);

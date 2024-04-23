@@ -52,6 +52,7 @@ function SACreateUPPage(props) {
     };
 
     useEffect(() => {
+        document.title = 'SA Create Profile Page';
         if (formFilled) {
             // Reset formFilled after validation
             setFormFilled(false);
