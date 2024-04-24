@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <h1>Create User Accounts</h1>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        {{ form.fullName}}
+        {{ form.username }}
+        {{ form.email }}
+        {{ form.password }}
+        {{ form.phoneNo }}
+        {{ form.profile }}
+        {{ form.submit }}
+    </form>
+    <a href="{{url_for('login')}}">already have an account, log in</a><br>
+</body>
+</html>
