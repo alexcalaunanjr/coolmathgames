@@ -61,7 +61,7 @@ class Test_40:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.alert_is_present())
         
-        assert self.driver.switch_to.alert.text == "Invalid Credentials (front end)"
+        assert self.driver.switch_to.alert.text == "Invalid Credentials"
         self.driver.switch_to.alert.dismiss()
 
     def test_loginWrongUsernamePassword(self):
@@ -84,7 +84,7 @@ class Test_40:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.alert_is_present())
         
-        assert self.driver.switch_to.alert.text == "Invalid Credentials (front end)"
+        assert self.driver.switch_to.alert.text == "Invalid Credentials"
         self.driver.switch_to.alert.dismiss()
 
     def test_loginEmpty(self):
