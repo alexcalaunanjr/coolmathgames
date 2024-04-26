@@ -88,21 +88,21 @@ function LoginPage(props) {
         // Login Page
         <div className="flex flex-col md:flex-row h-screen">
             {/* Left side */}
-            <div className="w-1/2 flex justify-center items-center">
+            <div className="w-1/2 flex mx-auto">
                 <img src={Image} alt="logo" className="w-full h-full object-cover" />
             </div>
             {/* Right side */}
-            <div className="w-1/2 flex flex-col justify-center items-center px-40">
-                <div className="text-4xl font-bold pb-20">
+            <div className="w-1/2 flex flex-col mx-auto justify-center items-center">
+                <div className="text-4xl text-center font-bold pb-10 w-1/2 mx-auto">
                     <h1>Welcome to <span style={{ fontFamily: 'limelight' }}>MICASA</span></h1>
                 </div>
                 {/* Dropdown */}
-                <div className="mb-4 w-full">
+                <div className="mb-4 w-1/2 mx-auto">
                     Login As
                     <CustomDropdown label="Select User Profile" options={options} onSelect={handleSelect} />
                 </div>
                 {/* Username */}
-                <div className="mb-4 w-full">
+                <div className="mb-4 w-1/2 mx-auto">
                     Username
                     <TextInput
                         id = "username"
@@ -113,7 +113,7 @@ function LoginPage(props) {
                     />
                 </div>
                 {/* Password */}
-                <div className="mb-4 w-full">
+                <div className="mb-4 w-1/2 mx-auto">
                     Password
                     <TextInput
                         id = "password"
@@ -123,11 +123,11 @@ function LoginPage(props) {
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </div>
-                {/* User Type */}
-                <div className="mb-4 text-red-500">
+                {/* Error message */}
+                <div className="mb-4 w-1/2 mx-auto text-center text-red-500">
                     {error}
                 </div>
-                <div className="mb-20 w-full">
+                <div className="mb-20 w-1/2 mx-auto">
                     <Button color="bg-brown" text="Login" onClick={handleSubmit} />
                 </div>
             </div>
