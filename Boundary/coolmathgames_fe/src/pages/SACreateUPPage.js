@@ -13,6 +13,7 @@ function SACreateUPPage(props) {
     const [message, setMessage] = useState('');
     // Flag to check if the form is filled
     const [formFilled, setFormFilled] = useState(false);
+    const [profileCreated, setProfileCreated] = useState('');
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -35,17 +36,23 @@ function SACreateUPPage(props) {
             }
             })
             .then((response) => {
-                console.log('User profile created successfully:', response.data);
-                setError('');
-                setMessage('Account created successfully!');
+                console.log('User profile created successfully:', response.data.profileCreated);
+                if (response.data.profileCreated) {
+                    setMessage('Account created successfully!');
+                    setError('');
+                }
+                else {
+                    setMessage('');
+                    setError('Account not created!');
+                }
             })
             .catch((error) => {
                 console.log(error, 'error');
                 setMessage('');
-                setError('User profile Creation Failed!');
+                setError('User information not sent!');
             });
         } catch (error) {
-            setError('An error occurred during account creation.');
+            setError('There is a problem');
         }
     };
 

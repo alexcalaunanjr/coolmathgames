@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import CustomDropdown from '../components/Dropdown';
 import Button from '../components/Button';
 import Image from '../assets/loginui.jpg'
-import { authenticateUser } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
 import { TextInput } from 'flowbite-react';
 import axios from 'axios';
