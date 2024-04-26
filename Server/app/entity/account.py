@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 
 #User table
-class Account(db.Model):
+class UserAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     profile = db.Column(db.String(20), nullable=False)
     fullName = db.Column(db.String(50), nullable=False)
@@ -17,21 +17,68 @@ class Account(db.Model):
 
     #retrieve a user account based of username (email for now)
     @classmethod
-    def retrieveCred(self, username:str):
-        user = Account.query.filter_by(username=username).first()
+    def retrieveUserCredentials(self, username:str):
+        user = UserAccount.query.filter_by(username=username).first()
         if user:
-            return jsonify({'email': user.email}), 200
+            return jsonify({
+                'profile': user.profile,
+                'fullName': user.fullName,
+                'username': user.username,
+                'email': user.email,
+                'phoneNo': user.phoneNo,
+                'status': user.status
+            })
         else:
             return jsonify({'message': 'User not found'}), 404
 
     #verify login credentials
     @classmethod
     def verifyLoginInfo(self, profile:str, username:str, password:str):
-        user = Account.query.filter_by(username=username).first() #check if username matches in the database
+        user = UserAccount.query.filter_by(username=username).first() #check if username matches in the database
         if user and bcrypt.check_password_hash(user.password, password) and profile == user.profile:
             return True
         else:
             return False
+    
+    #retrieve accounts
+    @classmethod
+    def retrieveAccountList(cls):
+        accountList = cls.query.all()
+        accountDict = [{'id': account.id, 
+                        'profile': account.profile, 
+                        'fullName': account.fullName, 
+                        'username': account.username, 
+                        'email': account.email, 
+                        'phoneNo': account.phoneNo, 
+                        'status': account.status} for account in accountList]
+        return jsonify({"accountDict": accountDict})
+    
+    #update account
+    @classmethod
+    def updateAccount(cls, accUsername, updatedData):
+        account = cls.query.filter_by(username=accUsername).first()
+        if not account:
+            return jsonify({'message': 'Account not found'}), 404
+        
+        # Update account fields
+        if 'profile' in updatedData:
+            account.profile = updatedData['profile']
+        if 'fullName' in updatedData:
+            account.fullName = updatedData['fullName']
+        if 'username' in updatedData:
+            account.username = updatedData['username']
+        if 'password' in updatedData:
+            account.password = bcrypt.generate_password_hash(updatedData['password'])
+        if 'email' in updatedData:
+            account.email = updatedData['email']
+        if 'phoneNo' in updatedData:
+            account.phoneNo = updatedData['phoneNo']
+        if 'status' in updatedData:
+            account.status = updatedData['status']
+        
+        db.session.commit()
+        return jsonify({'accountUpdated': True})
+
 
     #Create new user account
     @classmethod

@@ -80,9 +80,15 @@ function SACreateUAPage(props) {
             }
             })
             .then((response) => {
-                console.log('User account created successfully:', response.data);
-                setError('');
-                setMessage('Account created successfully!');
+                console.log('User Account created successfully:', response.data.accountCreated);
+                if (response.data.accountCreated) {
+                    setMessage('User Account created successfully!');
+                    setError('');
+                }
+                else {
+                    setMessage('');
+                    setError('User Account not created!');
+                }
             })
             .catch((error) => {
                 console.log(error, 'error');

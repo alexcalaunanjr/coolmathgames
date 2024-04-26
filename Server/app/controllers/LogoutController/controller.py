@@ -1,9 +1,16 @@
-from flask import jsonify
+from flask import request, jsonify, Blueprint
 from flask_jwt_extended import unset_jwt_cookies
-from flask_login import logout_user
 
-class LogoutController():
+class LogoutController(Blueprint):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     def logoutUser(self):
-        response = jsonify({"msg": "logout successful"})
+        response = jsonify({"logout": True})
         unset_jwt_cookies(response)
         return response
+
+class BaseControllerLogout(LogoutController):
+    def logout(self):
+        logout = self.logoutUser()
+        return logout

@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Label, TextInput } from "flowbite-react";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import Button from "../components/Button";
@@ -8,6 +8,7 @@ import { HiPlusSm } from "react-icons/hi";
 import UserSearchBar from "../components/UserSearchBar";
 import SAHeader from '../components/SAHeader';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 // Testing
 // const rows = [
@@ -17,32 +18,41 @@ import { Link } from "react-router-dom";
 //     ['John Doe', 'johndoe', 'jdoe@gmail.com', 'Admin', 'Suspended'],
 //     ['John Doe', 'johndoe', 'jdoe@gmail.com', 'Admin', 'Active'],
 // ];
-const users = [ 
-{
-    id: 1,
-    name: "John Doe",
-    username: "johndoe",
-    email: "jdoe@gmail.com",
-    type: "Admin",
-    status: "Active"
-}, 
-{
-    id: 2,
-    name: "Julia Adams",
-    username: "jadams",
-    email: "jads@gmail.com",
-    type: "Buyer",
-    status: "Suspended"
-}
-];
+const users = [];
 
-function SARetrieveUAPage() {
+function SARetrieveUAPage(props) {
+    const [users, setUsers] = useState([]);
+    const headers = ['Full Name', 'Username', 'Email', 'Type', 'Status'];
+
     useEffect(() => {
         document.title = 'SA User Account';
+        axios.get('http://127.0.0.1:5000/retrieveAccountList', {
+            headers: {
+                Authorization: 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            const accountDict = response.data.accountDict
+            displayAccountList(accountDict)
+        })
+        .catch(error => {
+            console.error('Error fetching user account list', error);
+        });
     }, []);
 
-    // Table headers
-    const headers = ['Full Name', 'Username', 'Email', 'Type', 'Status'];
+    function displayAccountList(accountDict) {
+        const userData = accountDict.map(account => ({
+            id: account.id,
+            name: account.fullName,
+            username: account.username,
+            email: account.email,
+            type: account.profile,
+            status: account.status
+        }))
+        setUsers(userData)
+    }
+
     const rows = users.map(user => [user.name, user.username, user.email, user.type, user.status]);
 
     // Function to change status color
