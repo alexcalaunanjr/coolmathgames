@@ -9,11 +9,19 @@ import axios from 'axios';
 
 function SACreateUPPage(props) {
     const [profileName, setProfileName] = useState('');
+    const [description, setDescription] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     // Flag to check if the form is filled
     const [formFilled, setFormFilled] = useState(false);
-    const [profileCreated, setProfileCreated] = useState('');
+
+    useEffect(() => {
+        document.title = 'SA Create Profile Page';
+        if (formFilled) {
+            // Reset formFilled after validation
+            setFormFilled(false);
+        }
+    }, [formFilled]);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -29,6 +37,7 @@ function SACreateUPPage(props) {
         try {
             axios.post('http://127.0.0.1:5000/createUserProfile', {
                 "newProfile": profileName,
+                "newDescription": description
             }, {
             headers: {
                 'Authorization': 'Bearer ' + props.token,
@@ -56,51 +65,58 @@ function SACreateUPPage(props) {
         }
     };
 
-    useEffect(() => {
-        document.title = 'SA Create Profile Page';
-        if (formFilled) {
-            // Reset formFilled after validation
-            setFormFilled(false);
-        }
-    }, [formFilled]);
-
     return (
         <>
-        <UserContextProvider><SAHeader /></UserContextProvider>
-        {/* SA Create Account Page */}
-        <div className="flex flex-col h-screen">
-            <div className="flex w-full text-2xl font-bold p-10">
-                <h1>User Profile Details</h1>
-            </div>
-
-            <div className=" flex w-1/2 pl-10">
-                {/* New User Profile text */}
-                <div className="mb-8 w-2/3">
-                    New User Profile
-                    <div>
+            {/* Buyer header component */}
+            <UserContextProvider>
+                <SAHeader />
+            </UserContextProvider>
+            <div className="flex-column">
+                <div className="w-full text-2xl font-bold p-10">
+                    <h1>User Account Details</h1>
+                </div>
+                <div className="lg:w-2/5 md:w-1/2 px-10 mb-10">
+                    {/* New User Profile*/}
+                    <div className="mb-10">
+                        User Profile
                         <TextInput
-                        type="text"
-                        placeholder="Enter New User Profile "
-                        onChange = {(e) => setProfileName(e.target.value)}
+                            type="text"
+                            placeholder="Enter Profile Name"
+                            value={profileName}
+                            onChange={(e) => setProfileName(e.target.value)} 
                         />
-                        {/* Button */}
-                        <div className="w-40 flex pt-5">
-                            <Button color="bg-brown text-md" text="Create" onClick={handleSubmit}/>
-                        </div>
-                        {/* Error Message */}
-                        <div>
-                            {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
-                        </div>
-                        {/* Succsful Message */}
-                        <div id="successPrompt" className="text-green-500 pt-10">
-                            {error === '' && message}
-                        </div>
-                    </div>  
-                </div>   
+                    </div>
+                    {/* Description */}
+                    <div className="mb-10">
+                        Description
+                        <textarea
+                            className="resize-y w-full h-40 rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                            placeholder="Enter description here..."
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
+                </div>
+                {/* Error Message */}
+                <div className="flex justify-center">
+                    {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
+                </div>
+                {/* Succesful Message */}
+                <div className="flex justify-center">
+                    <div id="successPrompt" className="text-green-500 pt-10">
+                        {error === '' && message}
+                    </div>
+                </div>
+                <div className="px-10 w-full mx-auto sm:w-1/2 md:w-1/2 lg:w-1/3">
+                    <Button
+                        color="bg-blue-500"
+                        text="Create"
+                        onClick={handleSubmit}
+                    />
+                </div>
             </div>
-        </div>
         </>
-    );
+    )
 }
 
 export default SACreateUPPage;
