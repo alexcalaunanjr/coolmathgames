@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FileInput, Label } from "flowbite-react";
+import axios from "axios";
 
 function UploadFile() {
     const [imagePreview, setImagePreview] = useState(null);
     const [error, setError] = useState('');
+    const [imageFromDB, setImageFromDB] = useState(null);
+
+    // get image from db
+    useEffect(() => {
+        axios.get('http://127.0.0.1:5000/image')
+        .then(response => {
+            setImageFromDB(response.data.image);
+    })
+    .catch(error => {
+        console.error('Error fetching image:', error);
+        });
+    }, []);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -34,7 +47,7 @@ function UploadFile() {
                 <div className="flex flex-col items-center justify-center pb-6 pt-5">
                     {/* Render SVG logo only if imagePreview is null */}
                     {/* Render imagePreview if it is not null */}
-                    {imagePreview === null && (
+                    {imagePreview === null && imageFromDB == null && (
                         // SVG Logo
                         <svg
                             className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"

@@ -11,19 +11,27 @@ import { Link } from "react-router-dom";
 
 // Testing
 const profile1 = {
-    name: "REA"
+    id:1,
+    name: "REA",
+    description: "REA is a real estate company that provides property services."
 };
 
 const profile2 = {
-    name: "Buyer"
+    id:2,
+    name: "Buyer",
+    description: "A buyer is a person who purchases goods or services."
 };
 
 const profile3 = {
-    name: "Seller"
+    id:3,
+    name: "Seller",
+    description: "A seller is a person who sells goods or services."
 };
 
 const profile4 = {
-    name: "System Admin"
+    id:4,
+    name: "System Admin",
+    description: "A system admin is a person who is responsible for managing a computer system."
 };
 
 const profiles = [profile1, profile2, profile3, profile4];
@@ -57,7 +65,7 @@ function SARetrieveUPPage() {
                     </div>
                     <Link to="/SACreateProfile">
                         <div className="w-60 mx-auto">
-                            <Button color="bg-blue-500" text="Add User Profile" icon={<HiPlusSm />}/>
+                            <Button color="bg-brown" text="Add User Profile" icon={<HiPlusSm />}/>
                         </div>
                     </Link>
                 </div>

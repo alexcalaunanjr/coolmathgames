@@ -89,7 +89,7 @@ function SARetrieveUAPage() {
                         </div>
                         <Link to="/SACreateAcc">
                             <div className="flex w-60 pt-6 pb-6 mx-auto">
-                                <Button color="bg-blue-500" text="Add User Account" icon={<HiPlusSm />}/>
+                                <Button color="bg-brown" text="Add User Account" icon={<HiPlusSm />}/>
                             </div>
                         </Link>
                     </div>

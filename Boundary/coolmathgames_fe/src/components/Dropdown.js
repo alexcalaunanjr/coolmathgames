@@ -10,7 +10,7 @@ function CustomDropdown({ options, label, onSelect }) {
     };
 
     return (
-        <div className="max-w-md">
+        <div className="w-full">
             <select
                 className="block w-full text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                 required
