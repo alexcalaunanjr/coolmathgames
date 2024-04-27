@@ -1,28 +1,61 @@
 import React from "react";
 import { useEffect, useState } from 'react';
-import { Label, TextInput } from "flowbite-react";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import Button from "../components/Button";
-import CustomTable from "../components/Table";
+import {Table} from "flowbite-react";
+import TableRow from "../components/TableRow";
 import { HiPlusSm } from "react-icons/hi";
 import UserSearchBar from "../components/UserSearchBar";
 import SAHeader from '../components/SAHeader';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 // Testing
-// const rows = [
-//     ['John Doe', 'johndoe', 'jdoe@gmail.com', 'Admin', 'Active'],
-//     ['John Doe', 'johndoe', 'jdoe@gmail.com', 'Admin', 'Active'],
-//     ['John Doe', 'johndoe', 'jdoe@gmail.com', 'Admin', 'Active'],
-//     ['John Doe', 'johndoe', 'jdoe@gmail.com', 'Admin', 'Suspended'],
-//     ['John Doe', 'johndoe', 'jdoe@gmail.com', 'Admin', 'Active'],
-// ];
-const users = [];
+const account1 = {
+    id:1,
+    image: "https://randomuser.me/api/portraits",
+    fullName: "James Smith",
+    username: "jamessmith123",
+    email: "jamessmith@agent.com",
+    type: "Real Estate Agent",
+    status: "Active",
+};
+
+const account2 = {
+    id:2,
+    image: "https://randomuser.me/api/portraits",
+    fullName: "John Doe",
+    username: "johndoe123",
+    email: "jdoe@seller.com",
+    type: "Seller",
+    status: "Active",
+};
+
+const account3 = {
+    id:3,
+    image: "https://randomuser.me/api/portraits",
+    fullName: "Jane Doe",
+    username: "janedoe123",
+    email: "janedoe@agent.com",
+    type: "Real Estate Agent",
+    status: "Active",
+};
+
+const account4 = {
+    id:4,
+    image: "https://randomuser.me/api/portraits",
+    fullName: "Dummy McDummy",
+    username: "dummy123",
+    email: "dmcdummy@buyer.com",
+    type: "Buyer",
+    status: "Suspended",
+};
+
+const accounts = [account1, account2, account3, account4];
 
 function SARetrieveUAPage(props) {
-    const [users, setUsers] = useState([]);
     const headers = ['Full Name', 'Username', 'Email', 'Type', 'Status'];
+    const navigate = useNavigate();
 
     useEffect(() => {
         document.title = 'SA User Account';
@@ -33,51 +66,34 @@ function SARetrieveUAPage(props) {
             }
         })
         .then(response => {
-            const accountDict = response.data.accountDict
-            displayAccountList(accountDict)
+            const accountDict = response.data.accountDict;
         })
         .catch(error => {
             console.error('Error fetching user account list', error);
         });
     }, []);
 
-    function displayAccountList(accountDict) {
-        const userData = accountDict.map(account => ({
-            id: account.id,
-            name: account.fullName,
-            username: account.username,
-            email: account.email,
-            type: account.profile,
-            status: account.status
-        }))
-        setUsers(userData)
-    }
-
-    const rows = users.map(user => [user.name, user.username, user.email, user.type, user.status]);
-
-    // Function to change status color
-    const statusColor = (status) => {
-        // If status is active, return green color
-        if (status === 'Active') {
-        return 'text-green-500';
-        }
-        // If status is suspended, return red color
-        return 'text-red-500';
-    }
-    
-    // Function to handle cell click
-    const handleCellClick = (row, col) => {
-        // Log the row and column index
-        console.log(`Row: ${row}, Column: ${col}`);
-        // Link to user profile page
-        // ....
-    }
-
     // Function to handle search
     const handleSearch = (query) => {
         // Search logic
         console.log("Searching for:", query);
     };
+
+    // Function to handle row click
+    const handleCellClick = (account) => {
+        console.log("Cell clicked:", account);
+        navigate(`/viewAccount/${account.id}`);
+    }
+
+    // Function to handle status color
+    const statusColor = (status) => {
+        if (status === "Active") {
+            return "text-green-400";
+        }
+        else {
+            return "text-red-400";
+        }
+    }
 
     return (
         <>
@@ -90,7 +106,7 @@ function SARetrieveUAPage(props) {
                     {/* Top Heading */}
                     <div className="flex w-full p-10">
                         <div className="flex w-1/4 text-2xl font-bold">
-                            User Account List ({rows.length})
+                            User Account List ({accounts.length})
                         </div>
                         <div className="flex w-1/4 mx-auto">
                         </div>
@@ -105,13 +121,27 @@ function SARetrieveUAPage(props) {
                     </div>
                 </div>
                 {/* Table */}
-                <div className="w-full flex p-10">
-                    <CustomTable 
-                        headers={headers}
-                        rows={rows.map(row => row.map((cell, index) => index === headers.indexOf('Status') ? <span className={statusColor(cell)} key={index}>{cell}</span> : cell))}
-                        // Pass a function to handle cell click
-                        onCellClick={handleCellClick}
-                    />
+                <div className="overflow-x-auto">
+                    <Table hoverable>
+                        <Table.Head>
+                            {headers.map((header, index) => (
+                                <Table.HeadCell key={index} className="p-6 bg-gray-300">
+                                    {header}
+                                </Table.HeadCell>
+                            ))}
+                        </Table.Head>
+                        <Table.Body className="divide-y">
+                            {/* Map through the accounts array */}
+                            {accounts.map((account, index) => (
+                                <TableRow 
+                                    key={index} 
+                                    account={account}
+                                    onClick={handleCellClick}
+                                    statusColor={statusColor(account.status)}
+                                />
+                            ))}
+                        </Table.Body>
+                    </Table>
                 </div>
             </div>
         </div>
