@@ -55,6 +55,7 @@ class Test_9:
         password = "carla"
 
         name = "pizza"
+        desc = "womp womp"
 
         expectedTitle1 = "SA User Account"
         expectedTitle2 = "SA User Profile"
@@ -87,9 +88,10 @@ class Test_9:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.title_is(expectedTitle3))
 
-        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input[1]").send_keys(name)
+        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/input[1]").send_keys(name)
+        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[2]/textarea[1]").send_keys(desc)
 
-        self.driver.find_element("xpath","//div[contains(text(),'Create')]").click()
+        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[5]/button[1]").click()
 
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.text_to_be_present_in_element(("id","successPrompt"), expectedPrompt))
@@ -103,6 +105,7 @@ class Test_9:
         password = "carla"
 
         name = "pizza"
+        desc = "womp womp"
 
         expectedTitle1 = "SA User Account"
         expectedTitle2 = "SA User Profile"
@@ -135,9 +138,10 @@ class Test_9:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.title_is(expectedTitle3))
 
-        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input[1]").send_keys(name)
+        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/input[1]").send_keys(name)
+        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[2]/textarea[1]").send_keys(desc)
 
-        self.driver.find_element("xpath","//div[contains(text(),'Create')]").click()
+        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[5]/button[1]").click()
 
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.text_to_be_present_in_element(("id","failedPrompt"), expectedPrompt))
@@ -181,9 +185,10 @@ class Test_9:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.title_is(expectedTitle3))
 
-        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input[1]").clear()
+        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/input[1]").clear()
+        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[2]/textarea[1]").clear()
 
-        self.driver.find_element("xpath","//div[contains(text(),'Create')]").click()
+        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[5]/button[1]").click()
 
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.text_to_be_present_in_element(("id","failedPrompt"), expectedPrompt))

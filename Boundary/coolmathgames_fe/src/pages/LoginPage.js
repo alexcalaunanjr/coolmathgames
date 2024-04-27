@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { TextInput } from 'flowbite-react';
 import axios from 'axios';
 
-function LoginPage(props) {
+function LoginUI(props) {
     const [selectedUserType, setSelectedUserType] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -30,12 +30,12 @@ function LoginPage(props) {
         setSelectedUserType(selectedItem);
     };
 
-    function handleSubmit(event) {
+    function sendLoginInfo(event) {
         event.preventDefault();
 
         // Validate username and password
         if (!username || !password || !selectedUserType) {
-            setError('Please enter both username and password.');
+            displayErrorMessage();
             return;
         }
         try {
@@ -72,20 +72,32 @@ function LoginPage(props) {
                     }
                 }
                 else {
-                    alert("Invalid Credentials");
+                    displayErrorMessage();
                 }
             })
             .catch((error) => {
                 console.log(error, 'error');
-                alert("Invalid Credentials");
+                displayErrorMessage();
             });
         } catch (error) {
             setError('An error occurred during login');
         }
     };
 
-    return (
+    function displayErrorMessage(){
+        if (!username || !password || !selectedUserType) {
+            setError('Please enter both username and password.');
+            return;
+        }
+        else{
+            setError('An error occurred during login');
+            alert("Invalid Credentials");
+        }
+    }
+
+    function displayLoginUI(){
         // Login Page
+        return(
         <div className="flex flex-col md:flex-row h-screen">
             {/* Left side */}
             <div className="w-1/2 flex mx-auto">
@@ -128,11 +140,16 @@ function LoginPage(props) {
                     {error}
                 </div>
                 <div className="mb-20 w-1/2 mx-auto">
-                    <Button color="bg-brown" text="Login" onClick={handleSubmit} />
+                    <Button color="bg-brown" text="Login" onClick={sendLoginInfo} />
                 </div>
             </div>
         </div>
+        )
+    }
+
+    return (
+        displayLoginUI()
     );
 }
 
-export default LoginPage;
+export default LoginUI;
