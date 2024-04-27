@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
-import LogOutModal from './LogOutModal';
+import LogoutUI from './LogOutModal';
 import pfp from '../assets/pfp.jpg';
 import axios from 'axios';
 
@@ -27,7 +27,7 @@ function BuyerHeader() {
     return (
         <>
         {/* Log Out popup confirmation */}
-        <LogOutModal />
+        <LogoutUI />
 
         {/* header */}
         <Navbar fluid rounded>

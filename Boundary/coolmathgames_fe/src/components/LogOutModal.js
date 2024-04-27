@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import useModalContext from "../hooks/UseModalContext";
 
-function LogOutModal() {
+function LogoutUI() {
     const {openModal, setOpenModal} = useModalContext()
     const navigate = useNavigate();
 
@@ -26,8 +26,9 @@ function LogOutModal() {
         })
     }
 
-    return (
-        <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+    function displayLogoutUI(){
+        return(
+            <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
             <Modal.Header />
             <Modal.Body>
                 <div className="text-center">
@@ -40,6 +41,11 @@ function LogOutModal() {
                 </div>
             </Modal.Body>
         </Modal>
+        )
+    }
+
+    return (
+        displayLogoutUI()
     )
 }
-export default LogOutModal;
+export default LogoutUI;

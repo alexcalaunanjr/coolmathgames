@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
-import LogOutModal from './LogOutModal';
+import LogoutUI from './LogOutModal';
 import pfp from '../assets/pfp.jpg';
 import axios from 'axios';
 
@@ -28,7 +28,7 @@ function REAHeader() {
     return (
         <>
         {/* Log Out popup confirmation */}
-        <LogOutModal />
+        <LogoutUI />
 
         {/* header */}
         <Navbar fluid rounded>
@@ -56,7 +56,8 @@ function REAHeader() {
                         <span className="block text-sm">{username}</span>
                         <span className="block truncate text-sm font-medium">{email}</span>
                     </Dropdown.Header>
-
+                    <Dropdown.Item>View My Credentials</Dropdown.Item>
+                    <Dropdown.Divider />    
                     {/* Log Out dropdown */}
                     <Dropdown.Item onClick={() => setOpenModal(true)}>Log Out</Dropdown.Item>
                 </Dropdown>

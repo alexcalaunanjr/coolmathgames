@@ -45,21 +45,9 @@ function SACreateUAPage(props) {
         event.preventDefault();
         setFormFilled(true);
 
-        // Check if all fields are filled
-        if (!username || !password || !selectedUserType || !email || !fullName || !phoneNumber) {
-            setError('Please enter all fields.');
-            return;
-        }
-
-        // Check if the password matches the confirm password
-        if (password !== confirmPassword) {
-            setError('Passwords do not match.');
-            return;
-        }
-
-        // Check if the phone number is in number format
-        if (!/^\d+$/.test(phoneNumber)) {
-            setError('Please enter only numbers in the phone number field.');
+        // Check for correct input
+        if (!username || !password || !selectedUserType || !email || !fullName || !phoneNumber || password !== confirmPassword || !/^\d+$/.test(phoneNumber)) {
+            displayErrorMessageUI();
             return;
         }
 
@@ -82,8 +70,7 @@ function SACreateUAPage(props) {
             .then((response) => {
                 console.log('User Account created successfully:', response.data.accountCreated);
                 if (response.data.accountCreated) {
-                    setMessage('User Account created successfully!');
-                    setError('');
+                    displayNewUserAccountUI();
                 }
                 else {
                     setMessage('');
@@ -107,8 +94,34 @@ function SACreateUAPage(props) {
         }
     }, [formFilled]);
 
-    return (
-        <>
+    function displayNewUserAccountUI(){
+        setMessage('User Account created successfully!');
+        setError('');
+    }
+    
+    function displayErrorMessageUI(){
+        // Check if all fields are filled
+        if (!username || !password || !selectedUserType || !email || !fullName || !phoneNumber) {
+            setError('Please enter all fields.');
+        }
+
+        // Check if the password matches the confirm password
+        else {
+            if (password !== confirmPassword) {
+                setError('Passwords do not match.');
+            }
+            else{
+                // Check if the phone number is in number format
+                if (!/^\d+$/.test(phoneNumber)) {
+                    setError('Please enter only numbers in the phone number field.');
+                }
+            }
+        }
+    }
+
+    function displayCreateUserAccountUI(){
+        return(
+            <>
         {/* buyer header component */}
         <UserContextProvider><SAHeader /></UserContextProvider> 
         <div className="flex flex-col h-screen">
@@ -212,6 +225,11 @@ function SACreateUAPage(props) {
             </div>
         </div>
         </>
+        )
+    }
+
+    return (
+        displayCreateUserAccountUI()
     );
 }
 
