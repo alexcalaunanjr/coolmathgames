@@ -48,6 +48,7 @@ function PopUp({header, description, openModal, onClose}) {
             <SuspendPopUp
                 openModal={suspendPopUp}
                 onClose={handleReopenPopUp}
+                text="Are you sure to suspend this user profile?"
             />
         )}
       </Modal.Footer>

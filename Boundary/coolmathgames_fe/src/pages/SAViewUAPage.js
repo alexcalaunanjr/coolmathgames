@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Label, TextInput } from "flowbite-react";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import { HiMail } from "react-icons/hi";
-import CustomDropdown from '../components/Dropdown';
-import UploadFile from "../components/UploadFile";
 import Button from "../components/Button";
 import SAHeader from '../components/SAHeader';
+import SuspendPopUp from "../components/SuspendPopUp";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
-function SAViewUAPage(props) {
+function SAViewUAPage(props, {openModal, onClose}) {
     const token = localStorage.getItem('token');
     console.log('Current Token:', token);
     const [fullName, setFullName] = useState('');
@@ -23,11 +23,15 @@ function SAViewUAPage(props) {
     const [image, setImage] = useState(null);
     // This takes the value from backend
     const [status, setStatus] = useState('Active');
-
+    // This takes the value from backend
     const [selectedUserType, setSelectedUserType] = useState('');
+    // Pop up for suspending account
+    const [suspendPopUp, setSuspendPopUp] = useState(false);
+    // Navigate to update account page
+    const navigate = useNavigate();
 
-    function handleSubmit(event) {
-        event.preventDefault();
+    function handleNavigate(event) {
+        navigate('/updateAccount');
     };
 
     useEffect(() => {
@@ -47,6 +51,14 @@ function SAViewUAPage(props) {
             console.error('Error fetching user profile:', error);
         });
     }, []);
+
+    const handleSuspend = () => {
+        setSuspendPopUp(true);
+      };
+
+    const handleReopenPopUp = () => {
+    setSuspendPopUp(false);
+    }
 
     return (
         <>
@@ -142,15 +154,18 @@ function SAViewUAPage(props) {
             {/* Button */}
             <div className="flex justify-center space-x-4 pt-5">
                 <div className="w-40">
-                    <Link to="/updateAccount">
-                        <Button color="bg-brown text-md" text="Update" onClick={handleSubmit}/>
-                    </Link>
+                    <Button color="bg-brown text-md" text="Update" onClick={handleNavigate}/>
                 </div>
                 <div className="w-40">
-                    <Link to="/SASuspendUA">
-                        <Button color="bg-red-700 text-black text-md" text="Suspend" onClick={handleSubmit}/>
-                    </Link>
+                    <Button color="bg-red-700 text-black text-md" text="Suspend" onClick={handleSuspend}/>
                 </div>
+                {suspendPopUp && (
+                <SuspendPopUp
+                    openModal={suspendPopUp}
+                    onClose={handleReopenPopUp}
+                    text="Are you sure to suspend this account?"
+                />
+            )}
             </div>
         </div>
         </>

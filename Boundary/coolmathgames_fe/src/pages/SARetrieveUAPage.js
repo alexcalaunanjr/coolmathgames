@@ -13,7 +13,6 @@ import axios from 'axios';
 // Testing
 const account1 = {
     id:1,
-    image: "https://randomuser.me/api/portraits",
     fullName: "James Smith",
     username: "jamessmith123",
     email: "jamessmith@agent.com",
@@ -23,7 +22,6 @@ const account1 = {
 
 const account2 = {
     id:2,
-    image: "https://randomuser.me/api/portraits",
     fullName: "John Doe",
     username: "johndoe123",
     email: "jdoe@seller.com",
@@ -33,7 +31,6 @@ const account2 = {
 
 const account3 = {
     id:3,
-    image: "https://randomuser.me/api/portraits",
     fullName: "Jane Doe",
     username: "janedoe123",
     email: "janedoe@agent.com",
@@ -43,7 +40,6 @@ const account3 = {
 
 const account4 = {
     id:4,
-    image: "https://randomuser.me/api/portraits",
     fullName: "Dummy McDummy",
     username: "dummy123",
     email: "dmcdummy@buyer.com",
