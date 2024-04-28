@@ -57,7 +57,7 @@ function BuyerHeader() {
                     </Dropdown.Header>
 
                     {/* Log Out dropdown */}
-                    <Dropdown.Item onClick={() => setOpenModal(true)}>Log Out</Dropdown.Item>
+                    <Dropdown.Item className='text-gray-900 hover:text-red-500' onClick={() => setOpenModal(true)}>Log Out</Dropdown.Item>
                 </Dropdown>
                 <Navbar.Toggle />
             </div>

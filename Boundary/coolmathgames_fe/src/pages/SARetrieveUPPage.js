@@ -49,14 +49,14 @@ function SARetrieveUPPage() {
     return (       
         <>
         {/* buyer header component */}
-        <UserContextProvider><SAHeader /></UserContextProvider>   
+        <UserContextProvider><SAHeader /></UserContextProvider>
         <div>
             {/* Rounded box */}
             <div className="rounded-xl bg-gray-100 shadow-xl pb-60 m-20">
                 {/* Top Heading */}
                 <div className="flex w-full p-10">
-                    <div className="w-1/4 text-2xl font-bold">
-                        User Profiles ({profiles.length})
+                    <div className="mt-3 w-1/4 text-2xl font-bold">
+                        User Profile List ({profiles.length})
                     </div>
                     <div className="w-1/4 mx-auto">
                     </div>
