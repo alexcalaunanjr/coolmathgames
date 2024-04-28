@@ -4,7 +4,6 @@ import { UserContextProvider } from '../hooks/UseModalContext';
 import { HiMail } from "react-icons/hi";
 import CustomDropdown from '../components/Dropdown';
 import UploadFile from "../components/UploadFile";
-import Button from "../components/Button";
 import SAHeader from '../components/SAHeader';
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -210,18 +209,18 @@ function SACreateUAPage(props) {
                         <div>
                             {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
                         </div>
-                        {/* Button */}
-                        <div className="w-40 flex pt-10">
-                            <Link to="/SAHomePage">
-                                <Button color="bg-brown text-md" text="Create" onClick={handleSubmit}/>
-                            </Link>
-                        </div>
-                        {/* Succsful Message */}
-                        <div id="successPrompt" className="text-green-500 pt-10">
-                            {error === '' && message}
-                        </div>
                     </div>
                 </div>
+            </div>
+            {/* Button */}
+            <div className="w-full flex pt-3 justify-center">
+                <Link to="/SAHomePage">
+                    <button className="bg-brown text-md text-white p-3 lg:px-20 md:px-15 px-10 rounded-md shadow-lg" onClick={handleSubmit}> Create </button>
+                </Link>
+            </div>
+            {/* Succsful Message */}
+            <div id="successPrompt" className="text-green-500 pt-10">
+                {error === '' && message}
             </div>
         </div>
         </>
