@@ -101,21 +101,24 @@ function SARetrieveUAPage(props) {
                 <div className = "w-full flex">
                     {/* Top Heading */}
                     <div className="flex w-full p-10">
-                        <div className="flex w-1/4 text-2xl font-bold">
+                        <div className="mt-3 w-1/4 text-2xl font-bold">
                             User Account List ({accounts.length})
                         </div>
-                        <div className="flex w-1/4 mx-auto">
+                        <div className="w-1/4 mx-auto">
                         </div>
-                        <div className="flex w-1/4 mx-auto items-center">
+                        <div className="w-1/4 mx-auto">
                             <UserSearchBar placeholder="Search by username" onSubmit={handleSearch}/>
                         </div>
                         <Link to="/SACreateAcc">
-                            <div className="flex w-60 pt-6 pb-6 mx-auto">
+                            <div className="w-60 mx-auto">
                                 <Button color="bg-brown" text="Add User Account" icon={<HiPlusSm />}/>
                             </div>
                         </Link>
                     </div>
                 </div>
+
+                <div className='p-5'></div>
+
                 {/* Table */}
                 <div className="overflow-x-auto">
                     <Table hoverable>

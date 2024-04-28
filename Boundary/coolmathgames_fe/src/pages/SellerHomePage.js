@@ -2,8 +2,8 @@ import React from "react";
 import { useEffect } from 'react';
 import CardProperty from "../components/CardProperty";
 import { UserContextProvider } from '../hooks/UseModalContext';
-import { Link } from "react-router-dom";
 import SellerHeader from '../components/SellerHeader';
+import Footer from '../components/Footer';
 
 // assets
 // background image
@@ -98,28 +98,29 @@ export default function SellerHomePage() {
         // return container with background image that is slightly transparent
         <>
         {/* Seller header component */}
-        <UserContextProvider><SellerHeader /></UserContextProvider>   
+        <UserContextProvider><SellerHeader /></UserContextProvider>
+
         <div className="bg-cover bg-center min-h-screen justify-center" style={{ backgroundImage: `url(${BG})` }}>
-                {/* Content here */}
-                {/* Title: My Properties */}
-                <p className="text-4xl flex pl-5 pt-8">My Properties</p>
+                
+            <div className='p-10'></div>
 
-                {/* Cards of properties */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center">
-                    {/* Card 1 */}
-                    <CardProperty property={property1} />
+            {/* Title: My Properties */}
+            <h1 class="px-20 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">My Properties</h1>
 
-                    {/* Card 2 */}
-                    <CardProperty property={property2} />
-                        
-                    {/* Card 3 */}
-                    <CardProperty property={property3} />
-
-                    {/* Card 4 */}
-                    <CardProperty property={property4} />
-                    
-                </div>
+            {/* Cards of properties */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
+                {/* Card 1 */}
+                <CardProperty property={property1} />
+                {/* Card 2 */}
+                <CardProperty property={property2} />
+                {/* Card 3 */}
+                <CardProperty property={property3} />
+                {/* Card 4 */}
+                <CardProperty property={property4} />
+            </div>
         </div>
+
+        <Footer />
         </>
     );
 }

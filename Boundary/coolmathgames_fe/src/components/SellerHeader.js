@@ -37,16 +37,8 @@ function SellerHeader() {
                 <span className="self-center text-3xl font-Limelight dark:text-white pl-2">MICASA</span>
             </Navbar.Brand>
 
-            {/* heart & profile avatar */}
+            {/* profile avatar */}
             <div className="flex md:order-2">
-                {/* heart */}
-                <Navbar.Brand href="#" className="mr-4">
-                    <svg class="w-[35px] h-[35px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"/>
-                    </svg>
-                </Navbar.Brand>
-                
-                {/* profile + dropdown */}
                 <Dropdown
                     arrowIcon={false} 
                     inline
@@ -58,7 +50,7 @@ function SellerHeader() {
                     </Dropdown.Header>
 
                     {/* Log Out dropdown */}
-                    <Dropdown.Item onClick={() => setOpenModal(true)}>Log Out</Dropdown.Item>
+                    <Dropdown.Item className='text-gray-900 hover:text-red-500' onClick={() => setOpenModal(true)}>Log Out</Dropdown.Item>
                 </Dropdown>
                 <Navbar.Toggle />
             </div>

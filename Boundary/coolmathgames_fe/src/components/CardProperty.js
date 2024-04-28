@@ -31,10 +31,10 @@ export default function CardProperty({ property }) {
             {/* Content */}
             <div className='p-2 pl-4'>
                 <div className="flex justify-between">
-                    <p className="text-xl font-bold">${property.price.toLocaleString()}</p>
+                    <p className="text-lg font-bold text-yellow-700">${property.price.toLocaleString()}</p>
                 </div>
                 <div className="flex">
-                    <p className="text-lg truncate">{property.title}</p>
+                    <p className="text-lg truncate font-semibold">{property.title}</p>
                 </div>
                 <div className="flex flex-row">
                     <MapPinIcon/>

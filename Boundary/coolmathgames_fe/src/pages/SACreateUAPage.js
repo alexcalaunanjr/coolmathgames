@@ -203,7 +203,7 @@ function SACreateUAPage(props) {
                     {/* Upload Image  */}
                     <div className="mb-4 w-full">
                         Upload Image
-                        <div className="flex w-1/3 items-center justify-center">
+                        <div className="flex w-2/3 items-center justify-center">
                             <UploadFile />
                         </div>
                         {/* Error Message */}
