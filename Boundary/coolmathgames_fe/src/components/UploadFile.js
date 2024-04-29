@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FileInput, Label } from "flowbite-react";
 import axios from "axios";
 
-function UploadFile() {
-    const [imagePreview, setImagePreview] = useState(null);
+function UploadFile({picture, setPicture}) {
+    const [imagePreview, setImagePreview] = useState(picture ? picture : null);
     const [error, setError] = useState('');
     const [imageFromDB, setImageFromDB] = useState(null);
 
@@ -31,6 +31,8 @@ function UploadFile() {
                     setImagePreview(e.target.result);
                 };
                 reader.readAsDataURL(file);
+                // Call the setter function provided by the parent component
+                setPicture(file);
                 setError('');
             } else {
                 setError('Please upload a JPG, JPEG, or PNG file.');

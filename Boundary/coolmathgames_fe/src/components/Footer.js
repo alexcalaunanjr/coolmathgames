@@ -24,7 +24,7 @@ export default function Component() {
 
             <div className="text-center">
               {/* LOGO */}
-              <div className="text-4xl pb-20 text-white">
+              <div className="text-4xl pb-10 text-white">
                 <Link to="/">
                   <h1 style={{ fontFamily: 'limelight' }}>MICASA</h1>
                 </Link>
