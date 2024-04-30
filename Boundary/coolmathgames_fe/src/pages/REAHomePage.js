@@ -94,41 +94,49 @@ const property4 = {
     agent: agent2
 };
 
-export default function REAHomePage() {
+function REAHomePage() {
     useEffect(() => {
         document.title = 'REA Home Page';
     }, []);
-    return (
-        <>
-        <UserContextProvider><REAHeader /></UserContextProvider>
 
-        <div className="bg-cover bg-center min-h-screen justify-center" style={{ backgroundImage: `url(${BG})` }}>
-
-            <div className='p-5'></div>
-
-            <SearchBar />
-            
-            <div className='p-5'></div>
-
-            {/* Title: My Properties */}
-            <h1 class="px-20 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">My Properties</h1>
-
-            {/* Cards of properties */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
-                {/* Card 1 */}
-                <CardProperty property={property1} />
-                {/* Card 2 */}
-                <CardProperty property={property2} />
-                {/* Card 3 */}
-                <CardProperty property={property3} />
-                {/* Card 4 */}
-                <CardProperty property={property4} />
+    function displayHomePage(){
+        return (
+            <>
+            <UserContextProvider><REAHeader /></UserContextProvider>
+    
+            <div className="bg-cover bg-center min-h-screen justify-center p-10" style={{ backgroundImage: `url(${BG})` }}>
+    
+                <div className='p-5'></div>
+    
+                <SearchBar />
                 
+                <div className='p-5'></div>
+    
+                {/* Title: My Properties */}
+                <h1 class="px-20 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">My Properties</h1>
+    
+                {/* Cards of properties */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
+                    {/* Card 1 */}
+                    <CardProperty property={property1} />
+                    {/* Card 2 */}
+                    <CardProperty property={property2} />
+                    {/* Card 3 */}
+                    <CardProperty property={property3} />
+                    {/* Card 4 */}
+                    <CardProperty property={property4} />
+                    
+                </div>
             </div>
-        </div>
-
-
-        <Footer />
-        </>
+    
+            <Footer />
+            </>
+        )
+    }
+    return (
+        displayHomePage()
     );
+    
 }
+
+export default REAHomePage;
