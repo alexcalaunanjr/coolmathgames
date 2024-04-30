@@ -7,11 +7,13 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function SAUpdateUPPage(props) {
-    const [profileName, setProfileName] = useState('');
-    const [description, setDescription] = useState('');
+    const [newDescription, setNewDescription] = useState('');
+    const [newProfile, setNewProfile] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [formFilled, setFormFilled] = useState(false);
+
+    const profileName = localStorage.getItem('clickedProfile') // query database using profile name
 
     useEffect(() => {
         document.title = 'SA Update User Profile';
@@ -25,7 +27,11 @@ function SAUpdateUPPage(props) {
         setFormFilled(true);
 
         // Check if all fields are filled
-        if (!profileName) {
+        if (!newProfile) {
+            setError('Please enter all fields.');
+            return;
+        }
+        if (!newDescription) {
             setError('Please enter all fields.');
             return;
         }
@@ -33,8 +39,11 @@ function SAUpdateUPPage(props) {
 
         try {
             axios.post('http://127.0.0.1:5000/updateUserProfile', {
-                "newProfile": profileName,
-                "newDescription": description
+                "profileName" : profileName,
+                "updatedData" : {
+                    "profile" : newProfile,
+                    "description": newDescription
+                }
             }, {
             headers: {
                 'Authorization': 'Bearer ' + props.token,
@@ -42,8 +51,8 @@ function SAUpdateUPPage(props) {
             }
             })
             .then((response) => {
-                console.log('User profile updated successfully:', response.data.profileCreated);
-                if (response.data.profileCreated) {
+                console.log('User profile updated successfully:', response.data.updatedProfile);
+                if (response.data.updatedProfile) {
                     setMessage('Account updated successfully!');
                     setError('');
                 }
@@ -77,16 +86,16 @@ function SAUpdateUPPage(props) {
                         User Profile
                         <TextInput
                             type="text"
-                            value={profileName}
-                            onChange={(e) => setProfileName(e.target.value)} 
+                            value={newProfile}
+                            onChange={(e) => setNewProfile(e.target.value)} 
                         />
                     </div>
                     <div className="mb-10">
                         Description
                         <textarea
                             className="resize-y w-full h-40 rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            value={newDescription}
+                            onChange={(e) => setNewDescription(e.target.value)}
                         />
                     </div>
                 </div>

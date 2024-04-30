@@ -2,10 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { Modal } from "flowbite-react";
 import Button from "./Button";
-import SuspendPopUp from "./SuspendPopUp";
-import { useNavigate } from "react-router-dom";
+import SuspendPopUp from "./ProfileSuspendPopUp";
+import { Link, useNavigate } from "react-router-dom";
 
-function PopUp({header, description, openModal, onClose}) {
+function PopUp({header, description, openModal, onClose, token}) {
   const navigate = useNavigate();
   const [suspendPopUp, setSuspendPopUp] = useState(false);
   
@@ -32,12 +32,12 @@ function PopUp({header, description, openModal, onClose}) {
         </div>
       </Modal.Body>
       <Modal.Footer className="flex justify-center gap-4">
-        <div >
+        <Link to="/UpdateProfile">
           <Button
               color="bg-brown" 
               text="Update"
               onClick={handleUpdate} />
-        </div>
+        </Link>
         <div>
           <Button
               color="bg-red-700"
@@ -49,6 +49,7 @@ function PopUp({header, description, openModal, onClose}) {
                 openModal={suspendPopUp}
                 onClose={handleReopenPopUp}
                 text="Are you sure to suspend this user profile?"
+                token={token}
             />
         )}
       </Modal.Footer>

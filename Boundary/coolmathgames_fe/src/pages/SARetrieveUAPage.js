@@ -3,54 +3,17 @@ import { useEffect, useState } from 'react';
 import { UserContextProvider } from '../hooks/UseModalContext';
 import Button from "../components/Button";
 import {Table} from "flowbite-react";
-import TableRow from "../components/TableRow";
+import CustomTable from "../components/Table";
 import { HiPlusSm } from "react-icons/hi";
 import UserSearchBar from "../components/UserSearchBar";
 import SAHeader from '../components/SAHeader';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-// Testing
-const account1 = {
-    id:1,
-    fullName: "James Smith",
-    username: "jamessmith123",
-    email: "jamessmith@agent.com",
-    type: "Real Estate Agent",
-    status: "Active",
-};
-
-const account2 = {
-    id:2,
-    fullName: "John Doe",
-    username: "johndoe123",
-    email: "jdoe@seller.com",
-    type: "Seller",
-    status: "Active",
-};
-
-const account3 = {
-    id:3,
-    fullName: "Jane Doe",
-    username: "janedoe123",
-    email: "janedoe@agent.com",
-    type: "Real Estate Agent",
-    status: "Active",
-};
-
-const account4 = {
-    id:4,
-    fullName: "Dummy McDummy",
-    username: "dummy123",
-    email: "dmcdummy@buyer.com",
-    type: "Buyer",
-    status: "Suspended",
-};
-
-const accounts = [account1, account2, account3, account4];
-
 function SARetrieveUAPage(props) {
     const headers = ['Full Name', 'Username', 'Email', 'Type', 'Status'];
+    const [users, setUsers] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -63,23 +26,43 @@ function SARetrieveUAPage(props) {
         })
         .then(response => {
             const accountDict = response.data.accountDict;
+            displayAccountList(accountDict)
         })
         .catch(error => {
             console.error('Error fetching user account list', error);
         });
     }, []);
 
+    function displayAccountList(accountDict) {
+        const userData = accountDict.map(account => ({
+            id: account.id,
+            name: account.fullName,
+            username: account.username,
+            email: account.email,
+            type: account.profile,
+            status: account.status
+        }))
+        setUsers(userData)
+    }
+    console.log(users)
+
+    const rows = users.map(user => [user.name, user.username, user.email, user.type, user.status]);
+
+    const handleCellClick = (row, col) => {
+        // Get the username from the clicked row
+        const username = rows[row][headers.indexOf('Username')];
+        localStorage.setItem('clickedUser', username)
+        navigate(`/SAViewAccount`);
+    }
+
     // Function to handle search
     const handleSearch = (query) => {
-        // Search logic
-        console.log("Searching for:", query);
+        setSearchQuery(query);
     };
 
-    // Function to handle row click
-    const handleCellClick = (account) => {
-        console.log("Cell clicked:", account);
-        navigate(`/viewAccount/${account.id}`);
-    }
+    const filteredRows = rows.filter(row => {
+        return row[1].toLowerCase().includes(searchQuery.toLowerCase());
+    });
 
     // Function to handle status color
     const statusColor = (status) => {
@@ -90,6 +73,15 @@ function SARetrieveUAPage(props) {
             return "text-red-400";
         }
     }
+    // Map through the filtered rows
+    // const tableRows = filteredRows.map((row, index) => (
+    //     <TableRow 
+    //         key={index} 
+    //         row={row}  // Pass the filtered row data to TableRow component
+    //         onClick={handleCellClick}
+    //         statusColor={statusColor(row.status)}
+    //     />
+    // ));
 
     return (
         <>
@@ -102,7 +94,7 @@ function SARetrieveUAPage(props) {
                     {/* Top Heading */}
                     <div className="flex w-full p-10">
                         <div className="mt-3 w-1/4 text-2xl font-bold">
-                            User Account List ({accounts.length})
+                            User Account List ({rows.length})
                         </div>
                         <div className="w-1/4 mx-auto">
                         </div>
@@ -121,26 +113,12 @@ function SARetrieveUAPage(props) {
 
                 {/* Table */}
                 <div className="overflow-x-auto">
-                    <Table hoverable>
-                        <Table.Head>
-                            {headers.map((header, index) => (
-                                <Table.HeadCell key={index} className="p-6 bg-gray-300">
-                                    {header}
-                                </Table.HeadCell>
-                            ))}
-                        </Table.Head>
-                        <Table.Body className="divide-y">
-                            {/* Map through the accounts array */}
-                            {accounts.map((account, index) => (
-                                <TableRow 
-                                    key={index} 
-                                    account={account}
-                                    onClick={handleCellClick}
-                                    statusColor={statusColor(account.status)}
-                                />
-                            ))}
-                        </Table.Body>
-                    </Table>
+                    <CustomTable 
+                            headers={headers}
+                            rows={filteredRows}
+                            // Pass a function to handle cell click (ADDD THE LINK HERE)
+                            onCellClick={handleCellClick}
+                        />
                 </div>
             </div>
         </div>

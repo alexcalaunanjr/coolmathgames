@@ -70,7 +70,8 @@ function SAUpdateUAPage(props) {
         // If all checks pass, clear any previous errors and proceed with serverside account creation
 
         try {
-            axios.post('http://127.0.0.1:5000/createUserAccount', {
+            const user = localStorage.getItem('clickedUser')
+            axios.post(`http://127.0.0.1:5000/updateUserAccount/${user}`, {
                 "fullName": fullName,
                 "username": username,
                 "password": password,
@@ -84,9 +85,15 @@ function SAUpdateUAPage(props) {
             }
             })
             .then((response) => {
-                console.log('User account created successfully:', response.data);
-                setError('');
-                setMessage('Account created successfully!');
+                console.log(response)
+                if (response.data.accountUpdated) {
+                    setError('');
+                    setMessage('Account created successfully!');
+                }
+                else {
+                    setError('Account not created!');
+                    setMessage('');
+                }
             })
             .catch((error) => {
                 console.log(error, 'error');

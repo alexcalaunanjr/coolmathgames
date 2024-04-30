@@ -4,7 +4,7 @@ import { UserContextProvider } from '../hooks/UseModalContext';
 import { HiMail } from "react-icons/hi";
 import Button from "../components/Button";
 import SAHeader from '../components/SAHeader';
-import SuspendPopUp from "../components/SuspendPopUp";
+import SuspendPopUp from "../components/AccountSuspendPopUp";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -27,6 +27,7 @@ function SAViewUAPage(props, {openModal, onClose}) {
     const [selectedUserType, setSelectedUserType] = useState('');
     // Pop up for suspending account
     const [suspendPopUp, setSuspendPopUp] = useState(false);
+    const [Ptoken, setPToken] = useState('');
     // Navigate to update account page
     const navigate = useNavigate();
 
@@ -36,15 +37,23 @@ function SAViewUAPage(props, {openModal, onClose}) {
 
     useEffect(() => {
         document.title = 'SA View Account Page';
-        axios.get('http://127.0.0.1:5000/userProfile')
+        const user = localStorage.getItem('clickedUser')
+        console.log("user", user)
+        axios.get(`http://127.0.0.1:5000/viewUserAccount/${user}`, {
+            headers: {
+                Authorization: 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
+        })
         .then(response => {
+            setPToken(props.token)
             const userData = response.data;
             setFullName(userData.fullName);
-            setPhoneNumber(userData.phoneNumber);
+            setPhoneNumber(userData.phoneNo);
             setUsername(userData.username);
             setEmail(userData.email);
             setStatus(userData.status);
-            setSelectedUserType(userData.userType);
+            setSelectedUserType(userData.profile);
             setImage(userData.image);
         })
         .catch(error => {
@@ -164,6 +173,7 @@ function SAViewUAPage(props, {openModal, onClose}) {
                     openModal={suspendPopUp}
                     onClose={handleReopenPopUp}
                     text="Are you sure to suspend this account?"
+                    token={Ptoken}
                 />
             )}
             </div>

@@ -6,13 +6,12 @@ class UpdateUserAccountController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def retrieveUserCredentials(self, username):
-        accountList = UserAccount.retrieveUserCredentials(username)
+    def retrieveUserAccount(self, username):
+        accountList = UserAccount.retrieveUserAccount(username)
         return accountList
     
     #update account
     def updateAccount(self, oldUsername:str, name:str, newUsername:str, email:str, password:str, phone:str, profile:str):
-        oldUsername = oldUsername
         if name and newUsername and password and email and phone and profile:
             updatedData = {
                 'fullName': name,

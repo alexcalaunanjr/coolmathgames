@@ -6,8 +6,8 @@ class SelectedUserAccountController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def retrieveUserCredentials(self, username):
-        accountList = UserAccount.retrieveUserCredentials(username)
+    def retrieveUserAccount(self, username):
+        accountList = UserAccount.retrieveUserAccount(username)
         return accountList
 
 class BaseSelectedUserAccountController(SelectedUserAccountController):
@@ -15,6 +15,6 @@ class BaseSelectedUserAccountController(SelectedUserAccountController):
         super().__init__(*args, **kwargs)
 
     @jwt_required()
-    def getUserCredential(self, username):
-        accountCreds = self.retrieveUserCredentials(username)
-        return accountCreds
+    def getUserAccount(self, username):
+        account = self.retrieveUserAccount(username)
+        return account

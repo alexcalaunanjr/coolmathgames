@@ -2,6 +2,7 @@ from flask import request, jsonify, Blueprint
 from flask_jwt_extended import create_access_token
 from app.entity.userProfiles import UserProfiles
 from app.entity.account import UserAccount
+import json
 
 class LoginController(Blueprint):
     def __init__(self, *args, **kwargs):
@@ -16,13 +17,18 @@ class LoginController(Blueprint):
             if UserAccount.verifyLoginInfo(profile, username, password):
                 access_token = create_access_token(identity=username)
                 return access_token
+    
+    def retrieveUserAccount(self, username):
+        return UserAccount.retrieveUserAccount(username)
 
     def retrieveProfileList(self):
             #take choices from the database
-            user_profiles = UserProfiles.retrieveProfileList()
-            # Add System Admin (REMOVE THIS LATER)
-            user_profiles.insert(0, 'System Admin')
+            user_profiles = UserProfiles.retrieveActiveProfileList()
+
             return jsonify({'user_profiles': user_profiles})
+    
+    def checkSuspended(self, username):
+        return UserAccount.checkSuspended(username)
 
 class BaseControllerLogin(LoginController):
     def __init__(self, *args, **kwargs):
