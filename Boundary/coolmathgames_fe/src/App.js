@@ -8,19 +8,19 @@ import REAHomePage from './pages/REAHomePage'
 import SARetrieveUAPage from './pages/SARetrieveUAPage'
 import SAUserProfile from './pages/SARetrieveUPPage'
 import SACreateProfile from './pages/SACreateUPPage'
-import SAViewUAPage from './pages/SAViewUAPage'
-import SAUpdateUAPage from './pages/SAUpdateUAPage'
-import SAUpdateUPPage from './pages/SAUpdateUPPage'
 import logOut from './components/LogOutModal'
 import useToken from './components/useToken'
+import REAViewCredentialsPage from './pages/REAViewCredentialsPage'
 
 function App() {
   const { token, removeToken, setToken } = useToken();
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
+    // Get the user role from local storage
     const role = localStorage.getItem('profile');
     setUserRole(role);
+    console.log("Profile:", role)
   }, []);
 
   return (
@@ -34,34 +34,28 @@ function App() {
             <Routes>
               <Route path='/login' element={<LoginPage token={token} setToken={setToken}/>}></Route>
               {userRole === 'System Admin' && (
-                <Route path='/SACreateAcc' element={<SACreateAcc token={token}/>}></Route>
+                <Route path='/SACreateAcc' element={<SACreateAcc token={token} setToken={setToken}/>}></Route>
               )}
               {userRole === 'System Admin' && (
-                <Route path='/SAHomePage' element={<SARetrieveUAPage token={token}/>}></Route>
+                <Route path='/SAHomePage' element={<SARetrieveUAPage token={token} setToken={setToken}/>}></Route>
               )}
               {userRole === 'System Admin' && (
-                <Route path='/UserProfile' element={<SAUserProfile token={token}/>}></Route>
+                <Route path='/UserProfile' element={<SAUserProfile token={token} setToken={setToken}/>}></Route>
               )}
               {userRole === 'System Admin' && (
-                <Route path='/SACreateProfile' element={<SACreateProfile token={token}/>}></Route>
-              )}
-              {userRole === 'System Admin' && (
-                <Route path='/SAViewAccount' element={<SAViewUAPage token={token}/>}></Route>
-              )}
-              {userRole === 'System Admin' && (
-                <Route path='/UpdateAccount' element={<SAUpdateUAPage token={token}/>}></Route>
-              )}
-              {userRole === 'System Admin' && (
-                <Route path='/UpdateProfile' element={<SAUpdateUPPage token={token}/>}></Route>
+                <Route path='/SACreateProfile' element={<SACreateProfile token={token} setToken={setToken}/>}></Route>
               )}
               {userRole === 'Real Estate Agent' && (
-                <Route path='/REAHomePage' element={<REAHomePage token={token}/>}></Route>
+                <Route path='/REAHomePage' element={<REAHomePage token={token} setToken={setToken}/>}></Route>
+              )}
+              {userRole === 'Real Estate Agent' && (
+                <Route path='/REAViewCredentialsPage' element={<REAViewCredentialsPage token={token} setToken={setToken}/>}></Route>
               )}
               {userRole === 'Buyer' && (
-                <Route path='/BuyerHomePage' element={<BuyerHomePage token={token}/>}></Route>
+                <Route path='/BuyerHomePage' element={<BuyerHomePage token={token} setToken={setToken}/>}></Route>
               )}
               {userRole === 'Seller' && (
-                <Route path='/SellerHomePage' element={<SellerHomePage token={token}/>}></Route>
+                <Route path='/SellerHomePage' element={<SellerHomePage token={token} setToken={setToken}/>}></Route>
               )}
             </Routes>
           </>
