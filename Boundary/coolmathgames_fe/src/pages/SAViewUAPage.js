@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Label, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import { HiMail } from "react-icons/hi";
 import Button from "../components/Button";
 import SAHeader from '../components/SAHeader';
 import SuspendPopUp from "../components/AccountSuspendPopUp";
-import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import Agent1 from '../assets/agent1.jpg'
 
 function SAViewUAPage(props, {openModal, onClose}) {
     const token = localStorage.getItem('token');
     console.log('Current Token:', token);
     const [fullName, setFullName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [error, setError] = useState('');
     // password should not be displayed
     const password = '';
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('')
-    const [message, setMessage] = useState('');
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(Agent1);
     // This takes the value from backend
     const [status, setStatus] = useState('Active');
     // This takes the value from backend
@@ -54,10 +52,10 @@ function SAViewUAPage(props, {openModal, onClose}) {
             setEmail(userData.email);
             setStatus(userData.status);
             setSelectedUserType(userData.profile);
-            setImage(userData.image);
+            // setImage(Agent1);
         })
         .catch(error => {
-            console.error('Error fetching user profile:', error);
+            console.error('Error fetching user account:', error);
         });
     }, []);
 

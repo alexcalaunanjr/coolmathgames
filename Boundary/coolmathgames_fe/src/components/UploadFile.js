@@ -7,16 +7,16 @@ function UploadFile({picture, setPicture}) {
     const [error, setError] = useState('');
     const [imageFromDB, setImageFromDB] = useState(null);
 
-    // get image from db
-    useEffect(() => {
-        axios.get('http://127.0.0.1:5000/image')
-        .then(response => {
-            setImageFromDB(response.data.image);
-    })
-    .catch(error => {
-        console.error('Error fetching image:', error);
-        });
-    }, []);
+    // // get image from db
+    // useEffect(() => {
+    //     axios.get('http://127.0.0.1:5000/image')
+    //     .then(response => {
+    //         setImageFromDB(response.data.image);
+    // })
+    // .catch(error => {
+    //     console.error('Error fetching image:', error);
+    //     });
+    // }, []);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];

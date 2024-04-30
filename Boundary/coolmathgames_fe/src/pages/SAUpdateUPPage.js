@@ -7,6 +7,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function SAUpdateUPPage(props) {
+    const user = localStorage.getItem('clickedProfile')
+
     const [newDescription, setNewDescription] = useState('');
     const [newProfile, setNewProfile] = useState('');
     const [error, setError] = useState('');
@@ -19,7 +21,26 @@ function SAUpdateUPPage(props) {
         document.title = 'SA Update User Profile';
         if (formFilled) {
             setFormFilled(false);
-        }
+        };
+        axios.get(`http://127.0.0.1:5000/updateUserProfile/${profileName}`, {
+            headers: {
+            'Authorization': 'Bearer ' + props.token,
+            'Content-Type': 'application/json'
+        }})
+            .then(response => {
+                if (response) {
+                    // setPicture(Agent1)
+                    setNewProfile(response.data.profile)
+                    setNewDescription(response.data.desc)
+                }
+                else {
+                    setError('Profile not found!');
+                    setMessage('');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching profile:', error);
+            });
     }, [formFilled]);
 
     function handleSubmit(event) {

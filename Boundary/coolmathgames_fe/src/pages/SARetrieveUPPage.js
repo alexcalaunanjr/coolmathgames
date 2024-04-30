@@ -37,6 +37,7 @@ function SARetrieveUPPage(props) {
 
     useEffect(() => {
         if (clickedProfile) {
+            localStorage.setItem('clickedProfile', clickedProfile)
             axios.post('http://127.0.0.1:5000/viewProfileDesc', {
                 profileName: clickedProfile,
             }, {

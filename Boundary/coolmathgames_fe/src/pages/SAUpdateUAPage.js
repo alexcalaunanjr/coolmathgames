@@ -8,8 +8,11 @@ import Button from "../components/Button";
 import SAHeader from '../components/SAHeader';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import Agent1 from '../assets/agent1.jpg'
 
 function SAUpdateUAPage(props) {
+    const user = localStorage.getItem('clickedUser')
+
     const token = localStorage.getItem('token');
     console.log('Current Token:', token);
     const [fullName, setFullName] = useState('');
@@ -21,7 +24,7 @@ function SAUpdateUAPage(props) {
     const [email, setEmail] = useState('')
     const [message, setMessage] = useState('');
     // This to get the image from db
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(Agent1);
     // Flag to check if the form is filled
     const [formFilled, setFormFilled] = useState(false);
     const [options, setOptions] = useState([]);
@@ -32,13 +35,32 @@ function SAUpdateUAPage(props) {
 
     useEffect(() => {
         document.title = 'SA Update Account Page';
-        axios.get('http://127.0.0.1:5000/login')
-            .then(response => {
-                setOptions(response.data.user_profiles);
-            })
-            .catch(error => {
-                console.error('Error fetching user profiles:', error);
-            });
+        axios.get(`http://127.0.0.1:5000/updateUserAccount/${user}`, {
+                headers: {
+                'Authorization': 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }})
+                .then(response => {
+                    if (response) {
+                        const userData = response.data;
+                        setFullName(userData.account.fullName);
+                        setPhoneNumber(userData.account.phoneNo);
+                        setUsername(userData.account.username);
+                        setEmail(userData.account.email);
+                        setStatus(userData.account.status);
+                        setSelectedUserType(userData.account.profile);
+                        // setImage(Agent1);
+
+                        setOptions(userData.user_profiles);
+                    }
+                    else {
+                        setError('Profile not found!');
+                        setMessage('');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching profile:', error);
+                });
     }, []);
 
     const handleSelect = (selectedItem) => {
@@ -70,7 +92,7 @@ function SAUpdateUAPage(props) {
         // If all checks pass, clear any previous errors and proceed with serverside account creation
 
         try {
-            const user = localStorage.getItem('clickedUser')
+            
             axios.post(`http://127.0.0.1:5000/updateUserAccount/${user}`, {
                 "fullName": fullName,
                 "username": username,
