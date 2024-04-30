@@ -51,7 +51,7 @@ function SACreateUPPage(props) {
                 }
                 else {
                     displayErrorMessageUI();
-                    console.log(error, 'Account not created!');
+                    console.log(error, 'Profile not created!');
                 }
             })
             .catch((error) => {
@@ -65,7 +65,7 @@ function SACreateUPPage(props) {
     };
     
     function displayNewUserProfileUI(){
-        setMessage('Account created successfully!');
+        setMessage('Profile created successfully!');
         setError('');
     }
 

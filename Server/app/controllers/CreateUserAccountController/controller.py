@@ -36,8 +36,8 @@ class CreateUserAccountController(Blueprint):
     
     def retrieveEmail(self, username):
         if username:
-            cred = UserAccount.retrieveUserCredentials(username)
-        return cred
+            acc = UserAccount.retrieveUserAccount(username)
+        return acc
 
 class BaseCreateUserAccountController(CreateUserAccountController):
     def __init__(self, *args, **kwargs):
@@ -47,7 +47,7 @@ class BaseCreateUserAccountController(CreateUserAccountController):
     def createUserAccount(self):
         if request.method == 'POST':
             data = request.get_json()
-            # Extract login credentials from the json file
+            # Extract login account from the json file
             name = data.get('fullName')
             username = data.get('username')
             password = data.get('password')
@@ -60,7 +60,7 @@ class BaseCreateUserAccountController(CreateUserAccountController):
             profileList = self.retrieveProfileList()
             return profileList
 
-    def retrieveCredential(self, username):
+    def retrieveAccount(self, username):
         if request.method == 'GET':
             retrieveEmail = self.retrieveEmail(username)
             return retrieveEmail

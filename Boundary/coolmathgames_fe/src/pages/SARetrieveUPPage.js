@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Label, TextInput } from "flowbite-react";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import Button from "../components/Button";
@@ -8,42 +8,74 @@ import UserSearchBar from "../components/UserSearchBar";
 import SAHeader from '../components/SAHeader';
 import UPCard from "../components/UPCard";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
-// Testing
-const profile1 = {
-    id:1,
-    name: "REA",
-    description: "REA is a real estate company that provides property services."
-};
+function SARetrieveUPPage(props) {
+    const [profiles, setProfiles] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [clickedProfile, setClickedProfile] = useState('');
+    const [clickedProfileDesc, setclickedProfileDesc] = useState('');
+    const [Ptoken, setPToken] = useState('');
 
-const profile2 = {
-    id:2,
-    name: "Buyer",
-    description: "A buyer is a person who purchases goods or services."
-};
-
-const profile3 = {
-    id:3,
-    name: "Seller",
-    description: "A seller is a person who sells goods or services."
-};
-
-const profile4 = {
-    id:4,
-    name: "System Admin",
-    description: "A system admin is a person who is responsible for managing a computer system."
-};
-
-const profiles = [profile1, profile2, profile3, profile4];
-
-function SARetrieveUPPage() {
     useEffect(() => {
         document.title = 'SA User Profile';
+        axios.get('http://127.0.0.1:5000/retrieveProfileList', {
+            headers: {
+                Authorization: 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            setPToken(props.token)
+            const profileDict = response.data.profileNames
+            displayProfileList(profileDict)
+        })
+        .catch(error => {
+            console.error('Error fetching profile list', error);
+        });
     }, []);
+
+    useEffect(() => {
+        if (clickedProfile) {
+            axios.post('http://127.0.0.1:5000/viewProfileDesc', {
+                profileName: clickedProfile,
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + props.token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                const data = response.data.description
+                setclickedProfileDesc(data)
+            })
+            .catch((error) => {
+                console.error('Error fetching profile description', error);
+            });
+        }
+    }, [clickedProfile]);
+
+    function displayProfileList(profileDict) {
+        const profilesData = profileDict.map(profile => ({
+            profile: profile.profile,
+            status: profile.status
+        }))
+        setProfiles(profilesData)
+    }
+
     // Function to handle search
     const handleSearch = (query) => {
         // Search logic
-        console.log("Searching for:", query);
+        setSearchQuery(query);
+    };
+
+    const filteredProfiles = profiles.filter(profile => {
+        return profile.profile.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+
+    // Function to handle click on profile card
+    const handleProfileClick = (profileName) => {
+        setClickedProfile(profileName);
     };
 
     return (       
@@ -61,7 +93,7 @@ function SARetrieveUPPage() {
                     <div className="w-1/4 mx-auto">
                     </div>
                     <div className="w-1/4 mx-auto">
-                        <UserSearchBar placeholder="Search by username" onSubmit={handleSearch}/>
+                        <UserSearchBar placeholder="Search by profile" onSubmit={handleSearch}/>
                     </div>
                     <Link to="/SACreateProfile">
                         <div className="w-60 mx-auto">
@@ -72,8 +104,8 @@ function SARetrieveUPPage() {
                 {/* User Profile Card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-10 items-center ">
                     {/* Map through the profiles array */}
-                    {profiles.map((profile, index) => (
-                        <UPCard key={index} profile={profile} />
+                    {filteredProfiles.map((profile, index) => (
+                        <UPCard key={index} profile={profile} onClick={handleProfileClick} profileDesc={clickedProfileDesc} token={Ptoken}/>
                     ))}
                 </div>
             </div>

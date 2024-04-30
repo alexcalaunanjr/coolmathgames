@@ -11,18 +11,19 @@ class CreateUserProfileController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def createProfile(self, profile:str):
+    def createProfile(self, profile:str, description:str):
         if profile:
             newProfile = UserProfiles(
-                profile=profile
+                profile=profile,
+                desc=description
             )
             createProf = UserProfiles.createProfile(newProfile)
         return createProf
     
-    def retrieveCred(self, username):
+    def retrieveAccount(self, username):
         if username:
-            cred = UserAccount.retrieveCred(username)
-        return cred
+            acc = UserAccount.retrieveUserAccount(username)
+        return acc
 
 class BaseCreateUserProfileController(CreateUserProfileController):
     def __init__(self, *args, **kwargs):
@@ -33,5 +34,6 @@ class BaseCreateUserProfileController(CreateUserProfileController):
         if request.method == 'POST':
             data = request.get_json()
             newProfile = data.get('newProfile')
-            profCreated = self.createProfile(newProfile)
+            newDescription = data.get('newDescription')
+            profCreated = self.createProfile(newProfile, newDescription)
             return jsonify({"profileCreated": profCreated})

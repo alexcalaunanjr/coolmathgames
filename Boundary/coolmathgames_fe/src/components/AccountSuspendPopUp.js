@@ -3,8 +3,39 @@ import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
-function SuspendPopUp( {openModal, onClose, text}) {
+function SuspendPopUp( {openModal, onClose, text, token}) {
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  
+  function handleSuspend() {
+    const user = localStorage.getItem('clickedUser')
+    axios.post('http://127.0.0.1:5000/suspendUserAccount', {
+      username: user
+    }, {
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
+    })
+    .then((response) => {
+      if (response.data.accountSuspended) {
+        setSuccess("Suspended User Account")
+      }
+      else {
+        setError("Error occured while trying to suspend")
+      }
+    })
+    .catch((error) => {
+      console.error('there was an error:', error);
+    });
+  };
+
+  function handleSuspendAndClose() {
+    handleSuspend();
+    onClose();
+  }
 
   return (
     <>
@@ -17,7 +48,7 @@ function SuspendPopUp( {openModal, onClose, text}) {
               {text}
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={onClose}>
+              <Button color="failure" onClick={handleSuspendAndClose}>
                 {"Yes, I'm sure"}
               </Button>
               <Button color="gray" onClick={onClose}>

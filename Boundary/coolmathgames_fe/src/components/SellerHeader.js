@@ -15,7 +15,7 @@ function SellerHeader() {
 
     useEffect(() => {
         // Get the username and email from local storage
-        axios.get(`http://127.0.0.1:5000/userCredentials/${username}`)
+        axios.get(`http://127.0.0.1:5000/userAccount/${username}`)
           .then(response => {
               const email = response.data.email;
               setEmail(email)
