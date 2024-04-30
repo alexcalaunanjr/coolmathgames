@@ -25,6 +25,14 @@ class UserProfiles(db.Model):
                         } for profile in profileList]
         return jsonify({"profileNames": profileDict})
     
+    #retrieve profile data
+    @classmethod
+    def retrieveProfile(cls, profileName):
+        profile = cls.query.filter_by(profile=profileName).first()
+        if profile:
+            return jsonify({"profile": profile.profile,
+                            "desc": profile.desc})
+    
     #retrieve profile desc
     @classmethod
     def retrieveProfileDesc(cls, profileName):
@@ -34,7 +42,7 @@ class UserProfiles(db.Model):
         else:
             return jsonify({"error": "Profile not found"})
 
-    #retrieve profile desc
+    #update profile
     @classmethod
     def updateProfile(cls, profileName, updatedData):
         print("Updated data:", updatedData)
@@ -47,7 +55,7 @@ class UserProfiles(db.Model):
         else:
             return jsonify({"updatedProfile" : False})
     
-        #suspend a user account
+    #suspend a user account
     @classmethod
     def suspendProfile(cls, profile):
         susProfile = cls.query.filter_by(profile=profile).first()

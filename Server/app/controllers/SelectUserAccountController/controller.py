@@ -7,8 +7,8 @@ class SelectedUserAccountController(Blueprint):
          super().__init__(*args, **kwargs)
 
     def retrieveUserAccount(self, username):
-        accountList = UserAccount.retrieveUserAccount(username)
-        return accountList
+        account = UserAccount.retrieveUserAccount(username)
+        return account
 
 class BaseSelectedUserAccountController(SelectedUserAccountController):
     def __init__(self, *args, **kwargs):

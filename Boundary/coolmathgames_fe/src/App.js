@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // SA Pages
 import SACreateAcc from './pages/SACreateUAPage'
 import SARetrieveUAPage from './pages/SARetrieveUAPage'
@@ -40,7 +40,7 @@ function App() {
         : (
           <>
             <Routes>
-              <Route path='/login' element={<LoginPage token={token} setToken={setToken}/>}></Route>
+                  <Route path='/login' element={<LoginPage token={token} setToken={setToken}/>}></Route>
               {userRole === 'System Admin' && (
                 <>
                   <Route path='/SACreateAcc' element={<SACreateAcc token={token}/>}></Route>
@@ -55,12 +55,9 @@ function App() {
               {userRole === 'Real Estate Agent' && (
                 <>
                   <Route path='/REAHomePage' element={<REAHomePage token={token}/>}></Route>
-                  <Route path='/REAViewCredentialsPage' element={<REAViewCredentialsPage token={token} setToken={setToken}/>}></Route>
-                  <Route path='/REAUpdateCredentials' element={<REAUpdateCredentials token={token}/>}></Route>
+                  <Route path='/REAViewCredentialsPage' element={<REAViewCredentialsPage token={token}/>}></Route>
+                  <Route path='/REAUpdateCredentialsPage' element={<REAUpdateCredentials token={token}/>}></Route>
                 </>
-              )}
-              {userRole === 'Real Estate Agent' && (
-                <Route path='/REAViewCredentialsPage' element={<REAViewCredentialsPage token={token} setToken={setToken}/>}></Route>
               )}
               {userRole === 'Buyer' && (
                 <>
