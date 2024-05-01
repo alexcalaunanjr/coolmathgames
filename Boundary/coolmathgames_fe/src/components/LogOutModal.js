@@ -10,20 +10,11 @@ function LogoutUI() {
     const navigate = useNavigate();
 
     function handleLogout() {
-        axios.post('http://127.0.0.1:5000/logout')
-        .then((response) => {
-            if (response.data.logout) {
-            localStorage.removeItem('token');
-            //redirect user to login page
-            console.log("Logout Successful!")
-            navigate("/login"); 
-            setOpenModal(false);
-            }
-        })
-        .catch((error) => {
-            console.error('Error logging out: ', error);
-            setOpenModal(false);
-        })
+        localStorage.removeItem('token');
+        //redirect user to login page
+        console.log("Logout Successful!")
+        navigate("/login"); 
+        setOpenModal(false);
     }
 
     function displayLogoutUI(){

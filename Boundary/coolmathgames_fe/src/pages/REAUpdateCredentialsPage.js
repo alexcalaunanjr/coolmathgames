@@ -48,15 +48,15 @@ function REAUpdateCredentialsPage(props) {
             .then(response => {
                 if (response) {
                     // setImage(Agent1)
-                    setFullName(response.data.fullName)
-                    setEmail(response.data.email)
-                    setPhoneNo(response.data.phoneNo)
-                    setExperience(response.data.experience)
-                    setLicense(response.data.license)
-                    setLanguage(response.data.language)
-                    setSpecial(response.data.special)
-                    setAbout(response.data.about)
-                    setAwards(response.data.award)
+                    setFullName(response.data.account.fullName)
+                    setEmail(response.data.account.email)
+                    setPhoneNo(response.data.account.phoneNo)
+                    setExperience(response.data.cred.experience)
+                    setLicense(response.data.cred.license)
+                    setLanguage(response.data.cred.language)
+                    setSpecial(response.data.cred.special)
+                    setAbout(response.data.cred.about)
+                    setAwards(response.data.cred.award)
                 }
                 else {
                     setError('Account not found!');
@@ -110,7 +110,7 @@ function REAUpdateCredentialsPage(props) {
             })
             .then((response) => {
                 console.log('REA Credentials updated successfully:', response.data);
-                if (response.data.reaCredentialsUpdated) {
+                if (response.data) {
                     setError('');
                     setMessage('Credentials updated successfully!');
                 }
@@ -261,14 +261,14 @@ function REAUpdateCredentialsPage(props) {
                                     />
                                 </div>
                             </div>
-                        </div>
-                        {/* Error Message */}
-                        <div>
+                                </div>
+                                {/* Error Message */}
+                                <div>
                             {error && <div id="failedPrompt" className="text-red-500 text-center">{error}</div>}
-                        </div>
-                        {/* Succsful Message */}
+                                </div>
+                                {/* Succsful Message */}
                         <div id="successPrompt" className="text-green-500 text-center">
-                            {error === '' && message}
+                                    {error === '' && message}
                         </div>
                         {/* Button */}
                         <div className="flex w-full">

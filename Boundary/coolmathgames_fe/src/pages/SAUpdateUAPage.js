@@ -51,7 +51,8 @@ function SAUpdateUAPage(props) {
                         setSelectedUserType(userData.account.profile);
                         // setImage(Agent1);
 
-                        setOptions(userData.user_profiles);
+                        const activeProfiles = response.data.user_profiles.filter(item => item.status === 'active');
+                        setOptions(Object.values(activeProfiles.map(item => (item.profile))));
                     }
                     else {
                         setError('Profile not found!');

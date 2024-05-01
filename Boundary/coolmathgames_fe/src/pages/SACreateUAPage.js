@@ -29,9 +29,14 @@ function SACreateUAPage(props) {
 
     useEffect(() => {
         document.title = 'SA Create Account Page';
-        axios.get('http://127.0.0.1:5000/login')
+        axios.get('http://127.0.0.1:5000/createUserAccount', {
+            headers: {
+            'Authorization': 'Bearer ' + props.token,
+            'Content-Type': 'application/json'
+        }})
             .then(response => {
-                setOptions(response.data.user_profiles);
+                const activeProfiles = response.data.filter(item => item.status === 'active');
+                setOptions(Object.values(activeProfiles.map(item => (item.profile))));
             })
             .catch(error => {
                 console.error('Error fetching user profiles:', error);

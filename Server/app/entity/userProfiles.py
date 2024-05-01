@@ -9,38 +9,22 @@ class UserProfiles(db.Model):
     desc = db.Column(db.String(200), nullable=False)
     status = db.Column(db.String(10), nullable=False, default='active')
 
-    #Retrieve user list
-    @classmethod
-    def retrieveActiveProfileList(cls):
-        activeProfile = [profile.profile for profile in UserProfiles.query.filter_by(status='active').all()]
-        return activeProfile
-
-    #retrieve profile name list
+    #retrieve profile list
     @classmethod
     def retrieveProfileList(cls):
-        profileList = cls.query.all()
+        profile = [profile for profile in UserProfiles.query.all()]
         profileDict = [{'profile': profile.profile,
-                        'description': profile.desc,
                         'status': profile.status 
-                        } for profile in profileList]
-        return jsonify({"profileNames": profileDict})
+                        } for profile in profile]
+        return profileDict
     
     #retrieve profile data
     @classmethod
     def retrieveProfile(cls, profileName):
         profile = cls.query.filter_by(profile=profileName).first()
         if profile:
-            profileAndDesc = jsonify({"profile": profile.profile,
+            return jsonify({"profile": profile.profile,
                             "desc": profile.desc})
-            return profileAndDesc
-    
-    #retrieve profile desc
-    @classmethod
-    def retrieveProfileDesc(cls, profileName):
-        profile = cls.query.filter_by(profile=profileName).first()
-        profileDesc = profile.desc
-        if profile:
-            return jsonify({"description": profileDesc})
         else:
             return jsonify({"error": "Profile not found"})
 

@@ -4,7 +4,6 @@ import { UserContextProvider } from '../hooks/UseModalContext';
 
 import Button from "../components/Button";
 import SAHeader from "../components/SAHeader";
-import { Link } from "react-router-dom";
 import axios from 'axios';
 
 function SACreateUPPage(props) {

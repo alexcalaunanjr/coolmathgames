@@ -1,7 +1,6 @@
 from flask import Flask
 from .config import Config
 from .controllers.LoginController.controller import BaseControllerLogin
-from .controllers.LogoutController.controller import BaseControllerLogout
 from .controllers.CreateUserAccountController.controller import BaseCreateUserAccountController
 from .controllers.CreateUserProfileController.controller import BaseCreateUserProfileController
 from .controllers.UserAccountListController.controller import BaseUserAccountListController
@@ -20,7 +19,6 @@ from flask_cors import CORS
 # from app.entity.account import UserAccount
 # from app.entity.userProfiles import UserProfiles
 # from app.entity.reaCredentials import REACredentials
-from sqlalchemy import event
 
 app = Flask(__name__)
 jwt = JWTManager(app)
@@ -32,7 +30,6 @@ CORS(app, supports_credentials=True)
 loginController = BaseControllerLogin('login', __name__)
 createUserAccountController = BaseCreateUserAccountController('createUserAccount', __name__)
 createUserProfileController = BaseCreateUserProfileController('createUserProfile', __name__)
-logoutController = BaseControllerLogout('logout', __name__)
 userAccountListController = BaseUserAccountListController('retrieveUserAccountList', __name__)
 userProfileListController = BaseRetrieveUserProfileListController('retrieveUserProfileList', __name__)
 viewUserProfileController = BaseViewUserProfileController('viewUserProfileController', __name__)
@@ -47,22 +44,19 @@ updateREACredentialController = BaseUpdateREAcredentialController('updateREACred
 #define routes and functions
 loginController.route('/login', methods=['GET', 'POST'])(loginController.login)
 createUserAccountController.route('/createUserAccount', methods=['GET', 'POST'])(createUserAccountController.createUserAccount)
-createUserAccountController.route('/userAccount/<username>', methods=['GET'])(createUserAccountController.retrieveAccount) #might change (retrieve creds)
-createUserProfileController.route('/createUserProfile', methods=['POST'])(createUserProfileController.createUserProfile)
-logoutController.route('/logout', methods=['GET', 'POST'])(logoutController.logout)
+createUserProfileController.route('/createUserProfile', methods=['GET', 'POST'])(createUserProfileController.createUserProfile)
 userAccountListController.route('/retrieveAccountList', methods=['GET'])(userAccountListController.getAccountList)
 userProfileListController.route('/retrieveProfileList', methods=['GET'])(userProfileListController.getProfileList)
 viewUserProfileController.route('/viewProfileDesc', methods=['POST'])(viewUserProfileController.getProfileDesc)
 selectedUserAccountController.route('/viewUserAccount/<username>', methods=['GET'])(selectedUserAccountController.getUserAccount)
 updateUserAccountController.route('/updateUserAccount/<oldUsername>', methods=['GET','POST'])(updateUserAccountController.updateUserAccount)
-updateUserProfileController.route('/updateUserProfile/<profileName>', methods=['GET','POST'])(updateUserProfileController.updateProfileData) #COMPLETWE THIS
+updateUserProfileController.route('/updateUserProfile/<profileName>', methods=['GET','POST'])(updateUserProfileController.updateProfileData)
 suspendUserAccountController.route('/suspendUserAccount', methods=['POST'])(suspendUserAccountController.suspendUserAccount)
 suspendUserProfileController.route('/suspendUserProfile', methods=['POST'])(suspendUserProfileController.suspendUserProfile)
-viewREACredentialController.route('/viewREACredential/<username>', methods=['POST'])(viewREACredentialController.viewREACredentials)
+viewREACredentialController.route('/viewREACredential/<username>', methods=['GET', 'POST'])(viewREACredentialController.viewREACredentials)
 updateREACredentialController.route('/updateREACredential/<username>', methods=['GET', 'POST'])(updateREACredentialController.updateREACredentials)
 
 app.register_blueprint(loginController)
-app.register_blueprint(logoutController)
 app.register_blueprint(createUserAccountController)
 app.register_blueprint(createUserProfileController)
 app.register_blueprint(userAccountListController)

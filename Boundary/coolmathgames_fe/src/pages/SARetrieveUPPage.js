@@ -27,8 +27,7 @@ function SARetrieveUPPage(props) {
         })
         .then(response => {
             setPToken(props.token)
-            const profileDict = response.data.profileNames
-            
+            const profileDict = response.data
             const profilesData = profileDict.map(profile => ({
                 profile: profile.profile,
                 status: profile.status
@@ -52,7 +51,7 @@ function SARetrieveUPPage(props) {
                 }
             })
             .then((response) => {
-                const data = response.data.description
+                const data = response.data.desc
                 setclickedProfileDesc(data)
             })
             .catch((error) => {

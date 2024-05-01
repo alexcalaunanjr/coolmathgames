@@ -20,7 +20,7 @@ class UserAccount(db.Model):
     email = db.Column(db.String(40), nullable=False)
     phoneNo = db.Column(db.String(25), nullable=False)
     status = db.Column(db.String(10), nullable=False, default='active')
-    profilefk = db.relationship('UserProfiles', foreign_keys='UserAccount.profile')
+    # profilefk = db.relationship('UserProfiles', foreign_keys='UserAccount.profile')
     # accountProfileRel = db.relationship("UserProfiles", back_populates="profileAccountRel", cascade='all, delete, save-update', foreign_keys="UserAccount.profile")
 
 
@@ -46,7 +46,7 @@ class UserAccount(db.Model):
     def checkSuspended(self, username:str):
         user = UserAccount.query.filter_by(username=username).first()
         if user:
-            return user.status
+            return user.status == "active"
 
         else:
             return jsonify({'message': 'User not found'}), 404
@@ -55,7 +55,7 @@ class UserAccount(db.Model):
     @classmethod
     def verifyLoginInfo(self, profile:str, username:str, password:str):
         user = UserAccount.query.filter_by(username=username).first() #check if username matches in the database
-        if user and bcrypt.check_password_hash(user.password, password) and profile == user.profile and user.status != "suspended":
+        if user and bcrypt.check_password_hash(user.password, password) and profile == user.profile:
             return True
         else:
             return False
