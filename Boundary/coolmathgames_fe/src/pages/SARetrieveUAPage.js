@@ -26,24 +26,21 @@ function SARetrieveUAPage(props) {
         })
         .then(response => {
             const accountDict = response.data.accountDict;
-            displayAccountList(accountDict)
+            const userData = accountDict.map(account => ({
+                id: account.id,
+                name: account.fullName,
+                username: account.username,
+                email: account.email,
+                type: account.profile,
+                status: account.status
+            }))
+            setUsers(userData)
         })
         .catch(error => {
             console.error('Error fetching user account list', error);
         });
     }, []);
 
-    function displayAccountList(accountDict) {
-        const userData = accountDict.map(account => ({
-            id: account.id,
-            name: account.fullName,
-            username: account.username,
-            email: account.email,
-            type: account.profile,
-            status: account.status
-        }))
-        setUsers(userData)
-    }
     console.log(users)
 
     const rows = users.map(user => [user.name, user.username, user.email, user.type, user.status]);
@@ -66,7 +63,7 @@ function SARetrieveUAPage(props) {
 
     // Function to handle status color
     const statusColor = (status) => {
-        if (status === "Active") {
+        if (status === "active") {
             return "text-green-400";
         }
         else {
@@ -83,46 +80,52 @@ function SARetrieveUAPage(props) {
     //     />
     // ));
 
-    return (
-        <>
-        {/* buyer header component */}
-        <UserContextProvider><SAHeader /></UserContextProvider>   
-        <div>
-            {/* Rounded box */}
-            <div className="rounded-xl bg-gray-100 shadow-xl m-20">
-                <div className = "w-full flex">
-                    {/* Top Heading */}
-                    <div className="flex w-full p-10">
-                        <div className="mt-3 w-1/4 text-2xl font-bold">
-                            User Account List ({rows.length})
-                        </div>
-                        <div className="w-1/4 mx-auto">
-                        </div>
-                        <div className="w-1/4 mx-auto">
-                            <UserSearchBar placeholder="Search by username" onSubmit={handleSearch}/>
-                        </div>
-                        <Link to="/SACreateAcc">
-                            <div className="w-60 mx-auto">
-                                <Button color="bg-brown" text="Add User Account" icon={<HiPlusSm />}/>
+    function displayUserAccountList() {
+        return (
+            <>
+            {/* buyer header component */}
+            <UserContextProvider><SAHeader /></UserContextProvider>   
+            <div>
+                {/* Rounded box */}
+                <div className="rounded-xl bg-gray-100 shadow-xl m-20">
+                    <div className = "w-full flex">
+                        {/* Top Heading */}
+                        <div className="flex w-full p-10">
+                            <div className="mt-3 w-1/4 text-2xl font-bold">
+                                User Account List ({rows.length})
                             </div>
-                        </Link>
+                            <div className="w-1/4 mx-auto">
+                            </div>
+                            <div className="w-1/4 mx-auto">
+                                <UserSearchBar placeholder="Search by username" onSubmit={handleSearch}/>
+                            </div>
+                            <Link to="/SACreateAcc">
+                                <div className="w-60 mx-auto">
+                                    <Button color="bg-brown" text="Add User Account" icon={<HiPlusSm />}/>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className='p-5'></div>
+
+                    {/* Table */}
+                    <div className="overflow-x-auto hover:cursor-pointer">
+                        <CustomTable 
+                                headers={headers}
+                                rows={filteredRows}
+                                // Pass a function to handle cell click (ADDD THE LINK HERE)
+                                onCellClick={handleCellClick}
+                            />
                     </div>
                 </div>
-
-                <div className='p-5'></div>
-
-                {/* Table */}
-                <div className="overflow-x-auto">
-                    <CustomTable 
-                            headers={headers}
-                            rows={filteredRows}
-                            // Pass a function to handle cell click (ADDD THE LINK HERE)
-                            onCellClick={handleCellClick}
-                        />
-                </div>
             </div>
-        </div>
-        </>
+            </>
+        )
+    }
+
+    return(
+        displayUserAccountList()
     );
 }
 

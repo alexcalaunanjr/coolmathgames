@@ -247,8 +247,6 @@ function REAViewCredentialsPage(props) {
                 <div className='p-10'></div>
             </div>
     
-            
-    
             <div className='p-10'></div>
     
             <Footer />

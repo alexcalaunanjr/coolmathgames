@@ -47,6 +47,12 @@ class REACredentials(db.Model):
                 'username': user.username,
                 'email': user.email,
                 'phoneNo': user.phoneNo,
+                'experience':'',
+                'license':'',
+                'language':'',
+                'special':'',
+                'about':'',
+                'award':'',
             })
         return jsonify({'message': 'User not found'}), 404
     

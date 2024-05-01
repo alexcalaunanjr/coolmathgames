@@ -29,7 +29,7 @@ function SAUpdateUAPage(props) {
     const [formFilled, setFormFilled] = useState(false);
     const [options, setOptions] = useState([]);
     // This takes the value from backend
-    const [status, setStatus] = useState('Active');
+    const [status, setStatus] = useState('');
 
     const [selectedUserType, setSelectedUserType] = useState('');
 
@@ -67,7 +67,7 @@ function SAUpdateUAPage(props) {
         setSelectedUserType(selectedItem);
     };
 
-    function handleSubmit(event) {
+    function handleUpdate(event) {
         event.preventDefault();
         setFormFilled(true);
 
@@ -134,122 +134,129 @@ function SAUpdateUAPage(props) {
         }
     }, [formFilled]);
 
-    return (
-        <>
-        {/* buyer header component */}
-        <UserContextProvider><SAHeader /></UserContextProvider> 
-        <div className="flex flex-col h-screen">
-            <div className="flex w-full text-2xl font-bold p-10">
-                <h1>User Account Details</h1>
-            </div>
-            <div className="flex">
-                {/* Left side */}
-                <div className="w-1/2 pl-10">
-                    {/* Full Name */}
-                    <div className="mb-8 w-2/3">
-                        Full Name
-                        <TextInput
-                            type="text"
-                            value={fullName}
-                            onChange = {(e) => setFullName(e.target.value)}
-                        />
-                    </div>
-                    {/* Username */}
-                    <div className="mb-8 w-2/3">
-                        Username
-                        <TextInput
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </div>
-                    {/* Password */}
-                    <div className="mb-8 w-2/3">
-                        Password
-                        <TextInput
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    {/* 2nd Password */}
-                    <div className="mb-8 w-2/3">
-                        Confirm Password
-                        <TextInput
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                        />
-                    </div>
-                    {/* Email */}
-                    <div className="mb-8 w-2/3">
-                        Email
-                        <TextInput 
-                            type="text" 
-                            icon={HiMail}
-                            value={email}
-                            required
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
+
+    function displayUpdateUA(){
+        return (
+            <>
+            {/* buyer header component */}
+            <UserContextProvider><SAHeader /></UserContextProvider> 
+            <div className="flex flex-col h-screen">
+                <div className="flex w-full text-2xl font-bold p-10">
+                    <h1>User Account Details</h1>
                 </div>
-                {/* Right side */}
-                <div className="w-1/2">
-                    {/* Phone */}
-                    <div className="mb-8 w-2/3">
-                        Phone
-                        <TextInput
-                            type="text"
-                            value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-8 w-2/3">
-                        Status
-                        <TextInput
-                            style={{color: status === 'Active' ? 'green' : 'red'}}
-                            type="text"
-                            value={status}
-                            readOnly
-                        />
-                    </div>
-                    {/* Type */}
-                    <div className="mb-8 w-2/3">
-                        Type
-                        <CustomDropdown 
-                            label={selectedUserType} 
-                            options={options} 
-                            onSelect={handleSelect} 
-                        />
-                    </div>
-                    {/* Upload Image  */}
-                    <div className="mb-4 w-full">
-                        Upload Image
-                        <div className="flex w-1/3 items-center justify-center">
-                            <UploadFile />
+                <div className="flex">
+                    {/* Left side */}
+                    <div className="w-1/2 pl-10">
+                        {/* Full Name */}
+                        <div className="mb-8 w-2/3">
+                            Full Name
+                            <TextInput
+                                type="text"
+                                value={fullName}
+                                onChange = {(e) => setFullName(e.target.value)}
+                            />
                         </div>
-                        {/* Error Message */}
-                        <div>
-                            {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
+                        {/* Username */}
+                        <div className="mb-8 w-2/3">
+                            Username
+                            <TextInput
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
                         </div>
-                        {/* Succsful Message */}
-                        <div id="successPrompt" className="text-green-500 pt-10">
-                            {error === '' && message}
+                        {/* Password */}
+                        <div className="mb-8 w-2/3">
+                            Password
+                            <TextInput
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        {/* 2nd Password */}
+                        <div className="mb-8 w-2/3">
+                            Confirm Password
+                            <TextInput
+                                type="password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                        </div>
+                        {/* Email */}
+                        <div className="mb-8 w-2/3">
+                            Email
+                            <TextInput 
+                                type="text" 
+                                icon={HiMail}
+                                value={email}
+                                required
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </div>
                     </div>
+                    {/* Right side */}
+                    <div className="w-1/2">
+                        {/* Phone */}
+                        <div className="mb-8 w-2/3">
+                            Phone
+                            <TextInput
+                                type="text"
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-8 w-2/3">
+                            Status
+                            <TextInput
+                                style={{color: status === 'active' ? 'green' : 'red'}}
+                                type="text"
+                                value={status}
+                                readOnly
+                            />
+                        </div>
+                        {/* Type */}
+                        <div className="mb-8 w-2/3">
+                            Type
+                            <CustomDropdown 
+                                label={selectedUserType} 
+                                options={options} 
+                                onSelect={handleSelect} 
+                            />
+                        </div>
+                        {/* Upload Image  */}
+                        <div className="mb-4 w-full">
+                            Upload Image
+                            <div className="flex w-1/3 items-center justify-center">
+                                <UploadFile />
+                            </div>
+                            {/* Error Message */}
+                            <div>
+                                {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
+                            </div>
+                            {/* Succsful Message */}
+                            <div id="successPrompt" className="text-green-500 pt-10">
+                                {error === '' && message}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* Button */}
+                <div className="flex w-full">
+                    <div className="w-40 mx-auto pt-5">
+                        <Link to="/SAUpdateUA">
+                            <Button color="bg-brown text-md" text="Save Changes" onClick={handleUpdate}/>
+                        </Link>
+                    </div>
                 </div>
             </div>
-            {/* Button */}
-            <div className="flex w-full">
-                <div className="w-40 mx-auto pt-5">
-                    <Link to="/SAUpdateUA">
-                        <Button color="bg-brown text-md" text="Save Changes" onClick={handleSubmit}/>
-                    </Link>
-                </div>
-            </div>
-        </div>
-        </>
-    );
+            </>
+        )
+    }
+
+    return(
+        displayUpdateUA()
+    )
 }
 
 export default SAUpdateUAPage;

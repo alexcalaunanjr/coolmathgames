@@ -5,6 +5,7 @@ import axios from 'axios'
 // components
 import REAHeader from '../components/REAHeader'
 import Button from '../components/Button'
+import Footer from "../components/Footer";
 import UploadFile from '../components/UploadFile'
 import { TextInput, Textarea } from 'flowbite-react'
 
@@ -141,143 +142,147 @@ function REAUpdateCredentialsPage(props) {
             <>
                 {/* REA header component */}
                 <UserContextProvider><REAHeader /></UserContextProvider>
-                    <div className="flex flex-col h-screen">
-                    <div className="flex w-full text-2xl font-bold p-10">
-                        <h1>User Credentials</h1>
-                    </div>
-                    <div className="flex">
-                        {/* Left side */}
-                        <div className="w-1/2 pl-10">
-                            {/* Upload Image  */}
-                            <div className="mb-4 w-full">
-                                <p className="text-xl">Picture</p>
-                                <div className="flex w-1/3 items-center pt-3">
-                                    <UploadFile image={image} setPicture={setImage} />
+                    <div className="flex flex-col">
+                        <div className="flex w-full text-2xl font-bold p-10">
+                            <h1>User Credentials</h1>
+                        </div>
+                        <div className="flex">
+                            {/* Left side */}
+                            <div className="w-1/2 pl-10">
+                                {/* Upload Image  */}
+                                <div className="mb-4 w-full">
+                                    <p className="text-xl">Picture</p>
+                                    <div className="flex w-1/3 items-center pt-3">
+                                        <UploadFile image={image} setPicture={setImage} />
+                                    </div>
+                                </div>
+                                {/* Specialties & Services */}
+                                <div className="mb-8 w-2/3">
+                                    <p className="text-xl">Specialties & Services</p>
+                                    <Textarea
+                                        type="text"
+                                        value={special}
+                                        onChange={(e) => setSpecial(e.target.value)}
+                                        style={{resize: 'none', height: '150px'}}
+                                    />
+                                </div>
+                                {/* About me */}
+                                <div className="mb-8 w-2/3">
+                                <p className="text-xl">About Me</p>
+                                    <Textarea
+                                        type="text"
+                                        value={about}
+                                        onChange={(e) => setAbout(e.target.value)}
+                                        style={{resize: 'none', height: '150px'}}
+                                    />
+                                </div>
+                                {/* Awards */}
+                                <div className="mb-8 w-2/3">
+                                <p className="text-xl">Awards</p>
+                                    <Textarea
+                                        type="text"
+                                        value={awards}
+                                        onChange={(e) => setAwards(e.target.value)}
+                                        style={{resize: 'none', height: '150px'}}
+                                    />
                                 </div>
                             </div>
-                            {/* Specialties & Services */}
-                            <div className="mb-8 w-2/3">
-                                <p className="text-xl">Specialties & Services</p>
-                                <Textarea
-                                    type="text"
-                                    value={special}
-                                    onChange={(e) => setSpecial(e.target.value)}
-                                    style={{resize: 'none', height: '150px'}}
-                                />
-                            </div>
-                            {/* About me */}
-                            <div className="mb-8 w-2/3">
-                            <p className="text-xl">About Me</p>
-                                <Textarea
-                                    type="text"
-                                    value={about}
-                                    onChange={(e) => setAbout(e.target.value)}
-                                    style={{resize: 'none', height: '150px'}}
-                                />
-                            </div>
-                            {/* Awards */}
-                            <div className="mb-8 w-2/3">
-                            <p className="text-xl">Awards</p>
-                                <Textarea
-                                    type="text"
-                                    value={awards}
-                                    onChange={(e) => setAwards(e.target.value)}
-                                    style={{resize: 'none', height: '150px'}}
-                                />
+        
+                            {/* Right side */}
+                            <div className="w-1/2">
+                                {/* Full Name */}
+                                <div className="mb-8 w-2/3">
+                                <p className="text-xl">Name</p>
+                                    <TextInput
+                                        type="text"
+                                        value={fullName}
+                                        required
+                                        onChange = {(e) => setFullName(e.target.value)}
+                                        {...(error && !fullName.trim() && { color: 'failure' })}
+                                        {...(error && !fullName.trim() && { helperText: <>
+                                            Required field!
+                                        </> })}
+                                    />
+                                </div>
+                                {/* Email */}
+                                <div className="mb-8 w-2/3">
+                                <p className="text-xl">Email</p>
+                                    <TextInput 
+                                        type="text" 
+                                        value={email}
+                                        required
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        {...(error && !email.trim() && { color: 'failure' })}
+                                        {...(error && !email.trim() && { helperText: <>
+                                            Required field!
+                                        </> })}
+                                    />
+                                </div>
+                                {/* Phone */}
+                                <div className="mb-8 w-2/3">
+                                <p className="text-xl">Phone</p>
+                                    <TextInput
+                                        type="text"
+                                        value={phoneNo}
+                                        required
+                                        onChange={(e) => setPhoneNo(e.target.value)}
+                                        {...(error && !phoneNo.trim() && { color: 'failure' })}
+                                        {...(error && !phoneNo.trim() && { helperText: <>
+                                            Required field!
+                                        </> })}
+                                    />
+                                </div>
+                                {/* Experience */}
+                                <div className="mb-8 w-2/3">
+                                <p className="text-xl">Experience</p>
+                                    <TextInput
+                                        // style={{color: status === 'Active' ? 'green' : 'red'}}
+                                        type="text"
+                                        value={experience}
+                                        onChange={(e) => setExperience(e.target.value)}
+                                    />
+                                </div>
+                                {/* License */}
+                                <div className="mb-8 w-2/3">
+                                <p className="text-xl">License</p>
+                                    <TextInput
+                                        type="text"
+                                        value={license}
+                                        onChange={(e) => setLicense(e.target.value)}
+                                    />
+                                </div>
+                                {/* Languages */}
+                                <div className="mb-8 w-2/3">
+                                <p className="text-xl">Languages</p>
+                                    <TextInput
+                                        type="text"
+                                        value={language}
+                                        onChange={(e) => setLanguage(e.target.value)}
+                                    />
+                                </div>
+                                {/* Error Message */}
+                                <div>
+                                    {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
+                                </div>
+                                {/* Succsful Message */}
+                                <div id="successPrompt" className="text-green-500 pt-10">
+                                    {error === '' && message}
+                                </div>
                             </div>
                         </div>
+                        {/* Button */}
+                        <div className="flex w-full">
+                            <div className="w-40 mx-auto pt-5">
+                                <Link to="/SAUpdateUA">
+                                    <Button color="bg-brown text-md" text="Save Changes" onClick={updateUserCredentials}/>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+
+                <div className='p-10'></div>
     
-                        {/* Right side */}
-                        <div className="w-1/2">
-                            {/* Full Name */}
-                            <div className="mb-8 w-2/3">
-                            <p className="text-xl">Name</p>
-                                <TextInput
-                                    type="text"
-                                    value={fullName}
-                                    required
-                                    onChange = {(e) => setFullName(e.target.value)}
-                                    {...(error && !fullName.trim() && { color: 'failure' })}
-                                    {...(error && !fullName.trim() && { helperText: <>
-                                        Required field!
-                                      </> })}
-                                />
-                            </div>
-                            {/* Email */}
-                            <div className="mb-8 w-2/3">
-                            <p className="text-xl">Email</p>
-                                <TextInput 
-                                    type="text" 
-                                    value={email}
-                                    required
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    {...(error && !email.trim() && { color: 'failure' })}
-                                    {...(error && !email.trim() && { helperText: <>
-                                        Required field!
-                                      </> })}
-                                />
-                            </div>
-                            {/* Phone */}
-                            <div className="mb-8 w-2/3">
-                            <p className="text-xl">Phone</p>
-                                <TextInput
-                                    type="text"
-                                    value={phoneNo}
-                                    required
-                                    onChange={(e) => setPhoneNo(e.target.value)}
-                                    {...(error && !phoneNo.trim() && { color: 'failure' })}
-                                    {...(error && !phoneNo.trim() && { helperText: <>
-                                        Required field!
-                                      </> })}
-                                />
-                            </div>
-                            {/* Experience */}
-                            <div className="mb-8 w-2/3">
-                            <p className="text-xl">Experience</p>
-                                <TextInput
-                                    // style={{color: status === 'Active' ? 'green' : 'red'}}
-                                    type="text"
-                                    value={experience}
-                                    onChange={(e) => setExperience(e.target.value)}
-                                />
-                            </div>
-                            {/* License */}
-                            <div className="mb-8 w-2/3">
-                            <p className="text-xl">License</p>
-                                <TextInput
-                                    type="text"
-                                    value={license}
-                                    onChange={(e) => setLicense(e.target.value)}
-                                />
-                            </div>
-                            {/* Languages */}
-                            <div className="mb-8 w-2/3">
-                            <p className="text-xl">Languages</p>
-                                <TextInput
-                                    type="text"
-                                    value={language}
-                                    onChange={(e) => setLanguage(e.target.value)}
-                                />
-                            </div>
-                            {/* Error Message */}
-                            <div>
-                                {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
-                            </div>
-                            {/* Succsful Message */}
-                            <div id="successPrompt" className="text-green-500 pt-10">
-                                {error === '' && message}
-                            </div>
-                        </div>
-                    </div>
-                    {/* Button */}
-                    <div className="flex w-full">
-                        <div className="w-40 mx-auto pt-5">
-                            <Link to="/SAUpdateUA">
-                                <Button color="bg-brown text-md" text="Save Changes" onClick={updateUserCredentials}/>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
+            <Footer />
             </>
         )
     }

@@ -30,15 +30,17 @@ class UserProfiles(db.Model):
     def retrieveProfile(cls, profileName):
         profile = cls.query.filter_by(profile=profileName).first()
         if profile:
-            return jsonify({"profile": profile.profile,
+            profileAndDesc = jsonify({"profile": profile.profile,
                             "desc": profile.desc})
+            return profileAndDesc
     
     #retrieve profile desc
     @classmethod
     def retrieveProfileDesc(cls, profileName):
         profile = cls.query.filter_by(profile=profileName).first()
+        profileDesc = profile.desc
         if profile:
-            return jsonify({"description": profile.desc})
+            return jsonify({"description": profileDesc})
         else:
             return jsonify({"error": "Profile not found"})
 

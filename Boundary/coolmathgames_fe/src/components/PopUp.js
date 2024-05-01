@@ -9,7 +9,7 @@ function PopUp({header, description, openModal, onClose, token}) {
   const navigate = useNavigate();
   const [suspendPopUp, setSuspendPopUp] = useState(false);
   
-  const handleSuspend = () => {
+  function clickSuspend(){
     setSuspendPopUp(true);
   }
 
@@ -42,7 +42,7 @@ function PopUp({header, description, openModal, onClose, token}) {
           <Button
               color="bg-red-700"
               text="Suspend"
-              onClick={handleSuspend} />
+              onClick={clickSuspend} />
         </div>
         {suspendPopUp && (
             <SuspendPopUp
