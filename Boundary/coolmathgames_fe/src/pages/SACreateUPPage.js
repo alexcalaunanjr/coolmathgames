@@ -115,15 +115,15 @@ function SACreateUPPage(props) {
                     </div>
                     {/* Error Message */}
                     <div className="flex justify-center">
-                        {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
+                        {error && <div id="failedPrompt" className="text-red-500">{error}</div>}
                     </div>
                     {/* Succesful Message */}
                     <div className="flex justify-center">
-                        <div id="successPrompt" className="text-green-500 pt-10">
+                        <div id="successPrompt" className="text-green-500">
                             {error === '' && message}
                         </div>
                     </div>
-                    <div className="px-10 w-full mx-auto sm:w-1/2 md:w-1/2 lg:w-1/3">
+                    <div className="w-40 mx-auto pt-5">
                         <Button
                             color="bg-blue-500"
                             text="Create"

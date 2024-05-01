@@ -18,7 +18,7 @@ function PopUp({header, description, openModal, onClose, token}) {
   }
 
   const handleUpdate = () => {
-    navigate("/updateProfile");
+    navigate("/SAUpdateProfile");
   }
 
   return (
