@@ -29,7 +29,7 @@ class UserAccount(db.Model):
     def retrieveUserAccount(self, username:str):
         user = UserAccount.query.filter_by(username=username).first()
         if user:
-            return jsonify({
+            account = jsonify({
                 'profile': user.profile,
                 'fullName': user.fullName,
                 'username': user.username,
@@ -37,6 +37,8 @@ class UserAccount(db.Model):
                 'phoneNo': user.phoneNo,
                 'status': user.status
             })
+
+            return account
         else:
             return jsonify({'message': 'User not found'}), 404
     
