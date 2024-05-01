@@ -92,7 +92,7 @@ class Test_3:
         selectProfile = Select(newProfile)
         selectProfile.select_by_value(type)
 
-        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[2]/div[3]/div[3]/a[1]/button[1]").click()
+        self.driver.find_element("xpath","//button[contains(text(),'Create')]").click()
 
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.text_to_be_present_in_element(("id","successPrompt"), expectedPrompt))
@@ -149,7 +149,7 @@ class Test_3:
         selectProfile = Select(newProfile)
         selectProfile.select_by_value(type)
 
-        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[2]/div[3]/div[3]/a[1]/button[1]").click()
+        self.driver.find_element("xpath","//button[contains(text(),'Create')]").click()
 
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.text_to_be_present_in_element(("id","failedPrompt"), expectedPrompt))
@@ -187,7 +187,7 @@ class Test_3:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.title_is(expectedTitle2))
 
-        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[2]/div[3]/div[3]/a[1]/button[1]").click()
+        self.driver.find_element("xpath","//button[contains(text(),'Create')]").click()
 
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.text_to_be_present_in_element(("id","failedPrompt"), expectedPrompt))

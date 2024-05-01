@@ -61,7 +61,7 @@ class Test_9:
         expectedTitle2 = "SA User Profile"
         expectedTitle3 = "SA Create Profile Page"
 
-        expectedPrompt = "Account created successfully!"
+        expectedPrompt = "Profile created successfully!"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)

@@ -19,8 +19,8 @@ class Test_40:
 
     def test_loginCorrect(self):
         profile = "Buyer"
-        username = "edrick"
-        password = "edrick"
+        username = "syella"
+        password = "syella"
         expectedTitle = "Buyer Home Page"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
