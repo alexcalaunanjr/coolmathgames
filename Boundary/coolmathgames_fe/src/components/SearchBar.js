@@ -10,7 +10,7 @@ function SearchBar() {
                     </svg>
                 </div>
                 <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-yellow-800 focus:border-yellow-800" placeholder="Search for Properties..." required />
-                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-brown hover:bg-yellow-900 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2">Search</button>
             </div>
         </form>
     )

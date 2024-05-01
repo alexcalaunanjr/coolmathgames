@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from 'flowbite-react';
 
-function CustomTable({ headers, rows, onCellClick }) {
+function CustomTable({ headers, rows, onCellClick, statusColor}) {
   return (
     <div className="w-full overflow-x-auto">
       <Table hoverable>
@@ -16,7 +16,8 @@ function CustomTable({ headers, rows, onCellClick }) {
               {row.map((cell, cellIndex) => (
                 <Table.Cell
                   key={cellIndex}
-                  className={`whitespace-nowrap font-medium ${cellIndex === 0 ? 'text-gray-900 dark:text-white' : ''}`}
+                  className={`whitespace-nowrap font-medium ${cellIndex === 0 ? 'text-gray-900 dark:text-white' : ''}
+                  ${cellIndex === 4 ? statusColor(cell) : ''}`}
                   onClick={() => onCellClick && onCellClick(rowIndex, cellIndex)}
                 >
                   {cell}

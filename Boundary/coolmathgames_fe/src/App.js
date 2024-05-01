@@ -43,20 +43,20 @@ function App() {
                   <Route path='/login' element={<LoginPage token={token} setToken={setToken}/>}></Route>
               {userRole === 'System Admin' && (
                 <>
-                  <Route path='/SACreateAcc' element={<SACreateAcc token={token}/>}></Route>
+                  <Route path='/SACreateAccount' element={<SACreateAcc token={token}/>}></Route>
                   <Route path='/SAHomePage' element={<SARetrieveUAPage token={token}/>}></Route>
-                  <Route path='/UserProfile' element={<SAUserProfile token={token}/>}></Route>
+                  <Route path='/SAUserProfile' element={<SAUserProfile token={token}/>}></Route>
                   <Route path='/SACreateProfile' element={<SACreateProfile token={token}/>}></Route>
                   <Route path='/SAViewAccount' element={<SAViewUAPage token={token}/>}></Route>
-                  <Route path='/UpdateAccount' element={<SAUpdateUAPage token={token}/>}></Route>
-                  <Route path='/UpdateProfile' element={<SAUpdateUPPage token={token}/>}></Route>
+                  <Route path='/SAUpdateAccount' element={<SAUpdateUAPage token={token}/>}></Route>
+                  <Route path='/SAUpdateProfile' element={<SAUpdateUPPage token={token}/>}></Route>
                 </>
               )}
               {userRole === 'Real Estate Agent' && (
                 <>
                   <Route path='/REAHomePage' element={<REAHomePage token={token}/>}></Route>
-                  <Route path='/REAViewCredentialsPage' element={<REAViewCredentialsPage token={token}/>}></Route>
-                  <Route path='/REAUpdateCredentialsPage' element={<REAUpdateCredentials token={token}/>}></Route>
+                  <Route path='/REAViewCredentials' element={<REAViewCredentialsPage token={token}/>}></Route>
+                  <Route path='/REAUpdateCredentials' element={<REAUpdateCredentials token={token}/>}></Route>
                 </>
               )}
               {userRole === 'Buyer' && (
