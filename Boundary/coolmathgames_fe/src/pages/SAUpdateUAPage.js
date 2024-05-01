@@ -47,11 +47,12 @@ function SAUpdateUAPage(props) {
                         setPhoneNumber(userData.account.phoneNo);
                         setUsername(userData.account.username);
                         setEmail(userData.account.email);
-                        setStatus(userData.account.status.toUpperCase());
+                        setStatus(userData.account.status);
                         setSelectedUserType(userData.account.profile);
                         // setImage(Agent1);
 
-                        setOptions(userData.user_profiles);
+                        const activeProfiles = response.data.user_profiles.filter(item => item.status === 'active');
+                        setOptions(Object.values(activeProfiles.map(item => (item.profile))));
                     }
                     else {
                         setError('Profile not found!');
@@ -110,10 +111,10 @@ function SAUpdateUAPage(props) {
                 console.log(response)
                 if (response.data.accountUpdated) {
                     setError('');
-                    setMessage('Account updated successfully!');
+                    setMessage('Account created successfully!');
                 }
                 else {
-                    setError('Account not updated!');
+                    setError('Account not created!');
                     setMessage('');
                 }
             })
@@ -123,7 +124,7 @@ function SAUpdateUAPage(props) {
                 setError("User account already exists")
             });
         } catch (error) {
-            setError('An error occurred during account updation.');
+            setError('An error occurred during account creation.');
         }
     };
 
@@ -209,7 +210,7 @@ function SAUpdateUAPage(props) {
                         <div className="mb-8 w-2/3">
                             Status
                             <TextInput
-                                style={{color: status.toLowerCase() === 'active' ? '#22C55E' : '#EF4444'}}
+                                style={{color: status === 'active' ? 'green' : 'red'}}
                                 type="text"
                                 value={status}
                                 readOnly
@@ -227,25 +228,25 @@ function SAUpdateUAPage(props) {
                         {/* Upload Image  */}
                         <div className="mb-4 w-full">
                             Upload Image
-                            <div className="flex w-2/3 items-center justify-center">
-                                <UploadFile image={image} setPicture={setImage} />
+                            <div className="flex w-1/3 items-center justify-center">
+                                <UploadFile />
+                            </div>
+                            {/* Error Message */}
+                            <div>
+                                {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
+                            </div>
+                            {/* Succsful Message */}
+                            <div id="successPrompt" className="text-green-500 pt-10">
+                                {error === '' && message}
                             </div>
                         </div>
                     </div>
-                </div>
-                {/* Error Message */}
-                <div>
-                    {error && <div id="failedPrompt" className="text-red-500 text-center">{error}</div>}
-                </div>
-                {/* Succsful Message */}
-                <div id="successPrompt" className="text-green-500 text-center">
-                    {error === '' && message}
                 </div>
                 {/* Button */}
                 <div className="flex w-full">
                     <div className="w-40 mx-auto pt-5">
                         <Link to="/SAUpdateUA">
-                            <Button color="bg-blue-500 text-md" text="Save Changes" onClick={handleUpdate}/>
+                            <Button color="bg-brown text-md" text="Save Changes" onClick={handleUpdate}/>
                         </Link>
                     </div>
                 </div>

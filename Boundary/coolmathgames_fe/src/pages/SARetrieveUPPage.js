@@ -27,8 +27,7 @@ function SARetrieveUPPage(props) {
         })
         .then(response => {
             setPToken(props.token)
-            const profileDict = response.data.profileNames
-            
+            const profileDict = response.data
             const profilesData = profileDict.map(profile => ({
                 profile: profile.profile,
                 status: profile.status
@@ -52,7 +51,7 @@ function SARetrieveUPPage(props) {
                 }
             })
             .then((response) => {
-                const data = response.data.description
+                const data = response.data.desc
                 setclickedProfileDesc(data)
             })
             .catch((error) => {
@@ -95,8 +94,8 @@ function SARetrieveUPPage(props) {
                             <UserSearchBar placeholder="Search by profile" onSubmit={handleSearch}/>
                         </div>
                         <Link to="/SACreateProfile">
-                            <div className="lg:w-full  md:w-40 w-20 mx-auto">
-                                <Button color="bg-blue-500" text="Add User Profile" icon={<HiPlusSm />}/>
+                            <div className="w-60 mx-auto">
+                                <Button color="bg-brown" text="Add User Profile" icon={<HiPlusSm />}/>
                             </div>
                         </Link>
                     </div>

@@ -19,7 +19,8 @@ function LoginUI(props) {
         document.title = 'Login Page';
         axios.get('http://127.0.0.1:5000/login')
             .then(response => {
-                setOptions(response.data.user_profiles);
+                const activeProfiles = response.data.filter(item => item.status === 'active');
+                setOptions(Object.values(activeProfiles.map(item => (item.profile))));
             })
             .catch(error => {
                 console.error('Error fetching user profiles:', error);

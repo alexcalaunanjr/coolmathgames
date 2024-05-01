@@ -1,6 +1,5 @@
 from .sqlAlchemy import db
 from flask import jsonify
-from app.entity.account import UserAccount
 
 #User table
 class REACredentials(db.Model):
@@ -27,13 +26,8 @@ class REACredentials(db.Model):
     @classmethod
     def retrieveUserCredentials(self, username:str):
         rea = REACredentials.query.filter_by(username=username).first()
-        user = UserAccount.query.filter_by(username=username).first()
-        if rea and user:
+        if rea:
             return jsonify({
-                'fullName': user.fullName,
-                'username': user.username,
-                'email': user.email,
-                'phoneNo': user.phoneNo,
                 'experience': rea.experience,
                 'license' : rea.license,
                 'language' : rea.language,
@@ -41,46 +35,18 @@ class REACredentials(db.Model):
                 'about' : rea.about,
                 'award' : rea.award
             })
-        if user:
-            return jsonify({
-                'fullName': user.fullName,
-                'username': user.username,
-                'email': user.email,
-                'phoneNo': user.phoneNo,
-                'experience':'',
-                'license':'',
-                'language':'',
-                'special':'',
-                'about':'',
-                'award':'',
-            })
         return jsonify({'message': 'User not found'}), 404
     
     #update account
     @classmethod
     def updateUserCredentials(cls, accUsername, updatedData):
-        account = UserAccount.query.filter_by(username=accUsername).first()
         credentials = cls.query.filter_by(username=accUsername).first()
-        if not account:
-            return jsonify({'message': 'Account not found'}), 404
         if not credentials:
-            if 'fullName' in updatedData:
-                account.fullName = updatedData['fullName']
-            if 'email' in updatedData:
-                account.email = updatedData['email']
-            if 'phoneNo' in updatedData:
-                account.phoneNo = updatedData['phoneNo']
             # Create account fields
             cls.createCreds(accUsername, updatedData['experience'], updatedData['license'], updatedData['language'], updatedData['special'], updatedData['about'], updatedData['award'])
             return jsonify({'reaCredentialsUpdated': True})
         
         # Update account fields
-        if 'fullName' in updatedData:
-            account.fullName = updatedData['fullName']
-        if 'email' in updatedData:
-            account.email = updatedData['email']
-        if 'phoneNo' in updatedData:
-            account.phoneNo = updatedData['phoneNo']
         if 'experience' in updatedData:
             credentials.experience = updatedData['experience']
         if 'license' in updatedData:

@@ -24,14 +24,17 @@ function SACreateUAPage(props) {
     const [options, setOptions] = useState([]);
 
     const [selectedUserType, setSelectedUserType] = useState('');
-    // To store the image
-    const [image, setImage] = useState('');
 
     useEffect(() => {
         document.title = 'SA Create Account Page';
-        axios.get('http://127.0.0.1:5000/login')
+        axios.get('http://127.0.0.1:5000/createUserAccount', {
+            headers: {
+            'Authorization': 'Bearer ' + props.token,
+            'Content-Type': 'application/json'
+        }})
             .then(response => {
-                setOptions(response.data.user_profiles);
+                const activeProfiles = response.data.filter(item => item.status === 'active');
+                setOptions(Object.values(activeProfiles.map(item => (item.profile))));
             })
             .catch(error => {
                 console.error('Error fetching user profiles:', error);
@@ -125,7 +128,7 @@ function SACreateUAPage(props) {
             <>
         {/* buyer header component */}
         <UserContextProvider><SAHeader /></UserContextProvider> 
-        <div className="flex flex-col">
+        <div className="flex flex-col h-screen">
             <div className="flex w-full text-2xl font-bold p-10">
                 <h1>User Account Details</h1>
             </div>
@@ -205,25 +208,24 @@ function SACreateUAPage(props) {
                     <div className="mb-4 w-full">
                         Upload Image
                         <div className="flex w-2/3 items-center justify-center">
-                            <UploadFile setPicture={setImage} />
+                            <UploadFile />
                         </div>
-                        
+                        {/* Error Message */}
+                        <div>
+                            {error && <div id="failedPrompt" className="text-red-500 pt-10">{error}</div>}
+                        </div>
                     </div>
                 </div>
             </div>
-            {/* Error Message */}
-            <div>
-                {error && <div id="failedPrompt" className="text-red-500 text-center">{error}</div>}
+            {/* Button */}
+            <div className="w-full flex pt-3 justify-center">
+                <Link to="/SAHomePage">
+                    <button className="bg-brown text-md text-white p-3 lg:px-20 md:px-15 px-10 rounded-md shadow-lg" onClick={handleSubmit}> Create </button>
+                </Link>
             </div>
             {/* Succsful Message */}
-            <div id="successPrompt" className="text-green-500 text-center">
+            <div id="successPrompt" className="text-green-500 pt-10">
                 {error === '' && message}
-            </div>
-            {/* Button */}
-            <div className="w-full flex pt-10 justify-center">
-                <Link to="/SAHomePage">
-                    <button className="bg-blue-500 text-md text-white p-3 w-full flex items-center justify-center lg:px-16 md:px-15 px-10 rounded-md shadow-lg" onClick={handleSubmit}> Create </button>
-                </Link>
             </div>
         </div>
         </>
