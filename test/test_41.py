@@ -15,8 +15,8 @@ class Test_41:
 
     def test_logout(self):
         profile = "Buyer"
-        username = "edrick"
-        password = "edrick"
+        username = "syella"
+        password = "syella"
         expectedCondition = "Buyer Home Page"
         expectedTitle = "Login Page"
 
@@ -49,8 +49,8 @@ class Test_41:
     
     def test_logoutCancel(self):
         profile = "Buyer"
-        username = "edrick"
-        password = "edrick"
+        username = "syella"
+        password = "syella"
         expectedCondition = "Buyer Home Page"
         expectedTitle = "Buyer Home Page"
 
