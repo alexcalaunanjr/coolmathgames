@@ -14,7 +14,7 @@ class LoginController(Blueprint):
         profile = profile
 
         if username and password and profile:
-            if UserAccount.verifyLoginInfo(profile, username, password):
+            if UserAccount.verifyLoginInfo(profile, username, password) and UserAccount.checkSuspended(username):
                 access_token = create_access_token(identity=username)
                 return access_token
     
@@ -23,9 +23,9 @@ class LoginController(Blueprint):
 
     def retrieveProfileList(self):
             #take choices from the database
-            user_profiles = UserProfiles.retrieveActiveProfileList()
+            user_profiles = UserProfiles.retrieveProfileList()
 
-            return jsonify({'user_profiles': user_profiles})
+            return user_profiles
     
     def checkSuspended(self, username):
         return UserAccount.checkSuspended(username)

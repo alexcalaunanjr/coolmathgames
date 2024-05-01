@@ -7,12 +7,13 @@ class UpdateUserAccountController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
+    def retrieveProfileList(self):
+        user_profiles = UserProfiles.retrieveProfileList()
+        return user_profiles
+
     def retrieveUserAccount(self, username):
         account = UserAccount.retrieveUserAccount(username)
-        user_profiles = UserProfiles.retrieveActiveProfileList()
-
-        return jsonify({'account': account.get_json(),
-                        'user_profiles': user_profiles})
+        return account
     
     #update account
     def updateAccount(self, oldUsername:str, name:str, newUsername:str, email:str, password:str, phone:str, profile:str):
@@ -46,4 +47,7 @@ class BaseUpdateUserAccountController(UpdateUserAccountController):
             updateAcc = self.updateAccount(oldUsername, fullName, newUsername, email, password, phone, profile)
             return updateAcc
         if request.method == 'GET':
-            return self.retrieveUserAccount(oldUsername)
+            account =  self.retrieveUserAccount(oldUsername)
+            user_profiles = self.retrieveProfileList()
+            return jsonify({'account': account.get_json(),
+                        'user_profiles': user_profiles})

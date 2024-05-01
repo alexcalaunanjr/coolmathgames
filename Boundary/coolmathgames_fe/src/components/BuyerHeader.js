@@ -10,20 +10,8 @@ import useModalContext from '../hooks/UseModalContext';
 
 function BuyerHeader() {
     const { openModal, setOpenModal } = useModalContext();
-    const [email, setEmail] = useState(null);
     const username = localStorage.getItem('username');
 
-    useEffect(() => {
-        // Get the username and email from local storage
-        axios.get(`http://127.0.0.1:5000/userAccount/${username}`)
-          .then(response => {
-              const email = response.data.email;
-              setEmail(email)
-          })
-          .catch(error => {
-              console.error("Error fetching email:", error);
-          });
-      }, []);
     return (
         <>
         {/* Log Out popup confirmation */}
@@ -53,7 +41,6 @@ function BuyerHeader() {
                 >
                     <Dropdown.Header>
                         <span className="block text-sm">{username}</span>
-                        <span className="block truncate text-sm font-medium">{email}</span>
                     </Dropdown.Header>
 
                     {/* Log Out dropdown */}

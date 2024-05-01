@@ -101,7 +101,7 @@ function SARetrieveUAPage(props) {
                         <div className="w-1/4 mx-auto">
                             <UserSearchBar placeholder="Search by username" onSubmit={handleSearch}/>
                         </div>
-                        <Link to="/SACreateAcc">
+                        <Link to="/SACreateAccount">
                             <div className="lg:w-full  md:w-40 w-20 mx-auto">
                                 <Button color="bg-blue-500" text="Add User Account" icon={<HiPlusSm />}/>
                             </div>

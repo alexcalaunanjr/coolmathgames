@@ -1,5 +1,6 @@
 from app.entity.reaCredentials import REACredentials
-from flask import Blueprint,request
+from flask import Blueprint,request,jsonify
+from app.entity.account import UserAccount
 from flask_jwt_extended import jwt_required
 
 # bcrypt = Bcrypt()
@@ -8,17 +9,18 @@ class UpdateREAcredentialController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+    def retrieveUserAccount(self, username:str):
+        account = UserAccount.retrieveUserAccount(username)
+        return account
+    
     def retrieveUserCredentials(self, username:str):
         cred = REACredentials.retrieveUserCredentials(username)
         return cred
     
     #update account
-    def updateUserCredentials(self, username:str, fullName:str, email:str, phoneNo:str, experience:str, license:str, language:str, special:str, about:str, award:str):
-        if fullName and email and phoneNo and experience and license and language and special and about and award:
+    def updateUserCredentials(self, username:str, experience:str, license:str, language:str, special:str, about:str, award:str):
+        if experience and license and language and special and about and award:
             updatedData = {
-                'fullName': fullName,
-                'email': email,
-                'phoneNo': phoneNo,
                 'experience': experience,
                 'license': license,
                 'language': language,
@@ -27,6 +29,16 @@ class UpdateREAcredentialController(Blueprint):
                 'award': award,
             }
         updateAcc = REACredentials.updateUserCredentials(username, updatedData)
+        return updateAcc
+    
+    def updateAccount(self, username:str, name:str, email:str, phone:str):
+        if name and email and phone:
+            updatedData = {
+                'fullName': name,
+                'email': email,
+                'phoneNo': phone,
+            }
+        updateAcc = UserAccount.updateAccount(username, updatedData)
         return updateAcc
 
 class BaseUpdateREAcredentialController(UpdateREAcredentialController):
@@ -48,8 +60,12 @@ class BaseUpdateREAcredentialController(UpdateREAcredentialController):
             about = data.get("about")
             award = data.get("award")
 
-            updateAcc = self.updateUserCredentials(username, fullName, email, phoneNo, experience, license, language, special, about, award)
-            return updateAcc
+            updateCred = self.updateUserCredentials(username, experience, license, language, special, about, award)
+            updateAcc = self.updateAccount(username, fullName, email, phoneNo)
+            update = updateCred and updateAcc
+            return update
         if request.method == 'GET':
+            retrieveAccount = self.retrieveUserAccount(username)
             retrieveCred = self.retrieveUserCredentials(username)
-            return retrieveCred
+            return jsonify({'account': retrieveAccount.get_json(),
+                        'cred': retrieveCred.get_json()})

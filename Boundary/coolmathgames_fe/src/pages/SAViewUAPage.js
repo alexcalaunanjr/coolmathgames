@@ -30,7 +30,7 @@ function SAViewUAPage(props, {openModal, onClose}) {
     const navigate = useNavigate();
 
     const handleNavigate = () => {
-        navigate('/updateAccount');
+        navigate('/SAUpdateAccount');
     };
 
     useEffect(() => {

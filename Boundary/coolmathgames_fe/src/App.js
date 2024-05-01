@@ -14,7 +14,7 @@ import BuyerHomePage from './pages/BuyerHomePage'
 import SellerHomePage from './pages/SellerHomePage'
 // REA Pages
 import REAHomePage from './pages/REAHomePage'
-import REAViewCredentialsPage from './pages/REAViewCredentialsPage'
+import REAViewCredentials from './pages/REAViewCredentialsPage'
 import REAUpdateCredentials from './pages/REAUpdateCredentialsPage'
 // General Pages/Components
 import LoginPage from './pages/LoginPage'
@@ -55,7 +55,7 @@ function App() {
               {userRole === 'Real Estate Agent' && (
                 <>
                   <Route path='/REAHomePage' element={<REAHomePage token={token}/>}></Route>
-                  <Route path='/REAViewCredentials' element={<REAViewCredentialsPage token={token}/>}></Route>
+                  <Route path='/REAViewCredentials' element={<REAViewCredentials token={token}/>}></Route>
                   <Route path='/REAUpdateCredentials' element={<REAUpdateCredentials token={token}/>}></Route>
                 </>
               )}

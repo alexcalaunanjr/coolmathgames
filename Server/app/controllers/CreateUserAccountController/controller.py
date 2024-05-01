@@ -30,9 +30,7 @@ class CreateUserAccountController(Blueprint):
         if request.method == 'GET':
             #take choices from the database
             user_profiles = UserProfiles.retrieveProfileList()
-            # Add System Admin (REMOVE THIS LATER)
-            user_profiles.insert(0, 'System Admin')
-            return jsonify({'user_profiles': user_profiles})   
+            return user_profiles
     
     def retrieveEmail(self, username):
         if username:
@@ -59,8 +57,3 @@ class BaseCreateUserAccountController(CreateUserAccountController):
         if request.method == 'GET':
             profileList = self.retrieveProfileList()
             return profileList
-
-    def retrieveAccount(self, username):
-        if request.method == 'GET':
-            retrieveEmail = self.retrieveEmail(username)
-            return retrieveEmail

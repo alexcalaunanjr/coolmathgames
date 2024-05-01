@@ -6,8 +6,8 @@ class ViewUserProfileController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def retrieveProfileDesc(self, profileName):
-        profileDesc = UserProfiles.retrieveProfileDesc(profileName)
+    def retrieveProfile(self, profileName):
+        profileDesc = UserProfiles.retrieveProfile(profileName)
         return profileDesc
 
 class BaseViewUserProfileController(ViewUserProfileController):
@@ -19,5 +19,5 @@ class BaseViewUserProfileController(ViewUserProfileController):
         if request.method == 'POST':
             data = request.get_json() #get json file
             profileName = data.get("profileName")
-            profileDesc = self.retrieveProfileDesc(profileName)
+            profileDesc = self.retrieveProfile(profileName)
             return profileDesc

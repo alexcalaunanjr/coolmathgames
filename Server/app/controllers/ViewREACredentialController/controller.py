@@ -1,11 +1,16 @@
 from app.entity.reaCredentials import REACredentials
-from flask import Blueprint, request
+from app.entity.account import UserAccount
+from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
 
 
 class ViewREAcredentialController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+    
+    def retrieveUserAccount(self, username:str):
+        account = UserAccount.retrieveUserAccount(username)
+        return account
 
     def retrieveUserCredentials(self, username:str):
         cred = REACredentials.retrieveUserCredentials(username)
@@ -17,6 +22,8 @@ class BaseViewREAcredentialController(ViewREAcredentialController):
 
     @jwt_required()
     def viewREACredentials(self, username):
-        if request.method == 'POST':
+        if request.method == 'GET':
+            retrieveAccount = self.retrieveUserAccount(username)
             retrieveCred = self.retrieveUserCredentials(username)
-            return retrieveCred
+            return jsonify({'account': retrieveAccount.get_json(),
+                        'cred': retrieveCred.get_json()})

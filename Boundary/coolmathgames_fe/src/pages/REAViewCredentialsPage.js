@@ -29,15 +29,13 @@ function REAViewCredentialsPage(props) {
     const navigate = useNavigate();
 
     const handleUpdateClick = () => {
-        navigate(`/REAUpdateCredentialsPage`);
+        navigate(`/REAUpdateCredentials`);
     }
 
     useEffect(() => {
         document.title = 'REA Update Profile Page';
         
-        axios.post(`http://127.0.0.1:5000/viewREACredential/${username}`, {
-            "username": username,
-        }, {
+        axios.get(`http://127.0.0.1:5000/viewREACredential/${username}`, {
         headers: {
             'Authorization': 'Bearer ' + props.token,
             'Content-Type': 'application/json'
@@ -46,15 +44,15 @@ function REAViewCredentialsPage(props) {
         .then(response => {
             if (response) {
                 // setPicture(Agent1)
-                setFullName(response.data.fullName)
-                setEmail(response.data.email)
-                setPhoneNo(response.data.phoneNo)
-                setExperience(response.data.experience)
-                setLicense(response.data.license)
-                setLanguage(response.data.language)
-                setSpecial(response.data.special)
-                setAbout(response.data.about)
-                setAwards(response.data.award)
+                setFullName(response.data.account.fullName)
+                setEmail(response.data.account.email)
+                setPhoneNo(response.data.account.phoneNo)
+                setExperience(response.data.cred.experience)
+                setLicense(response.data.cred.license)
+                setLanguage(response.data.cred.language)
+                setSpecial(response.data.cred.special)
+                setAbout(response.data.cred.about)
+                setAwards(response.data.cred.award)
             }
             else {
             }

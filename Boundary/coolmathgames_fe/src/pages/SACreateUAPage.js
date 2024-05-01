@@ -10,6 +10,7 @@ import axios from 'axios';
 
 function SACreateUAPage(props) {
     const token = localStorage.getItem('token');
+    const [image, setImage] = useState('');
     console.log('Current Token:', token);
     const [fullName, setFullName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -24,14 +25,17 @@ function SACreateUAPage(props) {
     const [options, setOptions] = useState([]);
 
     const [selectedUserType, setSelectedUserType] = useState('');
-    // To store the image
-    const [image, setImage] = useState('');
 
     useEffect(() => {
         document.title = 'SA Create Account Page';
-        axios.get('http://127.0.0.1:5000/login')
+        axios.get('http://127.0.0.1:5000/createUserAccount', {
+            headers: {
+            'Authorization': 'Bearer ' + props.token,
+            'Content-Type': 'application/json'
+        }})
             .then(response => {
-                setOptions(response.data.user_profiles);
+                const activeProfiles = response.data.filter(item => item.status === 'active');
+                setOptions(Object.values(activeProfiles.map(item => (item.profile))));
             })
             .catch(error => {
                 console.error('Error fetching user profiles:', error);
@@ -207,7 +211,6 @@ function SACreateUAPage(props) {
                         <div className="flex w-2/3 items-center justify-center">
                             <UploadFile setPicture={setImage} />
                         </div>
-                        
                     </div>
                 </div>
             </div>

@@ -47,11 +47,12 @@ function SAUpdateUAPage(props) {
                         setPhoneNumber(userData.account.phoneNo);
                         setUsername(userData.account.username);
                         setEmail(userData.account.email);
-                        setStatus(userData.account.status.toUpperCase());
+                        setStatus(userData.account.status).toUpperCase();
                         setSelectedUserType(userData.account.profile);
                         // setImage(Agent1);
 
-                        setOptions(userData.user_profiles);
+                        const activeProfiles = response.data.user_profiles.filter(item => item.status === 'active');
+                        setOptions(Object.values(activeProfiles.map(item => (item.profile))));
                     }
                     else {
                         setError('Profile not found!');
@@ -123,7 +124,7 @@ function SAUpdateUAPage(props) {
                 setError("User account already exists")
             });
         } catch (error) {
-            setError('An error occurred during account updation.');
+            setError('An error occurred during account update.');
         }
     };
 
