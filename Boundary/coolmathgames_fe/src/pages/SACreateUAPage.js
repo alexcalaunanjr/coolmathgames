@@ -210,8 +210,7 @@ function SACreateUAPage(props) {
                         Upload Image
                         <div className="flex w-2/3 items-center justify-center">
                             <UploadFile setPicture={setImage} />
-                                                </div>
-
+                        </div>
                     </div>
                 </div>
             </div>

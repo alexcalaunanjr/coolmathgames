@@ -262,12 +262,12 @@ function REAUpdateCredentialsPage(props) {
                                 </div>
 
                             </div>
-                                </div>
-                                {/* Error Message */}
-                                <div>
-                                    {error && <div id="failedPrompt" className="text-red-500 text-center">{error}</div>}
-                                </div>
-                                {/* Succsful Message */}
+                        </div>
+                        {/* Error Message */}
+                        <div>
+                            {error && <div id="failedPrompt" className="text-red-500 text-center">{error}</div>}
+                        </div>
+                        {/* Succsful Message */}
                         <div id="successPrompt" className="text-green-500 text-center">
                                     {error === '' && message}
                         </div>
