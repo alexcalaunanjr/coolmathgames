@@ -131,7 +131,7 @@ function SAUpdateUPPage(props) {
                             {error === '' && message}
                         </div>
                     </div>
-                    <div className="px-10 w-full mx-auto sm:w-1/2 md:w-1/2 lg:w-1/3">
+                    <div className="w-40 mx-auto pt-5">
                         <Button
                             color="bg-blue-500"
                             text="Save Changes"

@@ -50,7 +50,7 @@ function SAViewUAPage(props, {openModal, onClose}) {
             setPhoneNumber(userData.phoneNo);
             setUsername(userData.username);
             setEmail(userData.email);
-            setStatus(userData.status);
+            setStatus(userData.status.toUpperCase());
             setSelectedUserType(userData.profile);
             // setImage(Agent1);
         })
@@ -67,12 +67,22 @@ function SAViewUAPage(props, {openModal, onClose}) {
     setSuspendPopUp(false);
     }
 
+    // Function to handle status color
+    const statusColor = (status) => {
+        if (status.toLowerCase() === "active") {
+            return "text-green-400";
+        }
+        else {
+            return "text-red-400";
+        }
+    }
+
     function displayUserAccountDetails(){
         return (
             <>
             {/* buyer header component */}
             <UserContextProvider><SAHeader /></UserContextProvider> 
-            <div className="flex flex-col h-screen">
+            <div className="flex flex-col">
                 <div className="flex w-full text-2xl font-bold p-10">
                     <h1>User Account Details</h1>
                 </div>
@@ -131,7 +141,7 @@ function SAViewUAPage(props, {openModal, onClose}) {
                         <div className="mb-8 w-2/3">
                             Status
                             <TextInput
-                                style={{color: status === 'active' ? 'green' : 'red'}}
+                                style={{color: status.toLowerCase() === 'active' ? '#22C55E' : '#EF4444'}}
                                 type="text"
                                 value={status}
                                 readOnly
@@ -160,9 +170,9 @@ function SAViewUAPage(props, {openModal, onClose}) {
                     </div>
                 </div>
                 {/* Button */}
-                <div className="flex justify-center space-x-4 pt-5">
+                <div className="flex justify-center space-x-4 pt-14">
                     <div className="w-40">
-                        <Button color="bg-brown text-md" text="Update" onClick={handleNavigate}/>
+                        <Button color="bg-blue-500 text-md" text="Update" onClick={handleNavigate}/>
                     </div>
                     <div className="w-40">
                         <Button color="bg-red-700 text-black text-md" text="Suspend" onClick={handleSuspend}/>

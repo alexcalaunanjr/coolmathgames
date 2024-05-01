@@ -95,8 +95,8 @@ function SARetrieveUPPage(props) {
                             <UserSearchBar placeholder="Search by profile" onSubmit={handleSearch}/>
                         </div>
                         <Link to="/SACreateProfile">
-                            <div className="w-60 mx-auto">
-                                <Button color="bg-brown" text="Add User Profile" icon={<HiPlusSm />}/>
+                            <div className="lg:w-full  md:w-40 w-20 mx-auto">
+                                <Button color="bg-blue-500" text="Add User Profile" icon={<HiPlusSm />}/>
                             </div>
                         </Link>
                     </div>
