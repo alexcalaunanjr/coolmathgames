@@ -269,11 +269,11 @@ function REAUpdateCredentialsPage(props) {
                         </div>
                         {/* Succsful Message */}
                         <div id="successPrompt" className="text-green-500 text-center">
-                                    {error === '' && message}
+                            {error === '' && message}
                         </div>
                         {/* Button */}
-                        <div className="flex w-full">
-                            <div className="w-40 mx-auto pt-14">
+                        <div className="flex w-full pt-10">
+                            <div className="w-40 mx-auto">
                                 <Link to="/SAUpdateUA">
                                     <Button color="bg-blue-500 text-md" text="Save Changes" onClick={updateUserCredentials}/>
                                 </Link>
