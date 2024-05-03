@@ -2,10 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { Modal } from "flowbite-react";
 import Button from "./Button";
-import SuspendPopUp from "./ProfileSuspendPopUp";
+import SASuspendUPUI from "./SASuspendUPUI";
 import { Link, useNavigate } from "react-router-dom";
 
-function PopUp({header, description, openModal, onClose, token}) {
+function SAViewUPUI({header, description, openModal, onClose, token}) {
   const navigate = useNavigate();
   const [suspendPopUp, setSuspendPopUp] = useState(false);
   
@@ -18,7 +18,7 @@ function PopUp({header, description, openModal, onClose, token}) {
   }
 
   const handleUpdate = () => {
-    navigate("/SAUpdateProfile");
+    navigate("/SAUpdateUPUI");
   }
 
   return (
@@ -41,7 +41,7 @@ function PopUp({header, description, openModal, onClose, token}) {
             <Button color="bg-red-700 text-black text-md" text="Suspend" onClick={handleSuspend}/>
           </div>
           {suspendPopUp && (
-              <SuspendPopUp
+              <SASuspendUPUI
                   openModal={suspendPopUp}
                   onClose={handleReopenPopUp}
                   text="Are you sure to suspend this user profile?"
@@ -54,4 +54,4 @@ function PopUp({header, description, openModal, onClose, token}) {
   )
 }
 
-export default PopUp;
+export default SAViewUPUI;

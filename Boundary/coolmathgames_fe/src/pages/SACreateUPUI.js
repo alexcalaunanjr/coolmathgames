@@ -6,7 +6,7 @@ import Button from "../components/Button";
 import SAHeader from "../components/SAHeader";
 import axios from 'axios';
 
-function SACreateUPPage(props) {
+function SACreateUPUI(props) {
     const [profileName, setProfileName] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
@@ -140,4 +140,4 @@ function SACreateUPPage(props) {
     )
 }
 
-export default SACreateUPPage;
+export default SACreateUPUI;

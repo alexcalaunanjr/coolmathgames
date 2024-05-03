@@ -15,7 +15,7 @@ import { UserContextProvider } from '../hooks/UseModalContext'
 // assets
 import Agent1 from '../assets/agent1.jpg'
 
-function REAUpdateCredentialsPage(props) {
+function REAUpdateCredentialsUI(props) {
     const username = localStorage.getItem('username');
 
     // states for the form fields
@@ -269,11 +269,11 @@ function REAUpdateCredentialsPage(props) {
                         </div>
                         {/* Succsful Message */}
                         <div id="successPrompt" className="text-green-500 text-center">
-                            {error === '' && message}
+                                    {error === '' && message}
                         </div>
                         {/* Button */}
-                        <div className="flex w-full pt-10">
-                            <div className="w-40 mx-auto">
+                        <div className="flex w-full">
+                            <div className="w-40 mx-auto pt-14">
                                 <Link to="/SAUpdateUA">
                                     <Button color="bg-blue-500 text-md" text="Save Changes" onClick={updateUserCredentials}/>
                                 </Link>
@@ -293,4 +293,4 @@ function REAUpdateCredentialsPage(props) {
     );
 }
 
-export default REAUpdateCredentialsPage;
+export default REAUpdateCredentialsUI;

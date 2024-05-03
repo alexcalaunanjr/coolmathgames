@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import Agent1 from '../assets/agent1.jpg'
 
-function REAViewCredentialsPage(props) {
+function REAViewCredentialsUI(props) {
     const username = localStorage.getItem('username');
 
     const [picture, setPicture] = useState(Agent1);
@@ -29,7 +29,7 @@ function REAViewCredentialsPage(props) {
     const navigate = useNavigate();
 
     const handleUpdateClick = () => {
-        navigate(`/REAUpdateCredentials`);
+        navigate(`/REAUpdateCredentialsUI`);
     }
 
     useEffect(() => {
@@ -256,4 +256,4 @@ function REAViewCredentialsPage(props) {
         displayUserCredentialsUI()
     );
 }
-export default REAViewCredentialsPage;
+export default REAViewCredentialsUI;

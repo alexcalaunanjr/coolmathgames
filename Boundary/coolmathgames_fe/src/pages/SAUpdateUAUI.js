@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import Agent1 from '../assets/agent1.jpg'
 
-function SAUpdateUAPage(props) {
+function SAUpdateUAUI(props) {
     const user = localStorage.getItem('clickedUser')
 
     const token = localStorage.getItem('token');
@@ -47,7 +47,7 @@ function SAUpdateUAPage(props) {
                         setPhoneNumber(userData.account.phoneNo);
                         setUsername(userData.account.username);
                         setEmail(userData.account.email);
-                        setStatus(userData.account.status.toUpperCase());
+                        setStatus(userData.account.status).toUpperCase();
                         setSelectedUserType(userData.account.profile);
                         // setImage(Agent1);
 
@@ -141,7 +141,7 @@ function SAUpdateUAPage(props) {
             <>
             {/* buyer header component */}
             <UserContextProvider><SAHeader /></UserContextProvider> 
-            <div className="flex flex-col">
+            <div className="flex flex-col h-screen">
                 <div className="flex w-full text-2xl font-bold p-10">
                     <h1>User Account Details</h1>
                 </div>
@@ -260,4 +260,4 @@ function SAUpdateUAPage(props) {
     )
 }
 
-export default SAUpdateUAPage;
+export default SAUpdateUAUI;

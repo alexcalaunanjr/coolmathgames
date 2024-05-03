@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
-import LogoutUI from './LogOutModal';
+import LogoutUI from './LogOutUI';
 import pfp from '../assets/pfp.jpg';
 import axios from 'axios';
 

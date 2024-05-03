@@ -6,7 +6,7 @@ import Button from '../components/Button';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-function SAUpdateUPPage(props) {
+function SAUpdateUPUI(props) {
     const user = localStorage.getItem('clickedProfile')
 
     const [newDescription, setNewDescription] = useState('');
@@ -148,4 +148,4 @@ function SAUpdateUPPage(props) {
     );
 }
 
-export default SAUpdateUPPage;
+export default SAUpdateUPUI;

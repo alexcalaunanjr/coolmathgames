@@ -4,12 +4,12 @@ import { UserContextProvider } from '../hooks/UseModalContext';
 import { HiMail } from "react-icons/hi";
 import Button from "../components/Button";
 import SAHeader from '../components/SAHeader';
-import SuspendUserAccountUI from "../components/AccountSuspendPopUp";
+import SASuspendUAUI from "../components/SASuspendUAUI";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Agent1 from '../assets/agent1.jpg'
 
-function SAViewUAPage(props, {openModal, onClose}) {
+function SAViewUAUI(props, {openModal, onClose}) {
     const token = localStorage.getItem('token');
     console.log('Current Token:', token);
     const [fullName, setFullName] = useState('');
@@ -30,7 +30,7 @@ function SAViewUAPage(props, {openModal, onClose}) {
     const navigate = useNavigate();
 
     const handleNavigate = () => {
-        navigate('/SAUpdateAccount');
+        navigate('/SAUpdateUAUI');
     };
 
     useEffect(() => {
@@ -178,8 +178,8 @@ function SAViewUAPage(props, {openModal, onClose}) {
                         <Button color="bg-red-700 text-black text-md" text="Suspend" onClick={handleSuspend}/>
                     </div>
                     {suspendPopUp && (
-                    <SuspendUserAccountUI
-                        openModal={SuspendUserAccountUI}
+                    <SASuspendUAUI
+                        openModal={SASuspendUAUI}
                         onClose={handleReopenPopUp}
                         text="Are you sure to suspend this account?"
                         token={Ptoken}
@@ -197,4 +197,4 @@ function SAViewUAPage(props, {openModal, onClose}) {
 
 }
 
-export default SAViewUAPage;
+export default SAViewUAUI;
