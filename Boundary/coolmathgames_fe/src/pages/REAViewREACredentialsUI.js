@@ -29,7 +29,7 @@ function REAViewREACredentialsUI(props) {
     const navigate = useNavigate();
 
     const handleUpdateClick = () => {
-        navigate(`/REAUpdateCredentialsUI`);
+        navigate(`/REAUpdateREACredentialsUI`);
     }
 
     useEffect(() => {

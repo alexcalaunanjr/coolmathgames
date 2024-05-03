@@ -56,7 +56,7 @@ function SAViewUPUI({header, description, openModal, onClose, token}) {
   }
 
   return (
-    displayUPDetails
+    displayUPDetails()
   );
 }
 
