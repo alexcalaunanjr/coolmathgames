@@ -273,7 +273,7 @@ function REAUpdateCredentialsUI(props) {
                         </div>
                         {/* Button */}
                         <div className="flex w-full">
-                            <div className="w-40 mx-auto pt-14">
+                            <div className="w-40 mx-auto pt-10">
                                 <Link to="/SAUpdateUA">
                                     <Button color="bg-blue-500 text-md" text="Save Changes" onClick={updateUserCredentials}/>
                                 </Link>

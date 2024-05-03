@@ -141,7 +141,7 @@ function SAUpdateUAUI(props) {
             <>
             {/* buyer header component */}
             <UserContextProvider><SAHeader /></UserContextProvider> 
-            <div className="flex flex-col h-screen">
+            <div className="flex flex-col">
                 <div className="flex w-full text-2xl font-bold p-10">
                     <h1>User Account Details</h1>
                 </div>

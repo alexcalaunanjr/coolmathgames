@@ -223,7 +223,7 @@ function SACreateUAUI(props) {
                 {error === '' && message}
             </div>
             {/* Button */}
-            <div className="w-full flex pt-10 justify-center">
+            <div className="w-full flex pt-8 justify-center">
                 <Link to="/SAHomePage">
                     <button className="bg-blue-500 text-md text-white p-3 w-full flex items-center justify-center lg:px-16 md:px-15 px-10 rounded-md shadow-lg" onClick={handleSubmit}> Create </button>
                 </Link>
