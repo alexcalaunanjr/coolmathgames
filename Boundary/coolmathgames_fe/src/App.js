@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // SA Pages
 import SACreateUAUI from './pages/SACreateUAUI'
-import SARetrieveUAUI from './pages/SARetrieveUAUI'
-import SARetrieveUPUI from './pages/SARetrieveUPUI'
+import SARetrieveUAListUI from './pages/SARetrieveUAListUI'
+import SARetrieveUPListUI from './pages/SARetrieveUPListUI'
 import SACreateUPUI from './pages/SACreateUPUI'
 import SAViewUAUI from './pages/SAViewUAUI'
 import SAUpdateUAUI from './pages/SAUpdateUAUI'
@@ -44,8 +44,8 @@ function App() {
               {userRole === 'System Admin' && (
                 <>
                   <Route path='/SACreateUAUI' element={<SACreateUAUI token={token}/>}></Route>
-                  <Route path='/SARetrieveUAUI' element={<SARetrieveUAUI token={token}/>}></Route>
-                  <Route path='/SARetrieveUPUI' element={<SARetrieveUPUI token={token}/>}></Route>
+                  <Route path='/SARetrieveUAListUI' element={<SARetrieveUAListUI token={token}/>}></Route>
+                  <Route path='/SARetrieveUPListUI' element={<SARetrieveUPListUI token={token}/>}></Route>
                   <Route path='/SACreateUPUI' element={<SACreateUPUI token={token}/>}></Route>
                   <Route path='/SAViewUAUI' element={<SAViewUAUI token={token}/>}></Route>
                   <Route path='/SAUpdateUAUI' element={<SAUpdateUAUI token={token}/>}></Route>

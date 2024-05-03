@@ -40,7 +40,7 @@ function REAUpdateREACredentialsUI(props) {
 
     useEffect(() => {
         document.title = 'REA Update Profile Page';
-        axios.get(`http://127.0.0.1:5000/updateREACredential/${username}`, {
+        axios.get(`http://127.0.0.1:5000/REAUpdateREACredential/${username}`, {
             headers: {
             'Authorization': 'Bearer ' + props.token,
             'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ function REAUpdateREACredentialsUI(props) {
 
         // If all checks pass, clear any previous errors and proceed with serverside account creation
         try {
-            axios.post(`http://127.0.0.1:5000/updateREACredential/${username}`, {
+            axios.post(`http://127.0.0.1:5000/REAUpdateREACredential/${username}`, {
                 "fullName": fullName,
                 "email": email,
                 "phoneNo": phoneNo,

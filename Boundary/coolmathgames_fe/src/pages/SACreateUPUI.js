@@ -34,7 +34,7 @@ function SACreateUPUI(props) {
         // If all checks pass, clear any previous errors and proceed with serverside profile creation
 
         try {
-            axios.post('http://127.0.0.1:5000/createUserProfile', {
+            axios.post('http://127.0.0.1:5000/SACreateUP', {
                 "newProfile": profileName,
                 "newDescription": description
             }, {

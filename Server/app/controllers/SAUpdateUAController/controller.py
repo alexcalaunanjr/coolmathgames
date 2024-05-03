@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required
 from app.entity.account import UserAccount
 from app.entity.userProfiles import UserProfiles
 
-class UpdateUserAccountController(Blueprint):
+class SAUpdateUAController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
@@ -30,7 +30,7 @@ class UpdateUserAccountController(Blueprint):
         return updateAcc
         
 
-class BaseUpdateUserAccountController(UpdateUserAccountController):
+class BaseSAUpdateUAController(SAUpdateUAController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

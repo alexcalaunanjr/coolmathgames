@@ -37,7 +37,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
         document.title = 'SA View Account Page';
         const user = localStorage.getItem('clickedUser')
         console.log("user", user)
-        axios.get(`http://127.0.0.1:5000/viewUserAccount/${user}`, {
+        axios.get(`http://127.0.0.1:5000/SAViewUA/${user}`, {
             headers: {
                 Authorization: 'Bearer ' + props.token,
                 'Content-Type': 'application/json'

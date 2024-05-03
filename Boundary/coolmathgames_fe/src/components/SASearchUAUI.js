@@ -5,7 +5,6 @@ function SASearchUAUI({ id, placeholder, onSubmit }) {
 
     const handleInputChange = (e) => {
         setSearchQuery(e.target.value);
-        handleSubmit();
     };
 
     const handleKeyPress = (e) => {

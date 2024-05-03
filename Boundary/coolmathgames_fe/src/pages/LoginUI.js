@@ -60,7 +60,7 @@ function LoginUI(props) {
                 
                 if (response.data.access_token) {
                     if (selectedUserType == 'System Admin') {
-                        window.location.href = "/SARetrieveUAUI";
+                        window.location.href = "/SARetrieveUAListUI";
                     }
                     else if (selectedUserType == 'Real Estate Agent') {
                         window.location.href = "/REAHomePage";

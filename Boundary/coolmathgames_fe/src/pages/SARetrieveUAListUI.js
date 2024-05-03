@@ -10,7 +10,7 @@ import SAHeader from '../components/SAHeader';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-function SARetrieveUAUI(props) {
+function SARetrieveUAListUI(props) {
     const headers = ['Full Name', 'Username', 'Email', 'Type', 'Status'];
     const [users, setUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +18,7 @@ function SARetrieveUAUI(props) {
 
     useEffect(() => {
         document.title = 'SA User Account';
-        axios.get('http://127.0.0.1:5000/retrieveAccountList', {
+        axios.get('http://127.0.0.1:5000/SARetrieveUAList', {
             headers: {
                 Authorization: 'Bearer ' + props.token,
                 'Content-Type': 'application/json'
@@ -128,5 +128,5 @@ function SARetrieveUAUI(props) {
     );
 }
 
-export default SARetrieveUAUI;
+export default SARetrieveUAListUI;
 

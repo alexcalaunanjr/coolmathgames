@@ -11,7 +11,7 @@ function SASuspendUAUI( {openModal, onClose, text, token}) {
   
   function handleSuspend() {
     const user = localStorage.getItem('clickedUser')
-    axios.post('http://127.0.0.1:5000/suspendUserAccount', {
+    axios.post('http://127.0.0.1:5000/SASuspendUA', {
       username: user
     }, {
     headers: {

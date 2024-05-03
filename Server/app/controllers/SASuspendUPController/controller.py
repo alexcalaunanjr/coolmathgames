@@ -2,7 +2,7 @@ from flask import request, Blueprint
 from flask_jwt_extended import jwt_required
 from app.entity.userProfiles import UserProfiles
 
-class SuspendUserProfileController(Blueprint):
+class SASuspendUPController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
     
@@ -11,7 +11,7 @@ class SuspendUserProfileController(Blueprint):
         updateAcc = UserProfiles.suspendProfile(profile)
         return updateAcc
 
-class BaseSuspendUserProfileController(SuspendUserProfileController):
+class BaseSASuspendUPController(SASuspendUPController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

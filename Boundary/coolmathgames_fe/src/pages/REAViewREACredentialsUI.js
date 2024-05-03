@@ -35,7 +35,7 @@ function REAViewREACredentialsUI(props) {
     useEffect(() => {
         document.title = 'REA Update Profile Page';
         
-        axios.get(`http://127.0.0.1:5000/viewREACredential/${username}`, {
+        axios.get(`http://127.0.0.1:5000/REAViewREACredential/${username}`, {
         headers: {
             'Authorization': 'Bearer ' + props.token,
             'Content-Type': 'application/json'

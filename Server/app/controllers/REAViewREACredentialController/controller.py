@@ -4,7 +4,7 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
 
 
-class ViewREAcredentialController(Blueprint):
+class REAViewREAcredentialController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
@@ -16,7 +16,7 @@ class ViewREAcredentialController(Blueprint):
         cred = REACredentials.retrieveUserCredentials(username)
         return cred
 
-class BaseViewREAcredentialController(ViewREAcredentialController):
+class BaseREAViewREAcredentialController(REAViewREAcredentialController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

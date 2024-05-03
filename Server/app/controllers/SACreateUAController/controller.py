@@ -8,7 +8,7 @@ from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 router = Blueprint('userAccount', __name__)
 
-class CreateUserAccountController(Blueprint):
+class SACreateUAController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
@@ -37,7 +37,7 @@ class CreateUserAccountController(Blueprint):
             acc = UserAccount.retrieveUserAccount(username)
         return acc
 
-class BaseCreateUserAccountController(CreateUserAccountController):
+class BaseSACreateUAController(SACreateUAController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
