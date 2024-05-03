@@ -3,10 +3,10 @@ from .config import Config
 from .controllers.LoginController.controller import BaseControllerLogin
 from .controllers.CreateUserAccountController.controller import BaseCreateUserAccountController
 from .controllers.CreateUserProfileController.controller import BaseCreateUserProfileController
-from .controllers.UserAccountListController.controller import BaseUserAccountListController
+from .controllers.RetrieveUserAccountListController.controller import BaseRetrieveUserAccountListController
 from .controllers.RetrieveUserProfileListController.controller import BaseRetrieveUserProfileListController
 from .controllers.ViewUserProfileController.controller import BaseViewUserProfileController
-from .controllers.SelectUserAccountController.controller import BaseSelectedUserAccountController
+from .controllers.ViewUserAccountController.controller import BaseViewUserAccountController
 from .controllers.UpdateUserAccountController.controller import BaseUpdateUserAccountController
 from .controllers.UpdateUserProfileController.controller import BaseUpdateUserProfileController
 from .controllers.SuspendUserAccountController.controller import BaseSuspendUserAccountController
@@ -30,10 +30,10 @@ CORS(app, supports_credentials=True)
 loginController = BaseControllerLogin('login', __name__)
 createUserAccountController = BaseCreateUserAccountController('createUserAccount', __name__)
 createUserProfileController = BaseCreateUserProfileController('createUserProfile', __name__)
-userAccountListController = BaseUserAccountListController('retrieveUserAccountList', __name__)
-userProfileListController = BaseRetrieveUserProfileListController('retrieveUserProfileList', __name__)
+retrieveUserAccountListController = BaseRetrieveUserAccountListController('retrieveUserAccountList', __name__)
+retrieveUserProfileListController = BaseRetrieveUserProfileListController('retrieveUserProfileList', __name__)
 viewUserProfileController = BaseViewUserProfileController('viewUserProfileController', __name__)
-selectedUserAccountController = BaseSelectedUserAccountController('selectedUserAccountController', __name__)
+viewUserAccountController = BaseViewUserAccountController('viewUserAccountController', __name__)
 updateUserAccountController = BaseUpdateUserAccountController('updateUserAccountController', __name__)
 updateUserProfileController = BaseUpdateUserProfileController('updateUserProfileController', __name__)
 suspendUserAccountController = BaseSuspendUserAccountController('suspendUserAccountController', __name__)
@@ -45,10 +45,10 @@ updateREACredentialController = BaseUpdateREAcredentialController('updateREACred
 loginController.route('/login', methods=['GET', 'POST'])(loginController.login)
 createUserAccountController.route('/createUserAccount', methods=['GET', 'POST'])(createUserAccountController.createUserAccount)
 createUserProfileController.route('/createUserProfile', methods=['GET', 'POST'])(createUserProfileController.createUserProfile)
-userAccountListController.route('/retrieveAccountList', methods=['GET'])(userAccountListController.getAccountList)
-userProfileListController.route('/retrieveProfileList', methods=['GET'])(userProfileListController.getProfileList)
-viewUserProfileController.route('/viewProfileDesc', methods=['POST'])(viewUserProfileController.getProfileDesc)
-selectedUserAccountController.route('/viewUserAccount/<username>', methods=['GET'])(selectedUserAccountController.getUserAccount)
+retrieveUserAccountListController.route('/retrieveAccountList', methods=['GET'])(retrieveUserAccountListController.getAccountList)
+retrieveUserProfileListController.route('/retrieveProfileList', methods=['GET'])(retrieveUserProfileListController.getProfileList)
+viewUserProfileController.route('/viewProfileDesc', methods=['POST'])(viewUserProfileController.viewProfileDesc)
+viewUserAccountController.route('/viewUserAccount/<username>', methods=['GET'])(viewUserAccountController.viewUserAccount)
 updateUserAccountController.route('/updateUserAccount/<oldUsername>', methods=['GET','POST'])(updateUserAccountController.updateUserAccount)
 updateUserProfileController.route('/updateUserProfile/<profileName>', methods=['GET','POST'])(updateUserProfileController.updateProfileData)
 suspendUserAccountController.route('/suspendUserAccount', methods=['POST'])(suspendUserAccountController.suspendUserAccount)
@@ -59,11 +59,11 @@ updateREACredentialController.route('/updateREACredential/<username>', methods=[
 app.register_blueprint(loginController)
 app.register_blueprint(createUserAccountController)
 app.register_blueprint(createUserProfileController)
-app.register_blueprint(userAccountListController)
+app.register_blueprint(retrieveUserAccountListController)
 app.register_blueprint(viewUserProfileController)
-app.register_blueprint(selectedUserAccountController)
+app.register_blueprint(viewUserAccountController)
 app.register_blueprint(updateUserAccountController)
-app.register_blueprint(userProfileListController)
+app.register_blueprint(retrieveUserProfileListController)
 app.register_blueprint(updateUserProfileController)
 app.register_blueprint(suspendUserAccountController)
 app.register_blueprint(suspendUserProfileController)
