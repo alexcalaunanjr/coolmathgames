@@ -13,9 +13,10 @@ import { SquareFeetIcon } from '../assets/icons/SquareFeetIcon';
 export default function CardProperty({ property }) {
     // Have a state to keep track of whether the card is hovered
     const [isHovered, setIsHovered] = useState(false);
+    console.log("property:", property.propertyImage)
 
     return (
-        <Link to={`/property/${property.id}`}>
+        <Link to={`/property/${property.propertyName}`}>
             <div className={` bg-white shadow-md rounded-lg overflow-hidden transition-transform ${isHovered ? 'transform scale-105' : ''}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -23,7 +24,7 @@ export default function CardProperty({ property }) {
             <div style={{ height: '250px', overflow: 'hidden', display: 'flex', justifyContent: 'center'}}>
                 {/* Image */}
                 <img
-                    src={property.images[0]}
+                    src={`data:image/jpeg;base64, ${property.propertyImage}`}
                     alt="Meaningful alt text for an image that is not purely decorative"
                     className="object-cover w-full aspect-square"
                 />
@@ -34,7 +35,7 @@ export default function CardProperty({ property }) {
                     <p className="text-lg font-bold text-yellow-700">${property.price.toLocaleString()}</p>
                 </div>
                 <div className="flex">
-                    <p className="text-lg truncate font-semibold">{property.title}</p>
+                    <p className="text-lg truncate font-semibold">{property.propertyName}</p>
                 </div>
                 <div className="flex flex-row">
                     <MapPinIcon/>
@@ -42,25 +43,25 @@ export default function CardProperty({ property }) {
                 </div>
                 <div className="flex flex-row">
                     {/* Bedroom */}
-                    <p className="text-sm mr-1">{property.bedrooms}</p>
+                    <p className="text-sm mr-1">{property.noOfBedrooms}</p>
                     <div className="mr-2">
                         <BedIcon/>
                     </div>
                     {/* Bathroom */}
-                    <p className="text-sm mr-1">{property.bathrooms}</p>
+                    <p className="text-sm mr-1">{property.noOfBathrooms}</p>
                     <div className="mr-2">
                         <BathIcon/>
                     </div>
                     {/* Size */}
-                    <p className="text-sm mr-1">{property.size} sqft</p>
+                    <p className="text-sm mr-1">{property.area} sqft</p>
                     <div className="mr-2">
                         <SquareFeetIcon/>
                     </div>
                 </div>
                     {/* profile pic icon and name of user */}
                     <div className="flex flex-row pt-4 pb-2 items-center">
-                        <img src={property.agent.pfp} alt="profile pic" className="w-11 h-11 rounded-full"/>
-                        <p className="text-lg pl-4">{property.agent.name}</p>
+                        {/* <img src={property.agent.pfp} alt="profile pic" className="w-11 h-11 rounded-full"/> */}
+                        <p className="text-lg pl-4">{property.RealEstateAgent}</p>
                     </div>
                 </div>
             </div>
