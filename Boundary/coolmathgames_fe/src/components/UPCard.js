@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Button from './Button';
-import PopUp from './PopUp';
+import SAViewUPUI from './SAViewUPUI';
 
-function SAViewUPUI({ profile, profileDesc, onClick, token }) {
+function UPCard({ profile, profileDesc, onClick, token }) {
     const [popUp, setPopUp] = useState(false);
     // const [description, setDescription] = useState('');
 
@@ -25,7 +25,7 @@ function SAViewUPUI({ profile, profileDesc, onClick, token }) {
                     </div>
                 {popUp && (
                     // Show the pop up
-                    <PopUp
+                    <SAViewUPUI
                         header="Description"
                         description={profileDesc}
                         openModal={popUp}
@@ -43,4 +43,4 @@ function SAViewUPUI({ profile, profileDesc, onClick, token }) {
     );
 }
 
-export default SAViewUPUI;
+export default UPCard;

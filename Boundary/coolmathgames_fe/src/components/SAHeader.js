@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
-import LogoutUI from './LogOutModal';
+import LogoutUI from './LogOutUI';
 import pfp from '../assets/pfp.jpg';
 import axios from 'axios';
 
@@ -43,8 +43,8 @@ function SAHeader() {
 
             {/* words on top */}
             <Navbar.Collapse>
-                <Navbar.Link href="/SAHomePage" className='text-gray-900 hover:text-yellow-700'>User Account</Navbar.Link>
-                <Navbar.Link href="/SAUserProfile" className='text-gray-900 hover:text-yellow-700'>User Profile</Navbar.Link>
+                <Navbar.Link href="/SARetrieveUAUI" className='text-gray-900 hover:text-yellow-700'>User Account</Navbar.Link>
+                <Navbar.Link href="/SARetrieveUPUI" className='text-gray-900 hover:text-yellow-700'>User Profile</Navbar.Link>
             </Navbar.Collapse>
         </Navbar>
         </>

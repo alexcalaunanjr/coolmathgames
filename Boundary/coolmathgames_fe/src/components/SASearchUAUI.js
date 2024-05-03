@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function UserSearchBar({ id, placeholder, onSubmit }) {
+function SASearchUAUI({ id, placeholder, onSubmit }) {
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleInputChange = (e) => {
@@ -35,4 +35,4 @@ function UserSearchBar({ id, placeholder, onSubmit }) {
     );
 }
 
-export default UserSearchBar;
+export default SASearchUAUI;

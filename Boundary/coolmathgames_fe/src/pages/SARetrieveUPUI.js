@@ -4,13 +4,13 @@ import { Label, TextInput } from "flowbite-react";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import Button from "../components/Button";
 import { HiPlusSm } from "react-icons/hi";
-import UserSearchBar from "../components/UserSearchBar";
+import SASearchUPUI from "../components/SASearchUPUI";
 import SAHeader from '../components/SAHeader';
 import SAViewUPUI from "../components/UPCard";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function SARetrieveUPPage(props) {
+function SARetrieveUPUI(props) {
     const [profiles, setProfiles] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [clickedProfile, setClickedProfile] = useState('');
@@ -91,9 +91,9 @@ function SARetrieveUPPage(props) {
                         <div className="w-1/4 mx-auto">
                         </div>
                         <div className="w-1/4 mx-auto">
-                            <UserSearchBar placeholder="Search by profile" onSubmit={handleSearch}/>
+                            <SASearchUPUI placeholder="Search by profile" onSubmit={handleSearch}/>
                         </div>
-                        <Link to="/SACreateProfile">
+                        <Link to="/SACreateUPUI">
                             <div className="lg:w-full  md:w-40 w-20 mx-auto">
                                 <Button color="bg-blue-500" text="Add User Profile" icon={<HiPlusSm />}/>
                             </div>
@@ -117,4 +117,4 @@ function SARetrieveUPPage(props) {
     );
 }
 
-export default SARetrieveUPPage;
+export default SARetrieveUPUI;
