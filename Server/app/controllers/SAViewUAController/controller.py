@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from app.entity.account import UserAccount
 
-class ViewUserAccountController(Blueprint):
+class SAViewUAController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
@@ -10,7 +10,7 @@ class ViewUserAccountController(Blueprint):
         account = UserAccount.retrieveUserAccount(username)
         return account
 
-class BaseViewUserAccountController(ViewUserAccountController):
+class BaseSAViewUAController(SAViewUAController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

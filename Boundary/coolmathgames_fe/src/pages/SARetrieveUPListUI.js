@@ -10,7 +10,7 @@ import SAViewUPUI from "../components/UPCard";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function SARetrieveUPUI(props) {
+function SARetrieveUPListUI(props) {
     const [profiles, setProfiles] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [clickedProfile, setClickedProfile] = useState('');
@@ -19,7 +19,7 @@ function SARetrieveUPUI(props) {
 
     useEffect(() => {
         document.title = 'SA User Profile';
-        axios.get('http://127.0.0.1:5000/retrieveProfileList', {
+        axios.get('http://127.0.0.1:5000/SARetrieveUPList', {
             headers: {
                 Authorization: 'Bearer ' + props.token,
                 'Content-Type': 'application/json'
@@ -42,21 +42,7 @@ function SARetrieveUPUI(props) {
     useEffect(() => {
         if (clickedProfile) {
             localStorage.setItem('clickedProfile', clickedProfile)
-            axios.post('http://127.0.0.1:5000/viewProfileDesc', {
-                profileName: clickedProfile,
-            }, {
-                headers: {
-                    'Authorization': 'Bearer ' + props.token,
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then((response) => {
-                const data = response.data.desc
-                setclickedProfileDesc(data)
-            })
-            .catch((error) => {
-                console.error('Error fetching profile description', error);
-            });
+            
         }
     }, [clickedProfile]);
 
@@ -73,6 +59,7 @@ function SARetrieveUPUI(props) {
     // Function to handle click on profile card
     const handleProfileClick = (profileName) => {
         setClickedProfile(profileName);
+        console.log(clickedProfile)
     };
 
     function displayUserProfileList() {
@@ -117,4 +104,4 @@ function SARetrieveUPUI(props) {
     );
 }
 
-export default SARetrieveUPUI;
+export default SARetrieveUPListUI;

@@ -11,7 +11,7 @@ function SASuspendUserProfileUI( {openModal, onClose, text, token}) {
   
   function handleSuspend() {
     const profile = localStorage.getItem('clickedProfile')
-    axios.post('http://127.0.0.1:5000/suspendUserProfile', {
+    axios.post('http://127.0.0.1:5000/SASuspendUP', {
       profile: profile
     }, {
     headers: {

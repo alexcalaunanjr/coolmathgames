@@ -2,7 +2,7 @@ from flask import request, Blueprint, jsonify
 from flask_jwt_extended import jwt_required
 from app.entity.account import UserAccount
 
-class SuspendUserAccountController(Blueprint):
+class SASuspendUAController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
     
@@ -11,7 +11,7 @@ class SuspendUserAccountController(Blueprint):
         updateAcc = UserAccount.suspendAccount(username)
         return updateAcc
 
-class BaseSuspendUserAccountController(SuspendUserAccountController):
+class BaseSASuspendUAController(SASuspendUAController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

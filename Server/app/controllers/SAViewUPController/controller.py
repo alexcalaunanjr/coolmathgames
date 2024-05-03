@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_jwt_extended import jwt_required
 from app.entity.userProfiles import UserProfiles
 
-class ViewUserProfileController(Blueprint):
+class SAViewUPController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
@@ -10,7 +10,7 @@ class ViewUserProfileController(Blueprint):
         profileDesc = UserProfiles.retrieveProfile(profileName)
         return profileDesc
 
-class BaseViewUserProfileController(ViewUserProfileController):
+class BaseSAViewUPController(SAViewUPController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

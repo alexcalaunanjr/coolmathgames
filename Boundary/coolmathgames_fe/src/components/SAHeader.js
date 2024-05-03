@@ -43,8 +43,8 @@ function SAHeader() {
 
             {/* words on top */}
             <Navbar.Collapse>
-                <Navbar.Link href="/SARetrieveUAUI" className='text-gray-900 hover:text-yellow-700'>User Account</Navbar.Link>
-                <Navbar.Link href="/SARetrieveUPUI" className='text-gray-900 hover:text-yellow-700'>User Profile</Navbar.Link>
+                <Navbar.Link href="/SARetrieveUAListUI" className='text-gray-900 hover:text-yellow-700'>User Account</Navbar.Link>
+                <Navbar.Link href="/SARetrieveUPListUI" className='text-gray-900 hover:text-yellow-700'>User Profile</Navbar.Link>
             </Navbar.Collapse>
         </Navbar>
         </>

@@ -22,7 +22,7 @@ function SAUpdateUPUI(props) {
         if (formFilled) {
             setFormFilled(false);
         };
-        axios.get(`http://127.0.0.1:5000/updateUserProfile/${profileName}`, {
+        axios.get(`http://127.0.0.1:5000/SAUpdateUP/${profileName}`, {
             headers: {
             'Authorization': 'Bearer ' + props.token,
             'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ function SAUpdateUPUI(props) {
         // If all checks pass, clear any previous errors and proceed with serverside profile creation
 
         try {
-            axios.post('http://127.0.0.1:5000/updateUserProfile', {
+            axios.post(`http://127.0.0.1:5000/SAUpdateUP/${profileName}`, {
                 "profileName" : profileName,
                 "updatedData" : {
                     "profile" : newProfile,

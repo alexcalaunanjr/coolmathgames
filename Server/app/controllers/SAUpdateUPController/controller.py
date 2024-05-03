@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_jwt_extended import jwt_required
 from app.entity.userProfiles import UserProfiles
 
-class UpdateUserProfileController(Blueprint):
+class SAUpdateUPController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
@@ -16,7 +16,7 @@ class UpdateUserProfileController(Blueprint):
         profileRetrieved = UserProfiles.retrieveProfile(profileName)
         return profileRetrieved
 
-class BaseUpdateUserProfileController(UpdateUserProfileController):
+class BaseSAUpdateUPController(SAUpdateUPController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

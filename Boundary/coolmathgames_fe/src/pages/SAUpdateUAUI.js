@@ -35,7 +35,7 @@ function SAUpdateUAUI(props) {
 
     useEffect(() => {
         document.title = 'SA Update Account Page';
-        axios.get(`http://127.0.0.1:5000/updateUserAccount/${user}`, {
+        axios.get(`http://127.0.0.1:5000/SAUpdateUA/${user}`, {
                 headers: {
                 'Authorization': 'Bearer ' + props.token,
                 'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ function SAUpdateUAUI(props) {
                         setPhoneNumber(userData.account.phoneNo);
                         setUsername(userData.account.username);
                         setEmail(userData.account.email);
-                        setStatus(userData.account.status).toUpperCase();
+                        setStatus(userData.account.status.toUpperCase());
                         setSelectedUserType(userData.account.profile);
                         // setImage(Agent1);
 
@@ -94,7 +94,7 @@ function SAUpdateUAUI(props) {
 
         try {
             
-            axios.post(`http://127.0.0.1:5000/updateUserAccount/${user}`, {
+            axios.post(`http://127.0.0.1:5000/SAUpdateUA/${user}`, {
                 "fullName": fullName,
                 "username": username,
                 "password": password,

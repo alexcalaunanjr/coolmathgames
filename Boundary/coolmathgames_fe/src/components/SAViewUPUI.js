@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 import { Modal } from "flowbite-react";
 import Button from "./Button";
 import SASuspendUPUI from "./SASuspendUPUI";
@@ -8,6 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 function SAViewUPUI({header, description, openModal, onClose, token}) {
   const navigate = useNavigate();
   const [suspendPopUp, setSuspendPopUp] = useState(false);
+  const [clickedProfile, setClickedProfile] = useState(localStorage.getItem('clickedProfile'));
+  const [clickedProfileDesc, setclickedProfileDesc] = useState('');
   
   const handleSuspend = () => {
     setSuspendPopUp(true);
@@ -21,6 +24,26 @@ function SAViewUPUI({header, description, openModal, onClose, token}) {
     navigate("/SAUpdateUPUI");
   }
 
+  useEffect(() => {
+    setClickedProfile();
+    axios.post('http://127.0.0.1:5000/SAViewUP', {
+                profileName: clickedProfile,
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                const data = response.data.desc
+                setclickedProfileDesc(data)
+            })
+            .catch((error) => {
+                console.error('Error fetching profile description', error);
+            });
+  }, []);
+  
+
   function displayUPDetails(){
     return(
       <Modal show={openModal} onClose={onClose}>
@@ -28,7 +51,7 @@ function SAViewUPUI({header, description, openModal, onClose, token}) {
       <Modal.Body>
         <div className="space-y-6">
           <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-            {description}
+            {clickedProfileDesc}
           </p>
         </div>
       </Modal.Body>

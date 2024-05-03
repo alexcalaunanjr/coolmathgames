@@ -7,7 +7,7 @@ from flask_jwt_extended import jwt_required
 
 bcrypt = Bcrypt()
 
-class CreateUserProfileController(Blueprint):
+class SACreateUPController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -25,7 +25,7 @@ class CreateUserProfileController(Blueprint):
             acc = UserAccount.retrieveUserAccount(username)
         return acc
 
-class BaseCreateUserProfileController(CreateUserProfileController):
+class BaseSACreateUPController(SACreateUPController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

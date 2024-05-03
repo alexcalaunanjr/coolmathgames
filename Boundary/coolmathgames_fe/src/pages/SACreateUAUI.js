@@ -28,7 +28,7 @@ function SACreateUAUI(props) {
 
     useEffect(() => {
         document.title = 'SA Create Account Page';
-        axios.get('http://127.0.0.1:5000/createUserAccount', {
+        axios.get('http://127.0.0.1:5000/SACreateUA', {
             headers: {
             'Authorization': 'Bearer ' + props.token,
             'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ function SACreateUAUI(props) {
         // If all checks pass, clear any previous errors and proceed with serverside account creation
 
         try {
-            axios.post('http://127.0.0.1:5000/createUserAccount', {
+            axios.post('http://127.0.0.1:5000/SACreateUA', {
                 "fullName": fullName,
                 "username": username,
                 "password": password,
