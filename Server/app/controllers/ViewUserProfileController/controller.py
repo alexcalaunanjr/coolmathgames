@@ -15,7 +15,7 @@ class BaseViewUserProfileController(ViewUserProfileController):
         super().__init__(*args, **kwargs)
 
     @jwt_required()
-    def getProfileDesc(self):
+    def viewProfileDesc(self):
         if request.method == 'POST':
             data = request.get_json() #get json file
             profileName = data.get("profileName")
