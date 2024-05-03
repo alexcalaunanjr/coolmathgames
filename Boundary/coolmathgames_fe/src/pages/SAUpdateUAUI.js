@@ -136,7 +136,7 @@ function SAUpdateUAUI(props) {
     }, [formFilled]);
 
 
-    function displayUpdateUA(){
+    function displayUserAccountDetails(){
         return (
             <>
             {/* buyer header component */}
@@ -256,7 +256,7 @@ function SAUpdateUAUI(props) {
     }
 
     return(
-        displayUpdateUA()
+        displayUserAccountDetails()
     )
 }
 

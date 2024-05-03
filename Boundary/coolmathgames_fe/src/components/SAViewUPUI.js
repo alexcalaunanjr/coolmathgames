@@ -21,7 +21,8 @@ function SAViewUPUI({header, description, openModal, onClose, token}) {
     navigate("/SAUpdateUPUI");
   }
 
-  return (
+  function displayUPDetails(){
+    return(
       <Modal show={openModal} onClose={onClose}>
       <Modal.Header>{header}</Modal.Header>
       <Modal.Body>
@@ -51,7 +52,12 @@ function SAViewUPUI({header, description, openModal, onClose, token}) {
         </div>
       </Modal.Footer>
     </Modal>
-  )
+    )
+  }
+
+  return (
+    displayUPDetails
+  );
 }
 
 export default SAViewUPUI;

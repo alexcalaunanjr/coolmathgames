@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import Agent1 from '../assets/agent1.jpg'
 
-function REAViewCredentialsUI(props) {
+function REAViewREACredentialsUI(props) {
     const username = localStorage.getItem('username');
 
     const [picture, setPicture] = useState(Agent1);
@@ -256,4 +256,4 @@ function REAViewCredentialsUI(props) {
         displayUserCredentialsUI()
     );
 }
-export default REAViewCredentialsUI;
+export default REAViewREACredentialsUI;

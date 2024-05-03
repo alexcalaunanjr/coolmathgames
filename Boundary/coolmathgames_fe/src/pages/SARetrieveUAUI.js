@@ -26,25 +26,20 @@ function SARetrieveUAUI(props) {
         })
         .then(response => {
             const accountDict = response.data.accountDict;
-            displayAccountList(accountDict)
+            const userData = accountDict.map(account => ({
+                id: account.id,
+                name: account.fullName,
+                username: account.username,
+                email: account.email,
+                type: account.profile,
+                status: account.status.toUpperCase()
+            }))
+            setUsers(userData)
         })
         .catch(error => {
             console.error('Error fetching user account list', error);
         });
     }, []);
-
-    function displayAccountList(accountDict) {
-        const userData = accountDict.map(account => ({
-            id: account.id,
-            name: account.fullName,
-            username: account.username,
-            email: account.email,
-            type: account.profile,
-            status: account.status.toUpperCase()
-        }))
-        setUsers(userData)
-    }
-    console.log(users)
 
     const rows = users.map(user => [user.name, user.username, user.email, user.type, user.status]);
 
@@ -83,8 +78,9 @@ function SARetrieveUAUI(props) {
     //     />
     // ));
 
-    return (
-        <>
+    function displayAccountList() {
+        return(
+            <>
         {/* buyer header component */}
         <UserContextProvider><SAHeader /></UserContextProvider>   
         <div>
@@ -124,6 +120,11 @@ function SARetrieveUAUI(props) {
             </div>
         </div>
         </>
+        )
+    }
+
+    return (
+        displayAccountList
     );
 }
 

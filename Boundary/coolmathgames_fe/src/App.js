@@ -15,7 +15,7 @@ import SellerHomePage from './pages/SellerHomePage'
 // REA Pages
 import REAHomePage from './pages/REAHomePage'
 import REAViewCredentialsUI from './pages/REAViewCredentialsUI'
-import REAUpdateCredentialsUI from './pages/REAUpdateCredentialsUI'
+import REAUpdateREACredentialsUI from './pages/REAUpdateREACredentialsUI'
 // General Pages/Components
 import LoginPage from './pages/LoginPage'
 import logOut from './components/LogOutUI'
@@ -56,7 +56,7 @@ function App() {
                 <>
                   <Route path='/REAHomePage' element={<REAHomePage token={token}/>}></Route>
                   <Route path='/REAViewCredentialsUI' element={<REAViewCredentialsUI token={token}/>}></Route>
-                  <Route path='/REAUpdateCredentialsUI' element={<REAUpdateCredentialsUI token={token}/>}></Route>
+                  <Route path='/REAUpdateREACredentialsUI' element={<REAUpdateREACredentialsUI token={token}/>}></Route>
                 </>
               )}
               {userRole === 'Buyer' && (
