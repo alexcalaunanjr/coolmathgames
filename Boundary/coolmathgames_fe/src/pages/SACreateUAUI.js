@@ -8,7 +8,7 @@ import SAHeader from '../components/SAHeader';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function SACreateUAPage(props) {
+function SACreateUAUI(props) {
     const token = localStorage.getItem('token');
     const [image, setImage] = useState('');
     console.log('Current Token:', token);
@@ -238,4 +238,4 @@ function SACreateUAPage(props) {
     );
 }
 
-export default SACreateUAPage;
+export default SACreateUAUI;

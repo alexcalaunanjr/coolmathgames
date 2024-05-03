@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
-import LogoutUI from './LogOutModal';
+import LogoutUI from './LogOutUI';
 import pfp from '../assets/pfp.jpg';
 import axios from 'axios';
 
@@ -35,7 +35,7 @@ function REAHeader() {
                     <Dropdown.Header>
                         <span className="block text-sm">{username}</span>
                     </Dropdown.Header>
-                    <Dropdown.Item href="/REAViewCredentials" className='text-gray-900 hover:text-yellow-700'>View My Credentials</Dropdown.Item>
+                    <Dropdown.Item href="/REAViewCredentialsUI" className='text-gray-900 hover:text-yellow-700'>View My Credentials</Dropdown.Item>
                     <Dropdown.Divider />    
                     {/* Log Out dropdown */}
                     <Dropdown.Item className='text-gray-900 hover:text-red-500' onClick={() => setOpenModal(true)}>Log Out</Dropdown.Item>

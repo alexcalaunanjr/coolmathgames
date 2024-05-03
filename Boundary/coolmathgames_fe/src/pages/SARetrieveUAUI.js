@@ -5,12 +5,12 @@ import Button from "../components/Button";
 import {Table} from "flowbite-react";
 import CustomTable from "../components/Table";
 import { HiPlusSm } from "react-icons/hi";
-import UserSearchBar from "../components/UserSearchBar";
+import SASearchUAUI from "../components/SASearchUAUI";
 import SAHeader from '../components/SAHeader';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-function SARetrieveUAPage(props) {
+function SARetrieveUAUI(props) {
     const headers = ['Full Name', 'Username', 'Email', 'Type', 'Status'];
     const [users, setUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -52,7 +52,7 @@ function SARetrieveUAPage(props) {
         // Get the username from the clicked row
         const username = rows[row][headers.indexOf('Username')];
         localStorage.setItem('clickedUser', username)
-        navigate(`/SAViewAccount`);
+        navigate(`/SAViewUAUI`);
     }
 
     // Function to handle search
@@ -99,9 +99,9 @@ function SARetrieveUAPage(props) {
                         <div className="w-1/4 mx-auto">
                         </div>
                         <div className="w-1/4 mx-auto">
-                            <UserSearchBar placeholder="Search by username" onSubmit={handleSearch}/>
+                            <SASearchUAUI placeholder="Search by username" onSubmit={handleSearch}/>
                         </div>
-                        <Link to="/SACreateAccount">
+                        <Link to="/SACreateUAUI">
                             <div className="lg:w-full  md:w-40 w-20 mx-auto">
                                 <Button color="bg-blue-500" text="Add User Account" icon={<HiPlusSm />}/>
                             </div>
@@ -127,5 +127,5 @@ function SARetrieveUAPage(props) {
     );
 }
 
-export default SARetrieveUAPage;
+export default SARetrieveUAUI;
 

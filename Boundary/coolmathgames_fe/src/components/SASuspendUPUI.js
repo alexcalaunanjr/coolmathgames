@@ -5,7 +5,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function SuspendUserProfileUI( {openModal, onClose, text, token}) {
+function SASuspendUserProfileUI( {openModal, onClose, text, token}) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   
@@ -72,4 +72,4 @@ function SuspendUserProfileUI( {openModal, onClose, text, token}) {
   );
 }
 
-export default SuspendUserProfileUI;
+export default SASuspendUserProfileUI;
