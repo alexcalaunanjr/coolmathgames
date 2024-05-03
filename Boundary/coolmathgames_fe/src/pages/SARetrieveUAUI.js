@@ -124,7 +124,7 @@ function SARetrieveUAUI(props) {
     }
 
     return (
-        displayAccountList
+        displayAccountList()
     );
 }
 
