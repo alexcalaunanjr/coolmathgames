@@ -15,7 +15,7 @@ import { UserContextProvider } from '../hooks/UseModalContext'
 // assets
 import Agent1 from '../assets/agent1.jpg'
 
-function REAUpdateCredentialsUI(props) {
+function REAUpdateREACredentialsUI(props) {
     const username = localStorage.getItem('username');
 
     // states for the form fields
@@ -293,4 +293,4 @@ function REAUpdateCredentialsUI(props) {
     );
 }
 
-export default REAUpdateCredentialsUI;
+export default REAUpdateREACredentialsUI;

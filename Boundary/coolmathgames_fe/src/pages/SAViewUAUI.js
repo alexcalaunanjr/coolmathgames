@@ -64,7 +64,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
       };
 
     const handleReopenPopUp = () => {
-    setSuspendPopUp(false);
+        setSuspendPopUp(false);
     }
 
     // Function to handle status color
