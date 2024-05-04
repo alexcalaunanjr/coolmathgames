@@ -7,6 +7,7 @@ class REACredentials(db.Model):
     __tablename__ = "REACredentials"
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), db.ForeignKey('UserAccounts.username'), nullable=False)
+    reaImage = db.Column(db.Text, nullable=False)
     experience = db.Column(db.String(20), nullable=False)
     license = db.Column(db.String(20), nullable=False)
     language = db.Column(db.String(50), nullable=False)
@@ -28,12 +29,14 @@ class REACredentials(db.Model):
         rea = REACredentials.query.filter_by(username=username).first()
         if rea:
             return jsonify({
+                'username': rea.username,
                 'experience': rea.experience,
                 'license' : rea.license,
                 'language' : rea.language,
                 'special' : rea.special,
                 'about' : rea.about,
-                'award' : rea.award
+                'award' : rea.award,
+                'reaImage' : rea.reaImage
             })
         return jsonify({'message': 'User not found'}), 404
     

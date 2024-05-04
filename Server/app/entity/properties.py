@@ -38,3 +38,26 @@ class Properties(db.Model):
             return property
         else:
             return jsonify({"SellerProperty": "Not Found"})
+    
+    #Retrieve information on every property
+    @classmethod
+    def retrieveProperties(cls):
+        properties = cls.query.all()
+        propertyDict = [{
+            'propertyName': property.propertyName,
+            'propertyImage': property.propertyImage,
+            'price': property.price,
+            'location': property.location,
+            'aboutProperty': property.aboutProperty,
+            'noOfBedrooms': property.noOfBedrooms,
+            'noOfBathrooms': property.noOfBathrooms,
+            'area': property.area,
+            'unitFeatures': property.unitFeatures,
+            'facilities': property.facilities,
+            'viewsCount': property.viewsCount,
+            'favoritesCount': property.favoritesCount
+        } for property in properties]
+        if propertyDict:
+            return jsonify({"properties": propertyDict})
+        else:
+            return jsonify({"properties": "Not Found"})
