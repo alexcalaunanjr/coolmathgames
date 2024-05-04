@@ -27,6 +27,18 @@ class UserProfiles(db.Model):
                             "desc": profile.desc})
         else:
             return jsonify({"error": "Profile not found"})
+    
+    #Retrieve profile information based of search
+    @classmethod
+    def searchUserProfile(cls, query):
+        userProfileList = cls.query.filter(cls.profile.like(f"%{query}%")).all()
+        userProfileDict = [{
+            'profile' : profile.profile,
+        } for profile in userProfileList]
+        if userProfileDict:
+            return jsonify({"userProfile": userProfileDict})
+        else:
+            return jsonify({"userProfile": "Not Found"})
 
     #update profile
     @classmethod

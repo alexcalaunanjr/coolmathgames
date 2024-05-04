@@ -5,7 +5,7 @@ function SASearchUPUI({ id, placeholder, onSubmit }) {
 
     const handleInputChange = (e) => {
         setSearchQuery(e.target.value);
-        handleSubmit();
+        // handleSubmit();
     };
 
     const handleKeyPress = (e) => {

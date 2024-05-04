@@ -10,6 +10,9 @@ from .controllers.SAViewUAController.controller import BaseSAViewUAController
 from .controllers.SAUpdateUAController.controller import BaseSAUpdateUAController
 from .controllers.SAUpdateUPController.controller import BaseSAUpdateUPController
 from .controllers.SASuspendUAController.controller import BaseSASuspendUAController
+from .controllers.SASearchUAController.controller import BaseSASearchUAController
+from .controllers.SASearchUPController.controller import BaseSASearchUPController
+
 from .controllers.SASuspendUPController.controller import BaseSASuspendUPController
 from .controllers.REAViewREACredentialController.controller import BaseREAViewREAcredentialController
 from .controllers.REAUpdateREACredentialController.controller import BaseREAUpdateREAcredentialController
@@ -19,6 +22,11 @@ from .controllers.SellerViewREACredController.controller import BaseSellerViewRE
 from .controllers.SellerRateREAController.controller import BaseSellerRateREAController
 from .controllers.SellerReviewREAController.controller import BaseSellerReviewREAController
 from .controllers.BuyerRetrievePropertiesController.controller import BaseBuyerRetrievePropertiesController
+from .controllers.BuyerViewNewPropertyController.controller import BaseBuyerViewNewPropertyController
+from .controllers.BuyerSearchNewPropertyController.controller import BaseBuyerSearchNewPropertyController
+from .controllers.BuyerViewSoldPropertyController.controller import BaseBuyerViewSoldPropertyController
+from .controllers.BuyerSearchSoldPropertyController.controller import BaseBuyerSearchSoldPropertyController
+
 from .entity.sqlAlchemy import db
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
@@ -26,7 +34,7 @@ from app.entity.account import UserAccount
 from app.entity.userProfiles import UserProfiles
 from app.entity.reaCredentials import REACredentials
 from app.entity.properties import Properties
-from app.entity.listings import Listings
+from app.entity.propertyListing import PropertyListing
 from app.entity.rateReviews import RateReviews
 
 app = Flask(__name__)
@@ -41,6 +49,9 @@ SACreateUAController = BaseSACreateUAController('createUserAccount', __name__)
 SACreateUPController = BaseSACreateUPController('createUserProfile', __name__)
 SARetrieveUAListController = BaseSARetrieveUAListController('retrieveUserAccountList', __name__)
 SARetrieveUPListController = BaseSARetrieveUPListController('retrieveUserProfileList', __name__)
+SASearchUAController = BaseSASearchUAController('searchUserAccountController', __name__)
+SASearchUPController = BaseSASearchUPController('searchUserProfileController', __name__)
+
 SAViewUPController = BaseSAViewUPController('viewUserProfileController', __name__)
 SAViewUAController = BaseSAViewUAController('viewUserAccountController', __name__)
 SAUpdateUAController = BaseSAUpdateUAController('updateUserAccountController', __name__)
@@ -55,6 +66,10 @@ SellerViewREACredController = BaseSellerViewREACredController('sellerViewREACred
 SellerRateREAController = BaseSellerRateREAController('sellerRateREAController', __name__)
 SellerReviewREAController = BaseSellerReviewREAController('sellerReviewREAController', __name__)
 BuyerRetrievePropertiesController = BaseBuyerRetrievePropertiesController('buyerRetrievePropertiesController', __name__)
+BuyerViewNewPropertyController = BaseBuyerViewNewPropertyController('buyerViewNewPropertyController', __name__)
+BuyerSearchNewPropertyController = BaseBuyerSearchNewPropertyController('buyerSearchNewPropertyController', __name__)
+BuyerViewSoldPropertyController = BaseBuyerViewSoldPropertyController('buyerViewSoldPropertyController', __name__)
+BuyerSearchSoldPropertyController = BaseBuyerSearchSoldPropertyController('buyerSearchSoldPropertyController', __name__)
 
 #define routes and functions
 loginController.route('/login', methods=['GET', 'POST'])(loginController.login)
@@ -62,6 +77,9 @@ SACreateUAController.route('/SACreateUA', methods=['GET', 'POST'])(SACreateUACon
 SACreateUPController.route('/SACreateUP', methods=['POST'])(SACreateUPController.createUserProfile)
 SARetrieveUAListController.route('/SARetrieveUAList', methods=['GET'])(SARetrieveUAListController.getAccountList)
 SARetrieveUPListController.route('/SARetrieveUPList', methods=['GET'])(SARetrieveUPListController.getProfileList)
+SASearchUAController.route('/SASearchUA', methods=['POST'])(SASearchUAController.query)
+SASearchUPController.route('/SASearchUP', methods=['POST'])(SASearchUPController.query)
+
 SAViewUPController.route('/SAViewUP', methods=['POST'])(SAViewUPController.viewProfileDesc)
 SAViewUAController.route('/SAViewUA/<username>', methods=['GET'])(SAViewUAController.viewUserAccount)
 SAUpdateUAController.route('/SAUpdateUA/<oldUsername>', methods=['GET','POST'])(SAUpdateUAController.updateUserAccount)
@@ -71,11 +89,15 @@ SASuspendUPController.route('/SASuspendUP', methods=['POST'])(SASuspendUPControl
 REAViewREACredentialController.route('/REAViewREACredential/<username>', methods=['GET', 'POST'])(REAViewREACredentialController.viewREACredentials)
 REAUpdateREACredentialController.route('/REAUpdateREACredential/<username>', methods=['GET', 'POST'])(REAUpdateREACredentialController.updateREACredentials)
 SellerRetrieveMyPropertiesController.route('/SellerRetrieveProperties/<username>', methods=['GET'])(SellerRetrieveMyPropertiesController.getMyProperties)
-SellerViewMyPropertyController.route('/SellerViewProperty/<propertyName>', methods=['GET'])(SellerViewMyPropertyController.getProperty)
+SellerViewMyPropertyController.route('/SellerViewMyProperty/<propertyName>', methods=['GET'])(SellerViewMyPropertyController.getProperty)
 SellerViewREACredController.route('/SellerViewREACred/<username>', methods=['GET'])(SellerViewREACredController.getREACred)
 SellerRateREAController.route('/SellerRateREA/<reaUsername>', methods=['POST'])(SellerRateREAController.postRate)
 SellerReviewREAController.route('/SellerReviewREA/<reaUsername>', methods=['POST'])(SellerReviewREAController.postReviewText)
 BuyerRetrievePropertiesController.route('/BuyerRetrieveProperties', methods=['GET'])(BuyerRetrievePropertiesController.getProperties)
+BuyerViewNewPropertyController.route('/BuyerViewNewProperty/<propertyName>', methods=['GET'])(BuyerViewNewPropertyController.getProperty)
+BuyerSearchNewPropertyController.route('/BuyerSearchNewProperty', methods=['POST'])(BuyerSearchNewPropertyController.queryNew)
+BuyerViewSoldPropertyController.route('/BuyerViewSoldProperty/<propertyName>', methods=['GET'])(BuyerViewSoldPropertyController.getProperty)
+BuyerSearchSoldPropertyController.route('/BuyerSearchSoldProperty', methods=['POST'])(BuyerSearchSoldPropertyController.querySold)
 
 app.register_blueprint(loginController)
 app.register_blueprint(SACreateUAController)
@@ -83,6 +105,7 @@ app.register_blueprint(SACreateUPController)
 app.register_blueprint(SARetrieveUAListController)
 app.register_blueprint(SAViewUPController)
 app.register_blueprint(SAViewUAController)
+app.register_blueprint(SASearchUAController)
 app.register_blueprint(SAUpdateUAController)
 app.register_blueprint(SARetrieveUPListController)
 app.register_blueprint(SAUpdateUPController)
@@ -96,6 +119,11 @@ app.register_blueprint(SellerViewREACredController)
 app.register_blueprint(SellerRateREAController)
 app.register_blueprint(SellerReviewREAController)
 app.register_blueprint(BuyerRetrievePropertiesController)
+app.register_blueprint(BuyerViewNewPropertyController)
+app.register_blueprint(BuyerSearchNewPropertyController)
+app.register_blueprint(BuyerViewSoldPropertyController)
+app.register_blueprint(BuyerSearchSoldPropertyController)
+app.register_blueprint(SASearchUPController)
 
 # from .Base64Converter import image_to_base64
 

@@ -28,10 +28,10 @@ function SARetrieveUAListUI(props) {
             const accountDict = response.data.accountDict;
             const userData = accountDict.map(account => ({
                 id: account.id,
-                name: account.fullName,
+                fullName: account.fullName,
                 username: account.username,
                 email: account.email,
-                type: account.profile,
+                profile: account.profile,
                 status: account.status.toUpperCase()
             }))
             setUsers(userData)
@@ -41,7 +41,28 @@ function SARetrieveUAListUI(props) {
         });
     }, []);
 
-    const rows = users.map(user => [user.name, user.username, user.email, user.type, user.status]);
+    useEffect(() => {
+        axios.post('http://127.0.0.1:5000/SASearchUA', {
+            "query": searchQuery
+        },{
+            headers: {
+                Authorization: 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.data.userAccounts == "Not Found") {
+                setUsers([])
+            }
+            else {
+                const accountDict = response.data.userAccounts;
+                setUsers(accountDict)
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user account list', error);
+        });
+    }, [searchQuery]);
 
     const handleCellClick = (row, col) => {
         // Get the username from the clicked row
@@ -55,9 +76,7 @@ function SARetrieveUAListUI(props) {
         setSearchQuery(query);
     };
 
-    const filteredRows = rows.filter(row => {
-        return row[1].toLowerCase().includes(searchQuery.toLowerCase());
-    });
+    const rows = users.map(user => [user.fullName, user.username, user.email, user.profile, user.status]);
 
     // Function to handle status color
     const statusColor = (status) => {
@@ -68,15 +87,6 @@ function SARetrieveUAListUI(props) {
             return "text-red-400";
         }
     }
-    // Map through the filtered rows
-    // const tableRows = filteredRows.map((row, index) => (
-    //     <TableRow 
-    //         key={index} 
-    //         row={row}  // Pass the filtered row data to TableRow component
-    //         onClick={handleCellClick}
-    //         statusColor={statusColor(row.status)}
-    //     />
-    // ));
 
     function displayAccountList() {
         return(
@@ -111,7 +121,7 @@ function SARetrieveUAListUI(props) {
                 <div className="overflow-x-auto px-10 pb-10">
                     <CustomTable 
                             headers={headers}
-                            rows={filteredRows}
+                            rows={rows}
                             statusColor={statusColor}
                             // Pass a function to handle cell click (ADDD THE LINK HERE)
                             onCellClick={handleCellClick}

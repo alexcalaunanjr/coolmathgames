@@ -1,10 +1,7 @@
 from .sqlAlchemy import db
-from sqlalchemy import ForeignKey, Column, Integer, String, Text
 from flask import jsonify
 from flask_bcrypt import Bcrypt
-from sqlalchemy import event
-from sqlalchemy.engine import Engine
-import sqlite3
+from sqlalchemy import and_
 
 bcrypt = Bcrypt()
 
@@ -20,9 +17,6 @@ class UserAccount(db.Model):
     email = db.Column(db.String(40), nullable=False)
     phoneNo = db.Column(db.String(25), nullable=False)
     status = db.Column(db.String(10), nullable=False, default='active')
-    # profilefk = db.relationship('UserProfiles', foreign_keys='UserAccount.profile')
-    # accountProfileRel = db.relationship("UserProfiles", back_populates="profileAccountRel", cascade='all, delete, save-update', foreign_keys="UserAccount.profile")
-
 
     #retrieve a user account based of username
     @classmethod
@@ -96,6 +90,22 @@ class UserAccount(db.Model):
                 account.status = updatedData['status']
             db.session.commit()
             return jsonify({'accountUpdated': True})
+    
+    #Retrieve new account information based of search
+    @classmethod
+    def searchUserAccount(cls, query):
+        userAccountList = cls.query.filter(cls.username.like(f"%{query}%")).all()
+        userAccountDict = [{
+            'profile' : account.profile,
+            'fullName' : account.fullName,
+            'username' : account.username,
+            'email' : account.email,
+            'status' : account.status
+        } for account in userAccountList]
+        if userAccountDict:
+            return jsonify({"userAccounts": userAccountDict})
+        else:
+            return jsonify({"userAccounts": "Not Found"})
     
     #suspend a user account
     @classmethod
