@@ -25,7 +25,7 @@ export default function SellerHomePage(props) {
     useEffect(() => {
         document.title = 'Seller Home Page';
         const username = localStorage.getItem('username');
-        axios.get(`http://127.0.0.1:5000/retrieveSellerProperties/${username}`, {
+        axios.get(`http://127.0.0.1:5000/SellerRetrieveProperties/${username}`, {
             headers: {
                 Authorization: 'Bearer ' + props.token,
                 'Content-Type': 'application/json'
