@@ -21,13 +21,20 @@ export default function CardProperty({ property }) {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-            <div style={{ height: '250px', overflow: 'hidden', display: 'flex', justifyContent: 'center'}}>
+            <div style={{ height: '250px', overflow: 'hidden', display: 'flex', justifyContent: 'center'}} className='relative'>
                 {/* Image */}
                 <img
                     src={`data:image/jpeg;base64, ${property.propertyImage}`}
                     alt="Meaningful alt text for an image that is not purely decorative"
                     className="object-cover w-full aspect-square"
                 />
+                {
+                    property.isSold && (
+                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-4xl font-bold">
+                            Sold
+                        </div>
+                    )
+                }
             </div>    
             {/* Content */}
             <div className='p-2 pl-4'>
