@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import REAHeader from '../components/REAHeader';
+import SellerHeader from '../components/SellerHeader';
 import Footer from '../components/Footer';
 import { UserContextProvider } from '../hooks/UseModalContext';
 import { useNavigate } from 'react-router-dom';
@@ -101,7 +101,7 @@ function SellerViewPropertyListingUI(props) {
     function displayPropertyListingUI() {
         return (
             <>
-                <UserContextProvider><REAHeader /></UserContextProvider>
+                <UserContextProvider><SellerHeader /></UserContextProvider>
 
                 <div className='bg-cover bg-center min-h-screen justify-center object-fit p-10 lg:px-14' 
                     style=
