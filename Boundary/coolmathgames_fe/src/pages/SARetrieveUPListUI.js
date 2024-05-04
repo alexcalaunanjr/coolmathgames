@@ -40,21 +40,38 @@ function SARetrieveUPListUI(props) {
     }, []);
 
     useEffect(() => {
+        axios.post('http://127.0.0.1:5000/SASearchUP', {
+            "query": searchQuery
+        },{
+            headers: {
+                Authorization: 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.data.userProfile == "Not Found") {
+                setProfiles([])
+            }
+            else {
+                const profiles = response.data.userProfile;
+                setProfiles(profiles)
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user profiles list', error);
+        });
+    }, [searchQuery]);
+
+    useEffect(() => {
         if (clickedProfile) {
             localStorage.setItem('clickedProfile', clickedProfile)
-            
         }
     }, [clickedProfile]);
 
     // Function to handle search
     const handleSearch = (query) => {
-        // Search logic
         setSearchQuery(query);
     };
-
-    const filteredProfiles = profiles.filter(profile => {
-        return profile.profile.toLowerCase().includes(searchQuery.toLowerCase());
-    });
 
     // Function to handle click on profile card
     const handleProfileClick = (profileName) => {
@@ -89,7 +106,7 @@ function SARetrieveUPListUI(props) {
                     {/* User Profile Card */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-10 items-center ">
                         {/* Map through the profiles array */}
-                        {filteredProfiles.map((profile, index) => (
+                        {profiles.map((profile, index) => (
                             <SAViewUPUI key={index} profile={profile} onClick={handleProfileClick} profileDesc={clickedProfileDesc} token={Ptoken}/>
                         ))}
                     </div>
