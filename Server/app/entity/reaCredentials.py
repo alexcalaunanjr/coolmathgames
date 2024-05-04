@@ -14,6 +14,7 @@ class REACredentials(db.Model):
     special = db.Column(db.String(200), nullable=False)
     about = db.Column(db.String(200), nullable=False)
     award = db.Column(db.String(200), nullable=False)
+    account_obj = db.relationship("UserAccount", backref="reaCredentials")
                         
     # Create new rea credentials
     @classmethod
@@ -36,7 +37,11 @@ class REACredentials(db.Model):
                 'special' : rea.special,
                 'about' : rea.about,
                 'award' : rea.award,
-                'reaImage' : rea.reaImage
+                'reaImage' : rea.reaImage,
+
+                'fullName': rea.account_obj.fullName,
+                'email': rea.account_obj.email,
+                'phoneNo': rea.account_obj.phoneNo,
             })
         return jsonify({'message': 'User not found'}), 404
     
@@ -62,6 +67,13 @@ class REACredentials(db.Model):
             credentials.about = updatedData['about']
         if 'award' in updatedData:
             credentials.award = updatedData['award']
+
+        if 'fullName' in updatedData:
+            credentials.account_obj.fullName = updatedData['fullName']
+        if 'email' in updatedData:
+            credentials.account_obj.email = updatedData['email']
+        if 'phoneNo' in updatedData:
+            credentials.account_obj.phoneNo = updatedData['phoneNo']
         
         db.session.commit()
         return jsonify({'reaCredentialsUpdated': True})

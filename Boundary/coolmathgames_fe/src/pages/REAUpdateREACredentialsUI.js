@@ -48,9 +48,9 @@ function REAUpdateREACredentialsUI(props) {
             .then(response => {
                 if (response) {
                     // setImage(Agent1)
-                    setFullName(response.data.account.fullName)
-                    setEmail(response.data.account.email)
-                    setPhoneNo(response.data.account.phoneNo)
+                    setFullName(response.data.cred.fullName)
+                    setEmail(response.data.cred.email)
+                    setPhoneNo(response.data.cred.phoneNo)
                     setExperience(response.data.cred.experience)
                     setLicense(response.data.cred.license)
                     setLanguage(response.data.cred.language)
