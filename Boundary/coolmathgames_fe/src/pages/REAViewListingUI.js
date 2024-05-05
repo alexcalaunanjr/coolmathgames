@@ -108,7 +108,7 @@ function REAViewPropertyListingUI(props) {
     // Function to handle update button
     const navigate = useNavigate();
     const handleUpdate = () => {
-        navigate('/REAUpdatePropertyListing');
+        // navigate('/REAUpdatePropertyListing'); ///////////////////////////////////////////////////////////////////////////////////
     };
 
     function displayPropertyListingUI(){

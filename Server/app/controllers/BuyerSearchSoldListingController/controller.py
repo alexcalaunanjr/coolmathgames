@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_jwt_extended import jwt_required
 from app.entity.propertyListing import PropertyListing
 
-class BuyerSearchSoldPropertyController(Blueprint):
+class BuyerSearchSoldListingController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
@@ -10,7 +10,7 @@ class BuyerSearchSoldPropertyController(Blueprint):
         searchPropertyListings = PropertyListing.searchSoldListings(querySold) #query based of search keywords
         return searchPropertyListings
 
-class BaseBuyerSearchSoldPropertyController(BuyerSearchSoldPropertyController):
+class BaseBuyerSearchSoldListingController(BuyerSearchSoldListingController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

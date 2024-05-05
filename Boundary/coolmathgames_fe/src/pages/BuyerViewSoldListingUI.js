@@ -30,11 +30,12 @@ const property1 = {
     description: "This is a beautiful condo unit located in the heart of Punggol. It is a 3-bedroom, 2-bathroom unit with a size of 1000 sqft. The unit is fully furnished and comes with a balcony that overlooks the beautiful Punggol Waterway. The condo is equipped with a swimming pool, gym, and BBQ pits for residents to enjoy. It is also conveniently located near Waterway Point Shopping Mall, Punggol MRT Station, and various schools and amenities.",
     unitFeatures: "Fully furnished, Balcony, Overlooking Punggol Waterway",
     facilities: "Swimming Pool, Gym, BBQ Pits",
-    isSold: false,
-    favorites: 0
+    isSold: true,
+    views: 0,
+    favorites: 0,
 };
 
-function BuyerViewNewPropertyListingUI(props) {
+function BuyerViewSoldPropertyListingUI(props) {
     const id = localStorage.getItem('id');
 
     const [image, setImage] = useState(property1.images);
@@ -47,7 +48,7 @@ function BuyerViewNewPropertyListingUI(props) {
     const [description, setDescription] = useState(property1.description);
     const [unitFeatures, setUnitFeatures] = useState(property1.unitFeatures);
     const [facilities, setFacilities] = useState(property1.facilities);
-    
+
     // State to keep track of favorites count
     const [favoritesCount, setFavoritesCount] = useState(property1.favorites);
 
@@ -57,9 +58,9 @@ function BuyerViewNewPropertyListingUI(props) {
     const [isFavorited, setIsFavorited] = useState(false);
 
     useEffect(() => {
-        document.title = 'Buyer View New Property Listing';
+        document.title = 'Buyer View Sold Property Listing';
 
-        axios.post(`http://127.0.0.1:5000/buyerViewNewPL/${id}`, {
+        axios.post(`http://127.0.0.1:5000/buyerViewSoldPL/${id}`, {
             "id": id,
         }, {
         headers: {
@@ -104,10 +105,10 @@ function BuyerViewNewPropertyListingUI(props) {
     // navigate to agent page
     const navigate = useNavigate();
     const handleAgent = () => {
-        navigate('/BuyerViewAgentCredentials');
+        // navigate('/BuyerViewAgentCredentials'); //////////////////////////////////////////////////////////////////////////
     }
 
-    function displayNewPropertyListingUI() {
+    function displaySoldPropertyListingUI() {
         return (
             <>
                 <UserContextProvider><BuyerHeader /></UserContextProvider>
@@ -120,8 +121,8 @@ function BuyerViewNewPropertyListingUI(props) {
                     }} 
                 >
                     {/* Property Image */}
-                    <div className='realtive'>
-                        <img src={image} alt="House" className='w-full h-56 sm:h-64 xl:h-[500px]'/>
+                    <div className='relative'>
+                        <img src={image} alt="House" className='w-full h-56 sm:h-64 xl:h-96'/>
                         {/* If property sold */}
                         {isSold && (
                             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-4xl font-bold">
@@ -129,10 +130,10 @@ function BuyerViewNewPropertyListingUI(props) {
                             </div>
                         )}
                     </div>
-                    <div className='flex pt-10'>
+                    <div className='flex'>
                         <div className="w-2/3">
                             {/* Property Name */}
-                            <div className='flex'>
+                            <div className='pt-10 flex'>
                                 <p className='lg:text-3xl md:text-md font-bold'>{title}</p>
                             </div>
                             <div className='flex pt-1'>
@@ -219,7 +220,7 @@ function BuyerViewNewPropertyListingUI(props) {
                             </div>
                         </div>
                         <div className='w-1/3'>
-                            <div className='flex justify-end'>
+                            <div className='flex justify-end pt-10'>
                                 {/* Price */}
                                 <div className='lg:text-3xl md:text-md font-bold self-center pr-10'>
                                     <p>${price}</p>
@@ -228,7 +229,8 @@ function BuyerViewNewPropertyListingUI(props) {
                                 <div className='md:text-md font-bold justify-end'>
                                     <button 
                                         className='flex bg-transparent text-black'
-                                        onClick={handleFavorite}>
+                                        onClick={handleFavorite}
+                                    >
                                         <svg 
                                             className={`w-[50px] h-[50px] text-gray-800 dark:text-white
                                             ${isFavorited ? 'text-red-500' : ''}`}
@@ -270,8 +272,8 @@ function BuyerViewNewPropertyListingUI(props) {
         )
     }
     return (
-        displayNewPropertyListingUI()
+        displaySoldPropertyListingUI()
     );
 }
 
-export default BuyerViewNewPropertyListingUI;
+export default BuyerViewSoldPropertyListingUI;
