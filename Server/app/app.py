@@ -1,5 +1,7 @@
 from flask import Flask
 from .config import Config
+
+
 from .controllers.LoginController.controller import BaseControllerLogin
 from .controllers.SACreateUAController.controller import BaseSACreateUAController
 from .controllers.SACreateUPController.controller import BaseSACreateUPController
@@ -13,22 +15,28 @@ from .controllers.SASuspendUAController.controller import BaseSASuspendUAControl
 from .controllers.SASearchUAController.controller import BaseSASearchUAController
 from .controllers.SASearchUPController.controller import BaseSASearchUPController
 from .controllers.SASuspendUPController.controller import BaseSASuspendUPController
+
+
 from .controllers.REAViewREACredentialController.controller import BaseREAViewREAcredentialController
 from .controllers.REAUpdateREACredentialController.controller import BaseREAUpdateREAcredentialController
-from .controllers.SellerRetrieveMyPropertiesController.controller import BaseSellerRetrieveMyPropertiesController
-from .controllers.SellerViewMyPropertyController.controller import BaseSellerViewMyPropertyController
+
+
+from .controllers.SellerRetrieveListingListController.controller import BaseSellerRetrieveListingListController
+from .controllers.SellerViewListingController.controller import BaseSellerViewListingController
 from .controllers.SellerViewREACredController.controller import BaseSellerViewREACredController
 from .controllers.SellerRateREAController.controller import BaseSellerRateREAController
 from .controllers.SellerReviewREAController.controller import BaseSellerReviewREAController
-from .controllers.BuyerRetrievePropertiesController.controller import BaseBuyerRetrievePropertiesController
-from .controllers.BuyerViewNewPropertyController.controller import BaseBuyerViewNewPropertyController
-from .controllers.BuyerSearchNewPropertyController.controller import BaseBuyerSearchNewPropertyController
-from .controllers.BuyerViewSoldPropertyController.controller import BaseBuyerViewSoldPropertyController
-from .controllers.BuyerSearchSoldPropertyController.controller import BaseBuyerSearchSoldPropertyController
+from .controllers.SellerViewViewCountController.controller import BaseSellerViewViewCountController
+
+
+from .controllers.BuyerRetrieveListingListController.controller import BaseBuyerRetrieveListingListController
+from .controllers.BuyerViewNewListingController.controller import BaseBuyerViewNewListingController
+from .controllers.BuyerSearchNewListingController.controller import BaseBuyerSearchNewListingController
+from .controllers.BuyerViewSoldListingController.controller import BaseBuyerViewSoldListingController
+from .controllers.BuyerSearchSoldListingController.controller import BaseBuyerSearchSoldListingController
 from .controllers.BuyerViewREACredController.controller import BaseBuyerViewREACredController
 from .controllers.BuyerRateREAController.controller import BaseBuyerRateREAController
 from .controllers.BuyerReviewREAController.controller import BaseBuyerReviewREAController
-from .controllers.SellerViewViewCountController.controller import BaseSellerViewViewCountController
 
 from .entity.sqlAlchemy import db
 from flask_jwt_extended import JWTManager
@@ -61,22 +69,29 @@ SAUpdateUAController = BaseSAUpdateUAController('updateUserAccountController', _
 SAUpdateUPController = BaseSAUpdateUPController('updateUserProfileController', __name__)
 SASuspendUAController = BaseSASuspendUAController('suspendUserAccountController', __name__)
 SASuspendUPController = BaseSASuspendUPController('suspendUserProfileController', __name__)
+
+
 REAViewREACredentialController = BaseREAViewREAcredentialController('viewREACredentialControler', __name__)
 REAUpdateREACredentialController = BaseREAUpdateREAcredentialController('updateREACredentialControler', __name__)
-SellerRetrieveMyPropertiesController = BaseSellerRetrieveMyPropertiesController('sellerRetrieveMyPropertiesController', __name__)
-SellerViewMyPropertyController = BaseSellerViewMyPropertyController('sellerViewMyPropertyController', __name__)
+
+
+SellerRetrieveListingListController = BaseSellerRetrieveListingListController('sellerRetrieveListingController', __name__)
+SellerViewListingController = BaseSellerViewListingController('sellerViewMyListingController', __name__)
 SellerViewREACredController = BaseSellerViewREACredController('sellerViewREACredController', __name__)
 SellerRateREAController = BaseSellerRateREAController('sellerRateREAController', __name__)
 SellerReviewREAController = BaseSellerReviewREAController('sellerReviewREAController', __name__)
-BuyerRetrievePropertiesController = BaseBuyerRetrievePropertiesController('buyerRetrievePropertiesController', __name__)
-BuyerViewNewPropertyController = BaseBuyerViewNewPropertyController('buyerViewNewPropertyController', __name__)
-BuyerSearchNewPropertyController = BaseBuyerSearchNewPropertyController('buyerSearchNewPropertyController', __name__)
-BuyerViewSoldPropertyController = BaseBuyerViewSoldPropertyController('buyerViewSoldPropertyController', __name__)
-BuyerSearchSoldPropertyController = BaseBuyerSearchSoldPropertyController('buyerSearchSoldPropertyController', __name__)
+SellerViewViewCountController = BaseSellerViewViewCountController('sellerViewViewCountController', __name__)
+
+
+BuyerRetrieveListingListController = BaseBuyerRetrieveListingListController('buyerRetrieveListingListController', __name__)
+BuyerViewNewListingController = BaseBuyerViewNewListingController('buyerViewNewListingController', __name__)
+BuyerSearchNewListingController = BaseBuyerSearchNewListingController('buyerSearchNewListingController', __name__)
+BuyerViewSoldListingController = BaseBuyerViewSoldListingController('buyerViewSoldListingController', __name__)
+BuyerSearchSoldListingController = BaseBuyerSearchSoldListingController('buyerSearchSoldListingController', __name__)
 BuyerViewREACredController = BaseBuyerViewREACredController('buyerViewREACredController', __name__)
 BuyerRateREAController = BaseBuyerRateREAController('buyerRateREAController', __name__)
 BuyerReviewREAController = BaseBuyerReviewREAController('buyerReviewREAController', __name__)
-SellerViewViewCountController = BaseSellerViewViewCountController('sellerViewViewCountController', __name__)
+
 
 #define routes and functions
 loginController.route('/login', methods=['GET', 'POST'])(loginController.login)
@@ -92,22 +107,29 @@ SAUpdateUAController.route('/SAUpdateUA/<oldUsername>', methods=['GET','POST'])(
 SAUpdateUPController.route('/SAUpdateUP/<profileName>', methods=['GET','POST'])(SAUpdateUPController.updateProfileData)
 SASuspendUAController.route('/SASuspendUA', methods=['POST'])(SASuspendUAController.suspendUserAccount)
 SASuspendUPController.route('/SASuspendUP', methods=['POST'])(SASuspendUPController.suspendUserProfile)
+
+
 REAViewREACredentialController.route('/REAViewREACredential/<username>', methods=['GET', 'POST'])(REAViewREACredentialController.viewREACredentials)
 REAUpdateREACredentialController.route('/REAUpdateREACredential/<username>', methods=['GET', 'POST'])(REAUpdateREACredentialController.updateREACredentials)
-SellerRetrieveMyPropertiesController.route('/SellerRetrieveProperties/<username>', methods=['GET'])(SellerRetrieveMyPropertiesController.getMyProperties)
-SellerViewMyPropertyController.route('/SellerViewMyProperty/<propertyName>', methods=['GET'])(SellerViewMyPropertyController.getProperty)
+
+
+SellerRetrieveListingListController.route('/SellerRetrieveListing/<username>', methods=['GET'])(SellerRetrieveListingListController.getMyProperties)
+SellerViewListingController.route('/SellerViewListing/<propertyName>', methods=['GET'])(SellerViewListingController.getProperty)
 SellerViewREACredController.route('/SellerViewREACred/<username>', methods=['GET'])(SellerViewREACredController.getREACred)
 SellerRateREAController.route('/SellerRateREA/<reaUsername>', methods=['POST'])(SellerRateREAController.postRate)
 SellerReviewREAController.route('/SellerReviewREA/<reaUsername>', methods=['POST'])(SellerReviewREAController.postReviewText)
-BuyerRetrievePropertiesController.route('/BuyerRetrieveProperties', methods=['GET'])(BuyerRetrievePropertiesController.getProperties)
-BuyerViewNewPropertyController.route('/BuyerViewNewProperty/<propertyName>', methods=['GET'])(BuyerViewNewPropertyController.getProperty)
-BuyerSearchNewPropertyController.route('/BuyerSearchNewProperty', methods=['POST'])(BuyerSearchNewPropertyController.queryNew)
-BuyerViewSoldPropertyController.route('/BuyerViewSoldProperty/<propertyName>', methods=['GET'])(BuyerViewSoldPropertyController.getProperty)
-BuyerSearchSoldPropertyController.route('/BuyerSearchSoldProperty', methods=['POST'])(BuyerSearchSoldPropertyController.querySold)
+SellerViewViewCountController.route('/SellerViewViewCount/<propertyName>', methods=['GET'])(SellerViewViewCountController.getViewCount)
+
+
+BuyerRetrieveListingListController.route('/BuyerRetrieveListing', methods=['GET'])(BuyerRetrieveListingListController.getProperties)
+BuyerViewNewListingController.route('/BuyerViewNewListing/<propertyName>', methods=['GET'])(BuyerViewNewListingController.getProperty)
+BuyerSearchNewListingController.route('/BuyerSearchNewListing', methods=['POST'])(BuyerSearchNewListingController.queryNew)
+BuyerViewSoldListingController.route('/BuyerViewSoldListing/<propertyName>', methods=['GET'])(BuyerViewSoldListingController.getProperty)
+BuyerSearchSoldListingController.route('/BuyerSearchSoldListing', methods=['POST'])(BuyerSearchSoldListingController.querySold)
 BuyerViewREACredController.route('/BuyerViewREACred/<username>', methods=['GET'])(BuyerViewREACredController.getREACred)
 BuyerRateREAController.route('/BuyerRateREA/<reaUsername>', methods=['POST'])(BuyerRateREAController.postRate)
 BuyerReviewREAController.route('/BuyerReviewREA/<reaUsername>', methods=['POST'])(BuyerReviewREAController.postReviewText)
-SellerViewViewCountController.route('/SellerViewViewCount/<propertyName>', methods=['GET'])(SellerViewViewCountController.getViewCount)
+
 
 app.register_blueprint(loginController)
 app.register_blueprint(SACreateUAController)
@@ -116,28 +138,35 @@ app.register_blueprint(SARetrieveUAListController)
 app.register_blueprint(SAViewUPController)
 app.register_blueprint(SAViewUAController)
 app.register_blueprint(SASearchUAController)
+app.register_blueprint(SASearchUPController)
 app.register_blueprint(SAUpdateUAController)
 app.register_blueprint(SARetrieveUPListController)
 app.register_blueprint(SAUpdateUPController)
 app.register_blueprint(SASuspendUAController)
 app.register_blueprint(SASuspendUPController)
+
+
 app.register_blueprint(REAViewREACredentialController)
 app.register_blueprint(REAUpdateREACredentialController)
-app.register_blueprint(SellerRetrieveMyPropertiesController)
-app.register_blueprint(SellerViewMyPropertyController)
+
+
+app.register_blueprint(SellerRetrieveListingListController)
+app.register_blueprint(SellerViewListingController)
 app.register_blueprint(SellerViewREACredController)
 app.register_blueprint(SellerRateREAController)
 app.register_blueprint(SellerReviewREAController)
-app.register_blueprint(BuyerRetrievePropertiesController)
-app.register_blueprint(BuyerViewNewPropertyController)
-app.register_blueprint(BuyerSearchNewPropertyController)
-app.register_blueprint(BuyerViewSoldPropertyController)
-app.register_blueprint(BuyerSearchSoldPropertyController)
-app.register_blueprint(SASearchUPController)
+app.register_blueprint(SellerViewViewCountController)
+
+
+app.register_blueprint(BuyerRetrieveListingListController)
+app.register_blueprint(BuyerViewNewListingController)
+app.register_blueprint(BuyerSearchNewListingController)
+app.register_blueprint(BuyerViewSoldListingController)
+app.register_blueprint(BuyerSearchSoldListingController)
 app.register_blueprint(BuyerViewREACredController)
 app.register_blueprint(BuyerRateREAController)
 app.register_blueprint(BuyerReviewREAController)
-app.register_blueprint(SellerViewViewCountController)
+
 
 # from .Base64Converter import image_to_base64
 

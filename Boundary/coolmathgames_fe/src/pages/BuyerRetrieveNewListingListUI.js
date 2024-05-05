@@ -1,10 +1,11 @@
 import React from "react";
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CardProperty from "../components/CardProperty";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import BuyerHeader from '../components/BuyerHeader';
 import Footer from '../components/Footer';
-import UserSearchBar from "../components/UserSearchBar";
+import UserSearchBar from "../components/BuyerSearchNewListingUI";
 import axios from 'axios';
 
 // assets
@@ -54,7 +55,8 @@ const property1 = {
     size: 1000,
     price: 200000,
     agent: agent1,
-    isSold: false
+    isSold: false,
+    views: 0
 };
 
 const property2 = {
@@ -67,7 +69,8 @@ const property2 = {
     size: 12500,
     price: 1850000,
     agent: agent2,
-    isSold: true
+    isSold: true,
+    views: 0
 };
 
 const property3 = {
@@ -80,7 +83,8 @@ const property3 = {
     size: 500,
     price: 20000,
     agent: agent3,
-    isSold: false
+    isSold: false,
+    views: 0
 };
 
 const property4 = {
@@ -93,10 +97,11 @@ const property4 = {
     size: 9032,
     price: 50,
     agent: agent2,
-    isSold: true
+    isSold: true,
+    views: 0
 };
 
-function BuyerRetrieveSoldPropertyListingUI(props) {
+function BuyerRetrieveNewPropertyListingUI(props) {
     const [searchQuery, setSearchQuery] = useState('');
     // Check if property is sold
     const [isSold, setIsSold] = useState(props.isSold);
@@ -106,10 +111,16 @@ function BuyerRetrieveSoldPropertyListingUI(props) {
         setSearchQuery(query);
     };
 
-    useEffect(() => {
-        document.title = 'Buyer Retrieve Sold Property Listing';
+    // Function to handle views
+    const handleViews = async(id, views) => {
+        // data = {id, views: views + 1};
+        // await ViewsCount(data);
+    };
 
-        axios.get(`http://127.0.0.1:5000/retrieveListOfSoldProperties/${!isSold}`, {
+    useEffect(() => {
+        document.title = 'Buyer Retrieve New Property Listing';
+
+        axios.get(`http://127.0.0.1:5000/retrieveListOfNewProperties/${isSold}`, {
             headers: {
                 Authorization: 'Bearer ' + props.token,
                 'Content-Type': 'application/json'
@@ -125,7 +136,7 @@ function BuyerRetrieveSoldPropertyListingUI(props) {
         })
     }, []);
 
-    function displayListOfSoldPropertiesUI(){
+    function displayListOfNewPropertiesUI(){
         return (
             // return container with background image that is slightly transparent
             <>
@@ -139,7 +150,7 @@ function BuyerRetrieveSoldPropertyListingUI(props) {
                 </div>
 
                 {/* Title: New Properties */}
-                <h1 class="pt-10 px-20 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">Sold Properties</h1>
+                <h1 class="pt-10 px-20 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">New Properties</h1>
 
                 {/* Cards of properties */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
@@ -159,8 +170,8 @@ function BuyerRetrieveSoldPropertyListingUI(props) {
         );
     }
     return (
-        displayListOfSoldPropertiesUI()
+        displayListOfNewPropertiesUI()
     );
 }
 
-export default BuyerRetrieveSoldPropertyListingUI;
+export default BuyerRetrieveNewPropertyListingUI;

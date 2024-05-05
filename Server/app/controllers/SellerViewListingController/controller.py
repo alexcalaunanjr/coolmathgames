@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_jwt_extended import jwt_required
 from app.entity.propertyListing import PropertyListing
 
-class SellerViewMyPropertyController(Blueprint):
+class SellerViewListingController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
@@ -10,7 +10,7 @@ class SellerViewMyPropertyController(Blueprint):
         sellerProperty = PropertyListing.viewNewProperty(propertyName)
         return sellerProperty
 
-class BaseSellerViewMyPropertyController(SellerViewMyPropertyController):
+class BaseSellerViewListingController(SellerViewListingController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
