@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CardProperty from "../components/CardProperty";
 
 import { UserContextProvider } from '../hooks/UseModalContext';
@@ -19,7 +19,7 @@ import Agent3 from "../assets/agent3.jpg";
 
 // components
 import REAHeader from "../components/REAHeader";
-import SearchBar from "../components/SearchBar";
+import SearchPropertyUI from "../components/SearchPropertyUI";
 import Footer from "../components/Footer";
 
 
@@ -94,41 +94,57 @@ const property4 = {
     agent: agent2
 };
 
-export default function REAHomePage() {
+function REAHomePage() {
     useEffect(() => {
         document.title = 'REA Home Page';
     }, []);
-    return (
-        <>
-        <UserContextProvider><REAHeader /></UserContextProvider>
 
-        <div className="bg-cover bg-center min-h-screen justify-center" style={{ backgroundImage: `url(${BG})` }}>
+    const [searchQuery, setSearchQuery] = useState('');
 
-            <div className='p-5'></div>
+    // Handle search
+    const handleSearch = (query) => {
+        setSearchQuery(query);
+    };
 
-            <SearchBar />
-            
-            <div className='p-5'></div>
+    function displayREAHomePage() {
+        return (
+            <>
+            <UserContextProvider><REAHeader /></UserContextProvider>
 
-            {/* Title: My Properties */}
-            <h1 class="px-20 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">My Properties</h1>
+            <div className="bg-cover bg-center min-h-screen justify-center" style={{ backgroundImage: `url(${BG})` }}>
 
-            {/* Cards of properties */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
-                {/* Card 1 */}
-                <CardProperty property={property1} />
-                {/* Card 2 */}
-                <CardProperty property={property2} />
-                {/* Card 3 */}
-                <CardProperty property={property3} />
-                {/* Card 4 */}
-                <CardProperty property={property4} />
+                <div className='p-5'></div>
+
+                {/* Search */}
+                <SearchPropertyUI placeholder="Search by name..." onSubmit={handleSearch}/>
                 
+                <div className='p-5'></div>
+
+                {/* Title: My Properties */}
+                <h1 class="px-20 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">My Properties</h1>
+
+                {/* Cards of properties */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
+                    {/* Card 1 */}
+                    <CardProperty property={property1} />
+                    {/* Card 2 */}
+                    <CardProperty property={property2} />
+                    {/* Card 3 */}
+                    <CardProperty property={property3} />
+                    {/* Card 4 */}
+                    <CardProperty property={property4} />
+                    
+                </div>
             </div>
-        </div>
 
 
-        <Footer />
-        </>
+            <Footer />
+            </>
+        );
+    }
+    return (
+        displayREAHomePage()
     );
 }
+
+export default REAHomePage;
