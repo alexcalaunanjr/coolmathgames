@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CardProperty from "../components/CardProperty";
 import { UserContextProvider } from '../hooks/UseModalContext';
-import SellerHeader from '../components/SellerHeader';
+import BuyerHeader from '../components/BuyerHeader';
 import Footer from '../components/Footer';
 import UserSearchBar from "../components/UserSearchBar";
 import axios from 'axios';
@@ -141,7 +141,7 @@ function BuyerRetrieveNewPropertyListingUI(props) {
             // return container with background image that is slightly transparent
             <>
             {/* Seller header component */}
-            <UserContextProvider><SellerHeader /></UserContextProvider>
+            <UserContextProvider><BuyerHeader /></UserContextProvider>
 
             <div className="bg-cover bg-center min-h-screen justify-center" style={{ backgroundImage: `url(${BG})` }}>
 
