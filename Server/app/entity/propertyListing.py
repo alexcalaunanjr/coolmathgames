@@ -9,6 +9,8 @@ class PropertyListing(db.Model):
     ownerSeller = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     REA = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     sold = db.Column(db.Boolean, nullable=False)
+    viewsCount = db.Column(db.Integer, nullable=False)
+    favoritesCount = db.Column(db.Integer, nullable=False) 
     property_obj = db.relationship("Properties", backref="listings")
 
     #Retrieve information on every property
@@ -27,8 +29,8 @@ class PropertyListing(db.Model):
             'area': listings.property_obj.area,
             'unitFeatures': listings.property_obj.unitFeatures,
             'facilities': listings.property_obj.facilities,
-            'viewsCount': listings.property_obj.viewsCount,
-            'favoritesCount': listings.property_obj.favoritesCount,
+            'viewsCount': listings.viewsCount,
+            'favoritesCount': listings.favoritesCount,
             'sold': listings.sold
         } for listings in properties]
         if propertiesDict:
@@ -52,8 +54,8 @@ class PropertyListing(db.Model):
             'area': listings.property_obj.area,
             'unitFeatures': listings.property_obj.unitFeatures,
             'facilities': listings.property_obj.facilities,
-            'viewsCount': listings.property_obj.viewsCount,
-            'favoritesCount': listings.property_obj.favoritesCount,
+            'viewsCount': listings.viewsCount,
+            'favoritesCount': listings.favoritesCount,
             'sold': listings.sold
         } for listings in sellerPropertiesList]
         return jsonify({"sellerProperties": sellerPropertiesDict})
@@ -74,8 +76,8 @@ class PropertyListing(db.Model):
             'area': listings.property_obj.area,
             'unitFeatures': listings.property_obj.unitFeatures,
             'facilities': listings.property_obj.facilities,
-            'viewsCount': listings.property_obj.viewsCount,
-            'favoritesCount': listings.property_obj.favoritesCount,
+            'viewsCount': listings.viewsCount,
+            'favoritesCount': listings.favoritesCount,
             'sold': listings.sold
         } for listings in propertyListings]
         if propertyListingsDict:
@@ -99,8 +101,8 @@ class PropertyListing(db.Model):
             'area': listings.property_obj.area,
             'unitFeatures': listings.property_obj.unitFeatures,
             'facilities': listings.property_obj.facilities,
-            'viewsCount': listings.property_obj.viewsCount,
-            'favoritesCount': listings.property_obj.favoritesCount,
+            'viewsCount': listings.viewsCount,
+            'favoritesCount': listings.favoritesCount,
             'sold': listings.sold
         } for listings in propertyListings]
         if propertyListingsDict:
@@ -125,8 +127,8 @@ class PropertyListing(db.Model):
                 'area': newProperty.property_obj.area,
                 'unitFeatures': newProperty.property_obj.unitFeatures,
                 'facilities': newProperty.property_obj.facilities,
-                'viewsCount': newProperty.property_obj.viewsCount,
-                'favoritesCount': newProperty.property_obj.favoritesCount,
+                'viewsCount': newProperty.viewsCount,
+                'favoritesCount': newProperty.favoritesCount,
                 'sold': newProperty.sold
             })
             return property
@@ -135,7 +137,7 @@ class PropertyListing(db.Model):
     
     #Retrieve information for a single old property
     @classmethod
-    def viewOldProperty(cls, propertyName:str):
+    def viewSoldProperty(cls, propertyName:str):
         oldProperty = cls.query.filter(and_(cls.property==propertyName, cls.sold==True)).first()
         if oldProperty:
             property = jsonify({
@@ -150,10 +152,22 @@ class PropertyListing(db.Model):
                 'area': oldProperty.property_obj.area,
                 'unitFeatures': oldProperty.property_obj.unitFeatures,
                 'facilities': oldProperty.property_obj.facilities,
-                'viewsCount': oldProperty.property_obj.viewsCount,
-                'favoritesCount': oldProperty.property_obj.favoritesCount,
+                'viewsCount': oldProperty.viewsCount,
+                'favoritesCount': oldProperty.favoritesCount,
                 'sold': oldProperty.sold
             })
             return property
         else:
             return jsonify({"Property": "Not Found"})
+    
+    #view View Count
+    @classmethod
+    def viewViewCount(cls, propertyName:str):
+        property = cls.query.filter(cls.property==propertyName).first()
+        if property:
+            property = jsonify({
+                'viewsCount': property.viewsCount
+            })
+            return property
+        else:
+            return jsonify({"View Count": "Not Found"})

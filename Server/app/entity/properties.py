@@ -13,6 +13,4 @@ class Properties(db.Model):
     area = db.Column(db.Integer, nullable=False)
     unitFeatures = db.Column(db.String(300), nullable=False)
     facilities = db.Column(db.String(300), nullable=False)
-    viewsCount = db.Column(db.Integer, nullable=False)
-    favoritesCount = db.Column(db.Integer, nullable=False) 
 

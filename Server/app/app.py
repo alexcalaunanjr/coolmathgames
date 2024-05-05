@@ -12,7 +12,6 @@ from .controllers.SAUpdateUPController.controller import BaseSAUpdateUPControlle
 from .controllers.SASuspendUAController.controller import BaseSASuspendUAController
 from .controllers.SASearchUAController.controller import BaseSASearchUAController
 from .controllers.SASearchUPController.controller import BaseSASearchUPController
-
 from .controllers.SASuspendUPController.controller import BaseSASuspendUPController
 from .controllers.REAViewREACredentialController.controller import BaseREAViewREAcredentialController
 from .controllers.REAUpdateREACredentialController.controller import BaseREAUpdateREAcredentialController
@@ -26,6 +25,10 @@ from .controllers.BuyerViewNewPropertyController.controller import BaseBuyerView
 from .controllers.BuyerSearchNewPropertyController.controller import BaseBuyerSearchNewPropertyController
 from .controllers.BuyerViewSoldPropertyController.controller import BaseBuyerViewSoldPropertyController
 from .controllers.BuyerSearchSoldPropertyController.controller import BaseBuyerSearchSoldPropertyController
+from .controllers.BuyerViewREACredController.controller import BaseBuyerViewREACredController
+from .controllers.BuyerRateREAController.controller import BaseBuyerRateREAController
+from .controllers.BuyerReviewREAController.controller import BaseBuyerReviewREAController
+from .controllers.SellerViewViewCountController.controller import BaseSellerViewViewCountController
 
 from .entity.sqlAlchemy import db
 from flask_jwt_extended import JWTManager
@@ -35,7 +38,8 @@ from app.entity.userProfiles import UserProfiles
 from app.entity.reaCredentials import REACredentials
 from app.entity.properties import Properties
 from app.entity.propertyListing import PropertyListing
-from app.entity.rateReviews import RateReviews
+from app.entity.rating import Rating
+from app.entity.review import Review
 
 app = Flask(__name__)
 jwt = JWTManager(app)
@@ -51,7 +55,6 @@ SARetrieveUAListController = BaseSARetrieveUAListController('retrieveUserAccount
 SARetrieveUPListController = BaseSARetrieveUPListController('retrieveUserProfileList', __name__)
 SASearchUAController = BaseSASearchUAController('searchUserAccountController', __name__)
 SASearchUPController = BaseSASearchUPController('searchUserProfileController', __name__)
-
 SAViewUPController = BaseSAViewUPController('viewUserProfileController', __name__)
 SAViewUAController = BaseSAViewUAController('viewUserAccountController', __name__)
 SAUpdateUAController = BaseSAUpdateUAController('updateUserAccountController', __name__)
@@ -70,6 +73,10 @@ BuyerViewNewPropertyController = BaseBuyerViewNewPropertyController('buyerViewNe
 BuyerSearchNewPropertyController = BaseBuyerSearchNewPropertyController('buyerSearchNewPropertyController', __name__)
 BuyerViewSoldPropertyController = BaseBuyerViewSoldPropertyController('buyerViewSoldPropertyController', __name__)
 BuyerSearchSoldPropertyController = BaseBuyerSearchSoldPropertyController('buyerSearchSoldPropertyController', __name__)
+BuyerViewREACredController = BaseBuyerViewREACredController('buyerViewREACredController', __name__)
+BuyerRateREAController = BaseBuyerRateREAController('buyerRateREAController', __name__)
+BuyerReviewREAController = BaseBuyerReviewREAController('buyerReviewREAController', __name__)
+SellerViewViewCountController = BaseSellerViewViewCountController('sellerViewViewCountController', __name__)
 
 #define routes and functions
 loginController.route('/login', methods=['GET', 'POST'])(loginController.login)
@@ -79,7 +86,6 @@ SARetrieveUAListController.route('/SARetrieveUAList', methods=['GET'])(SARetriev
 SARetrieveUPListController.route('/SARetrieveUPList', methods=['GET'])(SARetrieveUPListController.getProfileList)
 SASearchUAController.route('/SASearchUA', methods=['POST'])(SASearchUAController.query)
 SASearchUPController.route('/SASearchUP', methods=['POST'])(SASearchUPController.query)
-
 SAViewUPController.route('/SAViewUP', methods=['POST'])(SAViewUPController.viewProfileDesc)
 SAViewUAController.route('/SAViewUA/<username>', methods=['GET'])(SAViewUAController.viewUserAccount)
 SAUpdateUAController.route('/SAUpdateUA/<oldUsername>', methods=['GET','POST'])(SAUpdateUAController.updateUserAccount)
@@ -98,6 +104,10 @@ BuyerViewNewPropertyController.route('/BuyerViewNewProperty/<propertyName>', met
 BuyerSearchNewPropertyController.route('/BuyerSearchNewProperty', methods=['POST'])(BuyerSearchNewPropertyController.queryNew)
 BuyerViewSoldPropertyController.route('/BuyerViewSoldProperty/<propertyName>', methods=['GET'])(BuyerViewSoldPropertyController.getProperty)
 BuyerSearchSoldPropertyController.route('/BuyerSearchSoldProperty', methods=['POST'])(BuyerSearchSoldPropertyController.querySold)
+BuyerViewREACredController.route('/BuyerViewREACred/<username>', methods=['GET'])(BuyerViewREACredController.getREACred)
+BuyerRateREAController.route('/BuyerRateREA/<reaUsername>', methods=['POST'])(BuyerRateREAController.postRate)
+BuyerReviewREAController.route('/BuyerReviewREA/<reaUsername>', methods=['POST'])(BuyerReviewREAController.postReviewText)
+SellerViewViewCountController.route('/SellerViewViewCount/<propertyName>', methods=['GET'])(SellerViewViewCountController.getViewCount)
 
 app.register_blueprint(loginController)
 app.register_blueprint(SACreateUAController)
@@ -124,6 +134,10 @@ app.register_blueprint(BuyerSearchNewPropertyController)
 app.register_blueprint(BuyerViewSoldPropertyController)
 app.register_blueprint(BuyerSearchSoldPropertyController)
 app.register_blueprint(SASearchUPController)
+app.register_blueprint(BuyerViewREACredController)
+app.register_blueprint(BuyerRateREAController)
+app.register_blueprint(BuyerReviewREAController)
+app.register_blueprint(SellerViewViewCountController)
 
 # from .Base64Converter import image_to_base64
 
@@ -140,8 +154,6 @@ with app.app_context():
     #     'area': 5000,
     #     'unitFeatures': "has free wifi, and cleaning service",
     #     'facilities': "swimming pool, pool table",
-    #     'viewsCount': 80,
-    #     'favoritesCount': 30
     # }
 
     # property_data_2 = {
@@ -155,8 +167,6 @@ with app.app_context():
     #     'area': 2000,
     #     'unitFeatures': "has free wifi, and cleaning service",
     #     'facilities': "swimming pool, pool table",
-    #     'viewsCount': 40,
-    #     'favoritesCount': 10
     # }
 
     # property_data_3 = {
@@ -170,8 +180,6 @@ with app.app_context():
     #     'area': 7000,
     #     'unitFeatures': "has free wifi, and cleaning service",
     #     'facilities': "swimming pool",
-    #     'viewsCount': 80,
-    #     'favoritesCount': 50
     # }
 
     # property_data_4 = {
@@ -185,8 +193,6 @@ with app.app_context():
     #     'area': 2000,
     #     'unitFeatures': "has free wifi, and cleaning service",
     #     'facilities': "swimming pool",
-    #     'viewsCount': 70,
-    #     'favoritesCount': 50
     # }
 
     # reaData = { 
@@ -211,10 +217,3 @@ with app.app_context():
     # db.session.add(property_obj_4)
     # reaObj = REACredentials(**reaData)
     # db.session.add(reaObj)
-
-    # Commit the changes
-    # db.session.commit()
-
-    # Close the session
-    # db.session.close()
-

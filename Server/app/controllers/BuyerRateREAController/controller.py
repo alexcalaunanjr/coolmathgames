@@ -3,7 +3,7 @@ from flask import Blueprint
 from app.entity.rating import Rating
 from flask_jwt_extended import jwt_required
 
-class SellerRateREAController(Blueprint):
+class BuyerRateREAController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -11,12 +11,12 @@ class SellerRateREAController(Blueprint):
         postRating = Rating.postRating(raterUsername, reaUsername, rating)
         return postRating
 
-class BaseSellerRateREAController(SellerRateREAController):
+class BaseBuyerRateREAController(BuyerRateREAController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     @jwt_required()
-    def postRate(self, reaUsername:str):
+    def postRate(self, reaUsername):
         data = request.get_json()
         raterUsername = data.get('raterUsername')
         rating = data.get('rating')

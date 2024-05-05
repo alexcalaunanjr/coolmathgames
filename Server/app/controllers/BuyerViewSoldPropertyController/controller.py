@@ -6,8 +6,8 @@ class BuyerViewSoldPropertyController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def viewOldProperty(self, propertyName):
-        property = PropertyListing.viewOldProperty(propertyName)
+    def viewSoldProperty(self, propertyName):
+        property = PropertyListing.viewSoldProperty(propertyName)
         return property
 
 class BaseBuyerViewSoldPropertyController(BuyerViewSoldPropertyController):
@@ -16,5 +16,5 @@ class BaseBuyerViewSoldPropertyController(BuyerViewSoldPropertyController):
 
     @jwt_required()
     def getProperty(self, propertyName):
-        property = self.viewOldProperty(propertyName)
+        property = self.viewSoldProperty(propertyName)
         return property
