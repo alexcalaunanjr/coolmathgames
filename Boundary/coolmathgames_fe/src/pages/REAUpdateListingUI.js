@@ -5,12 +5,12 @@ import axios from 'axios';
 import { TextInput, Textarea } from 'flowbite-react';
 import Dropdown from '../components/Dropdown';
 import UploadFile from '../components/UploadFile';
-import REASaveChangesPLUI from '../components/REASaveChangesPLUI';
+import REASaveChangesListingUI from '../components/REASaveChangesListingUI';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
 
-function REAUpdatePropertyUI(props) {
+function REAUpdateListingUI(props) {
     const token = localStorage.getItem('');
 
     const [name, setName] = useState('');
@@ -37,7 +37,7 @@ function REAUpdatePropertyUI(props) {
 
     useEffect(() => {
         document.title = 'REA Create Property';
-        axios.get('http://127.0.0.1:5000/REAUpdateProperty', {
+        axios.get('http://127.0.0.1:5000/REAUpdateLisitng', {
             headers: {
             'Authorization': 'Bearer ' + props.token,
             'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ function REAUpdatePropertyUI(props) {
     const navigate = useNavigate();
     // Handle cancel
     function handleCancel() {
-        navigate('/REAHomePage');
+        navigate('/REARetrieveListingListUI');
     }
 
     // Handle update property
@@ -96,7 +96,7 @@ function REAUpdatePropertyUI(props) {
             .then((response) => {
                 console.log('Property updated successfully:', response.data.propertyCreated);
                 if (response.data.propertyCreated) {
-                    displayNewPropertyUI();
+                    displayNewListingUI();
                 }
                 else {
                     setMessage('');
@@ -126,7 +126,7 @@ function REAUpdatePropertyUI(props) {
         }
     }, [formFilled]);
 
-    function displayNewPropertyUI(){
+    function displayNewListingUI(){
         setMessage('Property updated successfully!');
         setError('');
     }
@@ -152,7 +152,7 @@ function REAUpdatePropertyUI(props) {
         }
     }
 
-    function displayUpdatePropertyUI() {
+    function displayUpdateListingUI() {
         return (
             <>
             {/* Header */}
@@ -292,8 +292,8 @@ function REAUpdatePropertyUI(props) {
                         <Button color="bg-blue-500 text-black text-md" text="Save Changes" onClick={handleSubmit}/>
                     </div>
                     {changesPopUp && 
-                        <REASaveChangesPLUI
-                        openModal={REASaveChangesPLUI}
+                        <REASaveChangesListingUI
+                        openModal={REASaveChangesListingUI}
                         onClose={handleReopenPopUp}
                         text="Are you sure to save the changes?" 
                     />}
@@ -307,8 +307,8 @@ function REAUpdatePropertyUI(props) {
     }
 
     return (
-        displayUpdatePropertyUI()
+        displayUpdateListingUI()
     )
 }
 
-export default REAUpdatePropertyUI;
+export default REAUpdateListingUI;

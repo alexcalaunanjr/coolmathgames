@@ -5,7 +5,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function REASaveChangesPLUI( {openModal, onClose, text, token}) {
+function REASaveChangesListingUI( {openModal, onClose, text, token}) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   
@@ -73,4 +73,4 @@ function REASaveChangesPLUI( {openModal, onClose, text, token}) {
 
 }
 
-export default REASaveChangesPLUI;
+export default REASaveChangesListingUI;

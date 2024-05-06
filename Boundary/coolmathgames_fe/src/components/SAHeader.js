@@ -20,7 +20,7 @@ function SAHeader() {
         {/* header */}
         <Navbar fluid rounded>
             {/* brand logo */}
-            <Navbar.Brand href="/SAHomePage">
+            <Navbar.Brand href="/SARetrieveUAListUI">
                 <span className="self-center text-3xl font-Limelight dark:text-white pl-2">MICASA</span>
             </Navbar.Brand>
 

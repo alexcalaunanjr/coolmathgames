@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function SearchPropertyUI({ id, placeholder, onSubmit }) {
+function SearchListingUI({ id, placeholder, onSubmit }) {
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleInputChange = (e) => {
@@ -35,4 +35,4 @@ function SearchPropertyUI({ id, placeholder, onSubmit }) {
     );
 }
 
-export default SearchPropertyUI;
+export default SearchListingUI;

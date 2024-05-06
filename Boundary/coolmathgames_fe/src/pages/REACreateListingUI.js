@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
 
-function REACreatePropertyUI(props) {
+function REACreateLisitngUI(props) {
     const token = localStorage.getItem('');
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
@@ -58,7 +58,7 @@ function REACreatePropertyUI(props) {
     const navigate = useNavigate();
     // Handle cancel
     function handleCancel() {
-        navigate('/REAHomePage');
+        navigate('/REARetrieveListingListUI');
     }
 
     // Handle create property
@@ -93,7 +93,7 @@ function REACreatePropertyUI(props) {
             .then((response) => {
                 console.log('Property created successfully:', response.data.propertyCreated);
                 if (response.data.propertyCreated) {
-                    displayNewPropertyUI();
+                    displayNewListingUI();
                 }
                 else {
                     setMessage('');
@@ -117,7 +117,7 @@ function REACreatePropertyUI(props) {
         }
     }, [formFilled]);
 
-    function displayNewPropertyUI(){
+    function displayNewListingUI(){
         setMessage('Property created successfully!');
         setError('');
     }
@@ -143,7 +143,7 @@ function REACreatePropertyUI(props) {
         }
     }
 
-    function displayCreatePropertyUI() {
+    function displayCreateListingUI() {
         return (
             <>
             {/* Header */}
@@ -274,8 +274,8 @@ function REACreatePropertyUI(props) {
     }
 
     return (
-        displayCreatePropertyUI()
+        displayCreateListingUI()
     )
 }
 
-export default REACreatePropertyUI;
+export default REACreateLisitngUI;
