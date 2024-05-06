@@ -6,82 +6,61 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PLTabs from '../components/TabsPropertyListing';
 import InsightPopUp from '../components/InsightsPopUp';
+import { useParams, Link } from 'react-router-dom';
 
 // Images
 import house2 from '../assets/house2.jpg';
 import bg from '../assets/bg3.jpeg';
 import agent from '../assets/agent3.jpg';
 
-// Example: create a property object
-const agent1 = {
-    id: 1,
-    fullName: 'Elizabeth Hamilton',
-    username: 'agent1',
-}
-
-const property1 = {
-    id: 1,
-    images: house2,
-    title: "Trellis Towers Condo Unit",
-    location: "Punggol, Singapore",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 10000,
-    price: 200000,
-    description: "This is a beautiful condo unit located in the heart of Punggol. It is a 3-bedroom, 2-bathroom unit with a size of 1000 sqft. The unit is fully furnished and comes with a balcony that overlooks the beautiful Punggol Waterway. The condo is equipped with a swimming pool, gym, and BBQ pits for residents to enjoy. It is also conveniently located near Waterway Point Shopping Mall, Punggol MRT Station, and various schools and amenities.",
-    unitFeatures: "Fully furnished, Balcony, Overlooking Punggol Waterway",
-    facilities: "Swimming Pool, Gym, BBQ Pits",
-    isSold: false,
-    views: 0,
-    favorites: 0
-};
-
 function SellerViewPropertyListingUI(props) {
-    const id = localStorage.getItem('id');
+    let { propertyName } = useParams();
 
-    const [image, setImage] = useState(property1.images);
-    const [title, setTitle] = useState(property1.title);
-    const [location, setLocation] = useState(property1.location);
-    const [price, setPrice] = useState(property1.price);
-    const [bedrooms, setBedrooms] = useState(property1.bedrooms);
-    const [bathrooms, setBathrooms] = useState(property1.bathrooms);
-    const [size, setSize] = useState(property1.size);
-    const [description, setDescription] = useState(property1.description);
-    const [unitFeatures, setUnitFeatures] = useState(property1.unitFeatures);
-    const [facilities, setFacilities] = useState(property1.facilities);
+    const [image, setImage] = useState('');
+    const [title, setTitle] = useState('');
+    const [location, setLocation] = useState('');
+    const [price, setPrice] = useState('');
+    const [bedrooms, setBedrooms] = useState('');
+    const [bathrooms, setBathrooms] = useState('');
+    const [size, setSize] = useState('');
+    const [description, setDescription] = useState('');
+    const [unitFeatures, setUnitFeatures] = useState('');
+    const [facilities, setFacilities] = useState('');
     const [count, setCount] = useState(0);
-    const [views, setViews] = useState(property1.views);
-    const [favorites, setFavorites] = useState(property1.favorites);
+    const [agentName, setAgentName] = useState('');
+    const [agentImg, setAgentImage] = useState('');
+    const Ptoken = props.token
 
     // Check if property is sold
-    const [isSold, setIsSold] = useState(property1.isSold);
+    const [isSold, setIsSold] = useState();
     // Pop up for insights
     const [insightsPopUp, setInsightsPopUp] = useState(false);
 
     useEffect(() => {
         document.title = 'Seller View Property Listing';
 
-        axios.post(`http://127.0.0.1:5000/sellerViewPL/${id}`, {
-            "id": id,
-        }, {
-        headers: {
-            'Authorization': 'Bearer ' + props.token,
-            'Content-Type': 'application/json'
-        }
+        axios.get(`http://127.0.0.1:5000/SellerViewListing/${propertyName}`, {
+            headers: {
+                'Authorization': 'Bearer ' + Ptoken,
+                'Content-Type': 'application/json'
+            }
         })
         .then((response) => {
-            console.log('Property Listing:', response.data.propertyListing);
             if (response) {
-                setTitle(response.data.title);
+                setTitle(response.data.propertyName);
                 setLocation(response.data.location);
                 setPrice(response.data.price);
-                setBedrooms(response.data.bedrooms);
-                setBathrooms(response.data.bathrooms);
-                setSize(response.data.size);
-                setDescription(response.data.description);
-                setUnitFeatures(response.data.features);
+                setBedrooms(response.data.noOfBedrooms);
+                setBathrooms(response.data.noOfBathrooms);
+                setSize(response.data.area);
+                setDescription(response.data.aboutProperty);
+                setUnitFeatures(response.data.unitFeatures);
                 setFacilities(response.data.facilities);
-                setIsSold(response.data.isSold);
+                setIsSold(response.data.sold);
+                setAgentName(response.data.RealEstateAgent);
+                setAgentImage(response.data.REAImage);
+                setImage(response.data.propertyImage);
+                setIsSold(response.data.sold);
             }
         })
         .catch((error) => {
@@ -112,7 +91,7 @@ function SellerViewPropertyListingUI(props) {
                 >
                     {/* Property Image */}
                     <div className='relative'>
-                        <img src={image} alt="House" className='w-full h-56 sm:h-64 xl:h-96'/>
+                        <img src={`data:image/jpeg;base64, ${image}`} alt="House" className='w-full h-56 sm:h-64 xl:h-96'/>
                         {/* If property sold */}
                         {isSold && (
                             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-4xl font-bold">
@@ -209,16 +188,18 @@ function SellerViewPropertyListingUI(props) {
                                 {/* Pop up for insights */}
                                 {insightsPopUp && 
                                 <InsightPopUp
-                                    views = {views}
-                                    favorites = {favorites}
+                                    propertyName={title}
                                     openModal={insightsPopUp}
                                     onClose={handleReopenPopUp} 
+                                    token={Ptoken}
                                 />}
                             </div>
-                            <div className='h-12 flex justify-end items-center mt-10'>
-                                <img src={agent} alt="Agent" className='w-12 h-12 rounded-full mr-2'/>
-                                <p className='text-md items-center'> {agent1.fullName}</p>
-                            </div>
+                            <Link to={`/REAViewREACredentialsUI/${agentName}`}>
+                                <div className='h-12 flex justify-end items-center mt-10'>
+                                    <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-12 h-12 rounded-full mr-2'/>
+                                    <p className='text-md items-center'> {agentName}</p>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     {/* A straight line */}

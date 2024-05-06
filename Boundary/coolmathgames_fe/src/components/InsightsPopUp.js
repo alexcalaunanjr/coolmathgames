@@ -1,15 +1,36 @@
 import React from 'react';
 import { Button, Modal } from "flowbite-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios';
 
-function InsightPopUp({ favorites, views, openModal, onClose }) {
-
-
+function InsightPopUp({ propertyName, openModal, onClose, token }) {
   const [activeTab, setActiveTab] = useState('favorites');
+  const [views, setViews] = useState('');
+  const [favorites, setFavorites] = useState('');
+
   const handleTabClick = (e, tabName) => {
     e.preventDefault();
     setActiveTab(tabName);
   };
+
+  useEffect(() => {
+    document.title = 'Seller view view count and favorite count';
+
+    axios.get(`http://127.0.0.1:5000/SellerViewViewCount/${propertyName}`, {
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then((response) => {
+        if (response) {
+            setViews(response.data.viewsCount)
+        }
+    })
+    .catch((error) => {
+        console.error('Error fetching property listing:', error);
+    })
+}, []);
 
   return (
     <>
@@ -53,7 +74,7 @@ function InsightPopUp({ favorites, views, openModal, onClose }) {
             {/* Render content based on activeTab */}
             {activeTab === 'favorites' && 
                 <div className='pt-10'>
-                    Total Favorites: {favorites}
+                    Total Favorites: undefined
                 </div>
                 }
             {activeTab === 'views' && 

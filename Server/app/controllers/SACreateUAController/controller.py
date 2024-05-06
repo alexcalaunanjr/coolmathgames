@@ -12,18 +12,9 @@ class SACreateUAController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def createAccount(self, name:str, username:str, email:str, password:str, phone:str, profile:str):
+    def createAccount(self, name:str, img, username:str, email:str, password:str, phone:str, profile:str):
         if name and username and password and email and phone and profile:
-            hashedPw = bcrypt.generate_password_hash(password)
-            newUser = UserAccount(
-                profile=profile,
-                fullName=name, 
-                username=username, 
-                password=hashedPw, 
-                email=email,
-                phoneNo=phone,
-            )
-            createAcc = UserAccount.createAccount(newUser)
+            createAcc = UserAccount.createAccount(name, img, username, email, password, phone, profile)
         return createAcc
 
     def retrieveProfileList(self):
@@ -47,12 +38,13 @@ class BaseSACreateUAController(SACreateUAController):
             data = request.get_json()
             # Extract login account from the json file
             name = data.get('fullName')
+            img = data.get('img')
             username = data.get('username')
             password = data.get('password')
             email = data.get('email')
             phone = data.get('phone')
             profile = data.get('profile')
-            accCreated = self.createAccount(name, username, email, password, phone, profile)
+            accCreated = self.createAccount(name, img, username, email, password, phone, profile)
             return jsonify({"accountCreated": accCreated})
         if request.method == 'GET':
             profileList = self.retrieveProfileList()

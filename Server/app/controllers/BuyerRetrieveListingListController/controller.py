@@ -6,8 +6,8 @@ class BuyerRetrieveListingListController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def retrieveProperties(self):
-        properties = PropertyListing.retrieveProperties()
+    def retrieveNewProperties(self):
+        properties = PropertyListing.retrieveNewProperties()
         return properties
 
 class BaseBuyerRetrieveListingListController(BuyerRetrieveListingListController):
@@ -15,6 +15,6 @@ class BaseBuyerRetrieveListingListController(BuyerRetrieveListingListController)
         super().__init__(*args, **kwargs)
 
     @jwt_required()
-    def getProperties(self):
-        properties = self.retrieveProperties()
+    def getNewProperties(self):
+        properties = self.retrieveNewProperties()
         return properties

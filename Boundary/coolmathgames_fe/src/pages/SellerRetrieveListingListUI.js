@@ -25,14 +25,18 @@ export default function SellerRetrieveListingListUI(props) {
     useEffect(() => {
         document.title = 'Seller Retrieve Listing List UI';
         const username = localStorage.getItem('username');
-        axios.get(`http://127.0.0.1:5000/SellerRetrieveProperties/${username}`, {
+        axios.get(`http://127.0.0.1:5000/SellerRetrieveListing/${username}`, {
             headers: {
                 Authorization: 'Bearer ' + props.token,
                 'Content-Type': 'application/json'
             }
         })
         .then(response => {
-            setSellerProperties(response.data.sellerProperties);
+            const updatedSellerProperties = response.data.sellerProperties.map(property => ({
+                ...property,
+                propertyLink: `/SellerViewListingUI/${property.propertyName}`
+            }));
+            setSellerProperties(updatedSellerProperties);
         })
         .catch(error => {
             console.error("Error fetching seller's properties: ", error);
@@ -54,7 +58,7 @@ export default function SellerRetrieveListingListUI(props) {
             {/* Cards of properties */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
                 {sellerProperties.map(property => (
-                    <CardProperty property={property} />
+                    <CardProperty property={property}/>
                 ))}
             </div>
         </div>

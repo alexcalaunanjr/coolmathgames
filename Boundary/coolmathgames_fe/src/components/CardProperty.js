@@ -13,7 +13,6 @@ import { SquareFeetIcon } from '../assets/icons/SquareFeetIcon';
 export default function CardProperty({ property }) {
     // Have a state to keep track of whether the card is hovered
     const [isHovered, setIsHovered] = useState(false);
-    console.log("property:", property.propertyImage)
 
     return (
         <Link to={`${property.propertyLink}`}>
