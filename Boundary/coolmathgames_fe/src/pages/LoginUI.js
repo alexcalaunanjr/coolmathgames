@@ -63,13 +63,13 @@ function LoginUI(props) {
                         window.location.href = "/SARetrieveUAListUI";
                     }
                     else if (selectedUserType == 'Real Estate Agent') {
-                        window.location.href = "/REAHomePage";
+                        window.location.href = "/REARetrieveListingListUI";
                     }
                     else if (selectedUserType == 'Buyer') {
                         window.location.href = "/BuyerHomePage";
                     }
                     else if (selectedUserType == 'Seller') {
-                        window.location.href = "/SellerHomePage";
+                        window.location.href = "/SellerRetrieveListingListUI";
                     }
                 }
                 else {

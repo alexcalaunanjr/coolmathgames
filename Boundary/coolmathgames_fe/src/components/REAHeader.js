@@ -45,7 +45,7 @@ function REAHeader() {
 
             {/* words on top */}
             <Navbar.Collapse>
-                <Navbar.Link href="/REAHomePage" className='text-gray-900 hover:text-yellow-700'>My Properties</Navbar.Link>
+                <Navbar.Link href="/REARetrieveListingListUI" className='text-gray-900 hover:text-yellow-700'>My Properties</Navbar.Link>
                 <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Create Property</Navbar.Link>
             </Navbar.Collapse>
         </Navbar>

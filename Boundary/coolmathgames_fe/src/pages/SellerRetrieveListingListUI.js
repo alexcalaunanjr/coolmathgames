@@ -19,11 +19,11 @@ import Agent1 from "../assets/agent1.jpg";
 import Agent2 from "../assets/agent2.jpg";
 import Agent3 from "../assets/agent3.jpg";
 
-export default function SellerHomePage(props) {
+export default function SellerRetrieveListingListUI(props) {
     const [sellerProperties, setSellerProperties] = useState([]);
 
     useEffect(() => {
-        document.title = 'Seller Home Page';
+        document.title = 'Seller Retrieve Listing List UI';
         const username = localStorage.getItem('username');
         axios.get(`http://127.0.0.1:5000/SellerRetrieveProperties/${username}`, {
             headers: {

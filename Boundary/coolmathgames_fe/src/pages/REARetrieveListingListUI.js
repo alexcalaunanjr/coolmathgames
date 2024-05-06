@@ -19,7 +19,7 @@ import Agent3 from "../assets/agent3.jpg";
 
 // components
 import REAHeader from "../components/REAHeader";
-import SearchPropertyUI from "../components/SearchPropertyUI";
+import SearchListingUI from "../components/SearchListingUI";
 import Footer from "../components/Footer";
 
 
@@ -94,9 +94,9 @@ const property4 = {
     agent: agent2
 };
 
-function REAHomePage() {
+function REARetrieveListingListUI() {
     useEffect(() => {
-        document.title = 'REA Home Page';
+        document.title = 'REA Retrieve Listing List';
     }, []);
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -106,7 +106,7 @@ function REAHomePage() {
         setSearchQuery(query);
     };
 
-    function displayREAHomePage() {
+    function displayREARetrieveListingListUI() {
         return (
             <>
             <UserContextProvider><REAHeader /></UserContextProvider>
@@ -116,7 +116,7 @@ function REAHomePage() {
                 <div className='p-5'></div>
 
                 {/* Search */}
-                <SearchPropertyUI placeholder="Search by name..." onSubmit={handleSearch}/>
+                <SearchListingUI placeholder="Search by name..." onSubmit={handleSearch}/>
                 
                 <div className='p-5'></div>
 
@@ -143,8 +143,8 @@ function REAHomePage() {
         );
     }
     return (
-        displayREAHomePage()
+        displayREARetrieveListingListUI()
     );
 }
 
-export default REAHomePage;
+export default REARetrieveListingListUI;
