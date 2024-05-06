@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import REAHeader from '../components/REAHeader';
 import Footer from '../components/Footer';
 import { UserContextProvider } from '../hooks/UseModalContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import PLTabs from '../components/TabsPropertyListing';
 import Button from '../components/Button';
@@ -13,73 +13,58 @@ import InsightPopUp from '../components/InsightsPopUp';
 import house2 from '../assets/house2.jpg';
 import bg from '../assets/bg3.jpeg';
 
-// Example: create a property object
-const property1 = {
-    id: 1,
-    images: house2,
-    title: "Trellis Towers Condo Unit",
-    location: "Punggol, Singapore",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 10000,
-    price: 200000,
-    description: "This is a beautiful condo unit located in the heart of Punggol. It is a 3-bedroom, 2-bathroom unit with a size of 1000 sqft. The unit is fully furnished and comes with a balcony that overlooks the beautiful Punggol Waterway. The condo is equipped with a swimming pool, gym, and BBQ pits for residents to enjoy. It is also conveniently located near Waterway Point Shopping Mall, Punggol MRT Station, and various schools and amenities.",
-    unitFeatures: "Fully furnished, Balcony, Overlooking Punggol Waterway",
-    facilities: "Swimming Pool, Gym, BBQ Pits",
-    isSold: false,
-    views: 0,
-    favorites: 0
-};
 
 function REAViewPropertyListingUI(props) {
     const id = localStorage.getItem('id');
 
-    const [image, setImage] = useState(property1.images);
-    const [title, setTitle] = useState(property1.title);
-    const [location, setLocation] = useState(property1.location);
-    const [price, setPrice] = useState(property1.price);
-    const [bedrooms, setBedrooms] = useState(property1.bedrooms);
-    const [bathrooms, setBathrooms] = useState(property1.bathrooms);
-    const [size, setSize] = useState(property1.size);
-    const [description, setDescription] = useState(property1.description);
-    const [unitFeatures, setUnitFeatures] = useState(property1.unitFeatures);
-    const [facilities, setFacilities] = useState(property1.facilities);
-    const [views, setViews] = useState(property1.views);
-    const [favorites, setFavorites] = useState(property1.favorites);
+    const [image, setImage] = useState('');
+    const [title, setTitle] = useState('');
+    const [location, setLocation] = useState('');
+    const [price, setPrice] = useState('');
+    const [bedrooms, setBedrooms] = useState('');
+    const [bathrooms, setBathrooms] = useState('');
+    const [size, setSize] = useState('');
+    const [description, setDescription] = useState('');
+    const [unitFeatures, setUnitFeatures] = useState('');
+    const [facilities, setFacilities] = useState('');
+    const [views, setViews] = useState('');
+    const [favorites, setFavorites] = useState('');
 
     // Handle pop up for delete confirmation
     const [deletePopUp, setDeletePopUp] = useState(false);
     // Check if property is sold
-    const [isSold, setIsSold] = useState(property1.isSold);
+    const [isSold, setIsSold] = useState('');
     // Pop up for insights
     const [insightsPopUp, setInsightsPopUp] = useState(false);
 
+    let {propertyName} = useParams();
+    console.log(propertyName)
+
     useEffect(() => {
         document.title = 'REA View Property Listing';
-
-        axios.post(`http://127.0.0.1:5000/REAViewPL/${id}`, {
-            "id": id,
-        }, {
-        headers: {
-            'Authorization': 'Bearer ' + props.token,
-            'Content-Type': 'application/json'
-        }
+        
+        axios.get(`http://127.0.0.1:5000/REAViewListing/${propertyName}`, {
+            headers: {
+                'Authorization': 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
         })
         .then((response) => {
             console.log('Property Listing:', response.data.propertyListing);
             if (response) {
-                setTitle(response.data.title);
+                setTitle(response.data.propertyName);
+                setImage(response.data.propertyImage);
                 setLocation(response.data.location);
                 setPrice(response.data.price);
-                setBedrooms(response.data.bedrooms);
-                setBathrooms(response.data.bathrooms);
-                setSize(response.data.size);
-                setDescription(response.data.description);
-                setUnitFeatures(response.data.features);
+                setBedrooms(response.data.noOfBedrooms);
+                setBathrooms(response.data.noOfBathrooms);
+                setSize(response.data.area);
+                setDescription(response.data.aboutProperty);
+                setUnitFeatures(response.data.unitFeatures);
                 setFacilities(response.data.facilities);
-                setIsSold(response.data.isSold);
-                setViews(response.data.views);
-                setFavorites(response.data.favorites);
+                setIsSold(response.data.sold);
+                setViews(response.data.viewsCount);
+                setFavorites(response.data.favoritesCount);
             }
         })
         .catch((error) => {

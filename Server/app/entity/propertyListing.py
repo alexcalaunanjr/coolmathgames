@@ -5,7 +5,7 @@ from sqlalchemy import and_
 class PropertyListing(db.Model):
     __tablename__ = 'PropertyListing'
     id = db.Column(db.Integer, primary_key=True)
-    property = db.Column(db.String(50), db.ForeignKey('Properties.propertyName'), nullable=False)
+    property = db.Column(db.String(50), db.ForeignKey('Properties.propertyName', ondelete="CASCADE", onupdate="CASCADE"), nullable=False)
     ownerSeller = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     REA = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     sold = db.Column(db.Boolean, nullable=False)
@@ -59,6 +59,7 @@ class PropertyListing(db.Model):
             'sold': listings.sold
         } for listings in sellerPropertiesList]
         return jsonify({"sellerProperties": sellerPropertiesDict})
+
 
     #Retrieve new Property information based of search
     @classmethod
@@ -171,3 +172,86 @@ class PropertyListing(db.Model):
             return property
         else:
             return jsonify({"View Count": "Not Found"})
+
+    # ---- REAL ESTATE AGENT ----
+    #create my property
+    @classmethod
+    def createListing(self, newListing):
+        db.session.add(newListing)
+        db.session.commit()
+        return True
+    
+    #return rea's owned listing list
+    @classmethod
+    def retrieveREAListingList(cls, username):
+        REAListingList = cls.query.filter_by(REA=username).all()
+        REAListingListDict = [{
+            'RealEstateAgent': listings.REA,
+            'propertyName': listings.property,
+            'price': listings.property_obj.price,
+            'location': listings.property_obj.location,
+            'noOfBedrooms': listings.property_obj.noOfBedrooms,
+            'noOfBathrooms': listings.property_obj.noOfBathrooms,
+            'area': listings.property_obj.area,
+        } for listings in REAListingList]
+        return jsonify({"REAListingList": REAListingListDict})
+    
+    #view rea's owned listing
+    @classmethod
+    def retrieveListing(cls, propertyName):
+        REAListing = cls.query.filter_by(property=propertyName).first()
+        if REAListing:
+            property = jsonify({
+                'RealEstateAgent': REAListing.REA,
+                'propertyName': REAListing.property,
+                'propertyImage': REAListing.property_obj.propertyImage,
+                'price': REAListing.property_obj.price,
+                'location': REAListing.property_obj.location,
+                'aboutProperty': REAListing.property_obj.aboutProperty,
+                'noOfBedrooms': REAListing.property_obj.noOfBedrooms,
+                'noOfBathrooms': REAListing.property_obj.noOfBathrooms,
+                'area': REAListing.property_obj.area,
+                'unitFeatures': REAListing.property_obj.unitFeatures,
+                'facilities': REAListing.property_obj.facilities,
+                'viewsCount': REAListing.viewsCount,
+                'favoritesCount': REAListing.favoritesCount,
+                'sold': REAListing.sold
+            })
+            return property
+        else:
+            return jsonify({"Property": "Not Found"})
+        
+    #update property
+    @classmethod
+    def updateListing(cls, propertyName, updatedPropertyDetails):
+        listing = cls.query.filter_by(property=propertyName).first()
+        
+        if listing:
+            if 'propertyImage' in updatedPropertyDetails:  
+                listing.property_obj.propertyImage = updatedPropertyDetails['propertyImage']
+            if 'price' in updatedPropertyDetails:    
+                listing.property_obj.price = updatedPropertyDetails['price']
+            if 'location' in updatedPropertyDetails:    
+                listing.property_obj.location = updatedPropertyDetails['location']
+            if 'aboutProperty' in updatedPropertyDetails:    
+                listing.property_obj.aboutProperty = updatedPropertyDetails['aboutProperty']
+            if 'noOfBedrooms' in updatedPropertyDetails:    
+                listing.property_obj.noOfBedrooms = updatedPropertyDetails['noOfBedrooms']
+            if 'noOfBathrooms' in updatedPropertyDetails: 
+                listing.property_obj.noOfBathrooms = updatedPropertyDetails['noOfBathrooms']   
+            if 'area' in updatedPropertyDetails:    
+                listing.property_obj.area = updatedPropertyDetails['area']
+            if 'unitFeatures' in updatedPropertyDetails:    
+                listing.property_obj.unitFeatures = updatedPropertyDetails['unitFeatures']
+            if 'facilities' in updatedPropertyDetails:    
+                listing.property_obj.facilities = updatedPropertyDetails['facilities']
+            if 'sold' in updatedPropertyDetails:    
+                listing.sold = updatedPropertyDetails['sold']
+            if 'property' in updatedPropertyDetails:
+                listing.property_obj.propertyName = updatedPropertyDetails['property']
+
+            db.session.commit()
+            return jsonify({'reaListingUpdated': updatedPropertyDetails})
+        
+        else:
+            return jsonify({'reaListingUpdated': False})

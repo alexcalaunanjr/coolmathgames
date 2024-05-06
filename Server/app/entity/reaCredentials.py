@@ -8,18 +8,18 @@ class REACredentials(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), db.ForeignKey('UserAccounts.username'), nullable=False)
     reaImage = db.Column(db.Text, nullable=False)
-    experience = db.Column(db.String(20), nullable=False)
-    license = db.Column(db.String(20), nullable=False)
-    language = db.Column(db.String(50), nullable=False)
-    special = db.Column(db.String(200), nullable=False)
-    about = db.Column(db.String(200), nullable=False)
-    award = db.Column(db.String(200), nullable=False)
+    experience = db.Column(db.String(20))
+    license = db.Column(db.String(20))
+    language = db.Column(db.String(50))
+    special = db.Column(db.String(200))
+    about = db.Column(db.String(200))
+    award = db.Column(db.String(200))
     account_obj = db.relationship("UserAccount", backref="reaCredentials")
                         
     # Create new rea credentials
     @classmethod
-    def createCreds(self, accUsername, experience, license, language, special, about, award):
-        reaAdded = REACredentials(username=accUsername, experience=experience, license=license, language=language, special=special, about=about, award=award)
+    def createCreds(self, accUsername, reaImage, experience, license, language, special, about, award):
+        reaAdded = REACredentials(username=accUsername, reaImage=reaImage, experience=experience, license=license, language=language, special=special, about=about, award=award)
         db.session.add(reaAdded)
         db.session.commit()
         return True
@@ -28,6 +28,10 @@ class REACredentials(db.Model):
     @classmethod
     def retrieveUserCredentials(self, username:str):
         rea = REACredentials.query.filter_by(username=username).first()
+        if not rea:
+            # Create account fields
+            self.createCreds(accUsername = username, reaImage="image" ,experience="", license="", language="", special="", about="", award="")
+        
         if rea:
             return jsonify({
                 'username': rea.username,
@@ -43,6 +47,7 @@ class REACredentials(db.Model):
                 'email': rea.account_obj.email,
                 'phoneNo': rea.account_obj.phoneNo,
             })
+        
         return jsonify({'message': 'User not found'}), 404
     
     #update account
@@ -51,10 +56,12 @@ class REACredentials(db.Model):
         credentials = cls.query.filter_by(username=accUsername).first()
         if not credentials:
             # Create account fields
-            cls.createCreds(accUsername, updatedData['experience'], updatedData['license'], updatedData['language'], updatedData['special'], updatedData['about'], updatedData['award'])
+            cls.createCreds(accUsername, updatedData['reaImage'], updatedData['experience'], updatedData['license'], updatedData['language'], updatedData['special'], updatedData['about'], updatedData['award'])
             return jsonify({'reaCredentialsUpdated': True})
         
         # Update account fields
+        if 'reaImage' in updatedData:
+            credentials.reaImage = updatedData['reaImage']
         if 'experience' in updatedData:
             credentials.experience = updatedData['experience']
         if 'license' in updatedData:
