@@ -32,7 +32,11 @@ export default function SellerRetrieveListingListUI(props) {
             }
         })
         .then(response => {
-            setSellerProperties(response.data.sellerProperties);
+            const updatedSellerProperties = response.data.sellerProperties.map(property => ({
+                ...property,
+                propertyLink: `/SellerViewListingUI/${property.propertyName}`
+            }));
+            setSellerProperties(updatedSellerProperties);
         })
         .catch(error => {
             console.error("Error fetching seller's properties: ", error);

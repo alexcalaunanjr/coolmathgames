@@ -15,7 +15,7 @@ export default function CardProperty({ property }) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <Link to={`/SellerViewListingUI/${property.propertyName}`}>
+        <Link to={`${property.propertyLink}`}>
             <div className={` bg-white shadow-md rounded-lg overflow-hidden transition-transform ${isHovered ? 'transform scale-105' : ''}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
