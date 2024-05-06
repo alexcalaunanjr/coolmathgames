@@ -151,7 +151,7 @@ SellerViewViewCountController.route('/SellerViewViewCount/<propertyName>', metho
 
 
 #BUYER
-BuyerRetrieveListingListController.route('/BuyerRetrieveListing', methods=['GET'])(BuyerRetrieveListingListController.getProperties)
+BuyerRetrieveListingListController.route('/BuyerRetrieveListing', methods=['GET'])(BuyerRetrieveListingListController.getNewProperties)
 BuyerViewNewListingController.route('/BuyerViewNewListing/<propertyName>', methods=['GET'])(BuyerViewNewListingController.getProperty)
 BuyerSearchNewListingController.route('/BuyerSearchNewListing', methods=['POST'])(BuyerSearchNewListingController.queryNew)
 BuyerViewSoldListingController.route('/BuyerViewSoldListing/<propertyName>', methods=['GET'])(BuyerViewSoldListingController.getProperty)

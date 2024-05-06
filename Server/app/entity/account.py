@@ -1,7 +1,7 @@
 from .sqlAlchemy import db
 from flask import jsonify
 from flask_bcrypt import Bcrypt
-from sqlalchemy import and_
+from app.Base64Converter import image_to_base64
 
 bcrypt = Bcrypt()
 
@@ -25,6 +25,7 @@ class UserAccount(db.Model):
         if user:
             account = jsonify({
                 'profile': user.profile,
+                'img': user.profileImage,
                 'fullName': user.fullName,
                 'username': user.username,
                 'email': user.email,
@@ -120,7 +121,17 @@ class UserAccount(db.Model):
 
     #Create new user account
     @classmethod
-    def createAccount(self, newUser):
+    def createAccount(self, name, img, username, email, password, phone, profile):
+        hashedPw = bcrypt.generate_password_hash(password)
+        newUser = UserAccount(
+            profile=profile,
+            profileImage=img,
+            fullName=name, 
+            username=username, 
+            password=hashedPw, 
+            email=email,
+            phoneNo=phone,
+        )
         db.session.add(newUser)
         db.session.commit()
         return True

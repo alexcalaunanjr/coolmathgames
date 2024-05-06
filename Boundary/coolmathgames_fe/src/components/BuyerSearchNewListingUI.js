@@ -1,7 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
-function BuyerSearchNewListingUI({ id, placeholder, onSubmit }) {
+function BuyerSearchNewListingUI({ id, placeholder, onSubmit, setNewProperties, token }) {
     const [searchQuery, setSearchQuery] = useState("");
+
+    useEffect(() => {
+        axios.post('http://127.0.0.1:5000/BuyerSearchNewListing', {
+            "queryNew": searchQuery
+        },{
+            headers: {
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.data.properties == "Not Found") {
+                setNewProperties([])
+            }
+            else {
+                const properties = response.data.properties;
+                setNewProperties(properties)
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user profiles list', error);
+        });
+    }, [searchQuery]);
 
     const handleInputChange = (e) => {
         setSearchQuery(e.target.value);

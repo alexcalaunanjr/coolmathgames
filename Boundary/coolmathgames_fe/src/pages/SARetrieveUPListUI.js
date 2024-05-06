@@ -40,29 +40,6 @@ function SARetrieveUPListUI(props) {
     }, []);
 
     useEffect(() => {
-        axios.post('http://127.0.0.1:5000/SASearchUP', {
-            "query": searchQuery
-        },{
-            headers: {
-                Authorization: 'Bearer ' + props.token,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.data.userProfile == "Not Found") {
-                setProfiles([])
-            }
-            else {
-                const profiles = response.data.userProfile;
-                setProfiles(profiles)
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching user profiles list', error);
-        });
-    }, [searchQuery]);
-
-    useEffect(() => {
         if (clickedProfile) {
             localStorage.setItem('clickedProfile', clickedProfile)
         }
@@ -95,7 +72,7 @@ function SARetrieveUPListUI(props) {
                         <div className="w-1/4 mx-auto">
                         </div>
                         <div className="w-1/4 mx-auto">
-                            <SASearchUPUI placeholder="Search by profile" onSubmit={handleSearch}/>
+                            <SASearchUPUI placeholder="Search by profile" onSubmit={handleSearch} setProfiles={setProfiles} token={props.token}/>
                         </div>
                         <Link to="/SACreateUPUI">
                             <div className="lg:w-full  md:w-40 w-20 mx-auto">

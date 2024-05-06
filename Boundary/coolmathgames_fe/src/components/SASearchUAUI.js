@@ -1,7 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
-function SASearchUAUI({ id, placeholder, onSubmit }) {
+function SASearchUAUI({ id, placeholder, onSubmit, setUsers, token }) {
     const [searchQuery, setSearchQuery] = useState("");
+
+    useEffect(() => {
+        axios.post('http://127.0.0.1:5000/SASearchUA', {
+            "query": searchQuery
+        },{
+            headers: {
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.data.userAccounts == "Not Found") {
+                setUsers([])
+            }
+            else {
+                const accountDict = response.data.userAccounts;
+                setUsers(accountDict)
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user account list', error);
+        });
+    }, [searchQuery]);
 
     const handleInputChange = (e) => {
         setSearchQuery(e.target.value);

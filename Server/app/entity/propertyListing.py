@@ -12,11 +12,12 @@ class PropertyListing(db.Model):
     viewsCount = db.Column(db.Integer, nullable=False)
     favoritesCount = db.Column(db.Integer, nullable=False) 
     property_obj = db.relationship("Properties", backref="listings")
+    REA_account = db.relationship("UserAccount", foreign_keys=[REA], backref="property_listings_REA")
 
-    #Retrieve information on every property
+    #Retrieve information on every new property
     @classmethod
-    def retrieveProperties(cls):
-        properties = cls.query.all()
+    def retrieveNewProperties(cls):
+        properties = cls.query.filter_by(sold=False).all()
         propertiesDict = [{
             'RealEstateAgent': listings.REA,
             'propertyName': listings.property,
@@ -59,7 +60,6 @@ class PropertyListing(db.Model):
             'sold': listings.sold
         } for listings in sellerPropertiesList]
         return jsonify({"sellerProperties": sellerPropertiesDict})
-
 
     #Retrieve new Property information based of search
     @classmethod
@@ -116,8 +116,10 @@ class PropertyListing(db.Model):
     def viewNewProperty(cls, propertyName:str):
         newProperty = cls.query.filter(and_(cls.property==propertyName, cls.sold==False)).first()
         if newProperty:
+            REAInfo = newProperty.REA_account
             property = jsonify({
                 'RealEstateAgent': newProperty.REA,
+                'REAImage': REAInfo.profileImage,
                 'propertyName': newProperty.property,
                 'propertyImage': newProperty.property_obj.propertyImage,
                 'price': newProperty.property_obj.price,

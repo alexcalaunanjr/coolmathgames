@@ -9,9 +9,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 
 function SACreateUAUI(props) {
-    const token = localStorage.getItem('token');
     const [image, setImage] = useState('');
-    console.log('Current Token:', token);
     const [fullName, setFullName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [error, setError] = useState('');
@@ -46,6 +44,11 @@ function SACreateUAUI(props) {
         setSelectedUserType(selectedItem);
     };
 
+    // Callback function to update the image state
+    const handleImageUpload = (base64String) => {
+        setImage(base64String);
+    };
+
     function handleSubmit(event) {
         event.preventDefault();
         setFormFilled(true);
@@ -61,6 +64,7 @@ function SACreateUAUI(props) {
         try {
             axios.post('http://127.0.0.1:5000/SACreateUA', {
                 "fullName": fullName,
+                "img": image,
                 "username": username,
                 "password": password,
                 "email": email,
@@ -209,7 +213,7 @@ function SACreateUAUI(props) {
                     <div className="mb-4 w-full">
                         Upload Image
                         <div className="flex w-2/3 items-center justify-center">
-                            <UploadFile setPicture={setImage} />
+                            <UploadFile setPicture={handleImageUpload} />
                         </div>
                     </div>
                 </div>

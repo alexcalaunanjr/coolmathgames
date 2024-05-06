@@ -13,10 +13,9 @@ import { SquareFeetIcon } from '../assets/icons/SquareFeetIcon';
 export default function CardProperty({ property }) {
     // Have a state to keep track of whether the card is hovered
     const [isHovered, setIsHovered] = useState(false);
-    console.log("property:", property.propertyImage)
 
     return (
-        <Link to={`${property.propertyLink}`}>
+        <Link to={`/SellerViewListingUI/${property.propertyName}`}>
             <div className={` bg-white shadow-md rounded-lg overflow-hidden transition-transform ${isHovered ? 'transform scale-105' : ''}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}

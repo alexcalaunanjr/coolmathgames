@@ -10,8 +10,10 @@ import SAUpdateUAUI from './pages/SAUpdateUAUI'
 import SAUpdateUPUI from './pages/SAUpdateUPUI'
 // Buyer Pages
 import BuyerHomePage from './pages/BuyerHomePage'
+import BuyerRetrieveNewListingListUI from './pages/BuyerRetrieveNewListingListUI'
 // Seller Pages
 import SellerRetrieveListingListUI from './pages/SellerRetrieveListingListUI'
+import SellerViewListing from './pages/SellerViewListingUI'
 // REA Pages
 import REARetrieveListingListUI from './pages/REARetrieveListingListUI'
 import REAViewListingUI from './pages/REAViewListingUI'
@@ -64,11 +66,13 @@ function App() {
               {userRole === 'Buyer' && (
                 <>
                   <Route path='/BuyerHomePage' element={<BuyerHomePage token={token}/>}></Route>
+                  <Route path='/BuyerRetrieveNewPropertiesUI' element={<BuyerRetrieveNewListingListUI token={token}/>}></Route>
                 </>
               )}
               {userRole === 'Seller' && (
                 <>
                   <Route path='/SellerRetrieveListingListUI' element={<SellerRetrieveListingListUI token={token}/>}></Route>
+                  <Route path='/SellerViewListingUI/:propertyName' element={<SellerViewListing token={token}/>}></Route>
                 </>
               )}
             </Routes>

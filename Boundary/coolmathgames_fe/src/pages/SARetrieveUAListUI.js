@@ -41,29 +41,6 @@ function SARetrieveUAListUI(props) {
         });
     }, []);
 
-    useEffect(() => {
-        axios.post('http://127.0.0.1:5000/SASearchUA', {
-            "query": searchQuery
-        },{
-            headers: {
-                Authorization: 'Bearer ' + props.token,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.data.userAccounts == "Not Found") {
-                setUsers([])
-            }
-            else {
-                const accountDict = response.data.userAccounts;
-                setUsers(accountDict)
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching user account list', error);
-        });
-    }, [searchQuery]);
-
     const handleCellClick = (row, col) => {
         // Get the username from the clicked row
         const username = rows[row][headers.indexOf('Username')];
@@ -105,7 +82,7 @@ function SARetrieveUAListUI(props) {
                         <div className="w-1/4 mx-auto">
                         </div>
                         <div className="w-1/4 mx-auto">
-                            <SASearchUAUI placeholder="Search by username" onSubmit={handleSearch}/>
+                            <SASearchUAUI placeholder="Search by username" onSubmit={handleSearch} setUsers={setUsers} token={props.token}/>
                         </div>
                         <Link to="/SACreateUAUI">
                             <div className="lg:w-full  md:w-40 w-20 mx-auto">

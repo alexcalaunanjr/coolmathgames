@@ -10,15 +10,13 @@ import { useNavigate } from "react-router-dom";
 import Agent1 from '../assets/agent1.jpg'
 
 function SAViewUAUI(props, {openModal, onClose}) {
-    const token = localStorage.getItem('token');
-    console.log('Current Token:', token);
     const [fullName, setFullName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     // password should not be displayed
     const password = '';
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('')
-    const [image, setImage] = useState(Agent1);
+    const [image, setImage] = useState();
     // This takes the value from backend
     const [status, setStatus] = useState('');
     // This takes the value from backend
@@ -36,7 +34,6 @@ function SAViewUAUI(props, {openModal, onClose}) {
     useEffect(() => {
         document.title = 'SA View Account Page';
         const user = localStorage.getItem('clickedUser')
-        console.log("user", user)
         axios.get(`http://127.0.0.1:5000/SAViewUA/${user}`, {
             headers: {
                 Authorization: 'Bearer ' + props.token,
@@ -52,7 +49,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
             setEmail(userData.email);
             setStatus(userData.status.toUpperCase());
             setSelectedUserType(userData.profile);
-            // setImage(Agent1);
+            setImage(userData.img)
         })
         .catch(error => {
             console.error('Error fetching user account:', error);
@@ -161,7 +158,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
                             Upload Image
                             <div className="flex w-1/3 items-center">
                                 {image ? (
-                                    <img src={image} alt="Uploaded" className="w-20 h-20 rounded-full" />
+                                    <img src={`data:image/jpeg;base64, ${image}`} alt="Uploaded" className="w-20 h-20 rounded-full" />
                                 ) : (
                                     <p className="text-gray-500">No picture uploaded</p>
                                 )}
