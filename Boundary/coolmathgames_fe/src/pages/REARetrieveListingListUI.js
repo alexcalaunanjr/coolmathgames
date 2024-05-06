@@ -1,21 +1,16 @@
 import React from "react";
 import { useEffect, useState } from 'react';
 import CardProperty from "../components/CardProperty";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 
 import { UserContextProvider } from '../hooks/UseModalContext';
 
 // assets
 // background image
 import BG from "../assets/bg1-30.jpg";
-// property images
-import Prop1 from "../assets/prop1.jpg";
-import Prop2 from "../assets/prop2.jpg";
-import Prop3 from "../assets/prop3.jpg";
-import Prop4 from "../assets/prop4.jpg";
-// agent images
-import Agent1 from "../assets/agent1.jpg";
-import Agent2 from "../assets/agent2.jpg";
-import Agent3 from "../assets/agent3.jpg";
+
 
 // components
 import REAHeader from "../components/REAHeader";
@@ -23,84 +18,45 @@ import SearchListingUI from "../components/SearchListingUI";
 import Footer from "../components/Footer";
 
 
-// Example: create Agent object
-const agent1 = {
-    id: 1,
-    name: "Peter McProperties",
-    email: "",
-    pfp: Agent1,
-};
-
-const agent2 = {
-    id: 2,
-    name: "Hedge Dea Bee",
-    email: "",
-    pfp: Agent2,
-};
-
-const agent3 = {
-    id: 3,
-    name: "Nuñez",
-    email: "",
-    pfp: Agent3,
-};
-
-// Example: create a property object
-const property1 = {
-    id: 1,
-    images: [Prop1],
-    title: "Trellis Towers Condo Unit",
-    location: "Punggol, Singapore",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 1000,
-    price: 200000,
-    agent: agent1
-};
-
-const property2 = {
-    id: 2,
-    images: [Prop2],
-    title: "House",
-    location: "Home Street",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 12500,
-    price: 1850000,
-    agent: agent2
-};
-
-const property3 = {
-    id: 3,
-    images: [Prop3],
-    title: "[1 room] 308 Jurong East Street 4 with many",
-    location: "Jurong East",
-    bedrooms: 1,
-    bathrooms: 10,
-    size: 500,
-    price: 20000,
-    agent: agent3
-};
-
-const property4 = {
-    id: 4,
-    images: [Prop4],
-    title: "4 Room Flat Tampines",
-    location: "Tampines",
-    bedrooms: 3,
-    bathrooms: 90,
-    size: 9032,
-    price: 50,
-    agent: agent2
-};
-
-function REARetrieveListingListUI() {
-    useEffect(() => {
-        document.title = 'REA Retrieve Listing List';
-    }, []);
-
+function REARetrieveListingListUI(props) {
+    const [listingList, setListingList] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
+    const username = localStorage.getItem('username');
+    const [Ptoken, setPToken] = useState('');
+
+
+    useEffect(() => {
+        document.title = 'REA Retrieve Listing List';
+
+        axios.get(`http://127.0.0.1:5000/REARetrieveListingList/${username}` , {
+            headers: {
+                Authorization: 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            setPToken(props.token)
+            const properties = response.data.REAListingList;
+            const listingList = properties.map(property => ({
+                images: property.propertyImage,
+                title: property.propertyName,
+                location: property.location,
+                bedrooms: property.noOfBedrooms,
+                bathrooms: property.noOfBathrooms,
+                size: property.area,
+                price: property.price,
+                agent: property.RealEstateAgent,
+                propertyLink: `/REAViewListingUI/${property.propertyName}`
+            }))
+            setListingList(listingList)
+        })
+        .catch(error => {
+            console.error('Error fetching listing list', error);
+        });
+    }, []);
+
+    
     // Handle search
     const handleSearch = (query) => {
         setSearchQuery(query);
@@ -125,14 +81,9 @@ function REARetrieveListingListUI() {
 
                 {/* Cards of properties */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
-                    {/* Card 1 */}
-                    <CardProperty property={property1} />
-                    {/* Card 2 */}
-                    <CardProperty property={property2} />
-                    {/* Card 3 */}
-                    <CardProperty property={property3} />
-                    {/* Card 4 */}
-                    <CardProperty property={property4} />
+                    {listingList.map((property, index) => (
+                        <CardProperty key={index} property={property} token={Ptoken}/>
+                    ))}
                     
                 </div>
             </div>

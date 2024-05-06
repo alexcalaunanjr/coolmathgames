@@ -48,15 +48,15 @@ function REAUpdateREACredentialsUI(props) {
             .then(response => {
                 if (response) {
                     // setImage(Agent1)
-                    setFullName(response.data.cred.fullName)
-                    setEmail(response.data.cred.email)
-                    setPhoneNo(response.data.cred.phoneNo)
-                    setExperience(response.data.cred.experience)
-                    setLicense(response.data.cred.license)
-                    setLanguage(response.data.cred.language)
-                    setSpecial(response.data.cred.special)
-                    setAbout(response.data.cred.about)
-                    setAwards(response.data.cred.award)
+                    setFullName(response.data.fullName)
+                    setEmail(response.data.email)
+                    setPhoneNo(response.data.phoneNo)
+                    setExperience(response.data.experience)
+                    setLicense(response.data.license)
+                    setLanguage(response.data.language)
+                    setSpecial(response.data.special)
+                    setAbout(response.data.about)
+                    setAwards(response.data.award)
                 }
                 else {
                     setError('Account not found!');

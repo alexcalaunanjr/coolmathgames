@@ -53,4 +53,4 @@ class BaseREAUpdateREAcredentialController(REAUpdateREAcredentialController):
             return update
         if request.method == 'GET':
             retrieveCred = self.retrieveUserCredentials(username)
-            return jsonify({'cred': retrieveCred.get_json()})
+            return retrieveCred

@@ -20,7 +20,7 @@ function REAHeader() {
         {/* header */}
         <Navbar fluid rounded>
             {/* brand logo */}
-            <Navbar.Brand href="#">
+            <Navbar.Brand href="/REARetrieveListingListUI">
                 <span className="self-center text-3xl font-Limelight dark:text-white pl-2">MICASA</span>
             </Navbar.Brand>
 

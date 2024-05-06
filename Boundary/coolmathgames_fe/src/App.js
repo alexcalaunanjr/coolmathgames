@@ -11,9 +11,10 @@ import SAUpdateUPUI from './pages/SAUpdateUPUI'
 // Buyer Pages
 import BuyerHomePage from './pages/BuyerHomePage'
 // Seller Pages
-import SellerHomePage from './pages/SellerHomePage'
+import SellerRetrieveListingListUI from './pages/SellerRetrieveListingListUI'
 // REA Pages
-import REAHomePage from './pages/REAHomePage'
+import REARetrieveListingListUI from './pages/REARetrieveListingListUI'
+import REAViewListingUI from './pages/REAViewListingUI'
 import REAViewREACredentialsUI from './pages/REAViewREACredentialsUI'
 import REAUpdateREACredentialsUI from './pages/REAUpdateREACredentialsUI'
 // General Pages/Components
@@ -54,7 +55,8 @@ function App() {
               )}
               {userRole === 'Real Estate Agent' && (
                 <>
-                  <Route path='/REAHomePage' element={<REAHomePage token={token}/>}></Route>
+                  <Route path='/REARetrieveListingListUI' element={<REARetrieveListingListUI token={token}/>}></Route>
+                  <Route path='/REAViewListingUI/:propertyName' element={<REAViewListingUI  token={token}/>}></Route>
                   <Route path='/REAViewREACredentialsUI' element={<REAViewREACredentialsUI token={token}/>}></Route>
                   <Route path='/REAUpdateREACredentialsUI' element={<REAUpdateREACredentialsUI token={token}/>}></Route>
                 </>
@@ -66,7 +68,7 @@ function App() {
               )}
               {userRole === 'Seller' && (
                 <>
-                  <Route path='/SellerHomePage' element={<SellerHomePage token={token}/>}></Route>
+                  <Route path='/SellerRetrieveListingListUI' element={<SellerRetrieveListingListUI token={token}/>}></Route>
                 </>
               )}
             </Routes>

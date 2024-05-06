@@ -14,3 +14,11 @@ class Properties(db.Model):
     unitFeatures = db.Column(db.String(300), nullable=False)
     facilities = db.Column(db.String(300), nullable=False)
 
+    #create property
+    @classmethod
+    def createProperty(self, newProperty):
+        db.session.add(newProperty)
+        db.session.commit()
+        return True
+
+    
