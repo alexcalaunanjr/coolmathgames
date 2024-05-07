@@ -4,7 +4,7 @@ import CardProperty from "../components/CardProperty";
 import { UserContextProvider } from '../hooks/UseModalContext';
 import BuyerHeader from '../components/BuyerHeader';
 import Footer from '../components/Footer';
-import BuyerSearchNewListingUI from "../components/BuyerSearchNewListingUI";
+import BuyerSearchSoldListingUI from "../components/BuyerSearchSoldListingUI";
 import axios from 'axios';
 
 // assets
@@ -97,6 +97,7 @@ const property4 = {
 };
 
 function BuyerRetrieveSoldPropertyListingUI(props) {
+    const [soldProperties, setSoldProperties] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     // Check if property is sold
     const [isSold, setIsSold] = useState(props.isSold);
@@ -109,7 +110,7 @@ function BuyerRetrieveSoldPropertyListingUI(props) {
     useEffect(() => {
         document.title = 'Buyer Retrieve Sold Property Listing';
 
-        axios.get(`http://127.0.0.1:5000/retrieveListOfSoldProperties/${!isSold}`, {
+        axios.get(`http://127.0.0.1:5000/BuyerRetrieveSoldListingList`, {
             headers: {
                 Authorization: 'Bearer ' + props.token,
                 'Content-Type': 'application/json'
@@ -117,7 +118,11 @@ function BuyerRetrieveSoldPropertyListingUI(props) {
         })
         .then(response => {
             if (response) {
-                console.log('New property list fetched successfully:', response.data);
+                const updatedSoldProperties = response.data.properties.map(property => ({
+                    ...property,
+                    propertyLink: `/BuyerViewSoldListingUI/${property.propertyName}`
+                }));
+                setSoldProperties(updatedSoldProperties);
             }
         })
         .catch(error => {
@@ -135,7 +140,7 @@ function BuyerRetrieveSoldPropertyListingUI(props) {
             <div className="bg-cover bg-center min-h-screen justify-center" style={{ backgroundImage: `url(${BG})` }}>
 
                 <div className="w-1/2 mx-auto pt-10">
-                    <BuyerSearchNewListingUI placeholder="Search by name..." onSubmit={handleSearch}/>
+                    <BuyerSearchSoldListingUI placeholder="Search by name..." onSubmit={handleSearch} setSoldProperties={setSoldProperties} token={props.token}/>
                 </div>
 
                 {/* Title: New Properties */}
@@ -143,14 +148,9 @@ function BuyerRetrieveSoldPropertyListingUI(props) {
 
                 {/* Cards of properties */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
-                    {/* Card 1 */}
-                    <CardProperty property={property1} />
-                    {/* Card 2 */}
-                    <CardProperty property={property2} />
-                    {/* Card 3 */}
-                    <CardProperty property={property3} />
-                    {/* Card 4 */}
-                    <CardProperty property={property4} />
+                    {soldProperties.map(property => (
+                        <CardProperty property={property}/>
+                    ))}
                 </div>
             </div>
 

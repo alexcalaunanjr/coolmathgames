@@ -1,7 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
-function BuyerSearchOldListingUI({ id, placeholder, onSubmit }) {
+function BuyerSearchSoldListingUI({ id, placeholder, onSubmit, setSoldProperties, token }) {
     const [searchQuery, setSearchQuery] = useState("");
+
+    useEffect(() => {
+        axios.post('http://127.0.0.1:5000/BuyerSearchSoldListing', {
+            "querySold": searchQuery
+        },{
+            headers: {
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.data.properties == "Not Found") {
+                setSoldProperties([])
+            }
+            else {
+                const properties = response.data.properties;
+                setSoldProperties(properties)
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user profiles list', error);
+        });
+    }, [searchQuery]);
 
     const handleInputChange = (e) => {
         setSearchQuery(e.target.value);
@@ -34,4 +58,4 @@ function BuyerSearchOldListingUI({ id, placeholder, onSubmit }) {
     );
 }
 
-export default BuyerSearchOldListingUI;
+export default BuyerSearchSoldListingUI;

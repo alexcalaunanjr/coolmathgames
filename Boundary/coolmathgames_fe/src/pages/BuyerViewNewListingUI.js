@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BuyerHeader from '../components/BuyerHeader';
 import Footer from '../components/Footer';
 import { UserContextProvider } from '../hooks/UseModalContext';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PLTabs from '../components/TabsPropertyListing';
 
@@ -35,7 +35,7 @@ const property1 = {
 };
 
 function BuyerViewNewPropertyListingUI(props) {
-    const id = localStorage.getItem('id');
+    let { propertyName } = useParams();
 
     const [image, setImage] = useState(property1.images);
     const [title, setTitle] = useState(property1.title);
@@ -47,6 +47,8 @@ function BuyerViewNewPropertyListingUI(props) {
     const [description, setDescription] = useState(property1.description);
     const [unitFeatures, setUnitFeatures] = useState(property1.unitFeatures);
     const [facilities, setFacilities] = useState(property1.facilities);
+    const [agentName, setAgentName] = useState('');
+    const [agentImg, setAgentImage] = useState('');
     
     // State to keep track of favorites count
     const [favoritesCount, setFavoritesCount] = useState(property1.favorites);
@@ -59,27 +61,27 @@ function BuyerViewNewPropertyListingUI(props) {
     useEffect(() => {
         document.title = 'Buyer View New Property Listing';
 
-        axios.post(`http://127.0.0.1:5000/buyerViewNewPL/${id}`, {
-            "id": id,
-        }, {
-        headers: {
-            'Authorization': 'Bearer ' + props.token,
-            'Content-Type': 'application/json'
-        }
+        axios.get(`http://127.0.0.1:5000/BuyerViewNewListing/${propertyName}`, {
+            headers: {
+                'Authorization': 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
         })
         .then((response) => {
-            console.log('Property Listing:', response.data.propertyListing);
             if (response) {
-                setTitle(response.data.title);
+                setTitle(response.data.propertyName);
                 setLocation(response.data.location);
                 setPrice(response.data.price);
-                setBedrooms(response.data.bedrooms);
-                setBathrooms(response.data.bathrooms);
-                setSize(response.data.size);
-                setDescription(response.data.description);
-                setUnitFeatures(response.data.features);
+                setBedrooms(response.data.noOfBedrooms);
+                setBathrooms(response.data.noOfBathrooms);
+                setSize(response.data.area);
+                setDescription(response.data.aboutProperty);
+                setUnitFeatures(response.data.unitFeatures);
                 setFacilities(response.data.facilities);
-                setIsSold(response.data.isSold);
+                setIsSold(response.data.sold);
+                setAgentName(response.data.RealEstateAgent);
+                setAgentImage(response.data.REAImage);
+                setImage(response.data.propertyImage);
             }
         })
         .catch((error) => {
@@ -121,7 +123,7 @@ function BuyerViewNewPropertyListingUI(props) {
                 >
                     {/* Property Image */}
                     <div className='realtive'>
-                        <img src={image} alt="House" className='w-full h-56 sm:h-64 xl:h-[500px]'/>
+                        <img src={`data:image/jpeg;base64, ${image}`} alt="House" className='w-full h-56 sm:h-64 xl:h-[500px]'/>
                         {/* If property sold */}
                         {isSold && (
                             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-4xl font-bold">
@@ -254,11 +256,10 @@ function BuyerViewNewPropertyListingUI(props) {
                             {/* Contact Agent */}
                             <div className='flex justify-end pt-10'>
                                 <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white md:w-1/2'
-                                    onClick={handleAgent}
-                                >
+                                    onClick={handleAgent}>
                                     {/* Contact Agent */}
-                                    <img src={agent} alt="Agent" className='w-10 h-10 rounded-full'/>
-                                    {agent1.fullName}
+                                    <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-10 h-10 rounded-full'/>
+                                    <p className='text-md items-center'> {agentName}</p>
                                 </button>
                             </div>
                         </div>

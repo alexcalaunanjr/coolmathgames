@@ -1,6 +1,7 @@
 from .sqlAlchemy import db
 from flask import jsonify
 from sqlalchemy import and_
+from datetime import date
 
 class Rating(db.Model):
     __tablename__ = 'Rating'
@@ -8,6 +9,7 @@ class Rating(db.Model):
     rea = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     rater = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=date.today())
 
     @classmethod #to post a rating (stars)
     def postRating(cls, raterUsername, reaUsername, rating):
@@ -34,6 +36,7 @@ class Rating(db.Model):
         ratingDict = [{'id': rate.id, 
                         'rea': rate.rea, 
                         'rater': rate.rater, 
-                        'rating': rate.rating 
+                        'rating': rate.rating,
+                        'date': rate.date
                         } for rate in ratingList]
         return jsonify({"ratingDict": ratingDict})

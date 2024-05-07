@@ -28,7 +28,7 @@ export default function CardProperty({ property }) {
                     className="object-cover w-full aspect-square"
                 />
                 {
-                    property.isSold && (
+                    property.sold && (
                         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-4xl font-bold">
                             Sold
                         </div>
@@ -66,7 +66,7 @@ export default function CardProperty({ property }) {
                 </div>
                     {/* profile pic icon and name of user */}
                     <div className="flex flex-row pt-4 pb-2 items-center">
-                        {/* <img src={property.agent.pfp} alt="profile pic" className="w-11 h-11 rounded-full"/> */}
+                        <img src={`data:image/jpeg;base64, ${property.REAImage}`} alt="profile pic" className="w-11 h-11 rounded-full"/>
                         <p className="text-lg pl-4">{property.RealEstateAgent}</p>
                     </div>
                 </div>

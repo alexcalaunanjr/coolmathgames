@@ -32,8 +32,6 @@ function LoginUI(props) {
     };
 
     function sendLoginInfo(event) {
-        event.preventDefault();
-
         // Validate username and password
         if (!username || !password || !selectedUserType) {
             displayErrorMessage();
@@ -66,7 +64,7 @@ function LoginUI(props) {
                         window.location.href = "/REARetrieveListingListUI";
                     }
                     else if (selectedUserType == 'Buyer') {
-                        window.location.href = "/BuyerHomePage";
+                        window.location.href = "/BuyerRetrieveNewListingListUI";
                     }
                     else if (selectedUserType == 'Seller') {
                         window.location.href = "/SellerRetrieveListingListUI";
@@ -84,6 +82,21 @@ function LoginUI(props) {
             setError('An error occurred during login');
         }
     };
+
+    useEffect(() => {
+        const handleKeyPress = (e) => {
+          if (e.key === 'Enter') {
+            sendLoginInfo();
+          }
+        };
+    
+        document.addEventListener('keypress', handleKeyPress);
+    
+        // Cleanup event listener
+        return () => {
+          document.removeEventListener('keypress', handleKeyPress);
+        };
+    }, [username, password]);
 
     function displayErrorMessage(){
         if (!username || !password || !selectedUserType) {

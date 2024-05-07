@@ -17,48 +17,88 @@ class PropertyListing(db.Model):
     #Retrieve information on every new property
     @classmethod
     def retrieveNewProperties(cls):
-        properties = cls.query.filter_by(sold=False).all()
-        propertiesDict = [{
-            'RealEstateAgent': listings.REA,
-            'propertyName': listings.property,
-            'propertyImage': listings.property_obj.propertyImage,
-            'price': listings.property_obj.price,
-            'location': listings.property_obj.location,
-            'aboutProperty': listings.property_obj.aboutProperty,
-            'noOfBedrooms': listings.property_obj.noOfBedrooms,
-            'noOfBathrooms': listings.property_obj.noOfBathrooms,
-            'area': listings.property_obj.area,
-            'unitFeatures': listings.property_obj.unitFeatures,
-            'facilities': listings.property_obj.facilities,
-            'viewsCount': listings.viewsCount,
-            'favoritesCount': listings.favoritesCount,
-            'sold': listings.sold
-        } for listings in properties]
+        newProperties = cls.query.filter_by(sold=False).all()
+        propertiesDict = []
+        for listing in newProperties:
+            REAInfo = listing.REA_account
+            propertyDict = {
+                'RealEstateAgent': listing.REA,
+                'REAImage': REAInfo.profileImage,
+                'propertyName': listing.property,
+                'propertyImage': listing.property_obj.propertyImage,
+                'price': listing.property_obj.price,
+                'location': listing.property_obj.location,
+                'aboutProperty': listing.property_obj.aboutProperty,
+                'noOfBedrooms': listing.property_obj.noOfBedrooms,
+                'noOfBathrooms': listing.property_obj.noOfBathrooms,
+                'area': listing.property_obj.area,
+                'unitFeatures': listing.property_obj.unitFeatures,
+                'facilities': listing.property_obj.facilities,
+                'viewsCount': listing.viewsCount,
+                'favoritesCount': listing.favoritesCount,
+                'sold': listing.sold
+            }
+            propertiesDict.append(propertyDict)
         if propertiesDict:
             return jsonify({"properties": propertiesDict})
         else:
             return jsonify({"properties": "Not Found"})
         
+    #Retrieve information on every new property
+    @classmethod
+    def retrieveSoldProperties(cls):
+        soldProperties = cls.query.filter_by(sold=True).all()
+        propertiesDict = []
+        for listing in soldProperties:
+            REAInfo = listing.REA_account
+            propertyDict = {
+                'RealEstateAgent': listing.REA,
+                'REAImage': REAInfo.profileImage,
+                'propertyName': listing.property,
+                'propertyImage': listing.property_obj.propertyImage,
+                'price': listing.property_obj.price,
+                'location': listing.property_obj.location,
+                'aboutProperty': listing.property_obj.aboutProperty,
+                'noOfBedrooms': listing.property_obj.noOfBedrooms,
+                'noOfBathrooms': listing.property_obj.noOfBathrooms,
+                'area': listing.property_obj.area,
+                'unitFeatures': listing.property_obj.unitFeatures,
+                'facilities': listing.property_obj.facilities,
+                'viewsCount': listing.viewsCount,
+                'favoritesCount': listing.favoritesCount,
+                'sold': listing.sold
+            }
+            propertiesDict.append(propertyDict)
+        if propertiesDict:
+            return jsonify({"properties": propertiesDict})
+        else:
+            return jsonify({"properties": "Not Found"})
+
     #function to return a seller's owned properties and all its information
     @classmethod
     def retrieveMyProperties(cls, username):
         sellerPropertiesList = cls.query.filter_by(ownerSeller=username).all()
-        sellerPropertiesDict = [{
-            'RealEstateAgent': listings.REA,
-            'propertyName': listings.property,
-            'propertyImage': listings.property_obj.propertyImage,
-            'price': listings.property_obj.price,
-            'location': listings.property_obj.location,
-            'aboutProperty': listings.property_obj.aboutProperty,
-            'noOfBedrooms': listings.property_obj.noOfBedrooms,
-            'noOfBathrooms': listings.property_obj.noOfBathrooms,
-            'area': listings.property_obj.area,
-            'unitFeatures': listings.property_obj.unitFeatures,
-            'facilities': listings.property_obj.facilities,
-            'viewsCount': listings.viewsCount,
-            'favoritesCount': listings.favoritesCount,
-            'sold': listings.sold
-        } for listings in sellerPropertiesList]
+        sellerPropertiesDict = []
+        for listing in sellerPropertiesList:
+            REAInfo = listing.REA_account
+            sellerPropertyDict = {
+                'RealEstateAgent': listing.REA,
+                'REAImage': REAInfo.profileImage,
+                'propertyName': listing.property,
+                'propertyImage': listing.property_obj.propertyImage,
+                'price': listing.property_obj.price,
+                'location': listing.property_obj.location,
+                'aboutProperty': listing.property_obj.aboutProperty,
+                'noOfBedrooms': listing.property_obj.noOfBedrooms,
+                'noOfBathrooms': listing.property_obj.noOfBathrooms,
+                'area': listing.property_obj.area,
+                'unitFeatures': listing.property_obj.unitFeatures,
+                'facilities': listing.property_obj.facilities,
+                'viewsCount': listing.viewsCount,
+                'favoritesCount': listing.favoritesCount,
+                'sold': listing.sold
+            }
+            sellerPropertiesDict.append(sellerPropertyDict)
         return jsonify({"sellerProperties": sellerPropertiesDict})
 
     #Retrieve new Property information based of search
@@ -85,7 +125,7 @@ class PropertyListing(db.Model):
             return jsonify({"properties": propertyListingsDict})
         else:
             return jsonify({"properties": "Not Found"})
-    
+
     #Retrieve sold Property information based of search
     @classmethod
     def searchSoldListings(cls, querySold):
@@ -143,8 +183,10 @@ class PropertyListing(db.Model):
     def viewSoldProperty(cls, propertyName:str):
         oldProperty = cls.query.filter(and_(cls.property==propertyName, cls.sold==True)).first()
         if oldProperty:
+            REAInfo = oldProperty.REA_account
             property = jsonify({
                 'RealEstateAgent': oldProperty.REA,
+                'REAImage': REAInfo.profileImage,
                 'propertyName': oldProperty.property,
                 'propertyImage': oldProperty.property_obj.propertyImage,
                 'price': oldProperty.property_obj.price,
@@ -189,7 +231,6 @@ class PropertyListing(db.Model):
         REAListingList = cls.query.filter_by(REA=username).all()
         REAListingListDict = [{
             'RealEstateAgent': listings.REA,
-            'propertyImage' : listings.property_obj.propertyImage,
             'propertyName': listings.property,
             'price': listings.property_obj.price,
             'location': listings.property_obj.location,
@@ -258,35 +299,3 @@ class PropertyListing(db.Model):
         
         else:
             return jsonify({'reaListingUpdated': False})
-        
-    #delete listing
-    @classmethod
-    def deleteListing(self, listing):
-        PropertyListing.query.filter_by(property=listing).delete()
-        db.session.commit()
-        return True
-
-    #Retrieve Property information based of search
-    @classmethod
-    def searchListings(cls, query, username):
-        propertyListings = cls.query.filter(and_(cls.property.like(f"%{query}%"), cls.REA==username)).all()
-        propertyListingsDict = [{
-            'RealEstateAgent': listings.REA,
-            'propertyName': listings.property,
-            'propertyImage': listings.property_obj.propertyImage,
-            'price': listings.property_obj.price,
-            'location': listings.property_obj.location,
-            'aboutProperty': listings.property_obj.aboutProperty,
-            'noOfBedrooms': listings.property_obj.noOfBedrooms,
-            'noOfBathrooms': listings.property_obj.noOfBathrooms,
-            'area': listings.property_obj.area,
-            'unitFeatures': listings.property_obj.unitFeatures,
-            'facilities': listings.property_obj.facilities,
-            'viewsCount': listings.viewsCount,
-            'favoritesCount': listings.favoritesCount,
-            'sold': listings.sold
-        } for listings in propertyListings]
-        if propertyListingsDict:
-            return jsonify({"properties": propertyListingsDict})
-        else:
-            return jsonify({"properties": "Not Found"})
