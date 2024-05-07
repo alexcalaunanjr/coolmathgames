@@ -5,7 +5,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-function READeletePLUI( {openModal, onClose, text, token}) {
+function READeleteListingUI( {openModal, onClose, text, token}) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
@@ -76,4 +76,4 @@ function READeletePLUI( {openModal, onClose, text, token}) {
 
 }
 
-export default READeletePLUI;
+export default READeleteListingUI;
