@@ -247,6 +247,7 @@ function REAUpdateListingUI(props) {
                         </div>
                         {/* Upload Image */}
                         <div className="mb-8 w-2/3">
+                            Image
                             <UploadFile image={image} setPicture={handleImageUpload}/>
                         </div>
                     </div>

@@ -48,6 +48,7 @@ function REARetrieveListingListUI(props) {
                 area: property.area,
                 price: property.price,
                 RealEstateAgent: property.RealEstateAgent,
+                REAImage: property.REAImage,
                 propertyLink: `/REAViewListingUI/${property.propertyName}`
             }))
             setListingList(listingList)

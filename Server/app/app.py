@@ -26,6 +26,10 @@ from .controllers.REACreateListingController.controller import BaseREACreateList
 from .controllers.REARetrieveListingListController.controller import BaseREARetrieveListingListController
 from .controllers.REAViewListingController.controller import BaseREAViewListingController
 from .controllers.REAUpdateListingController.controller import BaseREAUpdateListingController
+from .controllers.REASearchListingController.controller import BaseREASearchListingController
+from .controllers.READeleteListingController.controller import BaseREADeleteListingController
+from .controllers.REAViewRatingController.controller import BaseREAViewRatingController
+from .controllers.REAViewReviewController.controller import BaseREAViewReviewController
 
 
 #SELLER
@@ -73,26 +77,30 @@ CORS(app, supports_credentials=True)
 loginController = BaseControllerLogin('login', __name__)
 
 #SA
-SACreateUAController = BaseSACreateUAController('createUserAccount', __name__)
-SACreateUPController = BaseSACreateUPController('createUserProfile', __name__)
-SARetrieveUAListController = BaseSARetrieveUAListController('retrieveUserAccountList', __name__)
-SARetrieveUPListController = BaseSARetrieveUPListController('retrieveUserProfileList', __name__)
-SASearchUAController = BaseSASearchUAController('searchUserAccountController', __name__)
-SASearchUPController = BaseSASearchUPController('searchUserProfileController', __name__)
-SAViewUPController = BaseSAViewUPController('viewUserProfileController', __name__)
-SAViewUAController = BaseSAViewUAController('viewUserAccountController', __name__)
-SAUpdateUAController = BaseSAUpdateUAController('updateUserAccountController', __name__)
-SAUpdateUPController = BaseSAUpdateUPController('updateUserProfileController', __name__)
-SASuspendUAController = BaseSASuspendUAController('suspendUserAccountController', __name__)
-SASuspendUPController = BaseSASuspendUPController('suspendUserProfileController', __name__)
+SACreateUAController = BaseSACreateUAController('SAcreateUserAccount', __name__)
+SACreateUPController = BaseSACreateUPController('SAcreateUserProfile', __name__)
+SARetrieveUAListController = BaseSARetrieveUAListController('SAretrieveUserAccountList', __name__)
+SARetrieveUPListController = BaseSARetrieveUPListController('SAretrieveUserProfileList', __name__)
+SASearchUAController = BaseSASearchUAController('SAsearchUserAccountController', __name__)
+SASearchUPController = BaseSASearchUPController('SAsearchUserProfileController', __name__)
+SAViewUPController = BaseSAViewUPController('SAviewUserProfileController', __name__)
+SAViewUAController = BaseSAViewUAController('SAviewUserAccountController', __name__)
+SAUpdateUAController = BaseSAUpdateUAController('SAupdateUserAccountController', __name__)
+SAUpdateUPController = BaseSAUpdateUPController('SAupdateUserProfileController', __name__)
+SASuspendUAController = BaseSASuspendUAController('SAsuspendUserAccountController', __name__)
+SASuspendUPController = BaseSASuspendUPController('SAsuspendUserProfileController', __name__)
 
 #REA
-REAViewREACredentialController = BaseREAViewREAcredentialController('viewREACredentialController', __name__)
-REAUpdateREACredentialController = BaseREAUpdateREAcredentialController('updateREACredentialController', __name__)
-REACreateListingController = BaseREACreateListingController('createListingController', __name__)
+REAViewREACredentialController = BaseREAViewREAcredentialController('REAviewREACredentialController', __name__)
+REAUpdateREACredentialController = BaseREAUpdateREAcredentialController('REAupdateREACredentialController', __name__)
+REACreateListingController = BaseREACreateListingController('REAcreateListingController', __name__)
 REARetrieveListingListController = BaseREARetrieveListingListController('REARetrieveListingListController', __name__)
 REAViewListingController = BaseREAViewListingController('REAViewListingController', __name__)
 REAUpdateListingController = BaseREAUpdateListingController('REAUpdateListingController', __name__)
+REASearchListingController = BaseREASearchListingController('REASearchListingController', __name__)
+READeleteListingController = BaseREADeleteListingController('READeleteListingController', __name__)
+REAViewRatingController = BaseREAViewRatingController('REAViewRatingController', __name__)
+REAViewReviewController = BaseREAViewReviewController('REAViewReviewController', __name__)
 
 
 #SELLER
@@ -140,7 +148,11 @@ REAUpdateREACredentialController.route('/REAUpdateREACredential/<username>', met
 REACreateListingController.route('/REACreateListing', methods=['POST'])(REACreateListingController.createAProperty)
 REARetrieveListingListController.route('/REARetrieveListingList/<username>', methods=['GET'])(REARetrieveListingListController.getListingList)
 REAViewListingController.route('/REAViewListing/<propertyName>', methods=['GET'])(REAViewListingController.viewProperty)
-REAUpdateListingController.route('/REAUpdateListing/<oldPropertyName>', methods=['GET', 'POST'])(REAUpdateListingController.updateListing)
+REAUpdateListingController.route('/REAUpdateListing/<oldPropertyName>', methods=['GET', 'POST'])(REAUpdateListingController.updateAListing)
+REASearchListingController.route('/REASearchListing/<username>', methods=['POST', 'GET'])(REASearchListingController.query)
+READeleteListingController.route('/READeleteListing/<propertyName>', methods=['GET'])(READeleteListingController.deleteAProperty)
+REAViewRatingController.route('/REAViewRating/<username>', methods=['GET'])(REAViewRatingController.viewRating)
+REAViewReviewController.route('/REAViewReview/<username>', methods=['GET'])(REAViewReviewController.viewReview)
 
 
 #SELLER
@@ -187,6 +199,10 @@ app.register_blueprint(REACreateListingController)
 app.register_blueprint(REARetrieveListingListController)
 app.register_blueprint(REAViewListingController)
 app.register_blueprint(REAUpdateListingController)
+app.register_blueprint(REASearchListingController)
+app.register_blueprint(READeleteListingController)
+app.register_blueprint(REAViewRatingController)
+app.register_blueprint(REAViewReviewController)
 
 
 #SELLER
@@ -288,3 +304,13 @@ with app.app_context():
     # db.session.add(property_obj_4)
     # reaObj = REACredentials(**reaData)
     # db.session.add(reaObj)
+
+
+
+    # insert into propertyListing values (1,"Hillview Ave","tiffany","alex",0,100,50);
+
+    # insert into propertyListing values  (2,"Mirage Towers","tiffany","alex",0,70,20);
+
+    # insert into propertyListing values  (3,"Lion Towers","kevin","alex",0,80,10);
+
+    # insert into propertyListing values  (4,"Jardin","kevin","edrick",1,120,70);
