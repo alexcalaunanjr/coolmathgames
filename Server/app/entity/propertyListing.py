@@ -189,6 +189,7 @@ class PropertyListing(db.Model):
         REAListingList = cls.query.filter_by(REA=username).all()
         REAListingListDict = [{
             'RealEstateAgent': listings.REA,
+            'propertyImage' : listings.property_obj.propertyImage,
             'propertyName': listings.property,
             'price': listings.property_obj.price,
             'location': listings.property_obj.location,
@@ -257,3 +258,35 @@ class PropertyListing(db.Model):
         
         else:
             return jsonify({'reaListingUpdated': False})
+        
+    #delete listing
+    @classmethod
+    def deleteListing(self, listing):
+        PropertyListing.query.filter_by(property=listing).delete()
+        db.session.commit()
+        return True
+
+    #Retrieve Property information based of search
+    @classmethod
+    def searchListings(cls, query, username):
+        propertyListings = cls.query.filter(and_(cls.property.like(f"%{query}%"), cls.REA==username)).all()
+        propertyListingsDict = [{
+            'RealEstateAgent': listings.REA,
+            'propertyName': listings.property,
+            'propertyImage': listings.property_obj.propertyImage,
+            'price': listings.property_obj.price,
+            'location': listings.property_obj.location,
+            'aboutProperty': listings.property_obj.aboutProperty,
+            'noOfBedrooms': listings.property_obj.noOfBedrooms,
+            'noOfBathrooms': listings.property_obj.noOfBathrooms,
+            'area': listings.property_obj.area,
+            'unitFeatures': listings.property_obj.unitFeatures,
+            'facilities': listings.property_obj.facilities,
+            'viewsCount': listings.viewsCount,
+            'favoritesCount': listings.favoritesCount,
+            'sold': listings.sold
+        } for listings in propertyListings]
+        if propertyListingsDict:
+            return jsonify({"properties": propertyListingsDict})
+        else:
+            return jsonify({"properties": "Not Found"})

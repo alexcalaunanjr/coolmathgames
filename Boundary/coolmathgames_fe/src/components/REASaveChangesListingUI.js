@@ -10,26 +10,26 @@ function REASaveChangesListingUI( {openModal, onClose, text, token}) {
   const [success, setSuccess] = useState('');
   
   function handleSuspend() {
-    const user = localStorage.getItem('clickedUser')
-    axios.post('http://127.0.0.1:5000/SASuspendUA', {
-      username: user
-    }, {
-    headers: {
-      'Authorization': 'Bearer ' + token,
-      'Content-Type': 'application/json'
-    }
-    })
-    .then((response) => {
-      if (response.data.accountSuspended) {
-        setSuccess("Suspended User Account")
-      }
-      else {
-        setError("Error occured while trying to suspend")
-      }
-    })
-    .catch((error) => {
-      console.error('there was an error:', error);
-    });
+    // const user = localStorage.getItem('clickedUser')
+    // axios.post('http://127.0.0.1:5000/SASuspendUA', {
+    //   username: user
+    // }, {
+    // headers: {
+    //   'Authorization': 'Bearer ' + token,
+    //   'Content-Type': 'application/json'
+    // }
+    // })
+    // .then((response) => {
+    //   if (response.data.accountSuspended) {
+    //     setSuccess("Suspended User Account")
+    //   }
+    //   else {
+    //     setError("Error occured while trying to suspend")
+    //   }
+    // })
+    // .catch((error) => {
+    //   console.error('there was an error:', error);
+    // });
   };
 
   function handleSuspendAndClose() {

@@ -22,7 +22,7 @@ class REACreateListingController(Blueprint):
                 unitFeatures = unitFeatures,
                 facilities = facilities
             )
-            createNewProperty = Properties.createProperty(self,newProperty)
+            createNewProperty = Properties.createProperty(newProperty)
             return createNewProperty
         return False
     
@@ -63,7 +63,8 @@ class BaseREACreateListingController(REACreateListingController):
             propertyCreated = self.createProperty(propertyName, propertyImage, price, location, aboutProperty, noOfBedrooms, noOfBathrooms, area, unitFeatures, facilities)
 
             #create listing
-            ownerSeller = data.get('ownerSeller')
+            # ownerSeller = data.get('ownerSeller')
+            ownerSeller = "tiffany"
             REA = data.get('REA')
             sold = False
             viewsCount = 0

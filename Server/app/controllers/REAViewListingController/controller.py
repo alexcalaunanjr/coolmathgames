@@ -7,7 +7,7 @@ class REAViewListingController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def viewListing(self, propertyName):
+    def retrieveListing(self, propertyName):
         propertyDetails = PropertyListing.retrieveListing(propertyName)
         return propertyDetails
     
@@ -18,5 +18,5 @@ class BaseREAViewListingController(REAViewListingController):
 
     @jwt_required()
     def viewProperty(self, propertyName):
-        propertyDetails = self.viewListing(propertyName)
+        propertyDetails = self.retrieveListing(propertyName)
         return propertyDetails

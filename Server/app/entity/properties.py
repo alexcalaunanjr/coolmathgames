@@ -21,4 +21,9 @@ class Properties(db.Model):
         db.session.commit()
         return True
 
-    
+    #delete property
+    @classmethod
+    def deleteProperty(self, listing):
+        Properties.query.filter_by(propertyName=listing).delete()
+        db.session.commit()
+        return True
