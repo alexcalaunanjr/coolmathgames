@@ -194,12 +194,12 @@ function SellerViewPropertyListingUI(props) {
                                     token={Ptoken}
                                 />}
                             </div>
-                            <Link to={`/REAViewREACredentialsUI/${agentName}`}>
-                                <div className='h-12 flex justify-end items-center mt-10'>
-                                    <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-12 h-12 rounded-full mr-2'/>
-                                    <p className='text-md items-center'> {agentName}</p>
-                                </div>
-                            </Link>
+                            {/* <Link to={`/REAViewREACredentialsUI/${agentName}`}> */}
+                            <div className='h-12 flex justify-end items-center mt-10'>
+                                <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-12 h-12 rounded-full mr-2'/>
+                                <p className='text-md items-center'> {agentName}</p>
+                            </div>
+                            {/* </Link> */}
                         </div>
                     </div>
                     {/* A straight line */}

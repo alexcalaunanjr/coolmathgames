@@ -9,17 +9,16 @@ import SAViewUAUI from './pages/SAViewUAUI'
 import SAUpdateUAUI from './pages/SAUpdateUAUI'
 import SAUpdateUPUI from './pages/SAUpdateUPUI'
 // Buyer Pages
-import BuyerHomePage from './pages/BuyerHomePage'
 import BuyerRetrieveNewListingListUI from './pages/BuyerRetrieveNewListingListUI'
 import BuyerRetrieveSoldListingListUI from './pages/BuyerRetrieveSoldListingListUI'
+import BuyerViewNewListingUI from './pages/BuyerViewNewListingUI'
+import BuyerViewSoldListingUI from './pages/BuyerViewSoldListingUI'
 // Seller Pages
 import SellerRetrieveListingListUI from './pages/SellerRetrieveListingListUI'
 import SellerViewListing from './pages/SellerViewListingUI'
 // REA Pages
-import REACreateListingUI from './pages/REACreateListingUI'
 import REARetrieveListingListUI from './pages/REARetrieveListingListUI'
 import REAViewListingUI from './pages/REAViewListingUI'
-import REAUpdateListingUI from './pages/REAUpdateListingUI'
 import REAViewREACredentialsUI from './pages/REAViewREACredentialsUI'
 import REAUpdateREACredentialsUI from './pages/REAUpdateREACredentialsUI'
 // General Pages/Components
@@ -60,19 +59,18 @@ function App() {
               )}
               {userRole === 'Real Estate Agent' && (
                 <>
-                  <Route path='/REACreateListingUI' element={<REACreateListingUI token={token}/>}></Route>
                   <Route path='/REARetrieveListingListUI' element={<REARetrieveListingListUI token={token}/>}></Route>
                   <Route path='/REAViewListingUI/:propertyName' element={<REAViewListingUI  token={token}/>}></Route>
-                  <Route path='/REAUpdateListingUI/:propertyName' element={<REAUpdateListingUI  token={token}/>}></Route>
                   <Route path='/REAViewREACredentialsUI' element={<REAViewREACredentialsUI token={token}/>}></Route>
                   <Route path='/REAUpdateREACredentialsUI' element={<REAUpdateREACredentialsUI token={token}/>}></Route>
                 </>
               )}
               {userRole === 'Buyer' && (
                 <>
-                  <Route path='/BuyerHomePage' element={<BuyerHomePage token={token}/>}></Route>
                   <Route path='/BuyerRetrieveNewListingListUI' element={<BuyerRetrieveNewListingListUI token={token}/>}></Route>
                   <Route path='/BuyerRetrieveSoldListingListUI' element={<BuyerRetrieveSoldListingListUI token={token}/>}></Route>
+                  <Route path='/BuyerViewNewListingUI/:propertyName' element={<BuyerViewNewListingUI token={token}/>}></Route>
+                  <Route path='/BuyerViewSoldListingUI/:propertyName' element={<BuyerViewSoldListingUI token={token}/>}></Route>
                 </>
               )}
               {userRole === 'Seller' && (

@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from app.entity.propertyListing import PropertyListing
 
-class BuyerRetrieveListingListController(Blueprint):
+class BuyerRetrieveNewListingListController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
@@ -10,7 +10,7 @@ class BuyerRetrieveListingListController(Blueprint):
         properties = PropertyListing.retrieveNewProperties()
         return properties
 
-class BaseBuyerRetrieveListingListController(BuyerRetrieveListingListController):
+class BaseBuyerRetrieveNewListingListController(BuyerRetrieveNewListingListController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

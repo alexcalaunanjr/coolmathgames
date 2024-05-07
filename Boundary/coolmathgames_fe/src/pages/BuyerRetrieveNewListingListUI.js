@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
+
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import CardProperty from "../components/CardProperty";
+import { Carousel } from 'flowbite-react';
 import { UserContextProvider } from '../hooks/UseModalContext';
 import BuyerHeader from '../components/BuyerHeader';
+import SearchBar from '../components/SearchBar';
 import Footer from '../components/Footer';
+import CardProperty from "../components/CardProperty";
 import UserSearchBar from "../components/BuyerSearchNewListingUI";
 import axios from 'axios';
 
@@ -20,9 +22,15 @@ import Prop4 from "../assets/prop4.jpg";
 import Agent1 from "../assets/agent1.jpg";
 import Agent2 from "../assets/agent2.jpg";
 import Agent3 from "../assets/agent3.jpg";
+// carousel images
+import house1 from '../assets/house1.jpg';
+import house2 from '../assets/house2.jpg';
+import house3 from '../assets/house3.jpg';
+import house4 from '../assets/house4.jpg';
+import house5 from '../assets/house5.jpg';
+import house6 from '../assets/house6.jpg';
 
 
-// Example: create Agent object
 const agent1 = {
     id: 1,
     name: "Peter McProperties",
@@ -47,8 +55,6 @@ const agent3 = {
 function BuyerRetrieveNewPropertyListingUI(props) {
     const [newProperties, setNewProperties] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    // Check if property is sold
-    const [isSold, setIsSold] = useState(props.isSold);
 
     // Function to handle search
     const handleSearch = (query) => {
@@ -63,8 +69,7 @@ function BuyerRetrieveNewPropertyListingUI(props) {
 
     useEffect(() => {
         document.title = 'Buyer Retrieve New Property Listing';
-
-        axios.get(`http://127.0.0.1:5000/BuyerRetrieveNewListing`, {
+        axios.get(`http://127.0.0.1:5000/BuyerRetrieveNewListingList`, {
             headers: {
                 Authorization: 'Bearer ' + props.token,
                 'Content-Type': 'application/json'
@@ -72,45 +77,66 @@ function BuyerRetrieveNewPropertyListingUI(props) {
         })
         .then(response => {
             if (response) {
-                setNewProperties(response.data.properties);
+                const updatedProperties = response.data.properties.map(property => ({
+                    ...property,
+                    propertyLink: `/BuyerViewNewListingUI/${property.propertyName}`
+                }));
+                setNewProperties(updatedProperties);
             }
         })
         .catch(error => {
             console.error('Error fetching new property list', error);
         })
     }, []);
+function displayListOfNewPropertiesUI(){
+    return (
+        <>
+        {/* buyer header component */}
+        <UserContextProvider><BuyerHeader /></UserContextProvider>
 
-    function displayListOfNewPropertiesUI(){
-        return (
-            // return container with background image that is slightly transparent
-            <>
-            {/* Seller header component */}
-            <UserContextProvider><BuyerHeader /></UserContextProvider>
 
-            <div className="bg-cover bg-center min-h-screen justify-center" style={{ backgroundImage: `url(${BG})` }}>
+        {/* carousel component */}
+        <div className="h-56 sm:h-64 xl:h-96">
+        <Carousel pauseOnHover>
+            <img src={house1} />
+            <img src={house2} />
+            <img src={house3} />
+            <img src={house4} />
+            <img src={house5} />
+            <img src={house6} />
+        </Carousel>
+        </div>
+        <div className='p-10'></div>
 
-                <div className="w-1/2 mx-auto pt-10">
-                    <UserSearchBar placeholder="Search by name..." onSubmit={handleSearch} setNewProperties={setNewProperties} token={props.token}/>
-                </div>
+        <div className="w-1/2 mx-auto pb-10">
+                <UserSearchBar placeholder="Search by name..." onSubmit={handleSearch} setNewProperties={setNewProperties} token={props.token}/>
+        </div>
 
-                {/* Title: New Properties */}
-                <h1 class="pt-10 px-20 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">New Properties</h1>
-
-                {/* Cards of properties */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
-                    {newProperties.map(property => (
-                        <CardProperty property={property}/>
-                    ))}
-                </div>
+        {/* popular property */}
+        <div className='flex px-20 justify-between'>
+            <div>
+                <h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">New Properties</h1>
+                <p class="mb-6 text-lg font-medium italic text-gray-500 lg:text-[12pt] dark:text-gray-400">
+                    New Picks: Explore Our Newest Properties!
+                </p>
+            </div>
+        </div>
+            {/* Cards of properties */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
+                {newProperties.map(property => (
+                    <CardProperty property={property}/>
+                ))}
             </div>
 
-            <Footer />
-            </>
-        );
-    }
-    return (
-        displayListOfNewPropertiesUI()
+        <div className='p-10'></div>
+
+        <Footer />
+        </>
     );
+}
+  return (
+    displayListOfNewPropertiesUI()
+);
 }
 
 export default BuyerRetrieveNewPropertyListingUI;

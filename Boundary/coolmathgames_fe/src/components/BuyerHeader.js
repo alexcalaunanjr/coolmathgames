@@ -20,7 +20,7 @@ function BuyerHeader() {
         {/* header */}
         <Navbar fluid rounded>
             {/* brand logo */}
-            <Navbar.Brand href="#">
+            <Navbar.Brand href="/BuyerRetrieveNewListingListUI">
                 <span className="self-center text-3xl font-Limelight dark:text-white pl-2">MICASA</span>
             </Navbar.Brand>
 
@@ -51,8 +51,7 @@ function BuyerHeader() {
 
             {/* words on top */}
             <Navbar.Collapse>
-                <Navbar.Link href="/BuyerHomePage" className='text-gray-900 hover:text-yellow-700'>Home</Navbar.Link>
-                <Navbar.Link href="/BuyerRetrieveNewListingListUI" className='text-gray-900 hover:text-yellow-700'>New Properties</Navbar.Link>
+                <Navbar.Link href="/BuyerRetrieveNewListingListUI" className='text-gray-900 hover:text-yellow-700'>Home</Navbar.Link>
                 <Navbar.Link href="/BuyerRetrieveSoldListingListUI" className='text-gray-900 hover:text-yellow-700'>Sold Properties</Navbar.Link>
                 <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Mortgages</Navbar.Link>
                 <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Find Agent</Navbar.Link>
