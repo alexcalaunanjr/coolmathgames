@@ -5,7 +5,8 @@ import { UserContextProvider } from '../hooks/UseModalContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PLTabs from '../components/TabsPropertyListing';
-import InsightPopUp from '../components/InsightsPopUp';
+import SellerViewFavorites from '../components/SellerViewFavoritesUI';
+import SellerViewViews from '../components/SellerViewViewsUI';
 import { useParams, Link } from 'react-router-dom';
 
 // Images
@@ -34,7 +35,8 @@ function SellerViewPropertyListingUI(props) {
     // Check if property is sold
     const [isSold, setIsSold] = useState();
     // Pop up for insights
-    const [insightsPopUp, setInsightsPopUp] = useState(false);
+    const [favoritesPopUp, setFavoritesPopUp] = useState(false);
+    const [viewsPopUp, setViewsPopUp] = useState(false);
 
     useEffect(() => {
         document.title = 'Seller View Property Listing';
@@ -68,13 +70,24 @@ function SellerViewPropertyListingUI(props) {
         })
     }, []);
 
-    // Function to handle insights pop up
-    const handleInsights = () => {
-        setInsightsPopUp(true);
+    // Function to handle favorites and views pop up
+    const handleFavorites = () => {
+        setFavoritesPopUp(true);
+    }
+
+    const handleViews = () => {
+        setViewsPopUp(true);
     }
 
     const handleReopenPopUp = () => {
-        setInsightsPopUp(false);
+        setFavoritesPopUp(false);
+        setViewsPopUp(false);
+    }
+
+    // Function to handle agent
+    const navigate = useNavigate();
+    const handleAgent = () => {
+        navigate(`/SellerViewAgent/${agentName}`);
     }
 
     function displayPropertyListingUI() {
@@ -175,31 +188,52 @@ function SellerViewPropertyListingUI(props) {
                             <p className='lg:text-3xl md:text-md font-bold text-center'>${price}</p>
                         </div>
                         <div className='w-1/3 pt-10'>
-                            <div className='h-12 flex justify-end'>
-                                {/* Insights */}
+                            <div className="flex justify-end space-x-4 pt-5">
+                                {/* Favoties */}
                                 <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white lg:w-1/3 w-1/2'
-                                    onClick={handleInsights}
+                                    onClick={handleFavorites}
                                 >
-                                    <svg class="w-[32px] h-[32px] text-gray-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15v4m6-6v6m6-4v4m6-6v6M3 11l6-5 6 5 5.5-5.5"/>
+                                    <svg class="w-[24px] h-[24px] text-red-500 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z"/>
                                     </svg>
-                                    Insights
+                                    Favorites
+                                </button>
+                                {/* Pop up for favorotes */}
+                                {favoritesPopUp && 
+                                <SellerViewFavorites
+                                    propertyName={title}
+                                    openModal={favoritesPopUp}
+                                    onClose={handleReopenPopUp} 
+                                    token={Ptoken}
+                                />}
+                                {/* Views */}
+                                <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white lg:w-1/3 w-1/2'
+                                    onClick={handleViews}
+                                >
+                                    <svg class="w-[24px] h-[24px] text-gray-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                                        <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                    </svg>
+                                    Views
                                 </button>
                                 {/* Pop up for insights */}
-                                {insightsPopUp && 
-                                <InsightPopUp
+                                {viewsPopUp && 
+                                <SellerViewViews
                                     propertyName={title}
-                                    openModal={insightsPopUp}
+                                    openModal={viewsPopUp}
                                     onClose={handleReopenPopUp} 
                                     token={Ptoken}
                                 />}
                             </div>
-                            {/* <Link to={`/REAViewREACredentialsUI/${agentName}`}> */}
-                            <div className='h-12 flex justify-end items-center mt-10'>
-                                <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-12 h-12 rounded-full mr-2'/>
-                                <p className='text-md items-center'> {agentName}</p>
+                            {/* Contact Agent */}
+                            <div className='flex justify-end pt-10'>
+                                <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white md:w-1/2'
+                                    onClick={handleAgent}>
+                                    {/* Contact Agent */}
+                                    <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-10 h-10 rounded-full'/>
+                                    <p className='text-md items-center px-3'> {agentName}</p>
+                                </button>
                             </div>
-                            {/* </Link> */}
                         </div>
                     </div>
                     {/* A straight line */}
