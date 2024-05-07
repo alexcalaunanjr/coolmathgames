@@ -16,7 +16,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
     const password = '';
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('')
-    const [image, setImage] = useState();
+    const [image, setImage] = useState('');
     // This takes the value from backend
     const [status, setStatus] = useState('');
     // This takes the value from backend

@@ -19,4 +19,4 @@ class BaseREAViewRatingController(REAViewRatingController):
     def viewRating(self, username):
         if request.method == 'GET':
             retrieveRating = self.retrieveRating(username)
-            return jsonify({'rating': retrieveRating.get_json()})
+            return retrieveRating

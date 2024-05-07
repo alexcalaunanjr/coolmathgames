@@ -16,7 +16,7 @@ class SAUpdateUAController(Blueprint):
         return account
     
     #update account
-    def updateAccount(self, oldUsername:str, name:str, newUsername:str, email:str, password:str, phone:str, profile:str):
+    def updateAccount(self, oldUsername:str, name:str, newUsername:str, email:str, password:str, phone:str, profile:str, profileImage:str):
         if name and newUsername and password and email and phone and profile:
             updatedData = {
                 'fullName': name,
@@ -24,7 +24,8 @@ class SAUpdateUAController(Blueprint):
                 'email': email,
                 'password': password,
                 'phoneNo': phone,
-                'profile': profile
+                'profile': profile,
+                'profileImage':profileImage
             }
         updateAcc = UserAccount.updateAccount(oldUsername, updatedData)
         return updateAcc
@@ -44,7 +45,8 @@ class BaseSAUpdateUAController(SAUpdateUAController):
             password = data.get("password")
             phone = data.get("phone")
             profile = data.get("profile")
-            updateAcc = self.updateAccount(oldUsername, fullName, newUsername, email, password, phone, profile)
+            profileImage = data.get("profileImage")
+            updateAcc = self.updateAccount(oldUsername, fullName, newUsername, email, password, phone, profile, profileImage)
             return updateAcc
         if request.method == 'GET':
             account =  self.retrieveUserAccount(oldUsername)

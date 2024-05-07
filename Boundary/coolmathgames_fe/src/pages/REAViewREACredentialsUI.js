@@ -18,16 +18,17 @@ function REAViewREACredentialsUI(props) {
     const username = localStorage.getItem('username');
 
     const [picture, setPicture] = useState(Agent1);
-    const [fullName, setFullName] = useState('poopypants');
-    const [email, setEmail] = useState('pookieddddddddddddddddddddddddddddddddddddddddd@gmail.com');
-    const [phoneNo, setPhoneNo] = useState('12345d33333333333333333333333333333333333333333333678');
-    const [experience, setExperience] = useState('10');
-    const [memberSince, setMemberSince] = useState('01/01/2015');
-    const [license, setLicense] = useState('1L0V3Y0U');
-    const [language, setLanguage] = useState('Mandarin, English');
-    const [service, setService] = useState('service 1, service 2');
-    const [about, setAbout] = useState("I'm Kevin Aldrin Tan, your friendly neighbourhood real estate aficionado");
-    const [awards, setAwards] = useState('Daesang 1, MMA 2');
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNo, setPhoneNo] = useState('');
+    const [experience, setExperience] = useState('');
+    const [memberSince, setMemberSince] = useState('');
+    const [license, setLicense] = useState('');
+    const [language, setLanguage] = useState('');
+    const [service, setService] = useState('');
+    const [about, setAbout] = useState('');
+    const [awards, setAwards] = useState('');
+    const [Ptoken, setPToken] = useState('');
 
     // handle popups
     const [openViewRatingsModal, setOpenViewRatingsModal] = useState(false);
@@ -61,11 +62,12 @@ function REAViewREACredentialsUI(props) {
         }
         })
         .then(response => {
+            setPToken(props.token)
             if (response) {
                 // setPicture(Agent1)
-                setFullName(response.data.account.fullName)
-                setEmail(response.data.account.email)
-                setPhoneNo(response.data.account.phoneNo)
+                setFullName(response.data.cred.fullName)
+                setEmail(response.data.cred.email)
+                setPhoneNo(response.data.cred.phoneNo)
                 setExperience(response.data.cred.experience)
                 setMemberSince(response.data.cred.memberSince)
                 setLicense(response.data.cred.license)
@@ -203,6 +205,8 @@ function REAViewREACredentialsUI(props) {
                                 openModal={REAViewREARatingsUI}
                                 onClose={closeViewRatingsModal}
                                 REAName={fullName}
+                                token={Ptoken}
+                                username={username}
                             />
                         )}
 
@@ -217,6 +221,8 @@ function REAViewREACredentialsUI(props) {
                                 openModal={REAViewREAReviewsUI}
                                 onClose={closeViewReviewsModal}
                                 REAName={fullName}
+                                token={Ptoken}
+                                username={username}
                             />
                         )}
                     </div>

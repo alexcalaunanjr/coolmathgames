@@ -89,6 +89,8 @@ class UserAccount(db.Model):
                 account.phoneNo = updatedData['phoneNo']
             if 'status' in updatedData:
                 account.status = updatedData['status']
+            if 'profileImage' in updatedData:
+                account.profileImage = updatedData['profileImage']
             db.session.commit()
             return jsonify({'accountUpdated': True})
     
