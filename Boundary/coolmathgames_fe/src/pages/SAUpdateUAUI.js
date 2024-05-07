@@ -24,7 +24,7 @@ function SAUpdateUAUI(props) {
     const [email, setEmail] = useState('')
     const [message, setMessage] = useState('');
     // This to get the image from db
-    const [image, setImage] = useState(Agent1);
+    const [image, setImage] = useState('');
     // Flag to check if the form is filled
     const [formFilled, setFormFilled] = useState(false);
     const [options, setOptions] = useState([]);
@@ -32,6 +32,10 @@ function SAUpdateUAUI(props) {
     const [status, setStatus] = useState('');
 
     const [selectedUserType, setSelectedUserType] = useState('');
+
+    const handleImageUpload = (base64String) => {
+        setImage(base64String)
+    }
 
     useEffect(() => {
         document.title = 'SA Update Account Page';
@@ -49,7 +53,7 @@ function SAUpdateUAUI(props) {
                         setEmail(userData.account.email);
                         setStatus(userData.account.status.toUpperCase());
                         setSelectedUserType(userData.account.profile);
-                        // setImage(Agent1);
+                        setImage(userData.account.img)
 
                         const activeProfiles = response.data.user_profiles.filter(item => item.status === 'active');
                         setOptions(Object.values(activeProfiles.map(item => (item.profile))));
@@ -100,7 +104,8 @@ function SAUpdateUAUI(props) {
                 "password": password,
                 "email": email,
                 "phone": phoneNumber,
-                "profile": selectedUserType
+                "profile": selectedUserType,
+                "profileImage": image
             }, {
             headers: {
                 'Authorization': 'Bearer ' + props.token,
@@ -229,7 +234,7 @@ function SAUpdateUAUI(props) {
                         <div className="mb-4 w-full">
                             Upload Image
                             <div className="flex w-2/3 items-center justify-center">
-                                <UploadFile image={image} setPicture={setImage} />
+                                <UploadFile image={image} setPicture={handleImageUpload} />
                             </div>
                         </div>
                     </div>

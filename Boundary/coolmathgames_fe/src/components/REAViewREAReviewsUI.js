@@ -4,50 +4,29 @@ import { Button, Modal } from "flowbite-react";
 import { useNavigate } from 'react-router-dom';
 
 
-function REAViewREAReviewsUI({openModal, onClose, REAName}) {
-    // placeholders
-    const reviewsList = [
+function REAViewREAReviewsUI({openModal, onClose, REAName, token, username}) {
+    const [reviewList, setReviewList] = useState([]);
+    // const [totalReviews, setTotalReviews] = useState('')
+    useEffect(() => {
+        axios.get( `http://127.0.0.1:5000/REAViewReview/${username}`,
         {
-            id: 1,
-            name: "John Doe",
-            date: "05/05/2024",
-            review: "poopypants did an amazing job with the sale of my father’s house. I am in overseas so I was concerned about how this process would go, but the way he handled our situation and went above and beyond for us was amazing."
-        },
-        {
-            id: 2,
-            name: "Jane Doe",
-            date: "03/05/2024",
-            review: "poopypants is very good at what he's doing."
-        },
-        {
-            id: 3,
-            name: "Carlosa Vincentia",
-            date: "30/04/2024",
-            review: "The world is full of monsters with friendly faces, and angels full of scars. *inserts emo music*"
-        },
-        {
-            id: 4,
-            name: "Carla Vincenzo",
-            date: "30/04/2024",
-            review: "Oshiete, oshiete yo sono shikumi wo. Boku no naka ni, dare ga iru no? Kowareta, kowareta yo kono sekai de. Kimi ga warau nanimo miezu ni..."
-        },
-        {
-            id: 5,
-            name: "Carlosse Vincentio",
-            date: "28/04/2024",
-            review: "Moe Moe Kyunnn ≽^•⩊•^≼"
-        },
-        {
-            id: 6,
-            name: "Carlos Vincent Frasenda",
-            date: "22/04/2024",
-            review: "I don't like Kevin, not one bit."
-        },
-    ];
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                const data = response.data.reviewListDict
+
+                setReviewList(data)                
+            })
+            .catch((error) => {
+                console.error('Error fetching reviews', error);
+            });
+      }, []);
 
     // total reviews
-    const totalReviews = reviewsList.map(reviewIDs => [reviewIDs.id]);
-
+    const totalReviews = reviewList.map(reviewIDs => [reviewIDs.id]);
 
     function displayREAReviewsUI() {
         return(
@@ -65,14 +44,14 @@ function REAViewREAReviewsUI({openModal, onClose, REAName}) {
 
                     {/* people's reviews */}
                     <div>
-                        {reviewsList.map((reviews) => (
+                        {reviewList.map((review) => (
                             <>
                             <div className='flex'>
-                                <p className='font-semibold'>{reviews.name}</p>
-                                <p className='ms-5 text-gray-500 italic'>{reviews.date}</p>
+                                <p className='font-semibold'>{review.reviewer}</p>
+                                <p className='ms-5 text-gray-500 italic'>{review.date}</p>
                             </div>
                             <div className="p-0.5"></div>
-                            <div className="flex">{reviews.review}</div>
+                            <div className="flex">{review.review}</div>
                             <div className="p-3"></div>
                             </>
                         ))}

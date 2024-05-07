@@ -12,37 +12,35 @@ export default function Component() {
         <div className='pt-5'></div>
 
         <div className="flex justify-center sm:flex sm:justify-between md:flex-col md:grid-cols-1">
-          <div className="grid sm:grid-cols-2 sm:gap-8 mt-4 lg:grid-cols-3 lg:gap-6">
+          <div className="mt-4">
             {/* Contact us */}
-            <div className="text-center">
+            {/* <div className="text-center">
               <Footer.Title title="Contact Us" className="text-white" />
               <Footer.LinkGroup className="flex justify-center gap-5">
                 <Footer.Icon href="#" icon={BsEnvelope} className="text-white" />
                 <Footer.Icon href="#" icon={BsWhatsapp} className="text-white" />
               </Footer.LinkGroup>
-            </div>
+            </div> */}
 
             <div className="text-center">
               {/* LOGO */}
               <div className="text-4xl pb-10 text-white">
-                <Link to="/">
-                  <h1 style={{ fontFamily: 'limelight' }}>MICASA</h1>
-                </Link>
+                  <h1 className="hover:cursor-default" style={{ fontFamily: 'limelight' }}>MICASA</h1>
                 {/* Quote icon and text */}
                 <div className="flex justify-center gap-2">
                   <BsQuote className="text-white" />
-                  <p className="text-base text-white pt-6">Your home, your rules</p>
+                  <p className="text-base text-white hover:cursor-default pt-6">Unlock the door to your dreams – find your perfect property match on MICASA today</p>
                 </div>
               </div>
             </div>
 
-            <div className="text-center">
+            {/* <div className="text-center">
               <Footer.Title title="Follow us" className="text-white" />
               <Footer.LinkGroup className="flex justify-center gap-5">
                 <Footer.Icon href="#" icon={BsInstagram} className="text-white" />
                 <Footer.Icon href="#" icon={BsFacebook} className="text-white" />
               </Footer.LinkGroup>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

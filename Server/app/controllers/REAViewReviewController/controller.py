@@ -19,4 +19,4 @@ class BaseREAViewReviewController(REAViewReviewController):
     def viewReview(self, username):
         if request.method == 'GET':
             retrieveReview = self.retrieveReview(username)
-            return jsonify({'review': retrieveReview.get_json()})
+            return retrieveReview
