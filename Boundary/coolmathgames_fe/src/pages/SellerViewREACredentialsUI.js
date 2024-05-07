@@ -9,18 +9,20 @@ import axios from 'axios'
 import bgCredential from "../assets/bgCredentials.png";
 import Agent1 from '../assets/agent1.jpg'
 // components
-import REAHeader from "../components/REAHeader";
+import SellerHeader from "../components/SellerHeader";
 import Footer from "../components/Footer";
-import REAViewREARatingsUI from '../components/REAViewREARatingsUI';
-import REAViewREAReviewsUI from '../components/REAViewREAReviewsUI';
+import SellerRetrieveREARatingsUI from '../components/SellerRetrieveREARatingsUI';
+import SellerRetrieveREAReviewsUI from '../components/SellerRetrieveREAReviewsUI';
 
-function REAViewREACredentialsUI(props) {
+
+function SellerViewREACredentialsUI(props, {openModal, onClose}) {
+    // REA credentials depend on which REA seller clicks on
     const username = localStorage.getItem('username');
 
     const [picture, setPicture] = useState(Agent1);
     const [fullName, setFullName] = useState('poopypants');
-    const [email, setEmail] = useState('pookieddddddddddddddddddddddddddddddddddddddddd@gmail.com');
-    const [phoneNo, setPhoneNo] = useState('12345d33333333333333333333333333333333333333333333678');
+    const [email, setEmail] = useState('pookie@gmail.com');
+    const [phoneNo, setPhoneNo] = useState('12345678');
     const [experience, setExperience] = useState('10');
     const [memberSince, setMemberSince] = useState('01/01/2015');
     const [license, setLicense] = useState('1L0V3Y0U');
@@ -30,31 +32,28 @@ function REAViewREACredentialsUI(props) {
     const [awards, setAwards] = useState('Daesang 1, MMA 2');
 
     // handle popups
-    const [openViewRatingsModal, setOpenViewRatingsModal] = useState(false);
-    const [openViewReviewsModal, setOpenViewReviewsModal] = useState(false);
+    const [openRetrieveRatingsModal, setOpenRetrieveRatingsModal] = useState(false);
+    const [openRetrieveReviewsModal, setOpenRetrieveReviewsModal] = useState(false);
 
     const navigate = useNavigate();
 
     const handleRatingsClick = () => {
-        setOpenViewRatingsModal(true);
+        setOpenRetrieveRatingsModal(true);
     };
-    const closeViewRatingsModal = () => {
-        setOpenViewRatingsModal(false);
+    const closeRetrieveRatingsModal = () => {
+        setOpenRetrieveRatingsModal(false);
     };
     const handleReviewsClick = () => {
-        setOpenViewReviewsModal(true);
+        setOpenRetrieveReviewsModal(true);
     };
-    const closeViewReviewsModal = () => {
-        setOpenViewReviewsModal(false);
+    const closeRetrieveReviewsModal = () => {
+        setOpenRetrieveReviewsModal(false);
     };
-    const handleUpdateClick = () => {
-        navigate(`/REAUpdateREACredentialsUI`);
-    }
 
     useEffect(() => {
-        document.title = 'REA View REA Credentials';
+        document.title = 'Seller View REA Credentials';
         
-        axios.get(`http://127.0.0.1:5000/REAViewREACredential/${username}`, {
+        axios.get(`http://127.0.0.1:5000/SellerViewREACredential/${username}`, {
         headers: {
             'Authorization': 'Bearer ' + props.token,
             'Content-Type': 'application/json'
@@ -92,10 +91,10 @@ function REAViewREACredentialsUI(props) {
     }
 
 
-    function displayUserCredentialsUI(){
+    function displayREACredentialsUI(){
         return(
             <>
-            <UserContextProvider><REAHeader /></UserContextProvider>
+            <UserContextProvider><SellerHeader /></UserContextProvider>
     
             <div className="rounded-xl bg-gray-50 shadow-2xl m-12 xl:m-24">
                 <div className='p-10'></div>
@@ -108,7 +107,7 @@ function REAViewREACredentialsUI(props) {
                         </div>
     
                          {/* credentials */}
-                        <div className='md:col-span-8 lg:col-span-7 '>
+                        <div className='md:col-span-8 lg:col-span-9 '>
                             <div className='flex justify-center lg:justify-start mt-5 md:mt-0'>
                                 <p class="text-2xl font-bold mb-10">{fullName}</p>
                             </div>
@@ -153,11 +152,6 @@ function REAViewREACredentialsUI(props) {
                                 </div>
                             </div>
                         </div>
-    
-                        {/* update button */}
-                        <div className='md:col-span-12 lg:col-span-2 mt-10 lg:mt-0 text-center'>
-                            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={handleUpdateClick}>Update</button>
-                        </div>
                     </div>
                 </div>
     
@@ -165,14 +159,14 @@ function REAViewREACredentialsUI(props) {
     
                 {/* about me */}
                 <div className='px-20'>
-                    <h1 class="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-[22pt]">About Me</h1>
+                    <h1 class="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-[22pt]">About {fullName}</h1>
                     <p>{about}</p>
                 </div>
-    
+
                 <div className='p-8'></div>
     
                 <div className='grid grid-cols-12'>
-                    {/* specialties & services */}
+                    {/* services */}
                     <div className='px-20 col-span-5'>
                         <h1 class="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-[22pt]">Services</h1>
                         <p>{bulletPoints(service)}</p>
@@ -193,15 +187,14 @@ function REAViewREACredentialsUI(props) {
                     <div className='flex'>
                         {/* rate button */}
                          <div className='flex w-1/2'>
-
                             <button type="button" className="flex w-full text-gray-900 border border-blue-700 hover:text-white hover:bg-blue-500 font-semibold text-lg rounded-lg px-5 py-2.5 me-2 mb-2 items-center justify-center" onClick={handleRatingsClick}>Rate
                                 <FaStar style={{width: "20px", height: "20px", marginLeft:'4px', marginBottom:'2px' }} />
                             </button>
                         </div>
-                        {openViewRatingsModal && (
-                            <REAViewREARatingsUI
-                                openModal={REAViewREARatingsUI}
-                                onClose={closeViewRatingsModal}
+                        {openRetrieveRatingsModal && (
+                            <SellerRetrieveREARatingsUI
+                                openModal={SellerRetrieveREARatingsUI}
+                                onClose={closeRetrieveRatingsModal}
                                 REAName={fullName}
                             />
                         )}
@@ -212,10 +205,10 @@ function REAViewREACredentialsUI(props) {
                                 <FaPencilAlt  style={{width: "20px", height: "20px", marginLeft:'4px', marginBottom:'2px' }}/>
                             </button>
                         </div>
-                        {openViewReviewsModal && (
-                            <REAViewREAReviewsUI
-                                openModal={REAViewREAReviewsUI}
-                                onClose={closeViewReviewsModal}
+                        {openRetrieveReviewsModal && (
+                            <SellerRetrieveREAReviewsUI
+                                openModal={SellerRetrieveREAReviewsUI}
+                                onClose={closeRetrieveReviewsModal}
                                 REAName={fullName}
                             />
                         )}
@@ -232,7 +225,7 @@ function REAViewREACredentialsUI(props) {
     }
 
     return(
-        displayUserCredentialsUI()
+        displayREACredentialsUI()
     );
 }
-export default REAViewREACredentialsUI;
+export default SellerViewREACredentialsUI;
