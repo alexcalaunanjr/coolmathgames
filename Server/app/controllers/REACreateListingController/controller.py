@@ -63,8 +63,7 @@ class BaseREACreateListingController(REACreateListingController):
             propertyCreated = self.createProperty(propertyName, propertyImage, price, location, aboutProperty, noOfBedrooms, noOfBathrooms, area, unitFeatures, facilities)
 
             #create listing
-            # ownerSeller = data.get('ownerSeller')
-            ownerSeller = "tiffany"
+            ownerSeller = data.get('ownerSeller')
             REA = data.get('REA')
             sold = False
             viewsCount = 0
