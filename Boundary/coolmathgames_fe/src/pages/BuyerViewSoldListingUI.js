@@ -261,7 +261,7 @@ function BuyerViewSoldPropertyListingUI(props) {
                                     onClick={handleAgent}>
                                     {/* Contact Agent */}
                                     <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-10 h-10 rounded-full'/>
-                                    <p className='text-md items-center'> {agentName}</p>
+                                    <p className='text-md items-center px-3'> {agentName}</p>
                                 </button>
                             </div>
                         </div>

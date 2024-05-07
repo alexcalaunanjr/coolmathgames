@@ -7,7 +7,8 @@ import axios from 'axios';
 import PLTabs from '../components/TabsPropertyListing';
 import Button from '../components/Button';
 import READeletePLUI from '../components/READeleteListingUI'
-import InsightPopUp from '../components/InsightsPopUp';
+import REAViewFavorites from '../components/REAViewFavoritesUI';
+import REAViewViews from '../components/REAViewViewsUI';
 
 // Images
 import house2 from '../assets/house2.jpg';
@@ -35,8 +36,10 @@ function REAViewListingUI(props) {
     const [deletePopUp, setDeletePopUp] = useState(false);
     // Check if property is sold
     const [isSold, setIsSold] = useState('');
-    // Pop up for insights
-    const [insightsPopUp, setInsightsPopUp] = useState(false);
+    // Pop up for favorites
+    const [favoritesPopUp, setFavoritesPopUp] = useState(false);
+    // Pop up for views
+    const [viewsPopUp, setViewsPopUp] = useState(false);
 
     let {propertyName} = useParams();
 
@@ -75,12 +78,17 @@ function REAViewListingUI(props) {
     }, []);
 
     // Function to handle insights pop up
-    const handleInsights = () => {
-        setInsightsPopUp(true);
+    const handleFavorites = () => {
+        setFavoritesPopUp(true);
+    }
+
+    const handleViews = () => {
+        setViewsPopUp(true);
     }
 
     const handleReopenPopUp = () => {
-        setInsightsPopUp(false);
+        setFavoritesPopUp(false);
+        setViewsPopUp(false);
     }
 
     // Function to handle delete button
@@ -195,23 +203,41 @@ function REAViewListingUI(props) {
                             <p className='lg:text-3xl md:text-md font-bold text-center'>${price}</p>
                         </div>
                         <div className='w-1/3 pt-10'>
-                            <div className='h-12 flex justify-end'>
-                                {/* Insights */}
+                        <div className="flex justify-end space-x-4 pt-5">
+                                {/* Favoties */}
                                 <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white lg:w-1/3 w-1/2'
-                                    onClick={handleInsights}
+                                    onClick={handleFavorites}
                                 >
-                                    <svg class="w-[32px] h-[32px] text-gray-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15v4m6-6v6m6-4v4m6-6v6M3 11l6-5 6 5 5.5-5.5"/>
+                                    <svg class="w-[24px] h-[24px] text-red-500 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z"/>
                                     </svg>
-                                    Insights
+                                    Favorites
+                                </button>
+                                {/* Pop up for favorotes */}
+                                {favoritesPopUp && 
+                                <REAViewFavorites
+                                    propertyName={title}
+                                    openModal={favoritesPopUp}
+                                    onClose={handleReopenPopUp} 
+                                    token={Ptoken}
+                                />}
+                                {/* Views */}
+                                <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white lg:w-1/3 w-1/2'
+                                    onClick={handleViews}
+                                >
+                                    <svg class="w-[24px] h-[24px] text-gray-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                                        <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                    </svg>
+                                    Views
                                 </button>
                                 {/* Pop up for insights */}
-                                {insightsPopUp && 
-                                <InsightPopUp
-                                    views={views}
-                                    favorites={favorites}
-                                    openModal={insightsPopUp}
+                                {viewsPopUp && 
+                                <REAViewViews
+                                    propertyName={title}
+                                    openModal={viewsPopUp}
                                     onClose={handleReopenPopUp} 
+                                    token={Ptoken}
                                 />}
                             </div>
                         </div>
