@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
 import LogoutUI from './LogOutUI';
-import pfp from '../assets/pfp.jpg';
+import SApfp from '../assets/SApfp.png';
 import axios from 'axios';
 
 // try modal import
@@ -29,7 +29,7 @@ function SAHeader() {
                 <Dropdown
                     arrowIcon={false} 
                     inline
-                    label={<Avatar alt="User settings" img={pfp} rounded className='pr-2'/>}
+                    label={<Avatar alt="User settings" img={SApfp} rounded className='pr-2'/>}
                 >
                     <Dropdown.Header>
                         <span className="block text-sm">{username}</span>
