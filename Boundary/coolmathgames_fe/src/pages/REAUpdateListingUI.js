@@ -5,7 +5,6 @@ import axios from 'axios';
 import { TextInput, Textarea } from 'flowbite-react';
 import Dropdown from '../components/Dropdown';
 import UploadFile from '../components/UploadFile';
-import REASaveChangesListingUI from '../components/REASaveChangesListingUI';
 import { useNavigate, useParams} from 'react-router-dom';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
@@ -315,12 +314,6 @@ function REAUpdateListingUI(props) {
                     <div className="w-40">
                         <Button color="bg-blue-500 text-black text-md" text="Save Changes" onClick={handleSubmit}/>
                     </div>
-                    {/* {changesPopUp && 
-                        <REASaveChangesListingUI
-                        openModal={REASaveChangesListingUI}
-                        onClose={handleReopenPopUp}
-                        text="Are you sure to save the changes?" 
-                    />} */}
                 </div>
 
                 {/* Footer */}
