@@ -5,8 +5,7 @@ import axios from 'axios';
 import { TextInput, Textarea } from 'flowbite-react';
 import Dropdown from '../components/Dropdown';
 import UploadFile from '../components/UploadFile';
-import REASaveChangesListingUI from '../components/REASaveChangesListingUI';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams} from 'react-router-dom';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
 
@@ -35,14 +34,27 @@ function REAUpdateListingUI(props) {
     const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
     const statusOption = ['New', 'Sold']
 
+    let {propertyName} = useParams();
+
     useEffect(() => {
         document.title = 'REA Create Property';
-        axios.get('http://127.0.0.1:5000/REAUpdateLisitng', {
+        axios.get(`http://127.0.0.1:5000/REAUpdateListing/${propertyName}`, {
             headers: {
             'Authorization': 'Bearer ' + props.token,
             'Content-Type': 'application/json'
         }})
             .then(response => {
+                setName(response.data.propertyName);
+                setImage(response.data.propertyImage);
+                setLocation(response.data.location);
+                setPrice(response.data.price);
+                setBed(response.data.noOfBedrooms);
+                setBathroom(response.data.noOfBathrooms);
+                setArea(response.data.area);
+                setDescription(response.data.aboutProperty);
+                setFeatures(response.data.unitFeatures);
+                setFacilities(response.data.facilities);
+                setStatus(response.data.sold?'Sold':'New');
             })
             .catch(error => {
                 console.error('Error fetching property:', error);
@@ -50,9 +62,15 @@ function REAUpdateListingUI(props) {
     }, []);
 
     // Handle select dropdown
-    const handleSelect = (selectedItem) => {
+    const handleSelectBed = (selectedItem) => {
         setBed(selectedItem);
+    };
+    // Handle select dropdown
+    const handleSelectBath = (selectedItem) => {
         setBathroom(selectedItem);
+    };
+    // // Handle select dropdown
+    const handleSelectStat = (selectedItem) => {
         setStatus(selectedItem);
     };
 
@@ -61,6 +79,10 @@ function REAUpdateListingUI(props) {
     // Handle cancel
     function handleCancel() {
         navigate('/REARetrieveListingListUI');
+    }
+
+    const handleImageUpload = (base64String) => {
+        setImage(base64String)
     }
 
     // Handle update property
@@ -76,17 +98,18 @@ function REAUpdateListingUI(props) {
         }
 
         try {
-            axios.post('http://127.0.0.1:5000/REACerateProperty', {
-                "name": name,
+            axios.post(`http://127.0.0.1:5000/REAUpdateListing/${propertyName}`, {
+                "propertyName": name,
+                "propertyImage": image,
                 "location": location,
-                "bed": bed,
-                "bathroom": bathroom,
+                "noOfBedrooms": bed,
+                "noOfBathrooms": bathroom,
                 "area": area,
                 "price": price,
                 "facilities": facilities,
-                "description": description,
-                "features": features,
-                "status": status
+                "aboutProperty": description,
+                "unitFeatures": features,
+                "sold": status == "Sold"
             }, {
             headers: {
                 'Authorization': 'Bearer ' + props.token,
@@ -94,8 +117,8 @@ function REAUpdateListingUI(props) {
             }
             })
             .then((response) => {
-                console.log('Property updated successfully:', response.data.propertyCreated);
-                if (response.data.propertyCreated) {
+                console.log('Property updated successfully:', response.data.reaListingUpdated);
+                if (response.data.reaListingUpdated) {
                     displayNewListingUI();
                 }
                 else {
@@ -190,7 +213,7 @@ function REAUpdateListingUI(props) {
                                 <Dropdown
                                     options={numbers}
                                     label={bed}
-                                    onSelect={handleSelect}
+                                    onSelect={handleSelectBed}
                                 />
                             </div>
                             {/* Bathroom */}
@@ -199,7 +222,7 @@ function REAUpdateListingUI(props) {
                                 <Dropdown
                                     options={numbers}
                                     label={bathroom}
-                                    onSelect={handleSelect}
+                                    onSelect={handleSelectBath}
                                 />
                             </div>
                             {/* Area */}
@@ -224,7 +247,7 @@ function REAUpdateListingUI(props) {
                         </div>
                         {/* Upload Image */}
                         <div className="mb-8 w-2/3">
-                            <UploadFile image={image} setPicture={setImage}/>
+                            <UploadFile image={image} setPicture={handleImageUpload}/>
                         </div>
                     </div>
                     {/* Right side */}
@@ -268,7 +291,7 @@ function REAUpdateListingUI(props) {
                             <Dropdown
                                 options={statusOption}
                                 label={status}
-                                onSelect={handleSelect}
+                                onSelect={handleSelectStat}
                             />
                         </div>
                     </div>
@@ -291,12 +314,6 @@ function REAUpdateListingUI(props) {
                     <div className="w-40">
                         <Button color="bg-blue-500 text-black text-md" text="Save Changes" onClick={handleSubmit}/>
                     </div>
-                    {changesPopUp && 
-                        <REASaveChangesListingUI
-                        openModal={REASaveChangesListingUI}
-                        onClose={handleReopenPopUp}
-                        text="Are you sure to save the changes?" 
-                    />}
                 </div>
 
                 {/* Footer */}

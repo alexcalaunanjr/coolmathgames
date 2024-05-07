@@ -18,6 +18,7 @@ function REACreateLisitngUI(props) {
     const [area, setArea] = useState('');
     const [price, setPrice] = useState('');
     const [image, setImage] = useState('');
+    const [seller, setSeller] = useState('');
     const [facilities, setFacilities] = useState('');
     const [description, setDescription] = useState('');
     const [features, setFeatures] = useState('');
@@ -35,16 +36,7 @@ function REACreateLisitngUI(props) {
 
     useEffect(() => {
         document.title = 'REA Create Property';
-        axios.get('http://127.0.0.1:5000/REACreateProperty', {
-            headers: {
-            'Authorization': 'Bearer ' + props.token,
-            'Content-Type': 'application/json'
-        }})
-            .then(response => {
-            })
-            .catch(error => {
-                console.error('Error fetching property:', error);
-            });
+
     }, []);
 
     // Handle select dropdown
@@ -67,23 +59,26 @@ function REACreateLisitngUI(props) {
         setFormFilled(true);
 
         // Check for correct input
-        if (!name || !location || !bed || !bathroom || !area || !price || !image || !facilities || !description || !features || !/^\d+$/.test(area) || !/^\d+$/.test(price)) {
+        if (!name || !location || !bed || !bathroom || !area || !price || !image || !seller || !facilities || !description || !features || !/^\d+$/.test(area) || !/^\d+$/.test(price)) {
             displayErrorMessageUI();
             return;
         }
 
         try {
-            axios.post('http://127.0.0.1:5000/REACerateProperty', {
-                "name": name,
+            axios.post('http://127.0.0.1:5000/REACreateListing', {
+                "propertyName": name,
+                "propertyImage": image,
                 "location": location,
-                "bed": bed,
-                "bathroom": bathroom,
+                "noOfBedrooms": bed,
+                "noOfBathrooms": bathroom,
                 "area": area,
                 "price": price,
+                "ownerSeller": seller,
                 "facilities": facilities,
-                "description": description,
-                "features": features,
-                "status": status
+                "aboutProperty": description,
+                "unitFeatures": features,
+                "status": status,
+                "REA" : localStorage.getItem("username")
             }, {
             headers: {
                 'Authorization': 'Bearer ' + props.token,
@@ -117,6 +112,10 @@ function REACreateLisitngUI(props) {
         }
     }, [formFilled]);
 
+    const handleImageUpload = (base64String) => {
+        setImage(base64String);
+    }
+
     function displayNewListingUI(){
         setMessage('Property created successfully!');
         setError('');
@@ -124,7 +123,7 @@ function REACreateLisitngUI(props) {
 
     function displayErrorMessageUI(){
         // Check if all fields are filled
-        if (!name || !location || !bed || !bathroom || !area || !price || !image || !facilities || !description || !features) {
+        if (!name || !location || !bed || !bathroom || !area || !price || !image || !seller || !facilities || !description || !features) {
             setError('Please enter all fields.');
         }
 
@@ -209,11 +208,19 @@ function REACreateLisitngUI(props) {
                         </div>
                         {/* Upload Image */}
                         <div className="mb-8 w-2/3">
-                            <UploadFile setPicture={setImage}/>
+                            <UploadFile setPicture={handleImageUpload}/>
                         </div>
                     </div>
                     {/* Right side */}
                     <div className='w-1/2'>
+                        {/* Seller */}
+                        <div className="mb-8 w-2/3">
+                            Seller
+                            <TextInput
+                                type="text"
+                                onChange = {(e) => setSeller(e.target.value)}
+                            />
+                        </div>
                         {/* Facilities */}
                         <div className="mb-8 w-2/3">
                             Facilities

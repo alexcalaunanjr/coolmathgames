@@ -11,7 +11,7 @@ class REAUpdateListingController(Blueprint):
         property = PropertyListing.retrieveListing(oldPropertyName)
         return property
     
-    def updateProperty(self, oldPropertyName:str, propertyName:str, propertyImage:str, price:int, location:str, aboutProperty:str, noOfBedrooms:int, noOfBathrooms:int, area:int, unitFeatures:str, facilities:str, sold:bool):
+    def updateListing(self, oldPropertyName:str, propertyName:str, propertyImage:str, price:int, location:str, aboutProperty:str, noOfBedrooms:int, noOfBathrooms:int, area:int, unitFeatures:str, facilities:str, sold:bool):
         if propertyName and propertyImage and price and location and aboutProperty and noOfBedrooms and noOfBathrooms and area and unitFeatures and facilities and sold is not None:
             updatedProperty = {
                 'property' : propertyName,
@@ -29,13 +29,12 @@ class REAUpdateListingController(Blueprint):
             updatedPropertyDetails = PropertyListing.updateListing(oldPropertyName, updatedProperty)
             return updatedPropertyDetails
         return jsonify({'updatedProperty': False})
-        
     
 class BaseREAUpdateListingController(REAUpdateListingController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
-    def updateListing(self, oldPropertyName):
+    def updateAListing(self, oldPropertyName):
         if request.method == 'GET':
             retrieved = self.retrieveListing(oldPropertyName)
             return retrieved
@@ -56,5 +55,5 @@ class BaseREAUpdateListingController(REAUpdateListingController):
             facilities = data.get('facilities')
             sold = data.get('sold')
 
-            updated = self.updateProperty(oldPropertyName, property, propertyImage, price, location, aboutProperty, noOfBedrooms, noOfBathrooms, area, unitFeatures, facilities, sold) 
+            updated = self.updateListing(oldPropertyName, property, propertyImage, price, location, aboutProperty, noOfBedrooms, noOfBathrooms, area, unitFeatures, facilities, sold) 
             return updated

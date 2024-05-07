@@ -26,4 +26,14 @@ class Rating(db.Model):
             db.session.add(newRate)
             db.session.commit()
             return jsonify({"enteredRating": True})
-
+        
+    #retrieve rating
+    @classmethod
+    def retrieveRating(cls, reaUsername):
+        ratingList = cls.query.filter(cls.rea==reaUsername).all()
+        ratingDict = [{'id': rate.id, 
+                        'rea': rate.rea, 
+                        'rater': rate.rater, 
+                        'rating': rate.rating 
+                        } for rate in ratingList]
+        return jsonify({"ratingDict": ratingDict})

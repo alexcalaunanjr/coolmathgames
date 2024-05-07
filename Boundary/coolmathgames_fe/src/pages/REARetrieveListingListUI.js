@@ -14,13 +14,14 @@ import BG from "../assets/bg1-30.jpg";
 
 // components
 import REAHeader from "../components/REAHeader";
-import SearchListingUI from "../components/SearchListingUI";
+import SearchListingUI from "../components/REASearchListingUI";
 import Footer from "../components/Footer";
 
 
 function REARetrieveListingListUI(props) {
     const [listingList, setListingList] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [properties, setProperty] = useState([])
 
     const username = localStorage.getItem('username');
     const [Ptoken, setPToken] = useState('');
@@ -39,14 +40,14 @@ function REARetrieveListingListUI(props) {
             setPToken(props.token)
             const properties = response.data.REAListingList;
             const listingList = properties.map(property => ({
-                images: property.propertyImage,
-                title: property.propertyName,
+                propertyImage: property.propertyImage,
+                propertyName: property.propertyName,
                 location: property.location,
-                bedrooms: property.noOfBedrooms,
-                bathrooms: property.noOfBathrooms,
-                size: property.area,
+                noOfBedrooms: property.noOfBedrooms,
+                noOfBathrooms: property.noOfBathrooms,
+                area: property.area,
                 price: property.price,
-                agent: property.RealEstateAgent,
+                RealEstateAgent: property.RealEstateAgent,
                 propertyLink: `/REAViewListingUI/${property.propertyName}`
             }))
             setListingList(listingList)
@@ -72,7 +73,7 @@ function REARetrieveListingListUI(props) {
                 <div className='p-5'></div>
 
                 {/* Search */}
-                <SearchListingUI placeholder="Search by name..." onSubmit={handleSearch}/>
+                <SearchListingUI placeholder="Search by name..." onSubmit={handleSearch} setNewProperties={setListingList} token={props.token}/>
                 
                 <div className='p-5'></div>
 
@@ -81,8 +82,8 @@ function REARetrieveListingListUI(props) {
 
                 {/* Cards of properties */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
-                    {listingList.map((property, index) => (
-                        <CardProperty key={index} property={property} token={Ptoken}/>
+                    {listingList.map((property) => (
+                        <CardProperty property={property} />
                     ))}
                     
                 </div>

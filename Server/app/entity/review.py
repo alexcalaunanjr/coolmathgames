@@ -26,3 +26,15 @@ class Review(db.Model):
             db.session.add(newReview)
             db.session.commit()
             return jsonify({"enteredReview": True})
+
+
+    #retrieve review
+    @classmethod
+    def retrieveReview(cls, reaUsername):
+        reviewList = cls.query.filter(cls.rea==reaUsername).all()
+        reviewListDict = [{'id': review.id, 
+                        'rea': review.rea, 
+                        'reviewer': review.reviewer, 
+                        'review': review.review 
+                        } for review in reviewList]
+        return jsonify({"reviewListDict": reviewListDict})

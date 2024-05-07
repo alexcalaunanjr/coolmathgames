@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import PLTabs from '../components/TabsPropertyListing';
 import Button from '../components/Button';
-import READeletePLUI from '../components/READeletePLUI'
+import READeletePLUI from '../components/READeleteListingUI'
 import InsightPopUp from '../components/InsightsPopUp';
 
 // Images
@@ -14,7 +14,8 @@ import house2 from '../assets/house2.jpg';
 import bg from '../assets/bg3.jpeg';
 
 
-function REAViewPropertyListingUI(props) {
+function REAViewListingUI(props) {
+    const [Ptoken, setPToken] = useState('');
     const id = localStorage.getItem('id');
 
     const [image, setImage] = useState('');
@@ -38,7 +39,6 @@ function REAViewPropertyListingUI(props) {
     const [insightsPopUp, setInsightsPopUp] = useState(false);
 
     let {propertyName} = useParams();
-    console.log(propertyName)
 
     useEffect(() => {
         document.title = 'REA View Property Listing';
@@ -50,7 +50,8 @@ function REAViewPropertyListingUI(props) {
             }
         })
         .then((response) => {
-            console.log('Property Listing:', response.data.propertyListing);
+            console.log('Property Listing:', response.data);
+            setPToken(props.token)
             if (response) {
                 setTitle(response.data.propertyName);
                 setImage(response.data.propertyImage);
@@ -65,6 +66,7 @@ function REAViewPropertyListingUI(props) {
                 setIsSold(response.data.sold);
                 setViews(response.data.viewsCount);
                 setFavorites(response.data.favoritesCount);
+                localStorage.setItem('clickedProperty', response.data.propertyName);
             }
         })
         .catch((error) => {
@@ -93,7 +95,7 @@ function REAViewPropertyListingUI(props) {
     // Function to handle update button
     const navigate = useNavigate();
     const handleUpdate = () => {
-        // navigate('/REAUpdatePropertyListing'); ///////////////////////////////////////////////////////////////////////////////////
+        navigate(`/REAUpdateListingUI/${title}`); 
     };
 
     function displayPropertyListingUI(){
@@ -109,7 +111,7 @@ function REAViewPropertyListingUI(props) {
                     }} 
                 >
                     <div className='relative'>
-                        <img src={image} alt="House" className='w-full h-56 sm:h-64 xl:h-96'/>
+                        <img  src={`data:image/jpeg;base64, ${image}`} alt="House" className='w-full h-56 sm:h-64 xl:h-96'/>
                         {/* If property sold */}
                         {isSold && (
                             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-4xl font-bold">
@@ -246,6 +248,7 @@ function REAViewPropertyListingUI(props) {
                                 openModal={READeletePLUI}
                                 onClose={handleReopenDelPopUp}
                                 text="Are you sure to delete this property?"
+                                token={Ptoken}
                             />
                         )}
                     </div>
@@ -260,4 +263,4 @@ function REAViewPropertyListingUI(props) {
     );
 }
 
-export default REAViewPropertyListingUI;
+export default REAViewListingUI;
