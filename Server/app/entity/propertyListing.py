@@ -216,6 +216,17 @@ class PropertyListing(db.Model):
             return property
         else:
             return jsonify({"View Count": "Not Found"})
+        
+    #increase View Count
+    @classmethod
+    def increaseViewCount(cls, propertyName):
+        property = cls.query.filter(cls.property==propertyName).first()
+        if property:
+            property.viewsCount += 0.5
+            db.session.commit()
+            return jsonify({"ViewCountIncrease": True})
+        else:
+            return jsonify({"ViewCountIncrease": False})
 
     # ---- REAL ESTATE AGENT ----
     #create my property

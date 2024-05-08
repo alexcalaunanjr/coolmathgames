@@ -8,7 +8,7 @@ class REAViewReviewController(Blueprint):
         super().__init__(*args, **kwargs)
 
     def retrieveReview(self, username:str):
-        cred = Review.retrieveReview(username)
+        cred = Review.retrieveReviews(username)
         return cred
 
 class BaseREAViewReviewController(REAViewReviewController):

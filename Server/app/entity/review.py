@@ -32,12 +32,12 @@ class Review(db.Model):
 
     #retrieve review
     @classmethod
-    def retrieveReview(cls, reaUsername):
+    def retrieveReviews(cls, reaUsername):
         reviewList = cls.query.filter(cls.rea==reaUsername).all()
         reviewListDict = [{'id': review.id, 
                         'rea': review.rea, 
                         'reviewer': review.reviewer, 
                         'review': review.review,
-                        'date': review.date
+                        'date': review.date.strftime('%a, %d %b %Y')
                         } for review in reviewList]
         return jsonify({"reviewListDict": reviewListDict})

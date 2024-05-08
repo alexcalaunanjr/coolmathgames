@@ -84,12 +84,6 @@ function SellerViewPropertyListingUI(props) {
         setViewsPopUp(false);
     }
 
-    // Function to handle agent
-    const navigate = useNavigate();
-    const handleAgent = () => {
-        navigate(`/SellerViewAgent/${agentName}`);
-    }
-
     function displayPropertyListingUI() {
         return (
             <>
@@ -189,7 +183,7 @@ function SellerViewPropertyListingUI(props) {
                         </div>
                         <div className='w-1/3 pt-10'>
                             <div className="flex justify-end space-x-4 pt-5">
-                                {/* Favoties */}
+                                {/* Favorites */}
                                 <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white lg:w-1/3 w-1/2'
                                     onClick={handleFavorites}
                                 >
@@ -198,7 +192,7 @@ function SellerViewPropertyListingUI(props) {
                                     </svg>
                                     Favorites
                                 </button>
-                                {/* Pop up for favorotes */}
+                                {/* Pop up for favorites */}
                                 {favoritesPopUp && 
                                 <SellerViewFavorites
                                     propertyName={title}
@@ -216,7 +210,7 @@ function SellerViewPropertyListingUI(props) {
                                     </svg>
                                     Views
                                 </button>
-                                {/* Pop up for insights */}
+                                {/* Pop up for views */}
                                 {viewsPopUp && 
                                 <SellerViewViews
                                     propertyName={title}
@@ -226,14 +220,14 @@ function SellerViewPropertyListingUI(props) {
                                 />}
                             </div>
                             {/* Contact Agent */}
-                            <div className='flex justify-end pt-10'>
-                                <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white md:w-1/2'
-                                    onClick={handleAgent}>
-                                    {/* Contact Agent */}
-                                    <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-10 h-10 rounded-full'/>
-                                    <p className='text-md items-center px-3'> {agentName}</p>
-                                </button>
-                            </div>
+                            <Link to={`/SellerViewREACredentialsUI/${agentName}`}>
+                                <div className='flex justify-end pt-10'>
+                                    <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white md:w-1/2'>
+                                        <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-10 h-10 rounded-full'/>
+                                        <p className='text-md items-center px-3'> {agentName}</p>
+                                    </button>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     {/* A straight line */}

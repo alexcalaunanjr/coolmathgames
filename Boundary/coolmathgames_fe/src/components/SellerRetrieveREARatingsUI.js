@@ -4,63 +4,28 @@ import axios from 'axios';
 import { Button, Modal } from "flowbite-react";
 
 import SellerRateREAUI from './SellerRateREAUI';
+import { useParams } from 'react-router-dom';
 
-
-function SellerRetrieveREARatingsUI({openModal, onClose, REAName}) {
-    // placeholders
-    const ratingsList = [
-      {
-        id: 1,
-        name: "John Doe",
-        date: "05/05/2024",
-        stars: 5,
-      },
-      {
-        id: 2,
-        name: "Johnny Depp",
-        date: "04/05/2024",
-        stars: 4,
-      },
-      {
-        id: 3,
-        name: "Johnathan Kho",
-        date: "01/05/2024",
-        stars: 3,
-      },
-      {
-        id: 4,
-        name: "John Cena",
-        date: "30/04/2024",
-        stars: 5,
-      },
-      {
-        id: 5,
-        name: "Jane Doe",
-        date: "29/04/2024",
-        stars: 4,
-      },
-      {
-        id: 6,
-        name: "Janice Wilson",
-        date: "27/04/2024",
-        stars: 3,
-      },
-      {
-        id: 7,
-        name: "Janette Liu",
-        date: "26/04/2024",
-        stars: 4,
-      },
-      {
-        id: 8,
-        name: "Jasmine Tea",
-        date: "18/04/2024",
-        stars: 1,
-      },
-    ];
-
+function SellerRetrieveREARatingsUI({openModal, onClose, REAName, token}) {
+    let {agentName} = useParams()
     // handle rating
-    const [rating, setRating] = useState(0)
+    const [rating, setRating] = useState(0);
+    const [ratingsList, setRatingsList] = useState([]);
+
+    useEffect(() => {
+      axios.get(`http://127.0.0.1:5000/SellerRetrieveRatings/${agentName}`, {
+          headers: {
+              'Authorization': 'Bearer ' + token,
+              'Content-Type': 'application/json'
+          }
+      })
+      .then(response => {
+          setRatingsList(response.data.ratingDict)
+      })
+      .catch(error => {
+          console.error('Error retreiving ratings:', error);
+      });
+  }, []);
 
     const createStars = (numStars) => {
       const starsRow = [];
@@ -81,7 +46,7 @@ function SellerRetrieveREARatingsUI({openModal, onClose, REAName}) {
       let totalStars = 0;
       let numRatings = ratingsList.length;
       for (let i = 0; i < numRatings; i++) {
-        totalStars += ratingsList[i].stars;
+        totalStars += ratingsList[i].rating;
       }
       return (totalStars/numRatings).toFixed(1);
     }
@@ -104,7 +69,7 @@ function SellerRetrieveREARatingsUI({openModal, onClose, REAName}) {
             <div className='p-4'></div>
 
             {/* post your rating */}
-            <SellerRateREAUI rating={rating} setRating={setRating}/>
+            <SellerRateREAUI rating={rating} setRating={setRating} token={token}/>
 
             <div className='p-4'></div>
 
@@ -113,11 +78,11 @@ function SellerRetrieveREARatingsUI({openModal, onClose, REAName}) {
               {ratingsList.map((ratings) => (
                 <>
                 <div className="flex">
-                  <p className="font-semibold">{ratings.name}</p>
+                  <p className="font-semibold">{ratings.rater}</p>
                   <p className="ms-5 text-gray-500 italic">{ratings.date}</p>
                 </div>
                 <div className="p-0.5"></div>
-                <div className="flex">{createStars(ratings.stars)}</div>
+                <div className="flex">{createStars(ratings.rating)}</div>
                 <div className="p-3"></div>
                 </>
               ))}
