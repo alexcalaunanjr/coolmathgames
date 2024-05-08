@@ -15,7 +15,7 @@ import SellerRetrieveREARatingsUI from '../components/SellerRetrieveREARatingsUI
 import SellerRetrieveREAReviewsUI from '../components/SellerRetrieveREAReviewsUI';
 
 
-function SellerViewREACredentialsUI(props, {openModal, onClose}) {
+function SellerViewREACredUI(props, {openModal, onClose}) {
     // REA credentials depend on which REA seller clicks on
     const username = localStorage.getItem('username');
 
@@ -228,4 +228,4 @@ function SellerViewREACredentialsUI(props, {openModal, onClose}) {
         displayREACredentialsUI()
     );
 }
-export default SellerViewREACredentialsUI;
+export default SellerViewREACredUI;

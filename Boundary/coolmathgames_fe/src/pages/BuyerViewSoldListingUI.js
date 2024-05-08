@@ -35,7 +35,7 @@ const property1 = {
     favorites: 0,
 };
 
-function BuyerViewSoldPropertyListingUI(props) {
+function BuyerViewSoldListingUI(props) {
     let { propertyName } = useParams();
 
     const [image, setImage] = useState(property1.images);
@@ -110,7 +110,7 @@ function BuyerViewSoldPropertyListingUI(props) {
         // navigate('/BuyerViewAgentCredentials'); //////////////////////////////////////////////////////////////////////////
     }
 
-    function displaySoldPropertyListingUI() {
+    function displaySoldListingUI() {
         return (
             <>
                 <UserContextProvider><BuyerHeader /></UserContextProvider>
@@ -273,8 +273,8 @@ function BuyerViewSoldPropertyListingUI(props) {
         )
     }
     return (
-        displaySoldPropertyListingUI()
+        displaySoldListingUI()
     );
 }
 
-export default BuyerViewSoldPropertyListingUI;
+export default BuyerViewSoldListingUI;

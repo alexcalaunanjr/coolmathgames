@@ -96,7 +96,7 @@ const property4 = {
     isSold: true
 };
 
-function BuyerRetrieveSoldPropertyListingUI(props) {
+function BuyerRetrieveSoldListingListUI(props) {
     const [soldProperties, setSoldProperties] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     // Check if property is sold
@@ -130,7 +130,7 @@ function BuyerRetrieveSoldPropertyListingUI(props) {
         })
     }, []);
 
-    function displayListOfSoldPropertiesUI(){
+    function displayListOfSoldListingUI(){
         return (
             // return container with background image that is slightly transparent
             <>
@@ -159,8 +159,8 @@ function BuyerRetrieveSoldPropertyListingUI(props) {
         );
     }
     return (
-        displayListOfSoldPropertiesUI()
+        displayListOfSoldListingUI()
     );
 }
 
-export default BuyerRetrieveSoldPropertyListingUI;
+export default BuyerRetrieveSoldListingListUI;
