@@ -30,6 +30,7 @@ from .controllers.REASearchListingController.controller import BaseREASearchList
 from .controllers.READeleteListingController.controller import BaseREADeleteListingController
 from .controllers.REAViewRatingController.controller import BaseREAViewRatingController
 from .controllers.REAViewReviewController.controller import BaseREAViewReviewController
+from .controllers.REAViewViewCountController.controller import BaseREAViewViewCountController
 
 
 #SELLER
@@ -101,6 +102,7 @@ REASearchListingController = BaseREASearchListingController('REASearchListingCon
 READeleteListingController = BaseREADeleteListingController('READeleteListingController', __name__)
 REAViewRatingController = BaseREAViewRatingController('REAViewRatingController', __name__)
 REAViewReviewController = BaseREAViewReviewController('REAViewReviewController', __name__)
+REAViewViewCountController = BaseREAViewViewCountController('REAViewViewCountController', __name__)
 
 
 #SELLER
@@ -153,6 +155,7 @@ REASearchListingController.route('/REASearchListing/<username>', methods=['POST'
 READeleteListingController.route('/READeleteListing/<propertyName>', methods=['GET'])(READeleteListingController.deleteAProperty)
 REAViewRatingController.route('/REAViewRating/<username>', methods=['GET'])(REAViewRatingController.viewRating)
 REAViewReviewController.route('/REAViewReview/<username>', methods=['GET'])(REAViewReviewController.viewReview)
+REAViewViewCountController.route('/REAViewViewCount/<listing>', methods=['GET'])(REAViewViewCountController.listingViewCounts)
 
 
 #SELLER
@@ -203,6 +206,7 @@ app.register_blueprint(REASearchListingController)
 app.register_blueprint(READeleteListingController)
 app.register_blueprint(REAViewRatingController)
 app.register_blueprint(REAViewReviewController)
+app.register_blueprint(REAViewViewCountController)
 
 
 #SELLER

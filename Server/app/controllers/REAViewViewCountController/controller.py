@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required
 from app.entity.propertyListing import PropertyListing
 
 
-class REAViewViewCountsController(Blueprint):
+class REAViewViewCountController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -12,7 +12,7 @@ class REAViewViewCountsController(Blueprint):
         return viewCounts
     
 
-class BaseREAViewViewCountsController(REAViewViewCountsController):
+class BaseREAViewViewCountController(REAViewViewCountController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
