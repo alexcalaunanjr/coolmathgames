@@ -13,9 +13,11 @@ import BuyerRetrieveNewListingListUI from './pages/BuyerRetrieveNewListingListUI
 import BuyerRetrieveSoldListingListUI from './pages/BuyerRetrieveSoldListingListUI'
 import BuyerViewNewListingUI from './pages/BuyerViewNewListingUI'
 import BuyerViewSoldListingUI from './pages/BuyerViewSoldListingUI'
+import BuyerViewREACredentialsUI from './pages/BuyerViewREACredentialsUI'
 // Seller Pages
 import SellerRetrieveListingListUI from './pages/SellerRetrieveListingListUI'
 import SellerViewListing from './pages/SellerViewListingUI'
+import SellerViewREACredentialsUI from './pages/SellerViewREACredentialsUI'
 // REA Pages
 import REACreateListingUI from './pages/REACreateListingUI'
 import REARetrieveListingListUI from './pages/REARetrieveListingListUI'
@@ -75,12 +77,14 @@ function App() {
                   <Route path='/BuyerRetrieveSoldListingListUI' element={<BuyerRetrieveSoldListingListUI token={token}/>}></Route>
                   <Route path='/BuyerViewNewListingUI/:propertyName' element={<BuyerViewNewListingUI token={token}/>}></Route>
                   <Route path='/BuyerViewSoldListingUI/:propertyName' element={<BuyerViewSoldListingUI token={token}/>}></Route>
+                  <Route path='/BuyerViewREACredentialsUI/:agentName' element={<BuyerViewREACredentialsUI token={token}/>}></Route>
                 </>
               )}
               {userRole === 'Seller' && (
                 <>
                   <Route path='/SellerRetrieveListingListUI' element={<SellerRetrieveListingListUI token={token}/>}></Route>
                   <Route path='/SellerViewListingUI/:propertyName' element={<SellerViewListing token={token}/>}></Route>
+                  <Route path='/SellerViewREACredentialsUI/:agentName' element={<SellerViewREACredentialsUI token={token}/>}></Route>
                 </>
               )}
             </Routes>

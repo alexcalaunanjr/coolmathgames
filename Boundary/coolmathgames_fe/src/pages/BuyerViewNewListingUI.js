@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BuyerHeader from '../components/BuyerHeader';
 import Footer from '../components/Footer';
 import { UserContextProvider } from '../hooks/UseModalContext';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import PLTabs from '../components/TabsPropertyListing';
 
@@ -11,56 +11,32 @@ import house2 from '../assets/house2.jpg';
 import bg from '../assets/bg3.jpeg';
 import agent from '../assets/agent3.jpg';
 
-// Example: create a property object
-const agent1 = {
-    id: 1,
-    fullName: 'Elizabeth Hamilton',
-    username: 'agent1',
-}
-
-const property1 = {
-    id: 1,
-    images: house2,
-    title: "Trellis Towers Condo Unit",
-    location: "Punggol, Singapore",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 10000,
-    price: 200000,
-    description: "This is a beautiful condo unit located in the heart of Punggol. It is a 3-bedroom, 2-bathroom unit with a size of 1000 sqft. The unit is fully furnished and comes with a balcony that overlooks the beautiful Punggol Waterway. The condo is equipped with a swimming pool, gym, and BBQ pits for residents to enjoy. It is also conveniently located near Waterway Point Shopping Mall, Punggol MRT Station, and various schools and amenities.",
-    unitFeatures: "Fully furnished, Balcony, Overlooking Punggol Waterway",
-    facilities: "Swimming Pool, Gym, BBQ Pits",
-    isSold: false,
-    favorites: 0
-};
-
 function BuyerViewNewListingUI(props) {
     let { propertyName } = useParams();
 
-    const [image, setImage] = useState(property1.images);
-    const [title, setTitle] = useState(property1.title);
-    const [location, setLocation] = useState(property1.location);
-    const [price, setPrice] = useState(property1.price);
-    const [bedrooms, setBedrooms] = useState(property1.bedrooms);
-    const [bathrooms, setBathrooms] = useState(property1.bathrooms);
-    const [size, setSize] = useState(property1.size);
-    const [description, setDescription] = useState(property1.description);
-    const [unitFeatures, setUnitFeatures] = useState(property1.unitFeatures);
-    const [facilities, setFacilities] = useState(property1.facilities);
+    const [image, setImage] = useState('');
+    const [title, setTitle] = useState('');
+    const [location, setLocation] = useState('');
+    const [price, setPrice] = useState('');
+    const [bedrooms, setBedrooms] = useState('');
+    const [bathrooms, setBathrooms] = useState('');
+    const [size, setSize] = useState('');
+    const [description, setDescription] = useState('');
+    const [unitFeatures, setUnitFeatures] = useState('');
+    const [facilities, setFacilities] = useState('');
     const [agentName, setAgentName] = useState('');
     const [agentImg, setAgentImage] = useState('');
     
     // State to keep track of favorites count
-    const [favoritesCount, setFavoritesCount] = useState(property1.favorites);
+    const [favoritesCount, setFavoritesCount] = useState('');
 
     // State to check if property is sold or no
-    const [isSold, setIsSold] = useState(property1.isSold);
+    const [isSold, setIsSold] = useState('');
     // State to check if property is favourited or no
     const [isFavorited, setIsFavorited] = useState(false);
 
     useEffect(() => {
         document.title = 'Buyer View New Property Listing';
-
         axios.get(`http://127.0.0.1:5000/BuyerViewNewListing/${propertyName}`, {
             headers: {
                 'Authorization': 'Bearer ' + props.token,
@@ -90,6 +66,22 @@ function BuyerViewNewListingUI(props) {
     }, []);
 
     useEffect(() => {
+        axios.get(`http://127.0.0.1:5000/increaseViewCount/${propertyName}`, {
+            headers: {
+                'Authorization': 'Bearer ' + props.token,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            const increasedViewCount = response.data.ViewCountIncrease
+            console.log(increasedViewCount)
+        })
+        .catch((error) => {
+            console.error('Error increasing view count:', error);
+        })
+    }, []);
+
+    useEffect(() => {
         console.log('Updated isFavorited:', isFavorited);
         // Increment or decrement favorites count based on isFavorited state
         setFavoritesCount((prevCount) => (isFavorited ? prevCount + 1 : Math.max(prevCount - 1, 0)));
@@ -102,12 +94,6 @@ function BuyerViewNewListingUI(props) {
     useEffect(() => {
         console.log('Updated favorites count:', favoritesCount);
     }, [favoritesCount]);
-
-    // navigate to agent page
-    const navigate = useNavigate();
-    const handleAgent = () => {
-        // navigate('/BuyerViewAgentCredentials'); ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    }
 
     function displayNewListingUI() {
         return (
@@ -254,14 +240,15 @@ function BuyerViewNewListingUI(props) {
                                 </div>
                             </div>
                             {/* Contact Agent */}
-                            <div className='flex justify-end pt-10'>
-                                <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white md:w-1/2'
-                                    onClick={handleAgent}>
-                                    {/* Contact Agent */}
-                                    <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-10 h-10 rounded-full'/>
-                                    <p className='text-md items-center px-3'> {agentName}</p>
-                                </button>
-                            </div>
+                            <Link to={`/BuyerViewREACredentialsUI/${agentName}`}>
+                                <div className='flex justify-end pt-10'>
+                                    <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white md:w-1/2'>
+                                        {/* Contact Agent */}
+                                        <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-10 h-10 rounded-full'/>
+                                        <p className='text-md items-center px-3'> {agentName}</p>
+                                    </button>
+                                </div>
+                            </Link>
                         </div>
                     </div> 
                 </div>

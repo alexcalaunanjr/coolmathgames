@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { UserContextProvider } from '../hooks/UseModalContext';
 import { FaStar } from "react-icons/fa6";
 import { FaPencilAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from 'axios'
 
 // assets
@@ -16,26 +16,23 @@ import SellerRetrieveREAReviewsUI from '../components/SellerRetrieveREAReviewsUI
 
 
 function SellerViewREACredUI(props, {openModal, onClose}) {
-    // REA credentials depend on which REA seller clicks on
-    const username = localStorage.getItem('username');
-
-    const [picture, setPicture] = useState(Agent1);
-    const [fullName, setFullName] = useState('poopypants');
-    const [email, setEmail] = useState('pookie@gmail.com');
-    const [phoneNo, setPhoneNo] = useState('12345678');
-    const [experience, setExperience] = useState('10');
-    const [memberSince, setMemberSince] = useState('01/01/2015');
-    const [license, setLicense] = useState('1L0V3Y0U');
-    const [language, setLanguage] = useState('Mandarin, English');
-    const [service, setService] = useState('service 1, service 2');
-    const [about, setAbout] = useState("I'm Kevin Aldrin Tan, your friendly neighbourhood real estate aficionado");
-    const [awards, setAwards] = useState('Daesang 1, MMA 2');
+    let {agentName} = useParams()
+    const [picture, setPicture] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNo, setPhoneNo] = useState('');
+    const [experience, setExperience] = useState('');
+    const [memberSince, setMemberSince] = useState('');
+    const [license, setLicense] = useState('');
+    const [language, setLanguage] = useState('');
+    const [service, setService] = useState('');
+    const [about, setAbout] = useState('');
+    const [awards, setAwards] = useState('');
+    const Ptoken = props.token;
 
     // handle popups
     const [openRetrieveRatingsModal, setOpenRetrieveRatingsModal] = useState(false);
     const [openRetrieveReviewsModal, setOpenRetrieveReviewsModal] = useState(false);
-
-    const navigate = useNavigate();
 
     const handleRatingsClick = () => {
         setOpenRetrieveRatingsModal(true);
@@ -53,25 +50,24 @@ function SellerViewREACredUI(props, {openModal, onClose}) {
     useEffect(() => {
         document.title = 'Seller View REA Credentials';
         
-        axios.get(`http://127.0.0.1:5000/SellerViewREACredential/${username}`, {
-        headers: {
-            'Authorization': 'Bearer ' + props.token,
-            'Content-Type': 'application/json'
-        }
+        axios.get(`http://127.0.0.1:5000/SellerViewREACred/${agentName}`, {
+            headers: {
+                'Authorization': 'Bearer ' + Ptoken,
+                'Content-Type': 'application/json'
+            }
         })
         .then(response => {
             if (response) {
-                // setPicture(Agent1)
-                setFullName(response.data.account.fullName)
-                setEmail(response.data.account.email)
-                setPhoneNo(response.data.account.phoneNo)
-                setExperience(response.data.cred.experience)
-                setMemberSince(response.data.cred.memberSince)
-                setLicense(response.data.cred.license)
-                setLanguage(response.data.cred.language)
-                setService(response.data.cred.service)
-                setAbout(response.data.cred.about)
-                setAwards(response.data.cred.award)
+                setPicture(response.data.reaImage)
+                setFullName(response.data.fullName)
+                setEmail(response.data.email)
+                setPhoneNo(response.data.phoneNo)
+                setExperience(response.data.experience)
+                setLicense(response.data.license)
+                setLanguage(response.data.language)
+                setAbout(response.data.about)
+                setAwards(response.data.award)
+                setService(response.data.special)
             }
             else {
             }
@@ -103,7 +99,7 @@ function SellerViewREACredUI(props, {openModal, onClose}) {
                     <div className='grid md:grid-cols-12 w-full md:gap-x-4'>
                         {/* profile picture */}
                         <div className='md:col-span-4 lg:col-span-3 place-self-center'>
-                            <img src={picture} className='rounded-full w-40 h-40 md:w-48 md:h-48' />
+                            <img src={`data:image/jpeg;base64, ${picture}`} className='rounded-full w-40 h-40 md:w-48 md:h-48' />
                         </div>
     
                          {/* credentials */}
@@ -142,8 +138,6 @@ function SellerViewREACredUI(props, {openModal, onClose}) {
                                 <div className='flex justify-center lg:justify-start md:col-span-12 lg:col-span-3 break-words'>
                                     <div className='w-56'>
                                         <p><b>Experience:</b> {experience} years</p>
-                                        <div className='p-0.5'></div>
-                                        <p><b>Member since:</b> {memberSince}</p>
                                         <div className='p-0.5'></div>
                                         <p><b>License:</b> {license}</p>
                                         <div className='p-0.5'></div>
@@ -196,6 +190,7 @@ function SellerViewREACredUI(props, {openModal, onClose}) {
                                 openModal={SellerRetrieveREARatingsUI}
                                 onClose={closeRetrieveRatingsModal}
                                 REAName={fullName}
+                                token={Ptoken}
                             />
                         )}
 
@@ -210,6 +205,7 @@ function SellerViewREACredUI(props, {openModal, onClose}) {
                                 openModal={SellerRetrieveREAReviewsUI}
                                 onClose={closeRetrieveReviewsModal}
                                 REAName={fullName}
+                                token={Ptoken}
                             />
                         )}
                     </div>

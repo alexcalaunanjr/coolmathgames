@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { UserContextProvider } from '../hooks/UseModalContext';
 import { FaStar } from "react-icons/fa6";
 import { FaPencilAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios'
 
 // assets
@@ -16,20 +16,18 @@ import BuyerRetrieveREAReviewsUI from '../components/BuyerRetrieveREAReviewsUI';
 
 
 function BuyerViewREACredUI(props, {openModal, onClose}) {
-    // REA credentials depend on which REA buyer clicks on
-    const username = localStorage.getItem('username');
-
-    const [picture, setPicture] = useState(Agent1);
-    const [fullName, setFullName] = useState('poopypants');
-    const [email, setEmail] = useState('pookie@gmail.com');
-    const [phoneNo, setPhoneNo] = useState('12345678');
-    const [experience, setExperience] = useState('10');
-    const [memberSince, setMemberSince] = useState('01/01/2015');
-    const [license, setLicense] = useState('1L0V3Y0U');
-    const [language, setLanguage] = useState('Mandarin, English');
-    const [service, setService] = useState('service 1, service 2');
-    const [about, setAbout] = useState("I'm Kevin Aldrin Tan, your friendly neighbourhood real estate aficionado");
-    const [awards, setAwards] = useState('Daesang 1, MMA 2');
+    let {agentName} = useParams()
+    const [picture, setPicture] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNo, setPhoneNo] = useState('');
+    const [experience, setExperience] = useState('');
+    const [license, setLicense] = useState('');
+    const [language, setLanguage] = useState('');
+    const [service, setService] = useState('');
+    const [about, setAbout] = useState('');
+    const [awards, setAwards] = useState('');
+    const Ptoken = props.token;
 
     // handle popups
     const [openRetrieveRatingsModal, setOpenRetrieveRatingsModal] = useState(false);
@@ -53,7 +51,7 @@ function BuyerViewREACredUI(props, {openModal, onClose}) {
     useEffect(() => {
         document.title = 'Buyer View REA Credentials';
         
-        axios.get(`http://127.0.0.1:5000/BuyerViewREACredential/${username}`, {
+        axios.get(`http://127.0.0.1:5000/BuyerViewREACred/${agentName}`, {
         headers: {
             'Authorization': 'Bearer ' + props.token,
             'Content-Type': 'application/json'
@@ -61,17 +59,16 @@ function BuyerViewREACredUI(props, {openModal, onClose}) {
         })
         .then(response => {
             if (response) {
-                // setPicture(Agent1)
-                setFullName(response.data.account.fullName)
-                setEmail(response.data.account.email)
-                setPhoneNo(response.data.account.phoneNo)
-                setExperience(response.data.cred.experience)
-                setMemberSince(response.data.cred.memberSince)
-                setLicense(response.data.cred.license)
-                setLanguage(response.data.cred.language)
-                setService(response.data.cred.service)
-                setAbout(response.data.cred.about)
-                setAwards(response.data.cred.award)
+                setPicture(response.data.reaImage)
+                setFullName(response.data.fullName)
+                setEmail(response.data.email)
+                setPhoneNo(response.data.phoneNo)
+                setExperience(response.data.experience)
+                setLicense(response.data.license)
+                setLanguage(response.data.language)
+                setAbout(response.data.about)
+                setAwards(response.data.award)
+                setService(response.data.special)
             }
             else {
             }
@@ -104,7 +101,7 @@ function BuyerViewREACredUI(props, {openModal, onClose}) {
     
                         {/* profile picture */}
                         <div className='md:col-span-4 lg:col-span-3 place-self-center'>
-                            <img src={picture} className='rounded-full w-40 h-40 md:w-48 md:h-48' />
+                            <img src={`data:image/jpeg;base64, ${picture}`} className='rounded-full w-40 h-40 md:w-48 md:h-48' />
                         </div>
     
                          {/* credentials */}
@@ -143,8 +140,6 @@ function BuyerViewREACredUI(props, {openModal, onClose}) {
                                 <div className='flex justify-center lg:justify-start md:col-span-12 lg:col-span-3 break-words'>
                                     <div className='w-56'>
                                         <p><b>Experience:</b> {experience} years</p>
-                                        <div className='p-0.5'></div>
-                                        <p><b>Member since:</b> {memberSince}</p>
                                         <div className='p-0.5'></div>
                                         <p><b>License:</b> {license}</p>
                                         <div className='p-0.5'></div>
@@ -203,15 +198,13 @@ function BuyerViewREACredUI(props, {openModal, onClose}) {
                                 openModal={BuyerRetrieveREARatingsUI}
                                 onClose={closeRetrieveRatingsModal}
                                 REAName={fullName}
+                                token={Ptoken}
                             />
                         )}
 
                         {/* review button */}
                         <div className='flex w-1/2'>
                             <button type="button" class="flex w-full text-gray-900 border border-blue-700 hover:text-white hover:bg-blue-500 font-semibold text-lg rounded-lg px-5 py-2.5 me-2 mb-2 items-center justify-center" onClick={handleReviewsClick}>Review
-                                {/* <svg class="ml-1 w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                    <path fill-rule="evenodd" d="M14 4.182A4.136 4.136 0 0 1 16.9 3c1.087 0 2.13.425 2.899 1.182A4.01 4.01 0 0 1 21 7.037c0 1.068-.43 2.092-1.194 2.849L18.5 11.214l-5.8-5.71 1.287-1.31.012-.012Zm-2.717 2.763L6.186 12.13l2.175 2.141 5.063-5.218-2.141-2.108Zm-6.25 6.886-1.98 5.849a.992.992 0 0 0 .245 1.026 1.03 1.03 0 0 0 1.043.242L10.282 19l-5.25-5.168Zm6.954 4.01 5.096-5.186-2.218-2.183-5.063 5.218 2.185 2.15Z" clip-rule="evenodd"/>
-                                </svg> */}
                                 <FaPencilAlt  style={{width: "20px", height: "20px", marginLeft:'4px', marginBottom:'2px' }}/>
                             </button>
                         </div>
@@ -220,6 +213,7 @@ function BuyerViewREACredUI(props, {openModal, onClose}) {
                                 openModal={BuyerRetrieveREAReviewsUI}
                                 onClose={closeRetrieveReviewsModal}
                                 REAName={fullName}
+                                token={Ptoken}
                             />
                         )}
                     </div>

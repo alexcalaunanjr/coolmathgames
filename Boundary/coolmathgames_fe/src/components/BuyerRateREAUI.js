@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-function BuyerRateREAUI ({ rating, setRating }) {
+function BuyerRateREAUI ({ rating, setRating, token }) {
+    let {agentName} = useParams()
+    const [submit, setSubmit] = useState(false);
+    const username = localStorage.getItem('username')
+
+    useEffect(() => {
+        if (submit) {
+            axios.post(`http://127.0.0.1:5000/BuyerRateREA/${agentName}`, {
+                "raterUsername": username,
+                "rating": rating
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+            })
+            .catch(error => {
+                console.error('Error rating rea:', error);
+            });
+        }
+    }, [submit]);
 
     const handleStarClick = (star) => {
+        setSubmit(false);
         setRating(star);
-        console.log("Rating:", star);
     }
     const handleSubmitRating = () => {
-
+        setSubmit(true);
     }
 
     return (
@@ -29,7 +53,8 @@ function BuyerRateREAUI ({ rating, setRating }) {
 
             <div className="flex justify-center">
                 <button type='submit' 
-                    class="text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={handleSubmitRating}>
+                    class="text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" 
+                    onClick={handleSubmitRating}>
                     Submit Rating
                 </button>
             </div>

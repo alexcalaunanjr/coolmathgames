@@ -32,13 +32,14 @@ from .controllers.REAViewRatingController.controller import BaseREAViewRatingCon
 from .controllers.REAViewReviewController.controller import BaseREAViewReviewController
 from .controllers.REAViewViewCountController.controller import BaseREAViewViewCountController
 
-
 #SELLER
 from .controllers.SellerRetrieveListingListController.controller import BaseSellerRetrieveListingListController
 from .controllers.SellerViewListingController.controller import BaseSellerViewListingController
 from .controllers.SellerViewREACredController.controller import BaseSellerViewREACredController
 from .controllers.SellerRateREAController.controller import BaseSellerRateREAController
 from .controllers.SellerReviewREAController.controller import BaseSellerReviewREAController
+from .controllers.SellerRetrieveRatingsController.controller import BaseSellerRetrieveRatingsController
+from .controllers.SellerRetrieveReviewsController.controller import BaseSellerRetrieveReviewsController
 from .controllers.SellerViewViewCountController.controller import BaseSellerViewViewCountController
 
 
@@ -52,6 +53,8 @@ from .controllers.BuyerSearchSoldListingController.controller import BaseBuyerSe
 from .controllers.BuyerViewREACredController.controller import BaseBuyerViewREACredController
 from .controllers.BuyerRateREAController.controller import BaseBuyerRateREAController
 from .controllers.BuyerReviewREAController.controller import BaseBuyerReviewREAController
+from .controllers.BuyerRetrieveRatingsController.controller import BaseBuyerRetrieveRatingsController
+from .controllers.BuyerRetrieveReviewsController.controller import BaseBuyerRetrieveReviewsController
 
 
 #IMPORT
@@ -104,13 +107,14 @@ REAViewRatingController = BaseREAViewRatingController('REAViewRatingController',
 REAViewReviewController = BaseREAViewReviewController('REAViewReviewController', __name__)
 REAViewViewCountController = BaseREAViewViewCountController('REAViewViewCountController', __name__)
 
-
 #SELLER
 SellerRetrieveListingListController = BaseSellerRetrieveListingListController('sellerRetrieveListingController', __name__)
 SellerViewListingController = BaseSellerViewListingController('sellerViewMyListingController', __name__)
 SellerViewREACredController = BaseSellerViewREACredController('sellerViewREACredController', __name__)
 SellerRateREAController = BaseSellerRateREAController('sellerRateREAController', __name__)
 SellerReviewREAController = BaseSellerReviewREAController('sellerReviewREAController', __name__)
+SellerRetrieveRatingsController = BaseSellerRetrieveRatingsController('sellerRetrieveRatingsController', __name__)
+SellerRetrieveReviewsController = BaseSellerRetrieveReviewsController('sellerRetrieveReviewsController', __name__)
 SellerViewViewCountController = BaseSellerViewViewCountController('sellerViewViewCountController', __name__)
 
 
@@ -124,7 +128,8 @@ BuyerSearchSoldListingController = BaseBuyerSearchSoldListingController('buyerSe
 BuyerViewREACredController = BaseBuyerViewREACredController('buyerViewREACredController', __name__)
 BuyerRateREAController = BaseBuyerRateREAController('buyerRateREAController', __name__)
 BuyerReviewREAController = BaseBuyerReviewREAController('buyerReviewREAController', __name__)
-
+BuyerRetrieveRatingsController = BaseBuyerRetrieveRatingsController('buyerRetrieveRatingsController', __name__)
+BuyerRetrieveReviewsController = BaseBuyerRetrieveReviewsController('buyerRetrieveReviewsController', __name__)
 
 #define routes and functions
 loginController.route('/login', methods=['GET', 'POST'])(loginController.login)
@@ -164,8 +169,10 @@ SellerViewListingController.route('/SellerViewListing/<propertyName>', methods=[
 SellerViewREACredController.route('/SellerViewREACred/<username>', methods=['GET'])(SellerViewREACredController.getREACred)
 SellerRateREAController.route('/SellerRateREA/<reaUsername>', methods=['POST'])(SellerRateREAController.postRate)
 SellerReviewREAController.route('/SellerReviewREA/<reaUsername>', methods=['POST'])(SellerReviewREAController.postReviewText)
+SellerRetrieveRatingsController.route('/SellerRetrieveRatings/<reaUsername>', methods=['GET'])(SellerRetrieveRatingsController.getRatings)
+SellerRetrieveReviewsController.route('/SellerRetrieveReviews/<reaUsername>', methods=['GET'])(SellerRetrieveReviewsController.getReviews)
 SellerViewViewCountController.route('/SellerViewViewCount/<propertyName>', methods=['GET'])(SellerViewViewCountController.getViewCount)
-
+SellerViewViewCountController.route('/increaseViewCount/<propertyName>', methods=['GET'])(SellerViewViewCountController.upViewCount)
 
 #BUYER
 BuyerRetrieveNewListingListController.route('/BuyerRetrieveNewListingList', methods=['GET'])(BuyerRetrieveNewListingListController.getNewProperties)
@@ -177,7 +184,8 @@ BuyerSearchSoldListingController.route('/BuyerSearchSoldListing', methods=['POST
 BuyerViewREACredController.route('/BuyerViewREACred/<username>', methods=['GET'])(BuyerViewREACredController.getREACred)
 BuyerRateREAController.route('/BuyerRateREA/<reaUsername>', methods=['POST'])(BuyerRateREAController.postRate)
 BuyerReviewREAController.route('/BuyerReviewREA/<reaUsername>', methods=['POST'])(BuyerReviewREAController.postReviewText)
-
+BuyerRetrieveRatingsController.route('/BuyerRetrieveRatings/<reaUsername>', methods=['GET'])(BuyerRetrieveRatingsController.getRatings)
+BuyerRetrieveReviewsController.route('/BuyerRetrieveReviews/<reaUsername>', methods=['GET'])(BuyerRetrieveReviewsController.getReviews)
 
 #SA
 app.register_blueprint(loginController)
@@ -215,6 +223,8 @@ app.register_blueprint(SellerViewListingController)
 app.register_blueprint(SellerViewREACredController)
 app.register_blueprint(SellerRateREAController)
 app.register_blueprint(SellerReviewREAController)
+app.register_blueprint(SellerRetrieveRatingsController)
+app.register_blueprint(SellerRetrieveReviewsController)
 app.register_blueprint(SellerViewViewCountController)
 
 
@@ -228,6 +238,8 @@ app.register_blueprint(BuyerSearchSoldListingController)
 app.register_blueprint(BuyerViewREACredController)
 app.register_blueprint(BuyerRateREAController)
 app.register_blueprint(BuyerReviewREAController)
+app.register_blueprint(BuyerRetrieveRatingsController)
+app.register_blueprint(BuyerRetrieveReviewsController)
 
 
 # from .Base64Converter import image_to_base64

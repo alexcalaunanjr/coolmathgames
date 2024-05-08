@@ -31,12 +31,12 @@ class Rating(db.Model):
         
     #retrieve rating
     @classmethod
-    def retrieveRating(cls, reaUsername):
+    def retrieveRatings(cls, reaUsername):
         ratingList = cls.query.filter(cls.rea==reaUsername).all()
         ratingDict = [{'id': rate.id, 
                         'rea': rate.rea, 
                         'rater': rate.rater, 
                         'rating': rate.rating,
-                        'date': rate.date
+                        'date': rate.date.strftime('%a, %d %b %Y')
                         } for rate in ratingList]
         return jsonify({"ratingDict": ratingDict})
