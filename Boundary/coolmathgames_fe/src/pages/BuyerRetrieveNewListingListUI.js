@@ -52,7 +52,7 @@ const agent3 = {
     pfp: Agent3,
 };
 
-function BuyerRetrieveNewPropertyListingUI(props) {
+function BuyerRetrieveNewListingListUI(props) {
     const [newProperties, setNewProperties] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -88,7 +88,7 @@ function BuyerRetrieveNewPropertyListingUI(props) {
             console.error('Error fetching new property list', error);
         })
     }, []);
-function displayListOfNewPropertiesUI(){
+function displayListOfNewListingUI(){
     return (
         <>
         {/* buyer header component */}
@@ -135,8 +135,8 @@ function displayListOfNewPropertiesUI(){
     );
 }
   return (
-    displayListOfNewPropertiesUI()
+    displayListOfNewListingUI()
 );
 }
 
-export default BuyerRetrieveNewPropertyListingUI;
+export default BuyerRetrieveNewListingListUI;

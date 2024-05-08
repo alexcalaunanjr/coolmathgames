@@ -15,7 +15,7 @@ import BuyerRetrieveREARatingsUI from '../components/BuyerRetrieveREARatingsUI';
 import BuyerRetrieveREAReviewsUI from '../components/BuyerRetrieveREAReviewsUI';
 
 
-function BuyerViewREACredentialsUI(props, {openModal, onClose}) {
+function BuyerViewREACredUI(props, {openModal, onClose}) {
     // REA credentials depend on which REA buyer clicks on
     const username = localStorage.getItem('username');
 
@@ -238,4 +238,4 @@ function BuyerViewREACredentialsUI(props, {openModal, onClose}) {
         displayREACredentialsUI()
     );
 }
-export default BuyerViewREACredentialsUI;
+export default BuyerViewREACredUI;
