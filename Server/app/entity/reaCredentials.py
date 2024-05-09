@@ -6,20 +6,19 @@ class REACredentials(db.Model):
 
     __tablename__ = "REACredentials"
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), db.ForeignKey('UserAccounts.username'), nullable=False)
-    reaImage = db.Column(db.Text, nullable=False)
+    username = db.Column(db.String(20), db.ForeignKey('UserAccounts.username'), nullable=False, unique=True)
     experience = db.Column(db.String(20))
     license = db.Column(db.String(20))
     language = db.Column(db.String(50))
     special = db.Column(db.String(200))
     about = db.Column(db.String(200))
     award = db.Column(db.String(200))
-    account_obj = db.relationship("UserAccount", foreign_keys=[username], backref="reaCredentials")
+    account_obj = db.relationship("UserAccount",  backref="reaCredentials")
                         
     # Create new rea credentials
     @classmethod
-    def createCreds(self, accUsername, reaImage, experience, license, language, special, about, award):
-        reaAdded = REACredentials(username=accUsername, reaImage=reaImage, experience=experience, license=license, language=language, special=special, about=about, award=award)
+    def createCreds(self, accUsername, experience, license, language, special, about, award):
+        reaAdded = REACredentials(username=accUsername, experience=experience, license=license, language=language, special=special, about=about, award=award)
         db.session.add(reaAdded)
         db.session.commit()
         return True

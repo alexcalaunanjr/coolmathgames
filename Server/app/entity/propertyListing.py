@@ -308,7 +308,7 @@ class PropertyListing(db.Model):
                 listing.property_obj.propertyName = updatedPropertyDetails['property']
 
             db.session.commit()
-            return jsonify({'reaListingUpdated': updatedPropertyDetails})
+            return jsonify({'reaListingUpdated': True})
         
         else:
             return jsonify({'reaListingUpdated': False})
