@@ -17,18 +17,12 @@ class LoginController(Blueprint):
             if UserAccount.verifyLoginInfo(profile, username, password) and UserAccount.checkSuspended(username):
                 access_token = create_access_token(identity=username)
                 return access_token
-    
-    def retrieveUserAccount(self, username):
-        return UserAccount.retrieveUserAccount(username)
 
     def retrieveProfileList(self):
             #take choices from the database
             user_profiles = UserProfiles.retrieveProfileList()
 
             return user_profiles
-    
-    def checkSuspended(self, username):
-        return UserAccount.checkSuspended(username)
 
 class BaseControllerLogin(LoginController):
     def __init__(self, *args, **kwargs):

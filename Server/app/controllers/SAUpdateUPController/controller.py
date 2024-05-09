@@ -24,9 +24,7 @@ class BaseSAUpdateUPController(SAUpdateUPController):
     def updateProfileData(self, profileName):
         if request.method == 'POST':
             data = request.get_json()
-            profileName = data.get("profileName")
-            updateData = data.get("updatedData")
-            updatedProfile = self.updateProfile(profileName, updateData)
+            updatedProfile = self.updateProfile(profileName, data)
             return updatedProfile
         if request.method == 'GET':
             return self.retrieveProfile(profileName)

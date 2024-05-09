@@ -64,7 +64,7 @@ function REAViewREACredentialsUI(props) {
         .then(response => {
             setPToken(props.token)
             if (response) {
-                // setPicture(Agent1)
+                setPicture(response.data.cred.reaImage)
                 setFullName(response.data.cred.fullName)
                 setEmail(response.data.cred.email)
                 setPhoneNo(response.data.cred.phoneNo)
@@ -106,7 +106,7 @@ function REAViewREACredentialsUI(props) {
                     <div className='grid md:grid-cols-12 w-full md:gap-x-4'>
                         {/* profile picture */}
                         <div className='md:col-span-4 lg:col-span-3 place-self-center'>
-                            <img src={picture} className='rounded-full w-40 h-40 md:w-48 md:h-48' />
+                            <img src={`data:image/jpeg;base64, ${picture}`} className='rounded-full w-40 h-40 md:w-48 md:h-48' />
                         </div>
     
                          {/* credentials */}

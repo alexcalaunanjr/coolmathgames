@@ -18,15 +18,9 @@ class SACreateUAController(Blueprint):
         return createAcc
 
     def retrieveProfileList(self):
-        if request.method == 'GET':
-            #take choices from the database
-            user_profiles = UserProfiles.retrieveProfileList()
-            return user_profiles
-    
-    def retrieveEmail(self, username):
-        if username:
-            acc = UserAccount.retrieveUserAccount(username)
-        return acc
+        #take choices from the database
+        user_profiles = UserProfiles.retrieveProfileList()
+        return user_profiles
 
 class BaseSACreateUAController(SACreateUAController):
     def __init__(self, *args, **kwargs):

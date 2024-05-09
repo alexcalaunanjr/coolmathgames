@@ -30,12 +30,9 @@ function SASuspendUAUI( {openModal, onClose, text, token}) {
     .catch((error) => {
       console.error('there was an error:', error);
     });
+    closeSuspendPopUp();
   };
 
-  function handleSuspendAndClose() {
-    handleSuspend();
-    closeSuspendPopUp();
-  }
 
   function closeSuspendPopUp(){
     onClose();
@@ -53,7 +50,7 @@ function SASuspendUAUI( {openModal, onClose, text, token}) {
                 {text}
               </h3>
               <div className="flex justify-center gap-4">
-                <Button color="failure" onClick={handleSuspendAndClose}>
+                <Button color="failure" onClick={handleSuspend}>
                   {"Yes, I'm sure"}
                 </Button>
                 <Button color="gray" onClick={closeSuspendPopUp}>
