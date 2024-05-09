@@ -5,7 +5,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function SASuspendUserProfileUI( {openModal, onClose, text, token}) {
+function SASuspendUPUI( {openModal, onClose, text, token}) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   
@@ -30,12 +30,8 @@ function SASuspendUserProfileUI( {openModal, onClose, text, token}) {
     .catch((error) => {
       console.error('there was an error:', error);
     });
-  };
-
-  function handleSuspendAndClose() {
-    handleSuspend();
     closeSuspendPopUp();
-  }
+  };
 
   function closeSuspendPopUp(){
     onClose();
@@ -53,7 +49,7 @@ function SASuspendUserProfileUI( {openModal, onClose, text, token}) {
                 {text}
               </h3>
               <div className="flex justify-center gap-4">
-                <Button color="failure" onClick={handleSuspendAndClose}>
+                <Button color="failure" onClick={handleSuspend}>
                   {"Yes, I'm sure"}
                 </Button>
                 <Button color="gray" onClick={closeSuspendPopUp}>
@@ -72,4 +68,4 @@ function SASuspendUserProfileUI( {openModal, onClose, text, token}) {
   );
 }
 
-export default SASuspendUserProfileUI;
+export default SASuspendUPUI;

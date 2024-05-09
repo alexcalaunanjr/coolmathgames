@@ -18,7 +18,7 @@ function SAUpdateUPUI(props) {
     const profileName = localStorage.getItem('clickedProfile') // query database using profile name
 
     useEffect(() => {
-        document.title = 'SA Update User Profile';
+        document.title = 'SA Update UP';
         if (formFilled) {
             setFormFilled(false);
         };
@@ -60,11 +60,8 @@ function SAUpdateUPUI(props) {
 
         try {
             axios.post(`http://127.0.0.1:5000/SAUpdateUP/${profileName}`, {
-                "profileName" : profileName,
-                "updatedData" : {
-                    "profile" : newProfile,
-                    "description": newDescription
-                }
+                "profile" : newProfile,
+                "description": newDescription
             }, {
             headers: {
                 'Authorization': 'Bearer ' + props.token,

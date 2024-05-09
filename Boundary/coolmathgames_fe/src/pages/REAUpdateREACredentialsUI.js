@@ -39,7 +39,7 @@ function REAUpdateREACredentialsUI(props) {
     const [formFilled, setFormFilled] = useState(false);
 
     useEffect(() => {
-        document.title = 'REA Update Credentials';
+        document.title = 'REA Update REA Credentials';
         axios.get(`http://127.0.0.1:5000/REAUpdateREACredential/${username}`, {
             headers: {
             'Authorization': 'Bearer ' + props.token,
@@ -47,7 +47,7 @@ function REAUpdateREACredentialsUI(props) {
         }})
             .then(response => {
                 if (response) {
-                    // setImage(Agent1)
+                    setImage(response.data.reaImage)
                     setFullName(response.data.fullName)
                     setEmail(response.data.email)
                     setPhoneNo(response.data.phoneNo)
@@ -94,6 +94,7 @@ function REAUpdateREACredentialsUI(props) {
         try {
             axios.post(`http://127.0.0.1:5000/REAUpdateREACredential/${username}`, {
                 "fullName": fullName,
+                'reaImage': image,
                 "email": email,
                 "phoneNo": phoneNo,
                 "experience": experience,
@@ -130,6 +131,10 @@ function REAUpdateREACredentialsUI(props) {
         }
     };
 
+    const handleImageUpload = (base64String) => {
+        setImage(base64String);
+    };
+
     useEffect(() => {
         if (formFilled) {
             // Reset formFilled after validation
@@ -153,7 +158,7 @@ function REAUpdateREACredentialsUI(props) {
                                 <div className="mb-4 w-full">
                                     <p className="text-xl">Picture</p>
                                     <div className="flex w-2/3 items-center pt-3">
-                                        <UploadFile image={image} setPicture={setImage} />
+                                        <UploadFile setPicture={handleImageUpload} />
                                     </div>
                                 </div>
                                 {/* Specialties & Services */}

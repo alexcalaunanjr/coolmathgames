@@ -14,7 +14,7 @@ class REACredentials(db.Model):
     special = db.Column(db.String(200))
     about = db.Column(db.String(200))
     award = db.Column(db.String(200))
-    account_obj = db.relationship("UserAccount", backref="reaCredentials")
+    account_obj = db.relationship("UserAccount", foreign_keys=[username], backref="reaCredentials")
                         
     # Create new rea credentials
     @classmethod
@@ -30,7 +30,7 @@ class REACredentials(db.Model):
         rea = REACredentials.query.filter_by(username=username).first()
         if not rea:
             # Create account fields
-            self.createCreds(accUsername = username, reaImage="image" ,experience="", license="", language="", special="", about="", award="")
+            self.createCreds(accUsername = username ,experience="", license="", language="", special="", about="", award="")
         
         if rea:
             return jsonify({
@@ -41,8 +41,8 @@ class REACredentials(db.Model):
                 'special' : rea.special,
                 'about' : rea.about,
                 'award' : rea.award,
-                'reaImage' : rea.reaImage,
 
+                'reaImage' : rea.account_obj.profileImage,
                 'fullName': rea.account_obj.fullName,
                 'email': rea.account_obj.email,
                 'phoneNo': rea.account_obj.phoneNo,
@@ -60,8 +60,6 @@ class REACredentials(db.Model):
             return jsonify({'reaCredentialsUpdated': True})
         
         # Update account fields
-        if 'reaImage' in updatedData:
-            credentials.reaImage = updatedData['reaImage']
         if 'experience' in updatedData:
             credentials.experience = updatedData['experience']
         if 'license' in updatedData:
@@ -75,6 +73,8 @@ class REACredentials(db.Model):
         if 'award' in updatedData:
             credentials.award = updatedData['award']
 
+        if 'reaImage' in updatedData:
+            credentials.account_obj.profileImage = updatedData['reaImage']
         if 'fullName' in updatedData:
             credentials.account_obj.fullName = updatedData['fullName']
         if 'email' in updatedData:

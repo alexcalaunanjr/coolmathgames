@@ -1,6 +1,5 @@
 from flask import request, jsonify
 from flask_bcrypt import Bcrypt
-from app.entity.account import UserAccount
 from app.entity.userProfiles import UserProfiles
 from flask import Blueprint
 from flask_jwt_extended import jwt_required
@@ -19,11 +18,6 @@ class SACreateUPController(Blueprint):
             )
             createProf = UserProfiles.createProfile(newProfile)
         return createProf
-    
-    def retrieveAccount(self, username):
-        if username:
-            acc = UserAccount.retrieveUserAccount(username)
-        return acc
 
 class BaseSACreateUPController(SACreateUPController):
     def __init__(self, *args, **kwargs):

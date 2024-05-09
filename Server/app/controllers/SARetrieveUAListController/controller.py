@@ -16,5 +16,5 @@ class BaseSARetrieveUAListController(SARetrieveUAListController):
 
     @jwt_required()
     def getAccountList(self):
-        accountList = self.retrieveAccountList()
-        return accountList
+        accountDict = self.retrieveAccountList()
+        return accountDict
