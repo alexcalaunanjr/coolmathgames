@@ -321,6 +321,12 @@ with app.app_context():
     # reaObj = REACredentials(**reaData)
     # db.session.add(reaObj)
 
+    # insert into propertyListing values  (1,"Hillview Ave","tiffany","alex",0,58,50);
+    # insert into propertyListing values  (2,"Mirage Towers","tiffany","alex",0,50,20);
+    # insert into propertyListing values  (3,"Lion Towers","kevin","alex",0,50,10);
+    # insert into propertyListing values  (4,"Jardin","kevin","edrick",1,53,70);
+
+
 
 
     # insert into propertyListing values (1,"Hillview Ave","tiffany","alex",0,100,50);

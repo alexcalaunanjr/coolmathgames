@@ -9,7 +9,8 @@ class SAUpdateUAController(Blueprint):
 
     def retrieveProfileList(self):
         user_profiles = UserProfiles.retrieveProfileList()
-        return user_profiles
+        # return user_profiles
+        return jsonify(user_profiles)
 
     def retrieveUserAccount(self, username):
         account = UserAccount.retrieveUserAccount(username)
@@ -52,4 +53,4 @@ class BaseSAUpdateUAController(SAUpdateUAController):
             account =  self.retrieveUserAccount(oldUsername)
             user_profiles = self.retrieveProfileList()
             return jsonify({'account': account.get_json(),
-                        'user_profiles': user_profiles})
+                        'user_profiles': user_profiles.get_json()})
