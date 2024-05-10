@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required
 
 # bcrypt = Bcrypt()
 
-class REAUpdateREAcredentialController(Blueprint):
+class REAUpdateREAcredentialsController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
@@ -30,7 +30,7 @@ class REAUpdateREAcredentialController(Blueprint):
         updateAcc = REACredentials.updateUserCredentials(username, updatedData)
         return updateAcc
 
-class BaseREAUpdateREAcredentialController(REAUpdateREAcredentialController):
+class BaseREAUpdateREAcredentialsController(REAUpdateREAcredentialsController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

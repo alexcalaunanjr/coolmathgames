@@ -11,11 +11,11 @@ import Agent1 from '../assets/agent1.jpg'
 // components
 import SellerHeader from "../components/SellerHeader";
 import Footer from "../components/Footer";
-import SellerRetrieveREARatingsUI from '../components/SellerRetrieveREARatingsUI';
-import SellerRetrieveREAReviewsUI from '../components/SellerRetrieveREAReviewsUI';
+import SellerRetrieveRatingsUI from '../components/SellerRetrieveRatingsUI';
+import SellerRetrieveReviewsUI from '../components/SellerRetrieveReviewsUI';
 
 
-function SellerViewREACredUI(props, {openModal, onClose}) {
+function SellerViewREACredentialsUI(props, {openModal, onClose}) {
     let {agentName} = useParams()
     const [picture, setPicture] = useState('');
     const [fullName, setFullName] = useState('');
@@ -78,7 +78,7 @@ function SellerViewREACredUI(props, {openModal, onClose}) {
     }, []);
 
     // set services and awards listed to be in bulletpoints
-    function bulletPoints(list) {
+    const bulletPoints = (list) => {
         if (!list) return null;
             const items = list.split(',').map((item, index) => (
                 <li key={index} className="list-disc ml-4">{item.trim()}</li>
@@ -186,8 +186,8 @@ function SellerViewREACredUI(props, {openModal, onClose}) {
                             </button>
                         </div>
                         {openRetrieveRatingsModal && (
-                            <SellerRetrieveREARatingsUI
-                                openModal={SellerRetrieveREARatingsUI}
+                            <SellerRetrieveRatingsUI
+                                openModal={SellerRetrieveRatingsUI}
                                 onClose={closeRetrieveRatingsModal}
                                 REAName={fullName}
                                 token={Ptoken}
@@ -201,8 +201,8 @@ function SellerViewREACredUI(props, {openModal, onClose}) {
                             </button>
                         </div>
                         {openRetrieveReviewsModal && (
-                            <SellerRetrieveREAReviewsUI
-                                openModal={SellerRetrieveREAReviewsUI}
+                            <SellerRetrieveReviewsUI
+                                openModal={SellerRetrieveReviewsUI}
                                 onClose={closeRetrieveReviewsModal}
                                 REAName={fullName}
                                 token={Ptoken}
@@ -224,4 +224,4 @@ function SellerViewREACredUI(props, {openModal, onClose}) {
         displayREACredentialsUI()
     );
 }
-export default SellerViewREACredUI;
+export default SellerViewREACredentialsUI;

@@ -155,6 +155,7 @@ class PropertyListing(db.Model):
     @classmethod
     def viewNewProperty(cls, propertyName:str):
         newProperty = cls.query.filter(and_(cls.property==propertyName, cls.sold==False)).first()
+        cls.increaseViewCount(propertyName)
         if newProperty:
             REAInfo = newProperty.REA_account
             property = jsonify({
@@ -182,6 +183,7 @@ class PropertyListing(db.Model):
     @classmethod
     def viewSoldProperty(cls, propertyName:str):
         oldProperty = cls.query.filter(and_(cls.property==propertyName, cls.sold==True)).first()
+        cls.increaseViewCount(propertyName)
         if oldProperty:
             REAInfo = oldProperty.REA_account
             property = jsonify({

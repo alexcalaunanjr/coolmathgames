@@ -91,22 +91,6 @@ function BuyerViewSoldListingUI(props) {
     }, []);
 
     useEffect(() => {
-        axios.get(`http://127.0.0.1:5000/increaseViewCount/${propertyName}`, {
-            headers: {
-                'Authorization': 'Bearer ' + props.token,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            const increasedViewCount = response.data.ViewCountIncrease
-            console.log(increasedViewCount)
-        })
-        .catch((error) => {
-            console.error('Error increasing view count:', error);
-        })
-    }, []);
-
-    useEffect(() => {
         console.log('Updated isFavorited:', isFavorited);
         // Increment or decrement favorites count based on isFavorited state
         setFavoritesCount((prevCount) => (isFavorited ? prevCount + 1 : Math.max(prevCount - 1, 0)));

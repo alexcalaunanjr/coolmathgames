@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import SellerReviewREAUI from './SellerReviewREAUI';
 import { useParams } from 'react-router-dom';
 
-function SellerRetrieveREAReviewsUI({openModal, onClose, REAName, token}) {
+function SellerRetrieveReviewsUI({openModal, onClose, REAName, token}) {
     let {agentName} = useParams()
     // handle review
     const [review, setReview] = useState('');
@@ -74,4 +74,4 @@ function SellerRetrieveREAReviewsUI({openModal, onClose, REAName, token}) {
     )
 }
 
-export default SellerRetrieveREAReviewsUI;
+export default SellerRetrieveReviewsUI;

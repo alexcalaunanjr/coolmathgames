@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PLTabs from '../components/TabsPropertyListing';
 import SellerViewFavorites from '../components/SellerViewFavoritesUI';
-import SellerViewViews from '../components/SellerViewViewsUI';
+import SellerViewViewCountUI from '../components/SellerViewViewCountUI';
 import { useParams, Link } from 'react-router-dom';
 
 // Images
@@ -212,7 +212,7 @@ function SellerViewPropertyListingUI(props) {
                                 </button>
                                 {/* Pop up for views */}
                                 {viewsPopUp && 
-                                <SellerViewViews
+                                <SellerViewViewCountUI
                                     propertyName={title}
                                     openModal={viewsPopUp}
                                     onClose={handleReopenPopUp} 

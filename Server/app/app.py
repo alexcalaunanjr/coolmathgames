@@ -20,8 +20,8 @@ from .controllers.SASuspendUPController.controller import BaseSASuspendUPControl
 
 
 #REA
-from .controllers.REAViewREACredentialController.controller import BaseREAViewREAcredentialController
-from .controllers.REAUpdateREACredentialController.controller import BaseREAUpdateREAcredentialController
+from .controllers.REAViewREACredentialsController.controller import BaseREAViewREAcredentialsController
+from .controllers.REAUpdateREACredentialsController.controller import BaseREAUpdateREAcredentialsController
 from .controllers.REACreateListingController.controller import BaseREACreateListingController
 from .controllers.REARetrieveListingListController.controller import BaseREARetrieveListingListController
 from .controllers.REAViewListingController.controller import BaseREAViewListingController
@@ -35,7 +35,7 @@ from .controllers.REAViewViewCountController.controller import BaseREAViewViewCo
 #SELLER
 from .controllers.SellerRetrieveListingListController.controller import BaseSellerRetrieveListingListController
 from .controllers.SellerViewListingController.controller import BaseSellerViewListingController
-from .controllers.SellerViewREACredController.controller import BaseSellerViewREACredController
+from .controllers.SellerViewREACredentialsController.controller import BaseSellerViewREACredentialsController
 from .controllers.SellerRateREAController.controller import BaseSellerRateREAController
 from .controllers.SellerReviewREAController.controller import BaseSellerReviewREAController
 from .controllers.SellerRetrieveRatingsController.controller import BaseSellerRetrieveRatingsController
@@ -50,7 +50,7 @@ from .controllers.BuyerViewNewListingController.controller import BaseBuyerViewN
 from .controllers.BuyerSearchNewListingController.controller import BaseBuyerSearchNewListingController
 from .controllers.BuyerViewSoldListingController.controller import BaseBuyerViewSoldListingController
 from .controllers.BuyerSearchSoldListingController.controller import BaseBuyerSearchSoldListingController
-from .controllers.BuyerViewREACredController.controller import BaseBuyerViewREACredController
+from .controllers.BuyerViewREACredentialsController.controller import BaseBuyerViewREACredentialsController
 from .controllers.BuyerRateREAController.controller import BaseBuyerRateREAController
 from .controllers.BuyerReviewREAController.controller import BaseBuyerReviewREAController
 from .controllers.BuyerRetrieveRatingsController.controller import BaseBuyerRetrieveRatingsController
@@ -95,8 +95,8 @@ SASuspendUAController = BaseSASuspendUAController('SAsuspendUserAccountControlle
 SASuspendUPController = BaseSASuspendUPController('SAsuspendUserProfileController', __name__)
 
 #REA
-REAViewREACredentialController = BaseREAViewREAcredentialController('REAviewREACredentialController', __name__)
-REAUpdateREACredentialController = BaseREAUpdateREAcredentialController('REAupdateREACredentialController', __name__)
+REAViewREACredentialsController = BaseREAViewREAcredentialsController('REAviewREACredentialController', __name__)
+REAUpdateREACredentialsController = BaseREAUpdateREAcredentialsController('REAupdateREACredentialController', __name__)
 REACreateListingController = BaseREACreateListingController('REAcreateListingController', __name__)
 REARetrieveListingListController = BaseREARetrieveListingListController('REARetrieveListingListController', __name__)
 REAViewListingController = BaseREAViewListingController('REAViewListingController', __name__)
@@ -110,7 +110,7 @@ REAViewViewCountController = BaseREAViewViewCountController('REAViewViewCountCon
 #SELLER
 SellerRetrieveListingListController = BaseSellerRetrieveListingListController('sellerRetrieveListingController', __name__)
 SellerViewListingController = BaseSellerViewListingController('sellerViewMyListingController', __name__)
-SellerViewREACredController = BaseSellerViewREACredController('sellerViewREACredController', __name__)
+SellerViewREACredentialsController = BaseSellerViewREACredentialsController('sellerViewREACredController', __name__)
 SellerRateREAController = BaseSellerRateREAController('sellerRateREAController', __name__)
 SellerReviewREAController = BaseSellerReviewREAController('sellerReviewREAController', __name__)
 SellerRetrieveRatingsController = BaseSellerRetrieveRatingsController('sellerRetrieveRatingsController', __name__)
@@ -125,7 +125,7 @@ BuyerViewNewListingController = BaseBuyerViewNewListingController('buyerViewNewL
 BuyerSearchNewListingController = BaseBuyerSearchNewListingController('buyerSearchNewListingController', __name__)
 BuyerViewSoldListingController = BaseBuyerViewSoldListingController('buyerViewSoldListingController', __name__)
 BuyerSearchSoldListingController = BaseBuyerSearchSoldListingController('buyerSearchSoldListingController', __name__)
-BuyerViewREACredController = BaseBuyerViewREACredController('buyerViewREACredController', __name__)
+BuyerViewREACredentialsController = BaseBuyerViewREACredentialsController('buyerViewREACredController', __name__)
 BuyerRateREAController = BaseBuyerRateREAController('buyerRateREAController', __name__)
 BuyerReviewREAController = BaseBuyerReviewREAController('buyerReviewREAController', __name__)
 BuyerRetrieveRatingsController = BaseBuyerRetrieveRatingsController('buyerRetrieveRatingsController', __name__)
@@ -150,8 +150,8 @@ SASuspendUPController.route('/SASuspendUP', methods=['POST'])(SASuspendUPControl
 
 
 #REA
-REAViewREACredentialController.route('/REAViewREACredential/<username>', methods=['GET', 'POST'])(REAViewREACredentialController.viewREACredentials)
-REAUpdateREACredentialController.route('/REAUpdateREACredential/<username>', methods=['GET', 'POST'])(REAUpdateREACredentialController.updateREACredentials)
+REAViewREACredentialsController.route('/REAViewREACredential/<username>', methods=['GET', 'POST'])(REAViewREACredentialsController.viewREACredentials)
+REAUpdateREACredentialsController.route('/REAUpdateREACredential/<username>', methods=['GET', 'POST'])(REAUpdateREACredentialsController.updateREACredentials)
 REACreateListingController.route('/REACreateListing', methods=['POST'])(REACreateListingController.createAProperty)
 REARetrieveListingListController.route('/REARetrieveListingList/<username>', methods=['GET'])(REARetrieveListingListController.getListingList)
 REAViewListingController.route('/REAViewListing/<propertyName>', methods=['GET'])(REAViewListingController.viewProperty)
@@ -166,13 +166,13 @@ REAViewViewCountController.route('/REAViewViewCount/<listing>', methods=['GET'])
 #SELLER
 SellerRetrieveListingListController.route('/SellerRetrieveListing/<username>', methods=['GET'])(SellerRetrieveListingListController.getMyProperties)
 SellerViewListingController.route('/SellerViewListing/<propertyName>', methods=['GET'])(SellerViewListingController.getProperty)
-SellerViewREACredController.route('/SellerViewREACred/<username>', methods=['GET'])(SellerViewREACredController.getREACred)
+SellerViewREACredentialsController.route('/SellerViewREACred/<username>', methods=['GET'])(SellerViewREACredentialsController.getREACred)
 SellerRateREAController.route('/SellerRateREA/<reaUsername>', methods=['POST'])(SellerRateREAController.postRate)
 SellerReviewREAController.route('/SellerReviewREA/<reaUsername>', methods=['POST'])(SellerReviewREAController.postReviewText)
 SellerRetrieveRatingsController.route('/SellerRetrieveRatings/<reaUsername>', methods=['GET'])(SellerRetrieveRatingsController.getRatings)
 SellerRetrieveReviewsController.route('/SellerRetrieveReviews/<reaUsername>', methods=['GET'])(SellerRetrieveReviewsController.getReviews)
 SellerViewViewCountController.route('/SellerViewViewCount/<propertyName>', methods=['GET'])(SellerViewViewCountController.getViewCount)
-SellerViewViewCountController.route('/increaseViewCount/<propertyName>', methods=['GET'])(SellerViewViewCountController.upViewCount)
+# SellerViewViewCountController.route('/increaseViewCount/<propertyName>', methods=['GET'])(SellerViewViewCountController.upViewCount)
 
 #BUYER
 BuyerRetrieveNewListingListController.route('/BuyerRetrieveNewListingList', methods=['GET'])(BuyerRetrieveNewListingListController.getNewProperties)
@@ -181,7 +181,7 @@ BuyerViewNewListingController.route('/BuyerViewNewListing/<propertyName>', metho
 BuyerSearchNewListingController.route('/BuyerSearchNewListing', methods=['POST'])(BuyerSearchNewListingController.queryNew)
 BuyerViewSoldListingController.route('/BuyerViewSoldListing/<propertyName>', methods=['GET'])(BuyerViewSoldListingController.getProperty)
 BuyerSearchSoldListingController.route('/BuyerSearchSoldListing', methods=['POST'])(BuyerSearchSoldListingController.querySold)
-BuyerViewREACredController.route('/BuyerViewREACred/<username>', methods=['GET'])(BuyerViewREACredController.getREACred)
+BuyerViewREACredentialsController.route('/BuyerViewREACred/<username>', methods=['GET'])(BuyerViewREACredentialsController.getREACred)
 BuyerRateREAController.route('/BuyerRateREA/<reaUsername>', methods=['POST'])(BuyerRateREAController.postRate)
 BuyerReviewREAController.route('/BuyerReviewREA/<reaUsername>', methods=['POST'])(BuyerReviewREAController.postReviewText)
 BuyerRetrieveRatingsController.route('/BuyerRetrieveRatings/<reaUsername>', methods=['GET'])(BuyerRetrieveRatingsController.getRatings)
@@ -204,8 +204,8 @@ app.register_blueprint(SASuspendUPController)
 
 
 #REA
-app.register_blueprint(REAViewREACredentialController)
-app.register_blueprint(REAUpdateREACredentialController)
+app.register_blueprint(REAViewREACredentialsController)
+app.register_blueprint(REAUpdateREACredentialsController)
 app.register_blueprint(REACreateListingController)
 app.register_blueprint(REARetrieveListingListController)
 app.register_blueprint(REAViewListingController)
@@ -220,7 +220,7 @@ app.register_blueprint(REAViewViewCountController)
 #SELLER
 app.register_blueprint(SellerRetrieveListingListController)
 app.register_blueprint(SellerViewListingController)
-app.register_blueprint(SellerViewREACredController)
+app.register_blueprint(SellerViewREACredentialsController)
 app.register_blueprint(SellerRateREAController)
 app.register_blueprint(SellerReviewREAController)
 app.register_blueprint(SellerRetrieveRatingsController)
@@ -235,7 +235,7 @@ app.register_blueprint(BuyerViewNewListingController)
 app.register_blueprint(BuyerSearchNewListingController)
 app.register_blueprint(BuyerViewSoldListingController)
 app.register_blueprint(BuyerSearchSoldListingController)
-app.register_blueprint(BuyerViewREACredController)
+app.register_blueprint(BuyerViewREACredentialsController)
 app.register_blueprint(BuyerRateREAController)
 app.register_blueprint(BuyerReviewREAController)
 app.register_blueprint(BuyerRetrieveRatingsController)

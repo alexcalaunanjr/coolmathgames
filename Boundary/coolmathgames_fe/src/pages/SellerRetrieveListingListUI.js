@@ -19,7 +19,7 @@ import Agent1 from "../assets/agent1.jpg";
 import Agent2 from "../assets/agent2.jpg";
 import Agent3 from "../assets/agent3.jpg";
 
-export default function SellerRetrieveListingListUI(props) {
+function SellerRetrieveListingListUI(props) {
     const [sellerProperties, setSellerProperties] = useState([]);
 
     useEffect(() => {
@@ -42,28 +42,36 @@ export default function SellerRetrieveListingListUI(props) {
             console.error("Error fetching seller's properties: ", error);
         });
     }, []);
-    return (
-        // return container with background image that is slightly transparent
-        <>
-        {/* Seller header component */}
-        <UserContextProvider><SellerHeader /></UserContextProvider>
 
-        <div className="bg-cover bg-center min-h-screen justify-center" style={{ backgroundImage: `url(${BG})` }}>
-                
-            <div className='p-10'></div>
+    function displayRetrieveListingListUI(){
+        return(
+            // return container with background image that is slightly transparent
+            <>
+            {/* Seller header component */}
+            <UserContextProvider><SellerHeader /></UserContextProvider>
 
-            {/* Title: My Properties */}
-            <h1 class="px-20 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">My Properties</h1>
+            <div className="bg-cover bg-center min-h-screen justify-center" style={{ backgroundImage: `url(${BG})` }}>
+                    
+                <div className='p-10'></div>
 
-            {/* Cards of properties */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
-                {sellerProperties.map(property => (
-                    <CardProperty property={property}/>
-                ))}
+                {/* Title: My Properties */}
+                <h1 class="px-20 mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">My Properties</h1>
+
+                {/* Cards of properties */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
+                    {sellerProperties.map(property => (
+                        <CardProperty property={property}/>
+                    ))}
+                </div>
             </div>
-        </div>
 
-        <Footer />
-        </>
+            <Footer />
+            </>
+        )
+    }
+    return (
+        displayRetrieveListingListUI()
     );
 }
+
+export default SellerRetrieveListingListUI;

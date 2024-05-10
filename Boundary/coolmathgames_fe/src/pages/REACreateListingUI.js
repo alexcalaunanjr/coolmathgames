@@ -208,6 +208,7 @@ function REACreateLisitngUI(props) {
                         </div>
                         {/* Upload Image */}
                         <div className="mb-8 w-2/3">
+                            Image
                             <UploadFile setPicture={handleImageUpload}/>
                         </div>
                     </div>

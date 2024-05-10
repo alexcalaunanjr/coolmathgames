@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from app.entity.reaCredentials import REACredentials
 
-class SellerViewREACredController(Blueprint):
+class BuyerViewREACredentialsController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
@@ -10,7 +10,7 @@ class SellerViewREACredController(Blueprint):
         reaCred = REACredentials.retrieveUserCredentials(username)
         return reaCred
 
-class BaseSellerViewREACredController(SellerViewREACredController):
+class BaseBuyerViewREACredentialsController(BuyerViewREACredentialsController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
