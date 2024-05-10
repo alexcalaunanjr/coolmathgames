@@ -6,56 +6,7 @@ import { Button, Modal } from "flowbite-react";
 
 function REAViewREARatingsUI({openModal, onClose, REAName, token, username}) {
     // // placeholders
-    // const ratingsList = [
-    //   {
-    //     id: 1,
-    //     name: "John Doe",
-    //     date: "05/05/2024",
-    //     stars: 5,
-    //   },
-    //   {
-    //     id: 2,
-    //     name: "Johnny Depp",
-    //     date: "04/05/2024",
-    //     stars: 4,
-    //   },
-    //   {
-    //     id: 3,
-    //     name: "Johnathan Kho",
-    //     date: "01/05/2024",
-    //     stars: 3,
-    //   },
-    //   {
-    //     id: 4,
-    //     name: "John Cena",
-    //     date: "30/04/2024",
-    //     stars: 5,
-    //   },
-    //   {
-    //     id: 5,
-    //     name: "Jane Doe",
-    //     date: "29/04/2024",
-    //     stars: 4,
-    //   },
-    //   {
-    //     id: 6,
-    //     name: "Janice Wilson",
-    //     date: "27/04/2024",
-    //     stars: 3,
-    //   },
-    //   {
-    //     id: 7,
-    //     name: "Janette Liu",
-    //     date: "26/04/2024",
-    //     stars: 4,
-    //   },
-    //   {
-    //     id: 8,
-    //     name: "Jasmine Tea",
-    //     date: "18/04/2024",
-    //     stars: 1,
-    //   },
-    // ];
+
 
     const [ratingsList, setRatingsList] = useState([])
 

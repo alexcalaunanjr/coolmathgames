@@ -27,8 +27,7 @@ class REAUpdateListingController(Blueprint):
                 'sold': False,
             }
             updatedPropertyDetails = PropertyListing.updateListing(oldPropertyName, updatedProperty)
-            return updatedPropertyDetails
-        return jsonify({'updatedProperty': False})
+        return updatedPropertyDetails
     
 class BaseREAUpdateListingController(REAUpdateListingController):
     def __init__(self, *args, **kwargs):

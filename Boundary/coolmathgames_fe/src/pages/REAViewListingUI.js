@@ -8,7 +8,7 @@ import PLTabs from '../components/TabsPropertyListing';
 import Button from '../components/Button';
 import READeletePLUI from '../components/READeleteListingUI'
 import REAViewFavorites from '../components/REAViewFavoritesUI';
-import REAViewViews from '../components/REAViewViewsUI';
+import REAViewViews from '../components/REAViewViewCountUI';
 
 // Images
 import house2 from '../assets/house2.jpg';
@@ -53,7 +53,6 @@ function REAViewListingUI(props) {
             }
         })
         .then((response) => {
-            console.log('Property Listing:', response.data);
             setPToken(props.token)
             if (response) {
                 setTitle(response.data.propertyName);
@@ -67,8 +66,8 @@ function REAViewListingUI(props) {
                 setUnitFeatures(response.data.unitFeatures);
                 setFacilities(response.data.facilities);
                 setIsSold(response.data.sold);
-                setViews(response.data.viewsCount);
-                setFavorites(response.data.favoritesCount);
+                // setViews(response.data.viewsCount);
+                // setFavorites(response.data.favoritesCount);
                 localStorage.setItem('clickedProperty', response.data.propertyName);
             }
         })

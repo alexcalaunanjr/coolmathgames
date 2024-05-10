@@ -77,7 +77,7 @@ function REAUpdateListingUI(props) {
     // Navigation
     const navigate = useNavigate();
     // Handle cancel
-    function handleCancel() {
+    const handleCancel = () => {
         navigate('/REARetrieveListingListUI');
     }
 
@@ -149,12 +149,12 @@ function REAUpdateListingUI(props) {
         }
     }, [formFilled]);
 
-    function displayNewListingUI(){
+    const displayNewListingUI = () =>{
         setMessage('Property updated successfully!');
         setError('');
     }
 
-    function displayErrorMessageUI(){
+    const displayErrorMessageUI = () =>{
         // Check if all fields are filled
         if (!name || !location || !bed || !bathroom || !area || !price || !image || !facilities || !description || !features || !status || !/^\d+$/.test(area) || !/^\d+$/.test(price)) {
             setError('Please enter all fields.');
