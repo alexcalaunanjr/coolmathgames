@@ -3,7 +3,7 @@ import { Button, Modal } from "flowbite-react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-function REAViewViewsUI({ propertyName, openModal, onClose, token }) {
+function REAViewViewCountUI({ propertyName, openModal, onClose, token }) {
   const [views, setViews] = useState('');
 
   useEffect(() => {
@@ -60,4 +60,4 @@ return (
     </>
     )
 }
-export default REAViewViewsUI;
+export default REAViewViewCountUI;

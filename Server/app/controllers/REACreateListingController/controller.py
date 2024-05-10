@@ -23,22 +23,21 @@ class REACreateListingController(Blueprint):
                 facilities = facilities
             )
             createNewProperty = Properties.createProperty(newProperty)
-            return createNewProperty
-        return False
+            return jsonify({"createNewProperty": createNewProperty})
+        return jsonify({"createNewProperty": False})
     
-    def createListing(self, propertyName:str, ownerSeller:str, REA:str, sold:bool, viewsCount:int, favoritesCount:int):
-        if propertyName and ownerSeller and REA and sold is not None and viewsCount is not None and favoritesCount is not None:
+    def createListing(self, propertyName:str, ownerSeller:str, REA:str, sold:bool, viewsCount:int):
+        if propertyName and ownerSeller and REA and sold is not None and viewsCount is not None:
             newListing = PropertyListing(
                 property = propertyName,
                 ownerSeller = ownerSeller,
                 REA = REA,
                 sold = sold,
                 viewsCount = viewsCount,
-                favoritesCount = favoritesCount
             )
             createListing = PropertyListing.createListing(newListing)
-            return createListing
-        return False
+            return jsonify({"createListing":createListing})
+        return jsonify({"createListing":False})
     
 class BaseREACreateListingController(REACreateListingController):
     def __init__(self, *args, **kwargs):
@@ -67,8 +66,7 @@ class BaseREACreateListingController(REACreateListingController):
             REA = data.get('REA')
             sold = False
             viewsCount = 0
-            favoritesCount = 0
-            listingCreated = self.createListing(propertyName, ownerSeller, REA, sold, viewsCount, favoritesCount)
+            listingCreated = self.createListing(propertyName, ownerSeller, REA, sold, viewsCount)
 
             created = propertyCreated and listingCreated
             return jsonify({'propertyCreated': created})

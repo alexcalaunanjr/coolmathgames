@@ -35,7 +35,7 @@ function REACreateLisitngUI(props) {
     const statusOption = ['New', 'Sold']
 
     useEffect(() => {
-        document.title = 'REA Create Property';
+        document.title = 'REA Create Listing';
 
     }, []);
 
@@ -49,7 +49,7 @@ function REACreateLisitngUI(props) {
     // Navigation
     const navigate = useNavigate();
     // Handle cancel
-    function handleCancel() {
+    const handleCancel = () => {
         navigate('/REARetrieveListingListUI');
     }
 
@@ -116,12 +116,12 @@ function REACreateLisitngUI(props) {
         setImage(base64String);
     }
 
-    function displayNewListingUI(){
+    const displayNewListingUI=() => {
         setMessage('Property created successfully!');
         setError('');
     }
 
-    function displayErrorMessageUI(){
+    const displayErrorMessageUI=() => {
         // Check if all fields are filled
         if (!name || !location || !bed || !bathroom || !area || !price || !image || !seller || !facilities || !description || !features) {
             setError('Please enter all fields.');

@@ -28,20 +28,16 @@ function READeleteListingUI( {openModal, onClose, text, token}) {
     .catch((error) => {
       console.error('there was an error:', error);
     });
-  };
-
-  const handleNavigate = () => {
-    navigate('/REARetrieveListingListUI');
-  };  
-
-  function handleDeleteAndClose() {
-    handleDelete();
     closeDeletePopUp();
-    handleNavigate();
-  }
+  };
 
   function closeDeletePopUp(){
     onClose();
+    navigate('/REARetrieveListingListUI');
+  }
+
+  function clickCanel(){
+    closeDeletePopUp();
   }
 
   function displayDeletePopUp(){
@@ -56,10 +52,10 @@ function READeleteListingUI( {openModal, onClose, text, token}) {
                 {text}
               </h3>
               <div className="flex justify-center gap-4">
-                <Button color="failure" onClick={handleDeleteAndClose}>
+                <Button color="failure" onClick={handleDelete}>
                   {"Yes, I'm sure"}
                 </Button>
-                <Button color="gray" onClick={closeDeletePopUp}>
+                <Button color="gray" onClick={clickCanel}>
                   No, cancel
                 </Button>
               </div>

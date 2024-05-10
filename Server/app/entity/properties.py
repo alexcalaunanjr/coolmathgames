@@ -23,7 +23,7 @@ class Properties(db.Model):
 
     #delete property
     @classmethod
-    def deleteProperty(self, listing):
-        Properties.query.filter_by(propertyName=listing).delete()
+    def deleteProperty(self, property):
+        Properties.query.filter_by(propertyName=property).delete()
         db.session.commit()
         return True

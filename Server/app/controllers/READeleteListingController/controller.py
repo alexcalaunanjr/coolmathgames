@@ -8,13 +8,9 @@ class READeleteListingController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def deleteListing(self, propertyName):
-        delete = PropertyListing.deleteListing(propertyName)
-        return delete
-
     def deleteProperty(self, property):
         delete = Properties.deleteProperty(property)
-        return delete
+        return jsonify({'propertyDeleted':delete})
     
 class BaseREADeleteListingController(READeleteListingController):
     def __init__(self, *args, **kwargs):
@@ -23,10 +19,9 @@ class BaseREADeleteListingController(READeleteListingController):
     @jwt_required()
     def deleteAProperty(self, propertyName):
         if request.method == 'GET':
-            listingDeleted = self.deleteListing(propertyName)
             propertyDeleted = self.deleteProperty(propertyName)
         
-            deleted = listingDeleted and propertyDeleted
-            return jsonify({'propertyDeleted': deleted})
+            deleted = propertyDeleted
+            return deleted
         
             

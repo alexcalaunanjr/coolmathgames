@@ -10,7 +10,7 @@ class PropertyListing(db.Model):
     REA = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     sold = db.Column(db.Boolean, nullable=False)
     viewsCount = db.Column(db.Integer, nullable=False)
-    favoritesCount = db.Column(db.Integer, nullable=False) 
+    # favoritesCount = db.Column(db.Integer, nullable=False) 
     property_obj = db.relationship("Properties", backref="listings")
     REA_account = db.relationship("UserAccount", foreign_keys=[REA], backref="property_listings_REA")
 
@@ -35,7 +35,7 @@ class PropertyListing(db.Model):
                 'unitFeatures': listing.property_obj.unitFeatures,
                 'facilities': listing.property_obj.facilities,
                 'viewsCount': listing.viewsCount,
-                'favoritesCount': listing.favoritesCount,
+                # 'favoritesCount': listing.favoritesCount,
                 'sold': listing.sold
             }
             propertiesDict.append(propertyDict)
@@ -65,7 +65,7 @@ class PropertyListing(db.Model):
                 'unitFeatures': listing.property_obj.unitFeatures,
                 'facilities': listing.property_obj.facilities,
                 'viewsCount': listing.viewsCount,
-                'favoritesCount': listing.favoritesCount,
+                # 'favoritesCount': listing.favoritesCount,
                 'sold': listing.sold
             }
             propertiesDict.append(propertyDict)
@@ -95,7 +95,7 @@ class PropertyListing(db.Model):
                 'unitFeatures': listing.property_obj.unitFeatures,
                 'facilities': listing.property_obj.facilities,
                 'viewsCount': listing.viewsCount,
-                'favoritesCount': listing.favoritesCount,
+                # 'favoritesCount': listing.favoritesCount,
                 'sold': listing.sold
             }
             sellerPropertiesDict.append(sellerPropertyDict)
@@ -118,7 +118,7 @@ class PropertyListing(db.Model):
             'unitFeatures': listings.property_obj.unitFeatures,
             'facilities': listings.property_obj.facilities,
             'viewsCount': listings.viewsCount,
-            'favoritesCount': listings.favoritesCount,
+            # 'favoritesCount': listings.favoritesCount,
             'sold': listings.sold
         } for listings in propertyListings]
         if propertyListingsDict:
@@ -143,7 +143,7 @@ class PropertyListing(db.Model):
             'unitFeatures': listings.property_obj.unitFeatures,
             'facilities': listings.property_obj.facilities,
             'viewsCount': listings.viewsCount,
-            'favoritesCount': listings.favoritesCount,
+            # 'favoritesCount': listings.favoritesCount,
             'sold': listings.sold
         } for listings in propertyListings]
         if propertyListingsDict:
@@ -171,7 +171,7 @@ class PropertyListing(db.Model):
                 'unitFeatures': newProperty.property_obj.unitFeatures,
                 'facilities': newProperty.property_obj.facilities,
                 'viewsCount': newProperty.viewsCount,
-                'favoritesCount': newProperty.favoritesCount,
+                # 'favoritesCount': newProperty.favoritesCount,
                 'sold': newProperty.sold
             })
             return property
@@ -198,7 +198,7 @@ class PropertyListing(db.Model):
                 'unitFeatures': oldProperty.property_obj.unitFeatures,
                 'facilities': oldProperty.property_obj.facilities,
                 'viewsCount': oldProperty.viewsCount,
-                'favoritesCount': oldProperty.favoritesCount,
+                # 'favoritesCount': oldProperty.favoritesCount,
                 'sold': oldProperty.sold
             })
             return property
@@ -271,7 +271,7 @@ class PropertyListing(db.Model):
                 'unitFeatures': REAListing.property_obj.unitFeatures,
                 'facilities': REAListing.property_obj.facilities,
                 'viewsCount': REAListing.viewsCount,
-                'favoritesCount': REAListing.favoritesCount,
+                # 'favoritesCount': REAListing.favoritesCount,
                 'sold': REAListing.sold
             })
             return property
@@ -338,7 +338,7 @@ class PropertyListing(db.Model):
             'unitFeatures': listings.property_obj.unitFeatures,
             'facilities': listings.property_obj.facilities,
             'viewsCount': listings.viewsCount,
-            'favoritesCount': listings.favoritesCount,
+            # 'favoritesCount': listings.favoritesCount,
             'sold': listings.sold
         } for listings in propertyListings]
         if propertyListingsDict:
