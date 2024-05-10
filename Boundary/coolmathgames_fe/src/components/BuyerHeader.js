@@ -51,10 +51,9 @@ function BuyerHeader() {
 
             {/* words on top */}
             <Navbar.Collapse>
-                <Navbar.Link href="/BuyerRetrieveNewListingListUI" className='text-gray-900 hover:text-yellow-700'>Home</Navbar.Link>
-                <Navbar.Link href="/BuyerRetrieveSoldListingListUI" className='text-gray-900 hover:text-yellow-700'>Sold Properties</Navbar.Link>
-                <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Mortgages</Navbar.Link>
-                <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Find Agent</Navbar.Link>
+                <Navbar.Link href="/BuyerRetrieveNewListingListUI" className='text-gray-900 hover:text-yellow-700'>Find New Properties</Navbar.Link>
+                <Navbar.Link href="/BuyerRetrieveSoldListingListUI" className='text-gray-900 hover:text-yellow-700'>Find Sold Properties</Navbar.Link>
+                <Navbar.Link href="/BuyerRetrieveREAListUI" className='text-gray-900 hover:text-yellow-700'>Find Real Estate Agent</Navbar.Link>
             </Navbar.Collapse>
         </Navbar>
         </>
