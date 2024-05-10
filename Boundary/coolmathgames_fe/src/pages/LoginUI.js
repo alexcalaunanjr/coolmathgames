@@ -99,13 +99,22 @@ function LoginUI(props) {
     }, [username, password]);
 
     function displayErrorMessage(){
-        if (!username || !password || !selectedUserType) {
-            setError('Please enter both username and password.');
-            return;
+        if (!username && !password && !selectedUserType) {
+            setError('Please fill in all fields and select roles');
         }
         else{
-            setError('An error occurred during login');
-            alert("Invalid Credentials");
+            if (!selectedUserType){
+                setError('Please select user profile')
+            }
+            else{
+                if(!username || !password){
+                    setError('Please enter both username and password.');
+                }
+                else{
+                    setError('An error occurred during login');
+                    alert("Invalid Credentials");
+                }
+            }
         }
     }
 

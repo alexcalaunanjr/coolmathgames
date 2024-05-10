@@ -10,11 +10,6 @@ class SellerViewViewCountController(Blueprint):
     def viewViewCount(self, propertyName):
         viewViewCount = PropertyListing.viewViewCount(propertyName)
         return viewViewCount
-    
-    #to increase the viewcount whenever this route is called
-    def increaseViewCount(self, propertyName):
-        increaseViewCount = PropertyListing.increaseViewCount(propertyName)
-        return increaseViewCount
 
 class BaseSellerViewViewCountController(SellerViewViewCountController):
     def __init__(self, *args, **kwargs):
@@ -24,8 +19,3 @@ class BaseSellerViewViewCountController(SellerViewViewCountController):
     def getViewCount(self, propertyName):
         viewViewCount = self.viewViewCount(propertyName)
         return viewViewCount
-    
-    @jwt_required()
-    def upViewCount(self, propertyName):
-        increaseViewCount = self.increaseViewCount(propertyName)
-        return increaseViewCount
