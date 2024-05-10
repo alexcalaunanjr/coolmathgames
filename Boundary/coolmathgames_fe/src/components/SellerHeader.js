@@ -45,7 +45,7 @@ function SellerHeader() {
             {/* words on top */}
             <Navbar.Collapse>
                 <Navbar.Link href="/SellerRetrieveListingListUI" className='text-gray-900 hover:text-yellow-700'>My Properties</Navbar.Link>
-                <Navbar.Link href="#" className='text-gray-900 hover:text-yellow-700'>Find Real Estate Agent</Navbar.Link>
+                <Navbar.Link href="/SellerRetrieveREAListUI" className='text-gray-900 hover:text-yellow-700'>Find Real Estate Agent</Navbar.Link>
             </Navbar.Collapse>
         </Navbar>
         </>
