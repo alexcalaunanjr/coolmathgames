@@ -3,8 +3,10 @@ import BuyerHeader from '../components/BuyerHeader';
 import Footer from '../components/Footer';
 import { UserContextProvider } from '../hooks/UseModalContext';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { MdOutlineCalculate } from "react-icons/md";
 import axios from 'axios';
 import PLTabs from '../components/TabsPropertyListing';
+import BuyerCalculateMortgageUI from '../components/BuyerCalculateMortgageUI';
 
 // Images
 import house2 from '../assets/house2.jpg';
@@ -34,6 +36,17 @@ function BuyerViewNewListingUI(props) {
     const [isSold, setIsSold] = useState('');
     // State to check if property is favourited or no
     const [isFavorited, setIsFavorited] = useState(false);
+    // State to pop up mortgage calculator
+    const [mortgagePopUp, setMortgagePopUp] = useState(false);
+
+    // Function to handle delete button
+    const handleMortgage = () => {
+        setMortgagePopUp(true);
+    }
+
+    const handleReopenPopUp = () => {
+        setMortgagePopUp(false);
+    }
 
     useEffect(() => {
         document.title = 'Buyer View New Property Listing';
@@ -233,6 +246,25 @@ function BuyerViewNewListingUI(props) {
                                     </button>
                                 </div>
                             </Link>
+                            {/* Calculate mortgage */}
+                            <div className='flex justify-end pt-10'>
+                                <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white w-full md:w-1/2 sm:w-2/3'
+                                        onClick={handleMortgage}
+                                >
+                                    <MdOutlineCalculate className='w-16 h-16'/>
+                                    <p className='text-md items-center'> Calculate Mortgage </p>
+                                </button>
+                                {
+                                    // calculate mortgage pop up
+                                    mortgagePopUp && (
+                                    <BuyerCalculateMortgageUI 
+                                        openModal={mortgagePopUp} 
+                                        onClose={handleReopenPopUp}
+                                        price={price}
+                                    />
+                                    )
+                                }
+                            </div>
                         </div>
                     </div> 
                 </div>
