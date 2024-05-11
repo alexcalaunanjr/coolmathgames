@@ -18,5 +18,5 @@ class BaseREAViewViewCountController(REAViewViewCountController):
 
     @jwt_required()
     def listingViewCounts(self, listing):
-        propertyDetails = self.viewViewCount(listing)
-        return propertyDetails
+        viewCounts = self.viewViewCount(listing)
+        return viewCounts
