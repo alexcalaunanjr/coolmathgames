@@ -179,9 +179,9 @@ function SellerViewREACredentialsUI(props, {openModal, onClose}) {
                 <div className='px-20'>
                     <h1 class="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-[22pt]">Ratings & Reviews</h1>
                     <div className='flex'>
-                        {/* rate button */}
+                        {/* ratings button */}
                          <div className='flex w-1/2'>
-                            <button type="button" className="flex w-full text-gray-900 border border-blue-700 hover:text-white hover:bg-blue-500 font-semibold text-lg rounded-lg px-5 py-2.5 me-2 mb-2 items-center justify-center" onClick={handleRatingsClick}>Rate
+                            <button type="button" className="flex w-full text-gray-900 border border-blue-700 hover:text-white hover:bg-blue-500 font-semibold text-lg rounded-lg px-5 py-2.5 me-2 mb-2 items-center justify-center" onClick={handleRatingsClick}>Ratings
                                 <FaStar style={{width: "20px", height: "20px", marginLeft:'4px', marginBottom:'2px' }} />
                             </button>
                         </div>
@@ -194,9 +194,9 @@ function SellerViewREACredentialsUI(props, {openModal, onClose}) {
                             />
                         )}
 
-                        {/* review button */}
+                        {/* reviews button */}
                         <div className='flex w-1/2'>
-                            <button type="button" class="flex w-full text-gray-900 border border-blue-700 hover:text-white hover:bg-blue-500 font-semibold text-lg rounded-lg px-5 py-2.5 me-2 mb-2 items-center justify-center" onClick={handleReviewsClick}>Review
+                            <button type="button" class="flex w-full text-gray-900 border border-blue-700 hover:text-white hover:bg-blue-500 font-semibold text-lg rounded-lg px-5 py-2.5 me-2 mb-2 items-center justify-center" onClick={handleReviewsClick}>Reviews
                                 <FaPencilAlt  style={{width: "20px", height: "20px", marginLeft:'4px', marginBottom:'2px' }}/>
                             </button>
                         </div>
