@@ -79,7 +79,6 @@ function BuyerViewNewListingUI(props) {
     }, []);
 
     useEffect(() => {
-        console.log('Updated isFavorited:', isFavorited);
         // Increment or decrement favorites count based on isFavorited state
         setFavoritesCount((prevCount) => (isFavorited ? prevCount + 1 : Math.max(prevCount - 1, 0)));
     }, [isFavorited]);
@@ -87,10 +86,6 @@ function BuyerViewNewListingUI(props) {
     const handleFavorite = () => {
         setIsFavorited(!isFavorited);
     }
-    
-    useEffect(() => {
-        console.log('Updated favorites count:', favoritesCount);
-    }, [favoritesCount]);
 
     function displayNewListingUI() {
         return (
@@ -261,6 +256,7 @@ function BuyerViewNewListingUI(props) {
                                         openModal={mortgagePopUp} 
                                         onClose={handleReopenPopUp}
                                         price={price}
+                                        token={props.token}
                                     />
                                     )
                                 }
