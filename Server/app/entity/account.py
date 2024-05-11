@@ -1,7 +1,7 @@
 from .sqlAlchemy import db
 from flask import jsonify
 from flask_bcrypt import Bcrypt
-from app.Base64Converter import image_to_base64
+from sqlalchemy import and_
 
 bcrypt = Bcrypt()
 
@@ -55,7 +55,7 @@ class UserAccount(db.Model):
         else:
             return False
     
-    #retrieve accounts
+    #retrieve account list
     @classmethod
     def retrieveAccountList(cls):
         accountList = cls.query.all()
@@ -67,6 +67,16 @@ class UserAccount(db.Model):
                         'phoneNo': account.phoneNo, 
                         'status': account.status} for account in accountList]
         return jsonify({"accountDict": accountDict})
+    
+    #retrieve REA list
+    @classmethod
+    def retrieveREAList(cls):
+        REAList = cls.query.filter(cls.profile=="Real Estate Agent")
+        READict = [{'username': rea.username, 
+                    'email': rea.email, 
+                    'phoneNo': rea.phoneNo, 
+                    'status': rea.status} for rea in REAList]
+        return jsonify({"READict": READict})
     
     #update account
     @classmethod
@@ -109,6 +119,21 @@ class UserAccount(db.Model):
             return jsonify({"userAccounts": userAccountDict})
         else:
             return jsonify({"userAccounts": "Not Found"})
+    
+    #Retrieve new REA information based of search
+    @classmethod
+    def searchREA(cls, query):
+        REAList = cls.query.filter(and_(cls.username.like(f"%{query}%"), cls.profile=="Real Estate Agent")).all()
+        READict = [{
+            'username' : rea.username,
+            'email' : rea.email,
+            'phoneNo': rea.phoneNo, 
+            'status' : rea.status
+        } for rea in REAList]
+        if READict:
+            return jsonify({"userREA": READict})
+        else:
+            return jsonify({"userREA": "Not Found"})
     
     #suspend a user account
     @classmethod
