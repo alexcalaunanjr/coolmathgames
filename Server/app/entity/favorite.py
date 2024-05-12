@@ -3,7 +3,6 @@ from flask import jsonify
 from sqlalchemy import and_
 from sqlalchemy import text
 from app.entity.properties import Properties
-from app.entity.propertyListing import PropertyListing
 
 class Favorite(db.Model):
     __tablename__ = 'Favorite'

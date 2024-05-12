@@ -2,16 +2,45 @@ import React, { useEffect } from 'react';
 import { Button, Modal } from 'flowbite-react';
 import { useState } from 'react';
 import { TextInput } from 'flowbite-react';
+import axios from 'axios';
 
-function BuyerCalculateMortgageUI({ openModal, onClose, price }) {
+function BuyerCalculateMortgageUI({ openModal, onClose, price, token }) {
     const [error, setError] = useState('');
 
     const [loanAmount, setLoanAmount] = useState(price*0.5);
     const [interestRate, setInterestRate] = useState(2);
     const [loanTenure, setLoanTenure] = useState(10);
 
-    const [calculate, setCalculate] = useState(false);
+    const [submit, setSubmit] = useState(false);
+    const [click, setClick] = useState(false);
     const [mortgage, setMortgage] = useState(0);
+
+    useEffect(() => {
+        if (click) {
+            axios.post('http://127.0.0.1:5000/BuyerCalculateMortgage', {
+                "loanAmount": parseInt(loanAmount),
+                "interestRate": parseInt(interestRate),
+                "loanTenure": parseInt(loanTenure)
+            },{
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.data.mortgage) {
+                    setMortgage(response.data.mortgage.toFixed(2));
+                    setClick(false);
+                }
+                else {
+                    console.log("Error calculating mortgage")
+                }
+            })
+            .catch(error => {
+                console.error('Error posting to backend', error);
+            });
+        }
+    }, [click]);
 
     const handleErrorMessage = () => {
         if (!loanAmount || !interestRate || !loanTenure) {
@@ -28,21 +57,12 @@ function BuyerCalculateMortgageUI({ openModal, onClose, price }) {
         return true;
     }
 
-    // function to calculate the mortgage
-    function calculateMortgage() {
-        let loanTenureMo = loanTenure * 12;
-
-        let monthlyPayment = (loanAmount * interestRate) / loanTenureMo
-        setMortgage(monthlyPayment.toFixed(2));
-    }
-
     // Function to calculate the mortgage
-    function handleCalculate() {
-        setCalculate(false);
+    function handleSubmit() {
         if (handleErrorMessage())
         {
-            error === '' && setCalculate(true);
-            calculateMortgage();
+            error === '' && setSubmit(true);
+            setClick(true)
         }
     }
     
@@ -121,15 +141,14 @@ function BuyerCalculateMortgageUI({ openModal, onClose, price }) {
                                 {/* Button to calculate */}
                                 <div className="w-2/3 flex justify-center gap-4">
                                     <Button className='bg-blue-500'
-                                            onClick={handleCalculate}
-                                    >
+                                            onClick={handleSubmit}>
                                         Calculate
                                     </Button>
                                 </div>
                             </div>
                             {/* Right side */}
                             {
-                                calculate && (
+                                submit && (
                                     <div className="w-1/2 flex justify-center">
                                         {/* Mortgage Breakdown */}
                                         <div className="h-1/2 border-2 border-black rounded-md flex items-center">

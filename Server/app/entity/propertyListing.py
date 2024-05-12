@@ -229,6 +229,13 @@ class PropertyListing(db.Model):
             return jsonify({"ViewCountIncrease": True})
         else:
             return jsonify({"ViewCountIncrease": False})
+    
+    #calculate mortgage
+    @classmethod
+    def calculateMortgage(cls, loanAmount, interestRate, loanTenure):
+        loanTenureMo = loanTenure * 12
+        monthlyPayment = (loanAmount * interestRate) / loanTenureMo
+        return jsonify({"mortgage": monthlyPayment})
 
     # ---- REAL ESTATE AGENT ----
     #create my property
