@@ -1,6 +1,7 @@
 from .sqlAlchemy import db
 from flask import jsonify
 from sqlalchemy import and_
+from app.entity.favorite import Favorite
 
 class PropertyListing(db.Model):
     __tablename__ = 'PropertyListing'
@@ -35,7 +36,6 @@ class PropertyListing(db.Model):
                 'unitFeatures': listing.property_obj.unitFeatures,
                 'facilities': listing.property_obj.facilities,
                 'viewsCount': listing.viewsCount,
-                # 'favoritesCount': listing.favoritesCount,
                 'sold': listing.sold
             }
             propertiesDict.append(propertyDict)
@@ -153,11 +153,12 @@ class PropertyListing(db.Model):
     
     #Retrieve information for a single new property
     @classmethod
-    def viewNewProperty(cls, propertyName:str):
+    def viewNewProperty(cls, propertyName:str, username:str):
         newProperty = cls.query.filter(and_(cls.property==propertyName, cls.sold==False)).first()
         cls.increaseViewCount(propertyName)
         if newProperty:
             REAInfo = newProperty.REA_account
+            isFavorited = Favorite.query.filter_by(property=propertyName, buyer=username).first() is not None
             property = jsonify({
                 'RealEstateAgent': newProperty.REA,
                 'REAImage': REAInfo.profileImage,
@@ -172,7 +173,7 @@ class PropertyListing(db.Model):
                 'unitFeatures': newProperty.property_obj.unitFeatures,
                 'facilities': newProperty.property_obj.facilities,
                 'viewsCount': newProperty.viewsCount,
-                # 'favoritesCount': newProperty.favoritesCount,
+                'favorited': isFavorited,
                 'sold': newProperty.sold
             })
             return property
@@ -181,11 +182,12 @@ class PropertyListing(db.Model):
     
     #Retrieve information for a single old property
     @classmethod
-    def viewSoldProperty(cls, propertyName:str):
+    def viewSoldProperty(cls, propertyName:str, username:str):
         oldProperty = cls.query.filter(and_(cls.property==propertyName, cls.sold==True)).first()
         cls.increaseViewCount(propertyName)
         if oldProperty:
             REAInfo = oldProperty.REA_account
+            isFavorited = Favorite.query.filter_by(property=propertyName, buyer=username).first() is not None
             property = jsonify({
                 'RealEstateAgent': oldProperty.REA,
                 'REAImage': REAInfo.profileImage,
@@ -200,7 +202,7 @@ class PropertyListing(db.Model):
                 'unitFeatures': oldProperty.property_obj.unitFeatures,
                 'facilities': oldProperty.property_obj.facilities,
                 'viewsCount': oldProperty.viewsCount,
-                # 'favoritesCount': oldProperty.favoritesCount,
+                'favorited': isFavorited,
                 'sold': oldProperty.sold
             })
             return property
@@ -281,7 +283,6 @@ class PropertyListing(db.Model):
                 'unitFeatures': REAListing.property_obj.unitFeatures,
                 'facilities': REAListing.property_obj.facilities,
                 'viewsCount': REAListing.viewsCount,
-                # 'favoritesCount': REAListing.favoritesCount,
                 'sold': REAListing.sold
             })
             return property

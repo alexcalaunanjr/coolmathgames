@@ -207,9 +207,9 @@ SellerSearchREAController.route('/SellerSearchREA', methods=['POST'])(SellerSear
 #BUYER
 BuyerRetrieveNewListingListController.route('/BuyerRetrieveNewListingList', methods=['GET'])(BuyerRetrieveNewListingListController.getNewProperties)
 BuyerRetrieveSoldListingListController.route('/BuyerRetrieveSoldListingList', methods=['GET'])(BuyerRetrieveSoldListingListController.getSoldProperties)
-BuyerViewNewListingController.route('/BuyerViewNewListing/<propertyName>', methods=['GET'])(BuyerViewNewListingController.getProperty)
+BuyerViewNewListingController.route('/BuyerViewNewListing/<propertyName>', methods=['POST'])(BuyerViewNewListingController.getProperty)
 BuyerSearchNewListingController.route('/BuyerSearchNewListing', methods=['POST'])(BuyerSearchNewListingController.queryNew)
-BuyerViewSoldListingController.route('/BuyerViewSoldListing/<propertyName>', methods=['GET'])(BuyerViewSoldListingController.getProperty)
+BuyerViewSoldListingController.route('/BuyerViewSoldListing/<propertyName>', methods=['POST'])(BuyerViewSoldListingController.getProperty)
 BuyerSearchSoldListingController.route('/BuyerSearchSoldListing', methods=['POST'])(BuyerSearchSoldListingController.querySold)
 BuyerViewREACredentialsController.route('/BuyerViewREACred/<username>', methods=['GET'])(BuyerViewREACredentialsController.getREACred)
 BuyerRateREAController.route('/BuyerRateREA/<reaUsername>', methods=['POST'])(BuyerRateREAController.postRate)

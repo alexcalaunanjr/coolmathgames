@@ -72,12 +72,9 @@ class UserAccount(db.Model):
     @classmethod
     def retrieveREAList(cls):
         REAList = cls.query.filter(cls.profile=="Real Estate Agent")
-        READict = [{'id':rea.id,
-                    'fullName': rea.fullName, 
-                    'username': rea.username, 
-                    'email': rea.email, 
-                    'phoneNo': rea.phoneNo, 
-                    'status': rea.status} for rea in REAList]
+        READict = [{'username': rea.username, 
+                    'fullName': rea.fullName
+                    } for rea in REAList]
         return jsonify({"READict": READict})
     
     #update account
@@ -127,11 +124,8 @@ class UserAccount(db.Model):
     def searchREA(cls, query):
         REAList = cls.query.filter(and_(cls.username.like(f"%{query}%"), cls.profile=="Real Estate Agent")).all()
         READict = [{
-            'fullName' : rea.fullName,
             'username' : rea.username,
-            'email' : rea.email,
-            'phoneNo': rea.phoneNo, 
-            'status' : rea.status
+            'fullName' : rea.fullName
         } for rea in REAList]
         if READict:
             return jsonify({"userREA": READict})

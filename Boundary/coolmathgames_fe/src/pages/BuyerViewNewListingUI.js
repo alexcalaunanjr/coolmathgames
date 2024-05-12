@@ -28,14 +28,12 @@ function BuyerViewNewListingUI(props) {
     const [facilities, setFacilities] = useState('');
     const [agentName, setAgentName] = useState('');
     const [agentImg, setAgentImage] = useState('');
-    
-    // State to keep track of favorites count
-    const [favoritesCount, setFavoritesCount] = useState('');
 
     // State to check if property is sold or no
     const [isSold, setIsSold] = useState('');
     // State to check if property is favourited or no
     const [isFavorited, setIsFavorited] = useState(false);
+    const [isClick, setIsClick] = useState(false);
     // State to pop up mortgage calculator
     const [mortgagePopUp, setMortgagePopUp] = useState(false);
 
@@ -50,7 +48,9 @@ function BuyerViewNewListingUI(props) {
 
     useEffect(() => {
         document.title = 'Buyer View New Property Listing';
-        axios.get(`http://127.0.0.1:5000/BuyerViewNewListing/${propertyName}`, {
+        axios.post(`http://127.0.0.1:5000/BuyerViewNewListing/${propertyName}`, {
+            "username": localStorage.getItem("username")
+        }, {
             headers: {
                 'Authorization': 'Bearer ' + props.token,
                 'Content-Type': 'application/json'
@@ -71,6 +71,7 @@ function BuyerViewNewListingUI(props) {
                 setAgentName(response.data.RealEstateAgent);
                 setAgentImage(response.data.REAImage);
                 setImage(response.data.propertyImage);
+                setIsFavorited(response.data.favorited);
             }
         })
         .catch((error) => {
@@ -79,12 +80,32 @@ function BuyerViewNewListingUI(props) {
     }, []);
 
     useEffect(() => {
-        // Increment or decrement favorites count based on isFavorited state
-        setFavoritesCount((prevCount) => (isFavorited ? prevCount + 1 : Math.max(prevCount - 1, 0)));
+        if (isClick) {
+            axios.post(`http://127.0.0.1:5000/BuyerPostNewFavorite/${propertyName}`, {
+                "username": localStorage.getItem("username")
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + props.token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response) {
+                    console.log("Added to favorite")
+                }
+                else {
+                    console.log("Unfavorited")
+                }
+            })
+            .catch((error) => {
+                console.error('Error adding to favorite:', error);
+            })
+        }
     }, [isFavorited]);
     
     const handleFavorite = () => {
         setIsFavorited(!isFavorited);
+        setIsClick(true);
     }
 
     function displayNewListingUI() {

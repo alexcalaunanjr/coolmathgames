@@ -20,15 +20,12 @@ function SellerRetrieveREAListUI(props) {
                 'Content-Type': 'application/json'
             }
         })
-
         .then(response => {
             const READict = response.data.READict;
             const READata = READict.map(account => ({
-                id: account.id,
                 fullName: account.fullName,
                 username: account.username
             }))
-            console.log(READata)
             setREAList(READata)
         })
         .catch(error => {

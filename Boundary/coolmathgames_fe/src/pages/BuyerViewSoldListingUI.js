@@ -11,30 +11,6 @@ import house2 from '../assets/house2.jpg';
 import bg from '../assets/bg3.jpeg';
 import agent from '../assets/agent3.jpg';
 
-// Example: create a property object
-const agent1 = {
-    id: 1,
-    fullName: 'Elizabeth Hamilton',
-    username: 'agent1',
-}
-
-const property1 = {
-    id: 1,
-    images: house2,
-    title: "Trellis Towers Condo Unit",
-    location: "Punggol, Singapore",
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 10000,
-    price: 200000,
-    description: "This is a beautiful condo unit located in the heart of Punggol. It is a 3-bedroom, 2-bathroom unit with a size of 1000 sqft. The unit is fully furnished and comes with a balcony that overlooks the beautiful Punggol Waterway. The condo is equipped with a swimming pool, gym, and BBQ pits for residents to enjoy. It is also conveniently located near Waterway Point Shopping Mall, Punggol MRT Station, and various schools and amenities.",
-    unitFeatures: "Fully furnished, Balcony, Overlooking Punggol Waterway",
-    facilities: "Swimming Pool, Gym, BBQ Pits",
-    isSold: true,
-    views: 0,
-    favorites: 0,
-};
-
 function BuyerViewSoldListingUI(props) {
     let { propertyName } = useParams();
 
@@ -51,18 +27,17 @@ function BuyerViewSoldListingUI(props) {
     const [agentName, setAgentName] = useState('');
     const [agentImg, setAgentImage] = useState('');
 
-    // State to keep track of favorites count
-    const [favoritesCount, setFavoritesCount] = useState('');
-
     // State to check if property is sold or no
     const [isSold, setIsSold] = useState('');
     // State to check if property is favourited or no
     const [isFavorited, setIsFavorited] = useState(false);
+    const [isClick, setIsClick] = useState(false);
 
     useEffect(() => {
         document.title = 'Buyer View Sold Property Listing';
-
-        axios.get(`http://127.0.0.1:5000/BuyerViewSoldListing/${propertyName}`, {
+        axios.post(`http://127.0.0.1:5000/BuyerViewSoldListing/${propertyName}`, {
+            "username": localStorage.getItem("username")
+        }, {
             headers: {
                 'Authorization': 'Bearer ' + props.token,
                 'Content-Type': 'application/json'
@@ -83,6 +58,7 @@ function BuyerViewSoldListingUI(props) {
                 setAgentName(response.data.RealEstateAgent);
                 setAgentImage(response.data.REAImage);
                 setImage(response.data.propertyImage);
+                setIsFavorited(response.data.favorited);
             }
         })
         .catch((error) => {
@@ -91,18 +67,33 @@ function BuyerViewSoldListingUI(props) {
     }, []);
 
     useEffect(() => {
-        console.log('Updated isFavorited:', isFavorited);
-        // Increment or decrement favorites count based on isFavorited state
-        setFavoritesCount((prevCount) => (isFavorited ? prevCount + 1 : Math.max(prevCount - 1, 0)));
+        if (isClick) {
+            axios.post(`http://127.0.0.1:5000/BuyerPostSoldFavorite/${propertyName}`, {
+                "username": localStorage.getItem("username")
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + props.token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response) {
+                    console.log("Added to favorite")
+                }
+                else {
+                    console.log("Unfavorited")
+                }
+            })
+            .catch((error) => {
+                console.error('Error adding to favorite:', error);
+            })
+        }
     }, [isFavorited]);
     
     const handleFavorite = () => {
         setIsFavorited(!isFavorited);
+        setIsClick(true);
     }
-    
-    useEffect(() => {
-        console.log('Updated favorites count:', favoritesCount);
-    }, [favoritesCount]);
 
     function displaySoldListingUI() {
         return (

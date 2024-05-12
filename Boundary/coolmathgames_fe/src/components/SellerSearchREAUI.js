@@ -14,7 +14,7 @@ function SellerSearchREAUI({ id, placeholder, onSubmit, setREA, token }) {
             }
         })
         .then(response => {
-            if (response.data.REACredentials == "Not Found") {
+            if (response.data.userREA == "Not Found") {
                 setREA([])
             }
             else {

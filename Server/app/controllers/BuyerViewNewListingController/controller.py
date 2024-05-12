@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_jwt_extended import jwt_required
 from app.entity.propertyListing import PropertyListing
 
@@ -6,8 +6,8 @@ class BuyerViewNewListingController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def viewNewProperty(self, propertyName):
-        property = PropertyListing.viewNewProperty(propertyName)
+    def viewNewProperty(self, propertyName:str, username:str):
+        property = PropertyListing.viewNewProperty(propertyName, username)
         return property
 
 class BaseBuyerViewNewListingController(BuyerViewNewListingController):
@@ -16,5 +16,7 @@ class BaseBuyerViewNewListingController(BuyerViewNewListingController):
 
     @jwt_required()
     def getProperty(self, propertyName):
-        property = self.viewNewProperty(propertyName)
+        data = request.get_json()
+        username = data.get('username')
+        property = self.viewNewProperty(propertyName, username)
         return property
