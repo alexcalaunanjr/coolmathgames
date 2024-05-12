@@ -13,14 +13,14 @@ class REAUpdateREAcredentialsController(Blueprint):
         return cred
     
     #update account
-    def updateUserCredentials(self, username:str, reaImage:str, experience:str, license:str, language:str, special:str, about:str, award:str, fullName:str, email:str, phone:str):
-        if experience and license and language and special and about and award:
+    def updateUserCredentials(self, username:str, reaImage:str, experience:str, license:str, language:str, service:str, about:str, award:str, fullName:str, email:str, phone:str):
+        if experience and license and language and service and about and award:
             updatedData = {
                 'experience': experience,
                 'reaImage':reaImage,
                 'license': license,
                 'language': language,
-                'special': special,
+                'service': service,
                 'about': about,
                 'award': award,
                 'fullName': fullName,
@@ -46,11 +46,11 @@ class BaseREAUpdateREAcredentialsController(REAUpdateREAcredentialsController):
             experience = data.get("experience")
             license = data.get("license")
             language = data.get("language")
-            special = data.get("special")
+            service = data.get("service")
             about = data.get("about")
             award = data.get("award")
 
-            updateCred = self.updateUserCredentials(username, reaImage, experience, license, language, special, about, award, fullName, email, phoneNo)
+            updateCred = self.updateUserCredentials(username, reaImage, experience, license, language, service, about, award, fullName, email, phoneNo)
             update = updateCred
             return update
         if request.method == 'GET':
