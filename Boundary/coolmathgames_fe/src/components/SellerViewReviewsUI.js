@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import SellerReviewREAUI from './SellerReviewREAUI';
 import { useParams } from 'react-router-dom';
 
-function SellerRetrieveReviewsUI({openModal, onClose, REAName, token}) {
+function SellerViewReviewsUI({openModal, onClose, REAName, token}) {
     let {agentName} = useParams()
     // handle review
     const [review, setReview] = useState('');
     const [reviewsList, setReviewsList] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://127.0.0.1:5000/SellerRetrieveReviews/${agentName}`, {
+        axios.get(`http://127.0.0.1:5000/SellerViewReviews/${agentName}`, {
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
@@ -74,4 +74,4 @@ function SellerRetrieveReviewsUI({openModal, onClose, REAName, token}) {
     )
 }
 
-export default SellerRetrieveReviewsUI;
+export default SellerViewReviewsUI;

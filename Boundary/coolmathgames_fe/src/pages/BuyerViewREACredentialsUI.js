@@ -11,11 +11,11 @@ import Agent1 from '../assets/agent1.jpg'
 // components
 import BuyerHeader from "../components/BuyerHeader";
 import Footer from "../components/Footer";
-import BuyerRetrieveREARatingsUI from '../components/BuyerRetrieveREARatingsUI';
-import BuyerRetrieveREAReviewsUI from '../components/BuyerRetrieveREAReviewsUI';
+import BuyerViewRatingsUI from '../components/BuyerViewRatingsUI';
+import BuyerViewReviewsUI from '../components/BuyerViewReviewsUI';
 
 
-function BuyerViewREACredUI(props, {openModal, onClose}) {
+function BuyerViewREACredentialsUI(props, {openModal, onClose}) {
     let {agentName} = useParams()
     const [picture, setPicture] = useState('');
     const [fullName, setFullName] = useState('');
@@ -194,8 +194,8 @@ function BuyerViewREACredUI(props, {openModal, onClose}) {
                             </button>
                         </div>
                         {openRetrieveRatingsModal && (
-                            <BuyerRetrieveREARatingsUI
-                                openModal={BuyerRetrieveREARatingsUI}
+                            <BuyerViewRatingsUI
+                                openModal={BuyerViewRatingsUI}
                                 onClose={closeRetrieveRatingsModal}
                                 REAName={fullName}
                                 token={Ptoken}
@@ -209,8 +209,8 @@ function BuyerViewREACredUI(props, {openModal, onClose}) {
                             </button>
                         </div>
                         {openRetrieveReviewsModal && (
-                            <BuyerRetrieveREAReviewsUI
-                                openModal={BuyerRetrieveREAReviewsUI}
+                            <BuyerViewReviewsUI
+                                openModal={BuyerViewReviewsUI}
                                 onClose={closeRetrieveReviewsModal}
                                 REAName={fullName}
                                 token={Ptoken}
@@ -232,4 +232,4 @@ function BuyerViewREACredUI(props, {openModal, onClose}) {
         displayREACredentialsUI()
     );
 }
-export default BuyerViewREACredUI;
+export default BuyerViewREACredentialsUI;

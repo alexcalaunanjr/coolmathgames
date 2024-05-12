@@ -11,8 +11,8 @@ import Agent1 from '../assets/agent1.jpg'
 // components
 import SellerHeader from "../components/SellerHeader";
 import Footer from "../components/Footer";
-import SellerRetrieveRatingsUI from '../components/SellerRetrieveRatingsUI';
-import SellerRetrieveReviewsUI from '../components/SellerRetrieveReviewsUI';
+import SellerViewRatingsUI from '../components/SellerViewRatingsUI';
+import SellerViewReviewsUI from '../components/SellerViewReviewsUI';
 
 
 function SellerViewREACredentialsUI(props, {openModal, onClose}) {
@@ -186,8 +186,8 @@ function SellerViewREACredentialsUI(props, {openModal, onClose}) {
                             </button>
                         </div>
                         {openRetrieveRatingsModal && (
-                            <SellerRetrieveRatingsUI
-                                openModal={SellerRetrieveRatingsUI}
+                            <SellerViewRatingsUI
+                                openModal={SellerViewRatingsUI}
                                 onClose={closeRetrieveRatingsModal}
                                 REAName={fullName}
                                 token={Ptoken}
@@ -201,8 +201,8 @@ function SellerViewREACredentialsUI(props, {openModal, onClose}) {
                             </button>
                         </div>
                         {openRetrieveReviewsModal && (
-                            <SellerRetrieveReviewsUI
-                                openModal={SellerRetrieveReviewsUI}
+                            <SellerViewReviewsUI
+                                openModal={SellerViewReviewsUI}
                                 onClose={closeRetrieveReviewsModal}
                                 REAName={fullName}
                                 token={Ptoken}
