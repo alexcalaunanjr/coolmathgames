@@ -6,7 +6,7 @@ import { Button, Modal } from "flowbite-react";
 import BuyerRateREAUI from './BuyerRateREAUI';
 import { useParams } from 'react-router-dom';
 
-function BuyerRetrieveREARatingsUI({openModal, onClose, REAName, token}) {
+function BuyerViewRatingsUI({openModal, onClose, REAName, token}) {
     let {agentName} = useParams()
     // handle rating
     const [rating, setRating] = useState(0);
@@ -98,4 +98,4 @@ function BuyerRetrieveREARatingsUI({openModal, onClose, REAName, token}) {
     )
 }
 
-export default BuyerRetrieveREARatingsUI;
+export default BuyerViewRatingsUI;

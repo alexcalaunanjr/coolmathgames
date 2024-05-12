@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from app.entity.rating import Rating
 
-class BuyerRetrieveRatingsController(Blueprint):
+class BuyerViewRatingsController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
@@ -10,7 +10,7 @@ class BuyerRetrieveRatingsController(Blueprint):
         ratings = Rating.retrieveRatings(reaUsername) # Retrieve a list of ratings
         return ratings
 
-class BaseBuyerRetrieveRatingsController(BuyerRetrieveRatingsController):
+class BaseBuyerViewRatingsController(BuyerViewRatingsController):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

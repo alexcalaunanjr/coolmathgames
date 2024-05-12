@@ -5,7 +5,7 @@ function SellerSearchREAUI({ id, placeholder, onSubmit, setREA, token }) {
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
-        axios.post('http://127.0.0.1:5000/SellerSearchREAUI', {
+        axios.post('http://127.0.0.1:5000/SellerSearchREA', {
             "query": searchQuery
         },{
             headers: {
@@ -18,8 +18,13 @@ function SellerSearchREAUI({ id, placeholder, onSubmit, setREA, token }) {
                 setREA([])
             }
             else {
-                const READict = response.data.REACredentials;
-                setREA(READict)
+                const READict = response.data.userREA;
+                const READata = READict.map(account => ({
+                    id: account.id,
+                    fullName: account.fullName,
+                    username: account.username
+                }))
+                setREA(READata)
             }
         })
         .catch(error => {

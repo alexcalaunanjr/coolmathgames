@@ -36,7 +36,7 @@ function READeleteListingUI( {openModal, onClose, text, token}) {
     navigate('/REARetrieveListingListUI');
   }
 
-  function clickCanel(){
+  function clickCancel(){
     closeDeletePopUp();
   }
 
@@ -55,7 +55,7 @@ function READeleteListingUI( {openModal, onClose, text, token}) {
                 <Button color="failure" onClick={handleDelete}>
                   {"Yes, I'm sure"}
                 </Button>
-                <Button color="gray" onClick={clickCanel}>
+                <Button color="gray" onClick={clickCancel}>
                   No, cancel
                 </Button>
               </div>

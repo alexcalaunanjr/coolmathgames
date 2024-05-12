@@ -72,7 +72,9 @@ class UserAccount(db.Model):
     @classmethod
     def retrieveREAList(cls):
         REAList = cls.query.filter(cls.profile=="Real Estate Agent")
-        READict = [{'username': rea.username, 
+        READict = [{'id':rea.id,
+                    'fullName': rea.fullName, 
+                    'username': rea.username, 
                     'email': rea.email, 
                     'phoneNo': rea.phoneNo, 
                     'status': rea.status} for rea in REAList]
@@ -125,6 +127,7 @@ class UserAccount(db.Model):
     def searchREA(cls, query):
         REAList = cls.query.filter(and_(cls.username.like(f"%{query}%"), cls.profile=="Real Estate Agent")).all()
         READict = [{
+            'fullName' : rea.fullName,
             'username' : rea.username,
             'email' : rea.email,
             'phoneNo': rea.phoneNo, 

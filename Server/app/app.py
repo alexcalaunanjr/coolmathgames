@@ -40,8 +40,8 @@ from .controllers.SellerViewListingController.controller import BaseSellerViewLi
 from .controllers.SellerViewREACredentialsController.controller import BaseSellerViewREACredentialsController
 from .controllers.SellerRateREAController.controller import BaseSellerRateREAController
 from .controllers.SellerReviewREAController.controller import BaseSellerReviewREAController
-from .controllers.SellerRetrieveRatingsController.controller import BaseSellerRetrieveRatingsController
-from .controllers.SellerRetrieveReviewsController.controller import BaseSellerRetrieveReviewsController
+from .controllers.SellerViewRatingsController.controller import BaseSellerViewRatingsController
+from .controllers.SellerViewReviewsController.controller import BaseSellerViewReviewsController
 from .controllers.SellerViewViewCountController.controller import BaseSellerViewViewCountController
 from .controllers.SellerViewFavoriteCountController.controller import BaseSellerViewFavoriteCountController
 from .controllers.SellerRetrieveREAListController.controller import BaseSellerRetrieveREAListController
@@ -58,8 +58,8 @@ from .controllers.BuyerSearchSoldListingController.controller import BaseBuyerSe
 from .controllers.BuyerViewREACredentialsController.controller import BaseBuyerViewREACredentialsController
 from .controllers.BuyerRateREAController.controller import BaseBuyerRateREAController
 from .controllers.BuyerReviewREAController.controller import BaseBuyerReviewREAController
-from .controllers.BuyerRetrieveRatingsController.controller import BaseBuyerRetrieveRatingsController
-from .controllers.BuyerRetrieveReviewsController.controller import BaseBuyerRetrieveReviewsController
+from .controllers.BuyerViewRatingsController.controller import BaseBuyerViewRatingsController
+from .controllers.BuyerViewReviewsController.controller import BaseBuyerViewReviewsController
 from .controllers.BuyerAddNewListingToFavoritesController.controller import BaseBuyerAddNewListingToFavoritesController
 from .controllers.BuyerAddSoldListingToFavoritesController.controller import BaseBuyerAddSoldListingToFavoritesController
 from .controllers.BuyerRetrieveREAListController.controller import BaseBuyerRetrieveREAListController
@@ -128,8 +128,8 @@ SellerViewListingController = BaseSellerViewListingController('sellerViewMyListi
 SellerViewREACredentialsController = BaseSellerViewREACredentialsController('sellerViewREACredController', __name__)
 SellerRateREAController = BaseSellerRateREAController('sellerRateREAController', __name__)
 SellerReviewREAController = BaseSellerReviewREAController('sellerReviewREAController', __name__)
-SellerRetrieveRatingsController = BaseSellerRetrieveRatingsController('sellerRetrieveRatingsController', __name__)
-SellerRetrieveReviewsController = BaseSellerRetrieveReviewsController('sellerRetrieveReviewsController', __name__)
+SellerViewRatingsController = BaseSellerViewRatingsController('sellerRetrieveRatingsController', __name__)
+SellerViewReviewsController = BaseSellerViewReviewsController('sellerRetrieveReviewsController', __name__)
 SellerViewViewCountController = BaseSellerViewViewCountController('sellerViewViewCountController', __name__)
 SellerViewFavoriteCountController = BaseSellerViewFavoriteCountController('sellerViewFavoriteCountController', __name__)
 SellerRetrieveREAListController = BaseSellerRetrieveREAListController('sellerRetrieveREAListController', __name__)
@@ -146,8 +146,8 @@ BuyerSearchSoldListingController = BaseBuyerSearchSoldListingController('buyerSe
 BuyerViewREACredentialsController = BaseBuyerViewREACredentialsController('buyerViewREACredController', __name__)
 BuyerRateREAController = BaseBuyerRateREAController('buyerRateREAController', __name__)
 BuyerReviewREAController = BaseBuyerReviewREAController('buyerReviewREAController', __name__)
-BuyerRetrieveRatingsController = BaseBuyerRetrieveRatingsController('buyerRetrieveRatingsController', __name__)
-BuyerRetrieveReviewsController = BaseBuyerRetrieveReviewsController('buyerRetrieveReviewsController', __name__)
+BuyerViewRatingsController = BaseBuyerViewRatingsController('buyerViewRatingsController', __name__)
+BuyerViewReviewsController = BaseBuyerViewReviewsController('buyerViewReviewsController', __name__)
 BuyerAddNewListingToFavoritesController = BaseBuyerAddNewListingToFavoritesController('buyerAddNewListingToFavoritesController', __name__)
 BuyerAddSoldListingToFavoritesController = BaseBuyerAddSoldListingToFavoritesController('buyerAddSoldListingToFavoritesController', __name__)
 BuyerRetrieveREAListController = BaseBuyerRetrieveREAListController('buyerRetrieveREAListController', __name__)
@@ -196,8 +196,8 @@ SellerViewListingController.route('/SellerViewListing/<propertyName>', methods=[
 SellerViewREACredentialsController.route('/SellerViewREACred/<username>', methods=['GET'])(SellerViewREACredentialsController.getREACred)
 SellerRateREAController.route('/SellerRateREA/<reaUsername>', methods=['POST'])(SellerRateREAController.postRate)
 SellerReviewREAController.route('/SellerReviewREA/<reaUsername>', methods=['POST'])(SellerReviewREAController.postReviewText)
-SellerRetrieveRatingsController.route('/SellerRetrieveRatings/<reaUsername>', methods=['GET'])(SellerRetrieveRatingsController.getRatings)
-SellerRetrieveReviewsController.route('/SellerRetrieveReviews/<reaUsername>', methods=['GET'])(SellerRetrieveReviewsController.getReviews)
+SellerViewRatingsController.route('/SellerViewRatings/<reaUsername>', methods=['GET'])(SellerViewRatingsController.getRatings)
+SellerViewReviewsController.route('/SellerViewReviews/<reaUsername>', methods=['GET'])(SellerViewReviewsController.getReviews)
 SellerViewViewCountController.route('/SellerViewViewCount/<propertyName>', methods=['GET'])(SellerViewViewCountController.getViewCount)
 SellerViewFavoriteCountController.route('/SellerViewFavoriteCount/<propertyName>', methods=['GET'])(SellerViewFavoriteCountController.getFavoriteCount)
 SellerRetrieveREAListController.route('/SellerRetrieveREAList', methods=['GET'])(SellerRetrieveREAListController.getREAList)
@@ -214,8 +214,8 @@ BuyerSearchSoldListingController.route('/BuyerSearchSoldListing', methods=['POST
 BuyerViewREACredentialsController.route('/BuyerViewREACred/<username>', methods=['GET'])(BuyerViewREACredentialsController.getREACred)
 BuyerRateREAController.route('/BuyerRateREA/<reaUsername>', methods=['POST'])(BuyerRateREAController.postRate)
 BuyerReviewREAController.route('/BuyerReviewREA/<reaUsername>', methods=['POST'])(BuyerReviewREAController.postReviewText)
-BuyerRetrieveRatingsController.route('/BuyerRetrieveRatings/<reaUsername>', methods=['GET'])(BuyerRetrieveRatingsController.getRatings)
-BuyerRetrieveReviewsController.route('/BuyerRetrieveReviews/<reaUsername>', methods=['GET'])(BuyerRetrieveReviewsController.getReviews)
+BuyerViewRatingsController.route('/BuyerRetrieveRatings/<reaUsername>', methods=['GET'])(BuyerViewRatingsController.getRatings)
+BuyerViewReviewsController.route('/BuyerRetrieveReviews/<reaUsername>', methods=['GET'])(BuyerViewReviewsController.getReviews)
 BuyerAddNewListingToFavoritesController.route('/BuyerPostNewFavorite/<propertyName>', methods=['POST'])(BuyerAddNewListingToFavoritesController.postFavoriteListing)
 BuyerAddSoldListingToFavoritesController.route('/BuyerPostSoldFavorite/<propertyName>', methods=['POST'])(BuyerAddSoldListingToFavoritesController.postFavoriteListing)
 BuyerRetrieveREAListController.route('/BuyerRetrieveREAList', methods=['GET'])(BuyerRetrieveREAListController.getREAList)
@@ -262,8 +262,8 @@ app.register_blueprint(SellerViewListingController)
 app.register_blueprint(SellerViewREACredentialsController)
 app.register_blueprint(SellerRateREAController)
 app.register_blueprint(SellerReviewREAController)
-app.register_blueprint(SellerRetrieveRatingsController)
-app.register_blueprint(SellerRetrieveReviewsController)
+app.register_blueprint(SellerViewRatingsController)
+app.register_blueprint(SellerViewReviewsController)
 app.register_blueprint(SellerViewViewCountController)
 app.register_blueprint(SellerViewFavoriteCountController)
 app.register_blueprint(SellerRetrieveREAListController)
@@ -280,8 +280,8 @@ app.register_blueprint(BuyerSearchSoldListingController)
 app.register_blueprint(BuyerViewREACredentialsController)
 app.register_blueprint(BuyerRateREAController)
 app.register_blueprint(BuyerReviewREAController)
-app.register_blueprint(BuyerRetrieveRatingsController)
-app.register_blueprint(BuyerRetrieveReviewsController)
+app.register_blueprint(BuyerViewRatingsController)
+app.register_blueprint(BuyerViewReviewsController)
 app.register_blueprint(BuyerAddNewListingToFavoritesController)
 app.register_blueprint(BuyerAddSoldListingToFavoritesController)
 app.register_blueprint(BuyerRetrieveREAListController)

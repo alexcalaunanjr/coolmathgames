@@ -43,7 +43,7 @@ function REAViewREARatingsUI({openModal, onClose, REAName, token, username}) {
     };
 
     // total average rating
-    function calculateAvgStars(ratingsList) {
+    const calculateAvgStars = (ratingsList) => {
       let totalStars = 0;
       let numRatings = ratingsList.length;
       for (let i = 0; i < numRatings; i++) {

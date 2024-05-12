@@ -6,14 +6,14 @@ import { Button, Modal } from "flowbite-react";
 import SellerRateREAUI from './SellerRateREAUI';
 import { useParams } from 'react-router-dom';
 
-function SellerRetrieveRatingsUI({openModal, onClose, REAName, token}) {
+function SellerViewRatingsUI({openModal, onClose, REAName, token}) {
     let {agentName} = useParams()
     // handle rating
     const [rating, setRating] = useState(0);
     const [ratingsList, setRatingsList] = useState([]);
 
     useEffect(() => {
-      axios.get(`http://127.0.0.1:5000/SellerRetrieveRatings/${agentName}`, {
+      axios.get(`http://127.0.0.1:5000/SellerViewRatings/${agentName}`, {
           headers: {
               'Authorization': 'Bearer ' + token,
               'Content-Type': 'application/json'
@@ -98,4 +98,4 @@ function SellerRetrieveRatingsUI({openModal, onClose, REAName, token}) {
     )
 }
 
-export default SellerRetrieveRatingsUI;
+export default SellerViewRatingsUI;

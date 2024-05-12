@@ -18,6 +18,7 @@ import BuyerViewREACredentialsUI from './pages/BuyerViewREACredentialsUI'
 import SellerRetrieveListingListUI from './pages/SellerRetrieveListingListUI'
 import SellerViewListing from './pages/SellerViewListingUI'
 import SellerViewREACredentialsUI from './pages/SellerViewREACredentialsUI'
+import SellerRetrieveREAListUI from './pages/SellerRetrieveREAListUI'
 // REA Pages
 import REACreateListingUI from './pages/REACreateListingUI'
 import REARetrieveListingListUI from './pages/REARetrieveListingListUI'
@@ -85,6 +86,7 @@ function App() {
                   <Route path='/SellerRetrieveListingListUI' element={<SellerRetrieveListingListUI token={token}/>}></Route>
                   <Route path='/SellerViewListingUI/:propertyName' element={<SellerViewListing token={token}/>}></Route>
                   <Route path='/SellerViewREACredentialsUI/:agentName' element={<SellerViewREACredentialsUI token={token}/>}></Route>
+                  <Route path='/SellerRetrieveREAListUI' element={<SellerRetrieveREAListUI token={token}/>}></Route>
                 </>
               )}
             </Routes>

@@ -11,8 +11,8 @@ import Agent1 from '../assets/agent1.jpg'
 // components
 import REAHeader from "../components/REAHeader";
 import Footer from "../components/Footer";
-import REAViewREARatingsUI from '../components/REAViewREARatingsUI';
-import REAViewREAReviewsUI from '../components/REAViewREAReviewsUI';
+import REAViewRatingsUI from '../components/REAViewRatingsUI';
+import REAViewReviewsUI from '../components/REAViewReviewsUI';
 
 function REAViewREACredentialsUI(props) {
     const username = localStorage.getItem('username');
@@ -201,8 +201,8 @@ function REAViewREACredentialsUI(props) {
                             </button>
                         </div>
                         {openViewRatingsModal && (
-                            <REAViewREARatingsUI
-                                openModal={REAViewREARatingsUI}
+                            <REAViewRatingsUI
+                                openModal={REAViewRatingsUI}
                                 onClose={closeViewRatingsModal}
                                 REAName={fullName}
                                 token={Ptoken}
@@ -217,8 +217,8 @@ function REAViewREACredentialsUI(props) {
                             </button>
                         </div>
                         {openViewReviewsModal && (
-                            <REAViewREAReviewsUI
-                                openModal={REAViewREAReviewsUI}
+                            <REAViewReviewsUI
+                                openModal={REAViewReviewsUI}
                                 onClose={closeViewReviewsModal}
                                 REAName={fullName}
                                 token={Ptoken}

@@ -269,6 +269,7 @@ class PropertyListing(db.Model):
         if REAListing:
             property = jsonify({
                 'RealEstateAgent': REAListing.REA,
+                'REAImage': REAListing.REA_account.profileImage,
                 'propertyName': REAListing.property,
                 'propertyImage': REAListing.property_obj.propertyImage,
                 'price': REAListing.property_obj.price,

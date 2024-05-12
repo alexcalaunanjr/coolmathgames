@@ -6,7 +6,7 @@ class BuyerViewREACredentialsController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def viewREACred(self,username):
+    def retrieveUserCredentials(self,username):
         reaCred = REACredentials.retrieveUserCredentials(username)
         return reaCred
 
