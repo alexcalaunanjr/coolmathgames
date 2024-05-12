@@ -291,7 +291,7 @@ app.register_blueprint(BuyerViewFavoriteListingController)
 app.register_blueprint(BuyerCalculateMortgageController)
 
 
-# from .Base64Converter import image_to_base64
+from .Base64Converter import image_to_base64
 
 with app.app_context():
     db.create_all()
@@ -350,14 +350,15 @@ with app.app_context():
     # reaData = { 
     #     'id' : 1,
     #     'username' : "alex",
-    #     'reaImage' : image_to_base64('D:/Sippy/UniStuff/CSIT314/project/coolmathgames/imgs/aleks.jpg'),
     #     'experience' : "good experience",
     #     'license' : "Pretty good",
     #     'language' : "espaniol",
-    #     'special' : "you are my specialz",
+    #     'service' : "you are my specialz",
     #     'about' : "this is aleks",
     #     'award' : "none"
     # }
+
+    # 2,edrick,image,,,,,,
 
     # property_obj = Properties(**property_data)
     # property_obj_2 = Properties(**property_data_2)

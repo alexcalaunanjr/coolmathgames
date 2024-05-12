@@ -26,7 +26,7 @@ function REAUpdateREACredentialsUI(props) {
     const [experience, setExperience] = useState('');
     const [license, setLicense] = useState('');
     const [language, setLanguage] = useState('');
-    const [special, setSpecial] = useState('');
+    const [service, setService] = useState('');
     const [about, setAbout] = useState('');
     const [awards, setAwards] = useState('');
 
@@ -54,7 +54,7 @@ function REAUpdateREACredentialsUI(props) {
                     setExperience(response.data.experience)
                     setLicense(response.data.license)
                     setLanguage(response.data.language)
-                    setSpecial(response.data.special)
+                    setService(response.data.service)
                     setAbout(response.data.about)
                     setAwards(response.data.award)
                 }
@@ -75,7 +75,7 @@ function REAUpdateREACredentialsUI(props) {
         console.log('Form Filled:', formFilled);
 
         // Check if all fields are filled
-        if (!fullName | !email || !phoneNo || !experience || !license || !language || !special || !about || !awards) {
+        if (!fullName | !email || !phoneNo || !experience || !license || !language || !service || !about || !awards) {
             setError('Please enter the required fields.');
             return;
         }
@@ -100,7 +100,7 @@ function REAUpdateREACredentialsUI(props) {
                 "experience": experience,
                 "license": license,
                 "language": language,
-                "special": special,
+                "service": service,
                 "about": about,
                 "award": awards,
             }, {
@@ -161,13 +161,13 @@ function REAUpdateREACredentialsUI(props) {
                                         <UploadFile setPicture={handleImageUpload} />
                                     </div>
                                 </div>
-                                {/* Specialties & Services */}
+                                {/* Services */}
                                 <div className="mb-8 w-2/3">
-                                    <p className="text-xl">Specialties & Services</p>
+                                    <p className="text-xl">Services</p>
                                     <Textarea
                                         type="text"
-                                        value={special}
-                                        onChange={(e) => setSpecial(e.target.value)}
+                                        value={service}
+                                        onChange={(e) => setService(e.target.value)}
                                         style={{resize: 'none', height: '150px'}}
                                     />
                                 </div>

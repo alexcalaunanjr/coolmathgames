@@ -67,7 +67,7 @@ function SellerViewREACredentialsUI(props, {openModal, onClose}) {
                 setLanguage(response.data.language)
                 setAbout(response.data.about)
                 setAwards(response.data.award)
-                setService(response.data.special)
+                setService(response.data.service)
             }
             else {
             }

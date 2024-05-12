@@ -16,5 +16,5 @@ class BaseBuyerViewREACredentialsController(BuyerViewREACredentialsController):
 
     @jwt_required()
     def getREACred(self, username):
-        reaCred = self.viewREACred(username)
+        reaCred = self.retrieveUserCredentials(username)
         return reaCred

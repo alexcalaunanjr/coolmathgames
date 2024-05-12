@@ -72,7 +72,7 @@ function REAViewREACredentialsUI(props) {
                 setMemberSince(response.data.cred.memberSince)
                 setLicense(response.data.cred.license)
                 setLanguage(response.data.cred.language)
-                setService(response.data.cred.special)
+                setService(response.data.cred.service)
                 setAbout(response.data.cred.about)
                 setAwards(response.data.cred.award)
             }
