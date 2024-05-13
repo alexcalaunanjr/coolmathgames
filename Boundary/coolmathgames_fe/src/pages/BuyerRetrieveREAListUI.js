@@ -9,40 +9,7 @@ import BuyerSearchREAUI from '../components/BuyerSearchREAUI';
 
 
 function BuyerRetrieveREAListUI(props) {
-    const REAList = [
-        {
-            id: 1,
-            pic: "../assets/agent1.jpg",
-            username: "carfound",
-            fullName: "Carlos Vincent Frasenda"
-        },
-        {
-            id: 2,
-            pic: "../assets/agent2.jpg",
-            username: "jeslean",
-            fullName: "Jeslyn Wangsa"
-        },
-        {
-            id: 3,
-            pic: "../assets/agent3.jpg",
-            username: "cabincrew",
-            fullName: "Kevin Aldrin Tan"
-        },
-        {
-            id: 4,
-            pic: "../assets/agent1.jpg",
-            username: "alexa",
-            fullName: "Alexander Calaunan Jr Sumampong"
-        },
-        {
-            id: 5,
-            pic: "../assets/agent2.jpg",
-            username: "shella",
-            fullName: "Chrisyella Gracia"
-        },
-    ];
-
-    const [REA, setREA] = useState([]);
+    const [REAList, setREAList] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
@@ -54,15 +21,13 @@ function BuyerRetrieveREAListUI(props) {
                 'Content-Type': 'application/json'
             }
         })
-
         .then(response => {
             const READict = response.data.READict;
             const READata = READict.map(account => ({
-                id: account.id,
                 fullName: account.fullName,
                 username: account.username
             }))
-            setREA(READata)
+            setREAList(READata)
         })
         .catch(error => {
             console.error('Error fetching real estate agent list', error);
@@ -104,7 +69,7 @@ function BuyerRetrieveREAListUI(props) {
                         </div>
                         {/* search bar */}
                         <div className="w-1/4 mx-auto">
-                            <BuyerSearchREAUI placeholder="Search real estate agent" onSubmit={handleSearch} setREA={setREA} token={props.token} />
+                            <BuyerSearchREAUI placeholder="Search real estate agent" onSubmit={handleSearch} setREA={setREAList} token={props.token} />
                         </div>
                     </div>
 

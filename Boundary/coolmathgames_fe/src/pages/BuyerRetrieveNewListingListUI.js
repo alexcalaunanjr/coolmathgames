@@ -61,12 +61,6 @@ function BuyerRetrieveNewListingListUI(props) {
         setSearchQuery(query);
     };
 
-    // Function to handle views
-    const handleViews = async(id, views) => {
-        // data = {id, views: views + 1};
-        // await ViewsCount(data);
-    };
-
     useEffect(() => {
         document.title = 'Buyer Retrieve New Property Listing';
         axios.get(`http://127.0.0.1:5000/BuyerRetrieveNewListingList`, {

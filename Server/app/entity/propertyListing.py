@@ -1,6 +1,7 @@
 from .sqlAlchemy import db
 from flask import jsonify
 from sqlalchemy import and_
+from app.entity.favorite import Favorite
 
 class PropertyListing(db.Model):
     __tablename__ = 'PropertyListing'
@@ -10,7 +11,6 @@ class PropertyListing(db.Model):
     REA = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     sold = db.Column(db.Boolean, nullable=False)
     viewsCount = db.Column(db.Integer, nullable=False)
-    # favoritesCount = db.Column(db.Integer, nullable=False) 
     property_obj = db.relationship("Properties", backref="listings")
     REA_account = db.relationship("UserAccount", foreign_keys=[REA], backref="property_listings_REA")
 
@@ -35,7 +35,6 @@ class PropertyListing(db.Model):
                 'unitFeatures': listing.property_obj.unitFeatures,
                 'facilities': listing.property_obj.facilities,
                 'viewsCount': listing.viewsCount,
-                # 'favoritesCount': listing.favoritesCount,
                 'sold': listing.sold
             }
             propertiesDict.append(propertyDict)
@@ -95,7 +94,6 @@ class PropertyListing(db.Model):
                 'unitFeatures': listing.property_obj.unitFeatures,
                 'facilities': listing.property_obj.facilities,
                 'viewsCount': listing.viewsCount,
-                # 'favoritesCount': listing.favoritesCount,
                 'sold': listing.sold
             }
             sellerPropertiesDict.append(sellerPropertyDict)
@@ -105,24 +103,28 @@ class PropertyListing(db.Model):
     @classmethod
     def searchNewListings(cls, queryNew):
         propertyListings = cls.query.filter(and_(cls.property.like(f"%{queryNew}%"), cls.sold==False)).all()
-        propertyListingsDict = [{
-            'RealEstateAgent': listings.REA,
-            'propertyName': listings.property,
-            'propertyImage': listings.property_obj.propertyImage,
-            'price': listings.property_obj.price,
-            'location': listings.property_obj.location,
-            'aboutProperty': listings.property_obj.aboutProperty,
-            'noOfBedrooms': listings.property_obj.noOfBedrooms,
-            'noOfBathrooms': listings.property_obj.noOfBathrooms,
-            'area': listings.property_obj.area,
-            'unitFeatures': listings.property_obj.unitFeatures,
-            'facilities': listings.property_obj.facilities,
-            'viewsCount': listings.viewsCount,
-            # 'favoritesCount': listings.favoritesCount,
-            'sold': listings.sold
-        } for listings in propertyListings]
-        if propertyListingsDict:
-            return jsonify({"properties": propertyListingsDict})
+        propertiesDict = []
+        for listing in propertyListings:
+            REAInfo = listing.REA_account
+            propertyListingsDict = {
+                'RealEstateAgent': listing.REA,
+                'REAImage': REAInfo.profileImage,
+                'propertyName': listing.property,
+                'propertyImage': listing.property_obj.propertyImage,
+                'price': listing.property_obj.price,
+                'location': listing.property_obj.location,
+                'aboutProperty': listing.property_obj.aboutProperty,
+                'noOfBedrooms': listing.property_obj.noOfBedrooms,
+                'noOfBathrooms': listing.property_obj.noOfBathrooms,
+                'area': listing.property_obj.area,
+                'unitFeatures': listing.property_obj.unitFeatures,
+                'facilities': listing.property_obj.facilities,
+                'viewsCount': listing.viewsCount,
+                'sold': listing.sold
+            }
+            propertiesDict.append(propertyListingsDict)
+        if propertiesDict:
+            return jsonify({"properties": propertiesDict})
         else:
             return jsonify({"properties": "Not Found"})
 
@@ -130,34 +132,39 @@ class PropertyListing(db.Model):
     @classmethod
     def searchSoldListings(cls, querySold):
         propertyListings = cls.query.filter(and_(cls.property.like(f"%{querySold}%"), cls.sold==True)).all()
-        propertyListingsDict = [{
-            'RealEstateAgent': listings.REA,
-            'propertyName': listings.property,
-            'propertyImage': listings.property_obj.propertyImage,
-            'price': listings.property_obj.price,
-            'location': listings.property_obj.location,
-            'aboutProperty': listings.property_obj.aboutProperty,
-            'noOfBedrooms': listings.property_obj.noOfBedrooms,
-            'noOfBathrooms': listings.property_obj.noOfBathrooms,
-            'area': listings.property_obj.area,
-            'unitFeatures': listings.property_obj.unitFeatures,
-            'facilities': listings.property_obj.facilities,
-            'viewsCount': listings.viewsCount,
-            # 'favoritesCount': listings.favoritesCount,
-            'sold': listings.sold
-        } for listings in propertyListings]
-        if propertyListingsDict:
-            return jsonify({"properties": propertyListingsDict})
+        propertiesDict = []
+        for listing in propertyListings:
+            REAInfo = listing.REA_account
+            propertyListingsDict = {
+                'RealEstateAgent': listing.REA,
+                'REAImage': REAInfo.profileImage,
+                'propertyName': listing.property,
+                'propertyImage': listing.property_obj.propertyImage,
+                'price': listing.property_obj.price,
+                'location': listing.property_obj.location,
+                'aboutProperty': listing.property_obj.aboutProperty,
+                'noOfBedrooms': listing.property_obj.noOfBedrooms,
+                'noOfBathrooms': listing.property_obj.noOfBathrooms,
+                'area': listing.property_obj.area,
+                'unitFeatures': listing.property_obj.unitFeatures,
+                'facilities': listing.property_obj.facilities,
+                'viewsCount': listing.viewsCount,
+                'sold': listing.sold
+            }
+            propertiesDict.append(propertyListingsDict)
+        if propertiesDict:
+            return jsonify({"properties": propertiesDict})
         else:
             return jsonify({"properties": "Not Found"})
     
     #Retrieve information for a single new property
     @classmethod
-    def viewNewProperty(cls, propertyName:str):
+    def viewNewProperty(cls, propertyName:str, username:str):
         newProperty = cls.query.filter(and_(cls.property==propertyName, cls.sold==False)).first()
         cls.increaseViewCount(propertyName)
         if newProperty:
             REAInfo = newProperty.REA_account
+            isFavorited = Favorite.query.filter_by(property=propertyName, buyer=username).first() is not None
             property = jsonify({
                 'RealEstateAgent': newProperty.REA,
                 'REAImage': REAInfo.profileImage,
@@ -172,7 +179,7 @@ class PropertyListing(db.Model):
                 'unitFeatures': newProperty.property_obj.unitFeatures,
                 'facilities': newProperty.property_obj.facilities,
                 'viewsCount': newProperty.viewsCount,
-                # 'favoritesCount': newProperty.favoritesCount,
+                'favorited': isFavorited,
                 'sold': newProperty.sold
             })
             return property
@@ -181,11 +188,12 @@ class PropertyListing(db.Model):
     
     #Retrieve information for a single old property
     @classmethod
-    def viewSoldProperty(cls, propertyName:str):
+    def viewSoldProperty(cls, propertyName:str, username:str):
         oldProperty = cls.query.filter(and_(cls.property==propertyName, cls.sold==True)).first()
         cls.increaseViewCount(propertyName)
         if oldProperty:
             REAInfo = oldProperty.REA_account
+            isFavorited = Favorite.query.filter_by(property=propertyName, buyer=username).first() is not None
             property = jsonify({
                 'RealEstateAgent': oldProperty.REA,
                 'REAImage': REAInfo.profileImage,
@@ -200,7 +208,7 @@ class PropertyListing(db.Model):
                 'unitFeatures': oldProperty.property_obj.unitFeatures,
                 'facilities': oldProperty.property_obj.facilities,
                 'viewsCount': oldProperty.viewsCount,
-                # 'favoritesCount': oldProperty.favoritesCount,
+                'favorited': isFavorited,
                 'sold': oldProperty.sold
             })
             return property
@@ -224,18 +232,11 @@ class PropertyListing(db.Model):
     def increaseViewCount(cls, propertyName):
         property = cls.query.filter(cls.property==propertyName).first()
         if property:
-            property.viewsCount += 0.5
+            property.viewsCount += 1
             db.session.commit()
             return jsonify({"ViewCountIncrease": True})
         else:
             return jsonify({"ViewCountIncrease": False})
-    
-    #calculate mortgage
-    @classmethod
-    def calculateMortgage(cls, loanAmount, interestRate, loanTenure):
-        loanTenureMo = loanTenure * 12
-        monthlyPayment = (loanAmount * interestRate) / loanTenureMo
-        return jsonify({"mortgage": monthlyPayment})
 
     # ---- REAL ESTATE AGENT ----
     #create my property
@@ -281,7 +282,6 @@ class PropertyListing(db.Model):
                 'unitFeatures': REAListing.property_obj.unitFeatures,
                 'facilities': REAListing.property_obj.facilities,
                 'viewsCount': REAListing.viewsCount,
-                # 'favoritesCount': REAListing.favoritesCount,
                 'sold': REAListing.sold
             })
             return property

@@ -16,6 +16,8 @@ function SARetrieveUAListUI(props) {
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
+    console.log("refreshToken", localStorage.getItem('refreshToken'))
+
     useEffect(() => {
         document.title = 'SA User Account';
         axios.get('http://127.0.0.1:5000/SARetrieveUAList', {

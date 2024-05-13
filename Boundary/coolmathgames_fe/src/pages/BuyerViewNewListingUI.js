@@ -28,14 +28,13 @@ function BuyerViewNewListingUI(props) {
     const [facilities, setFacilities] = useState('');
     const [agentName, setAgentName] = useState('');
     const [agentImg, setAgentImage] = useState('');
-    
-    // State to keep track of favorites count
-    const [favoritesCount, setFavoritesCount] = useState('');
+    const [load, setLoad] = useState(true);
 
     // State to check if property is sold or no
     const [isSold, setIsSold] = useState('');
     // State to check if property is favourited or no
     const [isFavorited, setIsFavorited] = useState(false);
+    const [isClick, setIsClick] = useState(false);
     // State to pop up mortgage calculator
     const [mortgagePopUp, setMortgagePopUp] = useState(false);
 
@@ -50,41 +49,67 @@ function BuyerViewNewListingUI(props) {
 
     useEffect(() => {
         document.title = 'Buyer View New Property Listing';
-        axios.get(`http://127.0.0.1:5000/BuyerViewNewListing/${propertyName}`, {
-            headers: {
-                'Authorization': 'Bearer ' + props.token,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (response) {
-                setTitle(response.data.propertyName);
-                setLocation(response.data.location);
-                setPrice(response.data.price);
-                setBedrooms(response.data.noOfBedrooms);
-                setBathrooms(response.data.noOfBathrooms);
-                setSize(response.data.area);
-                setDescription(response.data.aboutProperty);
-                setUnitFeatures(response.data.unitFeatures);
-                setFacilities(response.data.facilities);
-                setIsSold(response.data.sold);
-                setAgentName(response.data.RealEstateAgent);
-                setAgentImage(response.data.REAImage);
-                setImage(response.data.propertyImage);
-            }
-        })
-        .catch((error) => {
-            console.error('Error fetching property listing:', error);
-        })
+        if (load) {
+            axios.post(`http://127.0.0.1:5000/BuyerViewNewListing/${propertyName}`, {
+                "username": localStorage.getItem("username")
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + props.token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response) {
+                    setLoad(false);
+                    setTitle(response.data.propertyName);
+                    setLocation(response.data.location);
+                    setPrice(response.data.price);
+                    setBedrooms(response.data.noOfBedrooms);
+                    setBathrooms(response.data.noOfBathrooms);
+                    setSize(response.data.area);
+                    setDescription(response.data.aboutProperty);
+                    setUnitFeatures(response.data.unitFeatures);
+                    setFacilities(response.data.facilities);
+                    setIsSold(response.data.sold);
+                    setAgentName(response.data.RealEstateAgent);
+                    setAgentImage(response.data.REAImage);
+                    setImage(response.data.propertyImage);
+                    setIsFavorited(response.data.favorited);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching property listing:', error);
+            })
+        }
     }, []);
 
     useEffect(() => {
-        // Increment or decrement favorites count based on isFavorited state
-        setFavoritesCount((prevCount) => (isFavorited ? prevCount + 1 : Math.max(prevCount - 1, 0)));
+        if (isClick) {
+            axios.post(`http://127.0.0.1:5000/BuyerPostNewFavorite/${propertyName}`, {
+                "username": localStorage.getItem("username")
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + props.token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response) {
+                    console.log("Added to favorite")
+                }
+                else {
+                    console.log("Unfavorited")
+                }
+            })
+            .catch((error) => {
+                console.error('Error adding to favorite:', error);
+            })
+        }
     }, [isFavorited]);
     
     const handleFavorite = () => {
         setIsFavorited(!isFavorited);
+        setIsClick(true);
     }
 
     function displayNewListingUI() {

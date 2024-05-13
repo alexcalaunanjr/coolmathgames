@@ -9,7 +9,7 @@ function SellerViewFavoritesUI({ propertyName, openModal, onClose, token }) {
   useEffect(() => {
     document.title = 'Seller view favorite count';
 
-    axios.get(`http://127.0.0.1:5000/SellerViewFavorites/${propertyName}`, {
+    axios.get(`http://127.0.0.1:5000/REAViewFavoriteCount/${propertyName}`, {
         headers: {
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
@@ -17,7 +17,7 @@ function SellerViewFavoritesUI({ propertyName, openModal, onClose, token }) {
     })
     .then((response) => {
         if (response) {
-            setFavorites(response.data.favoritesCount)
+            setFavorites(response.data.favorites)
         }
     })
     .catch((error) => {
@@ -45,7 +45,7 @@ function displaySellerViewFavorites() {
                   </div>
               </div>
               <div className='pt-10'>
-                  Total Favorites: undefined
+                  Total Favorites: {favorites}
               </div>
             </div>
           </Modal.Body>

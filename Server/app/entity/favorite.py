@@ -10,14 +10,6 @@ class Favorite(db.Model):
     property = db.Column(db.String(50), db.ForeignKey('Properties.propertyName'), nullable=False)
     buyer = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     property_obj = db.relationship("Properties", backref="favorite")
-
-    # Create new favorites
-    @classmethod
-    def createCreds(self, property, buyer):
-        favAdded = Favorite(property=property, buyer=buyer)
-        db.session.add(favAdded)
-        db.session.commit()
-        return True
     
     @classmethod
     def retrieveFavoriteList(cls, username):
