@@ -27,7 +27,7 @@ function SACreateUPUI(props) {
         setFormFilled(true);
 
         // Check if all fields are filled
-        if (!profileName) {
+        if (!profileName || !description) {
             displayErrorMessageUI();
             return;
         }
@@ -50,7 +50,7 @@ function SACreateUPUI(props) {
                 }
                 else {
                     displayErrorMessageUI();
-                    console.log(error, 'Profile not created!');
+                    console.log(error, 'User profile not created!');
                 }
             })
             .catch((error) => {
@@ -64,19 +64,18 @@ function SACreateUPUI(props) {
     };
     
     function displayNewUserProfileUI(){
-        setMessage('Profile created successfully!');
+        setMessage('User profile created successfully!');
         setError('');
     }
 
     function displayErrorMessageUI()
     {
-        if (!profileName) {
-            setMessage('');
+        if (!profileName || !description) {
             setError('Please enter all fields.');
         }
         else{
             setMessage('');
-            setError('User profile Creation Failed!');
+            setError('User profile already exists!');
         }
     }
 
@@ -89,7 +88,7 @@ function SACreateUPUI(props) {
                 </UserContextProvider>
                 <div className="flex-column">
                     <div className="w-full text-2xl font-bold p-10">
-                        <h1>User Account Details</h1>
+                        <h1>User Profile Details</h1>
                     </div>
                     <div className="lg:w-2/5 md:w-1/2 px-10 mb-10">
                         {/* New User Profile*/}

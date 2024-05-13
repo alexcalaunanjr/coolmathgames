@@ -77,19 +77,19 @@ function SACreateUAUI(props) {
             }
             })
             .then((response) => {
-                console.log('User Account created successfully:', response.data.accountCreated);
+                console.log('User account created successfully:', response.data.accountCreated);
                 if (response.data.accountCreated) {
                     displayNewUserAccountUI();
                 }
                 else {
                     setMessage('');
-                    setError('User Account not created!');
+                    setError('User account not created!');
                 }
             })
             .catch((error) => {
                 console.log(error, 'error');
                 setMessage('');
-                setError("User account already exists")
+                setError("User account already exists!")
             });
         } catch (error) {
             setError('An error occurred during account creation.');
@@ -104,7 +104,7 @@ function SACreateUAUI(props) {
     }, [formFilled]);
 
     function displayNewUserAccountUI(){
-        setMessage('User Account created successfully!');
+        setMessage('User account created successfully!');
         setError('');
     }
     
@@ -202,7 +202,7 @@ function SACreateUAUI(props) {
                     </div>
                     {/* Type */}
                     <div className="mb-8 w-2/3">
-                        Type
+                        User Profile
                         <CustomDropdown 
                             label="Select User Profile" 
                             options={options} 

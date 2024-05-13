@@ -104,7 +104,7 @@ function LoginUI(props) {
         }
         else{
             if (!selectedUserType){
-                setError('Please select user profile')
+                setError('Please select a user profile')
             }
             else{
                 if(!username || !password){
@@ -112,7 +112,7 @@ function LoginUI(props) {
                 }
                 else{
                     setError('An error occurred during login');
-                    alert("Invalid Credentials");
+                    alert("Invalid User Account");
                 }
             }
         }
