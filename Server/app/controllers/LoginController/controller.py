@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, create_refresh_token
 from app.entity.userProfiles import UserProfiles
 from app.entity.account import UserAccount
 import json
@@ -16,7 +16,8 @@ class LoginController(Blueprint):
         if username and password and profile:
             if UserAccount.verifyLoginInfo(profile, username, password) and UserAccount.checkSuspended(username):
                 access_token = create_access_token(identity=username)
-                return access_token
+                refresh_token = create_refresh_token(identity=username)
+                return access_token, refresh_token
 
     def retrieveProfileList(self):
             #take choices from the database

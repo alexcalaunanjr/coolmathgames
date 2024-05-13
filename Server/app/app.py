@@ -66,7 +66,6 @@ from .controllers.BuyerRetrieveREAListController.controller import BaseBuyerRetr
 from .controllers.BuyerSearchREAController.controller import BaseBuyerSearchREAController
 from .controllers.BuyerRetrieveFavoriteListController.controller import BaseBuyerRetrieveFavoriteListController
 from .controllers.BuyerViewFavoriteListingController.controller import BaseBuyerViewFavoriteListingController
-from .controllers.BuyerCalculateMortgageController.controller import BaseBuyerCalculateMortgageController
 
 
 #IMPORT
@@ -154,7 +153,6 @@ BuyerRetrieveREAListController = BaseBuyerRetrieveREAListController('buyerRetrie
 BuyerSearchREAController = BaseBuyerSearchREAController('buyerSearchREAController', __name__)
 BuyerRetrieveFavoriteListController = BaseBuyerRetrieveFavoriteListController('buyerRetrieveFavoriteListController', __name__)
 BuyerViewFavoriteListingController = BaseBuyerViewFavoriteListingController('buyerViewFavoriteListingController', __name__)
-BuyerCalculateMortgageController = BaseBuyerCalculateMortgageController('buyerCalculateMortgageController', __name__)
 
 
 #define routes and functions
@@ -222,7 +220,6 @@ BuyerRetrieveREAListController.route('/BuyerRetrieveREAList', methods=['GET'])(B
 BuyerSearchREAController.route('/BuyerSearchREA', methods=['POST'])(BuyerSearchREAController.query)
 BuyerRetrieveFavoriteListController.route('/BuyerRetrieveFavoriteList', methods=['GET'])(BuyerRetrieveFavoriteListController.getFavoriteList)
 BuyerViewFavoriteListingController.route('/BuyerViewFavoriteListing/<propertyName>', methods=['GET'])(BuyerViewFavoriteListingController.getFavoriteProperty)
-BuyerCalculateMortgageController.route('/BuyerCalculateMortgage', methods=['POST'])(BuyerCalculateMortgageController.getMortgage)
 
 
 #SA
@@ -288,7 +285,6 @@ app.register_blueprint(BuyerRetrieveREAListController)
 app.register_blueprint(BuyerSearchREAController)
 app.register_blueprint(BuyerRetrieveFavoriteListController)
 app.register_blueprint(BuyerViewFavoriteListingController)
-app.register_blueprint(BuyerCalculateMortgageController)
 
 
 from .Base64Converter import image_to_base64

@@ -28,6 +28,7 @@ function BuyerViewNewListingUI(props) {
     const [facilities, setFacilities] = useState('');
     const [agentName, setAgentName] = useState('');
     const [agentImg, setAgentImage] = useState('');
+    const [load, setLoad] = useState(true);
 
     // State to check if property is sold or no
     const [isSold, setIsSold] = useState('');
@@ -48,35 +49,38 @@ function BuyerViewNewListingUI(props) {
 
     useEffect(() => {
         document.title = 'Buyer View New Property Listing';
-        axios.post(`http://127.0.0.1:5000/BuyerViewNewListing/${propertyName}`, {
-            "username": localStorage.getItem("username")
-        }, {
-            headers: {
-                'Authorization': 'Bearer ' + props.token,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            if (response) {
-                setTitle(response.data.propertyName);
-                setLocation(response.data.location);
-                setPrice(response.data.price);
-                setBedrooms(response.data.noOfBedrooms);
-                setBathrooms(response.data.noOfBathrooms);
-                setSize(response.data.area);
-                setDescription(response.data.aboutProperty);
-                setUnitFeatures(response.data.unitFeatures);
-                setFacilities(response.data.facilities);
-                setIsSold(response.data.sold);
-                setAgentName(response.data.RealEstateAgent);
-                setAgentImage(response.data.REAImage);
-                setImage(response.data.propertyImage);
-                setIsFavorited(response.data.favorited);
-            }
-        })
-        .catch((error) => {
-            console.error('Error fetching property listing:', error);
-        })
+        if (load) {
+            axios.post(`http://127.0.0.1:5000/BuyerViewNewListing/${propertyName}`, {
+                "username": localStorage.getItem("username")
+            }, {
+                headers: {
+                    'Authorization': 'Bearer ' + props.token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response) {
+                    setLoad(false);
+                    setTitle(response.data.propertyName);
+                    setLocation(response.data.location);
+                    setPrice(response.data.price);
+                    setBedrooms(response.data.noOfBedrooms);
+                    setBathrooms(response.data.noOfBathrooms);
+                    setSize(response.data.area);
+                    setDescription(response.data.aboutProperty);
+                    setUnitFeatures(response.data.unitFeatures);
+                    setFacilities(response.data.facilities);
+                    setIsSold(response.data.sold);
+                    setAgentName(response.data.RealEstateAgent);
+                    setAgentImage(response.data.REAImage);
+                    setImage(response.data.propertyImage);
+                    setIsFavorited(response.data.favorited);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching property listing:', error);
+            })
+        }
     }, []);
 
     useEffect(() => {
