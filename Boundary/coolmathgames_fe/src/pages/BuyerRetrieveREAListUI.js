@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import BuyerHeader from '../components/BuyerHeader';
 import BuyerSearchREAUI from '../components/BuyerSearchREAUI';
+import Footer from '../components/Footer';
 
 
 function BuyerRetrieveREAListUI(props) {
@@ -102,6 +103,10 @@ function BuyerRetrieveREAListUI(props) {
                     </div>
                 </div>
             </div>
+
+            <div className='p-10'></div>
+
+            <Footer />
             </>
         )
     }

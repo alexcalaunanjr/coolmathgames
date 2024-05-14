@@ -74,7 +74,10 @@ function BuyerRetrieveFavoriteListUI(props) {
               </div>
             ))}
           </div>
-        </div>
+          
+          <div className='p-10'></div>
+
+         </div>
 
         <Footer />
       </>

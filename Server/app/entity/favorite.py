@@ -22,7 +22,7 @@ class Favorite(db.Model):
             .all()
 
         properties =   [{
-            'RealEstateAgent': listings.property_obj.listings[0].REA,
+            'RealEstateAgent': listings.property_obj.listings[0].REA_account.fullName,
             'REAImage': {fav.property: UserAccount.query.filter_by(username=listings.property_obj.listings[0].REA).first().profileImage for fav in favoriteProperties}.get(listings.property),
             'propertyName': listings.property,
             'propertyImage': listings.property_obj.propertyImage,
@@ -45,7 +45,7 @@ class Favorite(db.Model):
         favoriteProperty = cls.query.join(cls.property_obj).options(subqueryload(cls.property_obj)).filter(cls.property==propertyName).first()
         if favoriteProperty:
             property = ({
-                'RealEstateAgent': favoriteProperty.property_obj.listings[0].REA,
+                'RealEstateAgent': favoriteProperty.property_obj.listings[0].REA_account.fullName,
                 'REAImage': UserAccount.query.filter_by(username=favoriteProperty.property_obj.listings[0].REA).first().profileImage,
                 'propertyName': favoriteProperty.property,
                 'propertyImage': favoriteProperty.property_obj.propertyImage,
