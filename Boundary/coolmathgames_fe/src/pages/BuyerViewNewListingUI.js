@@ -62,6 +62,7 @@ function BuyerViewNewListingUI(props) {
             .then((response) => {
                 if (response) {
                     setLoad(false);
+                    console.log("test");
                     setTitle(response.data.propertyName);
                     setLocation(response.data.location);
                     setPrice(response.data.price);
