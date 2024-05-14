@@ -2,6 +2,7 @@ from .sqlAlchemy import db
 from flask import jsonify
 from flask_bcrypt import Bcrypt
 from sqlalchemy import and_
+from sqlalchemy.orm import relationship
 
 bcrypt = Bcrypt()
 

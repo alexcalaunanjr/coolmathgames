@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 // SA Pages
 import SACreateUAUI from './pages/SACreateUAUI'
 import SARetrieveUAListUI from './pages/SARetrieveUAListUI'
@@ -53,6 +53,7 @@ function App() {
         : (
           <>
             <Routes>
+                  <Route path="/" element={<Navigate to="/login" />}/>
                   <Route path='/login' element={<LoginPage token={token} setToken={setToken}/>}></Route>
               {userRole === 'System Admin' && (
                 <>

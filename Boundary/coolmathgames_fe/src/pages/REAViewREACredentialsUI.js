@@ -64,7 +64,7 @@ function REAViewREACredentialsUI(props) {
         .then(response => {
             setPToken(props.token)
             if (response) {
-                setPicture(response.data.cred.reaImage)
+                setPicture(response.data.cred.REAImage)
                 setFullName(response.data.cred.fullName)
                 setEmail(response.data.cred.email)
                 setPhoneNo(response.data.cred.phoneNo)

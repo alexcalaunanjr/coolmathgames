@@ -3,6 +3,8 @@ from flask import jsonify
 from sqlalchemy import and_
 from sqlalchemy import text
 from app.entity.properties import Properties
+from app.entity.account import UserAccount
+from sqlalchemy.orm import subqueryload
 
 class Favorite(db.Model):
     __tablename__ = 'Favorite'
@@ -13,9 +15,15 @@ class Favorite(db.Model):
     
     @classmethod
     def retrieveFavoriteList(cls, username):
-        favoriteProperties = cls.query.join(cls.property_obj).filter(cls.buyer == username).all()
+        favoriteProperties = cls.query\
+            .join(cls.property_obj)\
+            .options(subqueryload(cls.property_obj))\
+            .filter(cls.buyer == username)\
+            .all()
+
         properties =   [{
             'RealEstateAgent': listings.property_obj.listings[0].REA,
+            'REAImage': {fav.property: UserAccount.query.filter_by(username=listings.property_obj.listings[0].REA).first().profileImage for fav in favoriteProperties}.get(listings.property),
             'propertyName': listings.property,
             'propertyImage': listings.property_obj.propertyImage,
             'price': listings.property_obj.price,
@@ -34,10 +42,11 @@ class Favorite(db.Model):
     
     @classmethod
     def viewFavoriteProperty(cls, propertyName):
-        favoriteProperty = cls.query.join(cls.property_obj).filter(cls.property==propertyName).first()
+        favoriteProperty = cls.query.join(cls.property_obj).options(subqueryload(cls.property_obj)).filter(cls.property==propertyName).first()
         if favoriteProperty:
             property = ({
                 'RealEstateAgent': favoriteProperty.property_obj.listings[0].REA,
+                'REAImage': UserAccount.query.filter_by(username=favoriteProperty.property_obj.listings[0].REA).first().profileImage,
                 'propertyName': favoriteProperty.property,
                 'propertyImage': favoriteProperty.property_obj.propertyImage,
                 'price': favoriteProperty.property_obj.price,
@@ -50,6 +59,7 @@ class Favorite(db.Model):
                 'facilities': favoriteProperty.property_obj.facilities,
                 'viewsCount': favoriteProperty.property_obj.listings[0].viewsCount,
                 'favoritesCount': cls.query.filter_by(property=favoriteProperty.property).count(),
+                'favorited': True,
                 'sold': favoriteProperty.property_obj.listings[0].sold
             })
             return jsonify({"properties": property})
