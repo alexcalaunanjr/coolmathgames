@@ -118,7 +118,7 @@ function REAViewListingUI(props) {
                     }} 
                 >
                     <div className='relative'>
-                        <img  src={`data:image/jpeg;base64, ${image}`} alt="House" className='w-full h-56 sm:h-64 xl:h-96'/>
+                        <img  src={`data:image/jpeg;base64, ${image}`} alt="House" className='w-full h-56 sm:h-64 xl:h-[500px]'/>
                         {/* If property sold */}
                         {isSold && (
                             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-4xl font-bold">
