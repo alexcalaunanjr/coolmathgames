@@ -31,6 +31,8 @@ import REAUpdateREACredentialsUI from './pages/REAUpdateREACredentialsUI'
 import LoginPage from './pages/LoginUI'
 import logOut from './components/LogOutUI'
 import useToken from './components/useToken'
+import BuyerRetrieveFavoriteListUI from './pages/BuyerRetrieveFavoriteListUI'
+import BuyerViewFavoriteListingUI from './pages/BuyerViewFavoriteListingUI'
 
 
 function App() {
@@ -81,6 +83,8 @@ function App() {
                   <Route path='/BuyerViewSoldListingUI/:propertyName' element={<BuyerViewSoldListingUI token={token}/>}></Route>
                   <Route path='/BuyerViewREACredentialsUI/:agentName' element={<BuyerViewREACredentialsUI token={token}/>}></Route>
                   <Route path='/BuyerRetrieveREAListUI' element={<BuyerRetrieveREAListUI token={token}/>}></Route>
+                  <Route path='/BuyerRetrieveFavoriteListUI' element={<BuyerRetrieveFavoriteListUI token={token}/>}></Route>
+                  <Route path='/BuyerViewFavoriteListingUI/:propertyName' element={<BuyerViewFavoriteListingUI token={token}/>}></Route>
                 </>
               )}
               {userRole === 'Seller' && (
