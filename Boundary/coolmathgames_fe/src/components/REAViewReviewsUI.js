@@ -47,7 +47,7 @@ function REAViewREAReviewsUI({openModal, onClose, REAName, token, username}) {
                         {reviewList.map((review) => (
                             <>
                             <div className='flex'>
-                                <p className='font-semibold'>{review.reviewer}</p>
+                                <p className='font-semibold'>{review.reviewerName}</p>
                                 <p className='ms-5 text-gray-500 italic'>{review.date}</p>
                             </div>
                             <div className="p-0.5"></div>

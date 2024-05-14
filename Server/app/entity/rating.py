@@ -10,6 +10,7 @@ class Rating(db.Model):
     rater = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=date.today())
+    rating_obj = db.relationship("UserAccount",  backref="rate", foreign_keys=[rater])
 
     @classmethod #to post a rating (stars)
     def postRating(cls, raterUsername, reaUsername, rating):
@@ -36,6 +37,7 @@ class Rating(db.Model):
         ratingDict = [{'id': rate.id, 
                         'rea': rate.rea, 
                         'rater': rate.rater, 
+                        'raterName': rate.rating_obj.fullName,
                         'rating': rate.rating,
                         'date': rate.date.strftime('%a, %d %b %Y')
                         } for rate in ratingList]

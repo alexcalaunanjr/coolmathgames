@@ -54,7 +54,7 @@ function BuyerViewReviewsUI({openModal, onClose, REAName, token}) {
                         {reviewsList.map((reviews) => (
                             <>
                             <div className='flex'>
-                                <p className='font-semibold'>{reviews.reviewer}</p>
+                                <p className='font-semibold'>{reviews.reviewerName}</p>
                                 <p className='ms-5 text-gray-500 italic'>{reviews.date}</p>
                             </div>
                             <div className="p-0.5"></div>
