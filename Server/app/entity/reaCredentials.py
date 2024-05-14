@@ -41,7 +41,7 @@ class REACredentials(db.Model):
                 'about' : rea.about,
                 'award' : rea.award,
 
-                'reaImage' : rea.account_obj.profileImage,
+                'REAImage' : rea.account_obj.profileImage,
                 'fullName': rea.account_obj.fullName,
                 'email': rea.account_obj.email,
                 'phoneNo': rea.account_obj.phoneNo,
@@ -55,7 +55,7 @@ class REACredentials(db.Model):
         credentials = cls.query.filter_by(username=accUsername).first()
         if not credentials:
             # Create account fields
-            cls.createCreds(accUsername, updatedData['reaImage'], updatedData['experience'], updatedData['license'], updatedData['language'], updatedData['service'], updatedData['about'], updatedData['award'])
+            cls.createCreds(accUsername, updatedData['REAImage'], updatedData['experience'], updatedData['license'], updatedData['language'], updatedData['service'], updatedData['about'], updatedData['award'])
             return jsonify({'reaCredentialsUpdated': True})
         
         # Update account fields
@@ -72,8 +72,8 @@ class REACredentials(db.Model):
         if 'award' in updatedData:
             credentials.award = updatedData['award']
 
-        if 'reaImage' in updatedData:
-            credentials.account_obj.profileImage = updatedData['reaImage']
+        if 'REAImage' in updatedData:
+            credentials.account_obj.profileImage = updatedData['REAImage']
         if 'fullName' in updatedData:
             credentials.account_obj.fullName = updatedData['fullName']
         if 'email' in updatedData:

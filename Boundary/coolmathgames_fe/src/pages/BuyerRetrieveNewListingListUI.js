@@ -10,14 +10,6 @@ import CardProperty from "../components/CardProperty";
 import UserSearchBar from "../components/BuyerSearchNewListingUI";
 import axios from 'axios';
 
-// assets
-// background image
-import BG from "../assets/bg1-30.jpg";
-// property images
-import Prop1 from "../assets/prop1.jpg";
-import Prop2 from "../assets/prop2.jpg";
-import Prop3 from "../assets/prop3.jpg";
-import Prop4 from "../assets/prop4.jpg";
 // agent images
 import Agent1 from "../assets/agent1.jpg";
 import Agent2 from "../assets/agent2.jpg";
@@ -29,28 +21,6 @@ import house3 from '../assets/house3.jpg';
 import house4 from '../assets/house4.jpg';
 import house5 from '../assets/house5.jpg';
 import house6 from '../assets/house6.jpg';
-
-
-const agent1 = {
-    id: 1,
-    name: "Peter McProperties",
-    email: "",
-    pfp: Agent1,
-};
-
-const agent2 = {
-    id: 2,
-    name: "Hedge Dea Bee",
-    email: "",
-    pfp: Agent2,
-};
-
-const agent3 = {
-    id: 3,
-    name: "Nuñez",
-    email: "",
-    pfp: Agent3,
-};
 
 function BuyerRetrieveNewListingListUI(props) {
     const [newProperties, setNewProperties] = useState([]);

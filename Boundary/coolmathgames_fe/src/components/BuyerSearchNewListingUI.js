@@ -18,8 +18,11 @@ function BuyerSearchNewListingUI({ id, placeholder, onSubmit, setNewProperties, 
                 setNewProperties([])
             }
             else {
-                const properties = response.data.properties;
-                setNewProperties(properties)
+                const updatedProperties = response.data.properties.map(property => ({
+                    ...property,
+                    propertyLink: `/BuyerViewNewListingUI/${property.propertyName}`
+                }));
+                setNewProperties(updatedProperties);
             }
         })
         .catch(error => {

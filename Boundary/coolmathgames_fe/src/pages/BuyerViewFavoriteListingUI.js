@@ -50,7 +50,7 @@ function BuyerViewFavoriteListingUI(props) {
     useEffect(() => {
         document.title = 'Buyer View Favorite Listing';
         if (load) {
-            axios.post(`http://127.0.0.1:5000/BuyerViewFavoriteListing/Lion Towers`, {
+            axios.post(`http://127.0.0.1:5000/BuyerViewFavoriteListing/${propertyName}`, {
                 "username": localStorage.getItem("username")
             }, {
                 headers: {
@@ -126,8 +126,8 @@ function BuyerViewFavoriteListingUI(props) {
                     }} 
                 >
                     {/* Property Image */}
-                    <div className='realtive'>
-                        <img src={`data:image/jpeg;base64, ${image}`} alt="House" className='w-full h-56 sm:h-64 xl:h-[500px]'/>
+                    <div className='relative'>
+                        <img src={`data:image/jpeg;base64, ${image}`} alt="House" className='w-full h-56 sm:h-64 xl:h-96'/>
                         {/* If property sold */}
                         {isSold && (
                             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-4xl font-bold">

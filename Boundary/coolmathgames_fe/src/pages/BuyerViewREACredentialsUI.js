@@ -59,7 +59,7 @@ function BuyerViewREACredentialsUI(props, {openModal, onClose}) {
         })
         .then(response => {
             if (response) {
-                setPicture(response.data.reaImage)
+                setPicture(response.data.REAImage)
                 setFullName(response.data.fullName)
                 setEmail(response.data.email)
                 setPhoneNo(response.data.phoneNo)

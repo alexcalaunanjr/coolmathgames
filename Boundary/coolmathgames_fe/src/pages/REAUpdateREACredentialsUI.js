@@ -47,7 +47,7 @@ function REAUpdateREACredentialsUI(props) {
         }})
             .then(response => {
                 if (response) {
-                    setImage(response.data.reaImage)
+                    setImage(response.data.REAImage)
                     setFullName(response.data.fullName)
                     setEmail(response.data.email)
                     setPhoneNo(response.data.phoneNo)
@@ -94,7 +94,7 @@ function REAUpdateREACredentialsUI(props) {
         try {
             axios.post(`http://127.0.0.1:5000/REAUpdateREACredential/${username}`, {
                 "fullName": fullName,
-                'reaImage': image,
+                'REAImage': image,
                 "email": email,
                 "phoneNo": phoneNo,
                 "experience": experience,
