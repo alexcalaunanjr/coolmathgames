@@ -15,7 +15,7 @@ function SACreateUPUI(props) {
     const [formFilled, setFormFilled] = useState(false);
 
     useEffect(() => {
-        document.title = 'SA Create Profile Page';
+        document.title = 'SA Create User Profile';
         if (formFilled) {
             // Reset formFilled after validation
             setFormFilled(false);

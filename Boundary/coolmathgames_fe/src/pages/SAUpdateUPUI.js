@@ -18,7 +18,7 @@ function SAUpdateUPUI(props) {
     const profileName = localStorage.getItem('clickedProfile') // query database using profile name
 
     useEffect(() => {
-        document.title = 'SA Update UP';
+        document.title = 'SA Update User Profile';
         if (formFilled) {
             setFormFilled(false);
         };
@@ -71,12 +71,12 @@ function SAUpdateUPUI(props) {
             .then((response) => {
                 console.log('User profile updated successfully:', response.data.updatedProfile);
                 if (response.data.updatedProfile) {
-                    setMessage('Account updated successfully!');
+                    setMessage('User profile updated successfully!');
                     setError('');
                 }
                 else {
                     setMessage('');
-                    setError('Account not updated!');
+                    setError('User profile not updated!');
                 }
             })
             .catch((error) => {
@@ -98,7 +98,7 @@ function SAUpdateUPUI(props) {
                 </UserContextProvider>
                 <div className="flex-column">
                     <div className="w-full text-2xl font-bold p-10">
-                        <h1>User Account Details</h1>
+                        <h1>User Profile Details</h1>
                     </div>
                     <div className="lg:w-2/5 md:w-1/2 px-10 mb-10">
                         <div className="mb-10">

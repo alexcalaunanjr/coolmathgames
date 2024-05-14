@@ -18,7 +18,7 @@ function SARetrieveUPListUI(props) {
     const [Ptoken, setPToken] = useState('');
 
     useEffect(() => {
-        document.title = 'SA Retrieve User Profile List';
+        document.title = 'SA Retrieve User Profile';
         axios.get('http://127.0.0.1:5000/SARetrieveUPList', {
             headers: {
                 Authorization: 'Bearer ' + props.token,
@@ -72,7 +72,7 @@ function SARetrieveUPListUI(props) {
                         <div className="w-1/4 mx-auto">
                         </div>
                         <div className="w-1/4 mx-auto">
-                            <SASearchUPUI placeholder="Search by profile" onSubmit={handleSearch} setProfiles={setProfiles} token={props.token}/>
+                            <SASearchUPUI placeholder="Search by name" onSubmit={handleSearch} setProfiles={setProfiles} token={props.token}/>
                         </div>
                         <Link to="/SACreateUPUI">
                             <div className="lg:w-full  md:w-40 w-20 mx-auto">

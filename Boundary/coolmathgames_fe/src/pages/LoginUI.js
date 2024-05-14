@@ -16,7 +16,7 @@ function LoginUI(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.title = 'Login Page';
+        document.title = 'Login';
         axios.get('http://127.0.0.1:5000/login')
             .then(response => {
                 const activeProfiles = response.data.filter(item => item.status === 'active');
