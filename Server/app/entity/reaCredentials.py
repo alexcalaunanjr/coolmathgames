@@ -7,12 +7,12 @@ class REACredentials(db.Model):
     __tablename__ = "REACredentials"
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), db.ForeignKey('UserAccounts.username'), nullable=False, unique=True)
-    experience = db.Column(db.String(20))
-    license = db.Column(db.String(20))
-    language = db.Column(db.String(50))
-    service = db.Column(db.String(200))
-    about = db.Column(db.String(200))
-    award = db.Column(db.String(200))
+    experience = db.Column(db.Text)
+    license = db.Column(db.Text)
+    language = db.Column(db.Text)
+    service = db.Column(db.Text)
+    about = db.Column(db.Text)
+    award = db.Column(db.Text)
     account_obj = db.relationship("UserAccount",  backref="reaCredentials")
                         
     # Create new rea credentials

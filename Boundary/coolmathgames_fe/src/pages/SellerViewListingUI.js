@@ -30,6 +30,7 @@ function SellerViewPropertyListingUI(props) {
     const [count, setCount] = useState(0);
     const [agentName, setAgentName] = useState('');
     const [agentImg, setAgentImage] = useState('');
+    const [agentUN, setAgentUsername] = useState('');
     const Ptoken = props.token
 
     // Check if property is sold
@@ -60,6 +61,7 @@ function SellerViewPropertyListingUI(props) {
                 setFacilities(response.data.facilities);
                 setIsSold(response.data.sold);
                 setAgentName(response.data.RealEstateAgent);
+                setAgentUsername(response.data.AgentUsername);
                 setAgentImage(response.data.REAImage);
                 setImage(response.data.propertyImage);
                 setIsSold(response.data.sold);
@@ -220,7 +222,7 @@ function SellerViewPropertyListingUI(props) {
                                 />}
                             </div>
                             {/* Contact Agent */}
-                            <Link to={`/SellerViewREACredentialsUI/${agentName}`}>
+                            <Link to={`/SellerViewREACredentialsUI/${agentUN}`}>
                                 <div className='flex justify-end pt-10'>
                                     <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white md:w-1/2'>
                                         <img src={`data:image/jpeg;base64, ${agentImg}`} alt="Agent" className='w-10 h-10 rounded-full'/>

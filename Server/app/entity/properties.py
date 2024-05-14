@@ -7,12 +7,12 @@ class Properties(db.Model):
     propertyImage = db.Column(db.Text, nullable=False)
     price = db.Column(db.Integer, nullable=False)
     location = db.Column(db.String(20), nullable=False)
-    aboutProperty = db.Column(db.String(300), nullable=False)
+    aboutProperty = db.Column(db.Text, nullable=False)
     noOfBedrooms = db.Column(db.Integer, nullable=False)
     noOfBathrooms = db.Column(db.Integer, nullable=False)
     area = db.Column(db.Integer, nullable=False)
-    unitFeatures = db.Column(db.String(300), nullable=False)
-    facilities = db.Column(db.String(300), nullable=False)
+    unitFeatures = db.Column(db.Text, nullable=False)
+    facilities = db.Column(db.Text, nullable=False)
 
     #create property
     @classmethod
