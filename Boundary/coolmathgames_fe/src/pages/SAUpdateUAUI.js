@@ -38,7 +38,7 @@ function SAUpdateUAUI(props) {
     }
 
     useEffect(() => {
-        document.title = 'SA Update Account Page';
+        document.title = 'SA Update User Account';
         axios.get(`http://127.0.0.1:5000/SAUpdateUA/${user}`, {
                 headers: {
                 'Authorization': 'Bearer ' + props.token,
@@ -116,10 +116,10 @@ function SAUpdateUAUI(props) {
                 console.log(response)
                 if (response.data.accountUpdated) {
                     setError('');
-                    setMessage('Account updated successfully!');
+                    setMessage('User account updated successfully!');
                 }
                 else {
-                    setError('Account not updated!');
+                    setError('User account not updated!');
                     setMessage('');
                 }
             })
@@ -129,7 +129,7 @@ function SAUpdateUAUI(props) {
                 setError("User account already exists")
             });
         } catch (error) {
-            setError('An error occurred during account update.');
+            setError('An error occurred during user account update.');
         }
     };
 

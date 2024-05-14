@@ -32,7 +32,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
     };
 
     useEffect(() => {
-        document.title = 'SA View Account Page';
+        document.title = 'SA View User Account';
         const user = localStorage.getItem('clickedUser')
         axios.get(`http://127.0.0.1:5000/SAViewUA/${user}`, {
             headers: {
@@ -178,7 +178,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
                     <SASuspendUAUI
                         openModal={SASuspendUAUI}
                         onClose={handleReopenPopUp}
-                        text="Are you sure to suspend this account?"
+                        text="Are you sure to suspend this user account?"
                         token={Ptoken}
                     />
                 )}

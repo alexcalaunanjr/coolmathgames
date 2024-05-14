@@ -19,7 +19,7 @@ function SARetrieveUAListUI(props) {
     console.log("refreshToken", localStorage.getItem('refreshToken'))
 
     useEffect(() => {
-        document.title = 'SA User Account';
+        document.title = 'SA Retrieve User Account';
         axios.get('http://127.0.0.1:5000/SARetrieveUAList', {
             headers: {
                 Authorization: 'Bearer ' + props.token,
@@ -78,7 +78,7 @@ function SARetrieveUAListUI(props) {
                 <div className = "w-full flex">
                     {/* Top Heading */}
                     <div className="flex w-full p-10">
-                        <div className="mt-3 w-1/4 text-2xl font-bold">
+                        <div className="mt-3 text-2xl font-bold">
                             User Account List ({rows.length})
                         </div>
                         <div className="w-1/4 mx-auto">
