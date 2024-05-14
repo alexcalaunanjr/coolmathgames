@@ -74,7 +74,7 @@ function REAViewREARatingsUI({openModal, onClose, REAName, token, username}) {
               {ratingsList.map((ratings) => (
                 <>
                 <div className="flex">
-                  <p className="font-semibold">{ratings.rater}</p>
+                  <p className="font-semibold">{ratings.raterName}</p>
                   <p className="ms-5 text-gray-500 italic">{ratings.date}</p>
                 </div>
                 <div className="p-0.5"></div>

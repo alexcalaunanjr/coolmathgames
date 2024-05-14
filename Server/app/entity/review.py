@@ -10,6 +10,7 @@ class Review(db.Model):
     reviewer = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     review = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=date.today())
+    reviewer_obj = db.relationship("UserAccount",  backref="review", foreign_keys=[reviewer])
     
     @classmethod #to post a review
     def postReview(cls, reviewerUsername, reaUsername, review):
@@ -37,6 +38,7 @@ class Review(db.Model):
         reviewListDict = [{'id': review.id, 
                         'rea': review.rea, 
                         'reviewer': review.reviewer, 
+                        'reviewerName': review.reviewer_obj.fullName,
                         'review': review.review,
                         'date': review.date.strftime('%a, %d %b %Y')
                         } for review in reviewList]
