@@ -22,7 +22,8 @@ class PropertyListing(db.Model):
         for listing in newProperties:
             REAInfo = listing.REA_account
             propertyDict = {
-                'RealEstateAgent': listing.REA,
+                'RealEstateAgent': listing.REA_account.fullName,
+                'AgentUsername': listing.REA,
                 'REAImage': REAInfo.profileImage,
                 'propertyName': listing.property,
                 'propertyImage': listing.property_obj.propertyImage,
@@ -51,7 +52,8 @@ class PropertyListing(db.Model):
         for listing in soldProperties:
             REAInfo = listing.REA_account
             propertyDict = {
-                'RealEstateAgent': listing.REA,
+                'RealEstateAgent': listing.REA_account.fullName,
+                'AgentUsername': listing.REA,
                 'REAImage': REAInfo.profileImage,
                 'propertyName': listing.property,
                 'propertyImage': listing.property_obj.propertyImage,
@@ -81,7 +83,8 @@ class PropertyListing(db.Model):
         for listing in sellerPropertiesList:
             REAInfo = listing.REA_account
             sellerPropertyDict = {
-                'RealEstateAgent': listing.REA,
+                'RealEstateAgent': listing.REA_account.fullName,
+                'AgentUsername': listing.REA,
                 'REAImage': REAInfo.profileImage,
                 'propertyName': listing.property,
                 'propertyImage': listing.property_obj.propertyImage,
@@ -107,7 +110,8 @@ class PropertyListing(db.Model):
         for listing in propertyListings:
             REAInfo = listing.REA_account
             propertyListingsDict = {
-                'RealEstateAgent': listing.REA,
+                'RealEstateAgent': listing.REA_account.fullName,
+                'AgentUsername': listing.REA,
                 'REAImage': REAInfo.profileImage,
                 'propertyName': listing.property,
                 'propertyImage': listing.property_obj.propertyImage,
@@ -136,7 +140,8 @@ class PropertyListing(db.Model):
         for listing in propertyListings:
             REAInfo = listing.REA_account
             propertyListingsDict = {
-                'RealEstateAgent': listing.REA,
+                'RealEstateAgent': listing.REA_account.fullName,
+                'AgentUsername': listing.REA,
                 'REAImage': REAInfo.profileImage,
                 'propertyName': listing.property,
                 'propertyImage': listing.property_obj.propertyImage,
@@ -166,7 +171,8 @@ class PropertyListing(db.Model):
             REAInfo = newProperty.REA_account
             isFavorited = Favorite.query.filter_by(property=propertyName, buyer=username).first() is not None
             property = jsonify({
-                'RealEstateAgent': newProperty.REA,
+                'RealEstateAgent': newProperty.REA_account.fullName,
+                'AgentUsername': newProperty.REA,
                 'REAImage': REAInfo.profileImage,
                 'propertyName': newProperty.property,
                 'propertyImage': newProperty.property_obj.propertyImage,
@@ -195,7 +201,8 @@ class PropertyListing(db.Model):
             REAInfo = oldProperty.REA_account
             isFavorited = Favorite.query.filter_by(property=propertyName, buyer=username).first() is not None
             property = jsonify({
-                'RealEstateAgent': oldProperty.REA,
+                'RealEstateAgent': oldProperty.REA_account.fullName,
+                'AgentUsername': oldProperty.REA,
                 'REAImage': REAInfo.profileImage,
                 'propertyName': oldProperty.property,
                 'propertyImage': oldProperty.property_obj.propertyImage,
@@ -251,7 +258,8 @@ class PropertyListing(db.Model):
     def retrieveREAListingList(cls, username):
         REAListingList = cls.query.filter_by(REA=username).all()
         REAListingListDict = [{
-            'RealEstateAgent': listings.REA,
+            'RealEstateAgent': listings.REA_account.fullName,
+            'AgentUsername': listings.REA,
             'REAImage': listings.REA_account.profileImage,
             'propertyImage' : listings.property_obj.propertyImage,
             'propertyName': listings.property,
@@ -269,7 +277,8 @@ class PropertyListing(db.Model):
         REAListing = cls.query.filter_by(property=propertyName).first()
         if REAListing:
             property = jsonify({
-                'RealEstateAgent': REAListing.REA,
+                'RealEstateAgent': REAListing.REA_account.fullName,
+                'AgentUsername': REAListing.REA,
                 'REAImage': REAListing.REA_account.profileImage,
                 'propertyName': REAListing.property,
                 'propertyImage': REAListing.property_obj.propertyImage,
@@ -335,7 +344,8 @@ class PropertyListing(db.Model):
     def searchListings(cls, query, username):
         propertyListings = cls.query.filter(and_(cls.property.like(f"%{query}%"), cls.REA==username)).all()
         propertyListingsDict = [{
-            'RealEstateAgent': listings.REA,
+            'RealEstateAgent': listings.REA_account.fullName,
+            'AgentUsername': listings.REA,
             'REAImage': listings.REA_account.profileImage,
             'propertyName': listings.property,
             'propertyImage': listings.property_obj.propertyImage,

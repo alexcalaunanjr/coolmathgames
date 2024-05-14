@@ -28,6 +28,7 @@ function BuyerViewNewListingUI(props) {
     const [facilities, setFacilities] = useState('');
     const [agentName, setAgentName] = useState('');
     const [agentImg, setAgentImage] = useState('');
+    const [agentUN, setAgentUsername] = useState('');
     const [load, setLoad] = useState(true);
 
     // State to check if property is sold or no
@@ -72,6 +73,7 @@ function BuyerViewNewListingUI(props) {
                     setFacilities(response.data.facilities);
                     setIsSold(response.data.sold);
                     setAgentName(response.data.RealEstateAgent);
+                    setAgentUsername(response.data.AgentUsername);
                     setAgentImage(response.data.REAImage);
                     setImage(response.data.propertyImage);
                     setIsFavorited(response.data.favorited);
@@ -257,7 +259,7 @@ function BuyerViewNewListingUI(props) {
                                 </div>
                             </div>
                             {/* Contact Agent */}
-                            <Link to={`/BuyerViewREACredentialsUI/${agentName}`}>
+                            <Link to={`/BuyerViewREACredentialsUI/${agentUN}`}>
                                 <div className='flex justify-end pt-10'>
                                     <button className='flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white md:w-1/2'>
                                         {/* Contact Agent */}
