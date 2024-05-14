@@ -218,8 +218,8 @@ BuyerAddNewListingToFavoritesController.route('/BuyerPostNewFavorite/<propertyNa
 BuyerAddSoldListingToFavoritesController.route('/BuyerPostSoldFavorite/<propertyName>', methods=['POST'])(BuyerAddSoldListingToFavoritesController.postFavoriteListing)
 BuyerRetrieveREAListController.route('/BuyerRetrieveREAList', methods=['GET'])(BuyerRetrieveREAListController.getREAList)
 BuyerSearchREAController.route('/BuyerSearchREA', methods=['POST'])(BuyerSearchREAController.query)
-BuyerRetrieveFavoriteListController.route('/BuyerRetrieveFavoriteList', methods=['GET'])(BuyerRetrieveFavoriteListController.getFavoriteList)
-BuyerViewFavoriteListingController.route('/BuyerViewFavoriteListing/<propertyName>', methods=['GET'])(BuyerViewFavoriteListingController.getFavoriteProperty)
+BuyerRetrieveFavoriteListController.route('/BuyerRetrieveFavoriteList', methods=['POST'])(BuyerRetrieveFavoriteListController.getFavoriteList)
+BuyerViewFavoriteListingController.route('/BuyerViewFavoriteListing/<propertyName>', methods=['POST'])(BuyerViewFavoriteListingController.getFavoriteProperty)
 
 
 #SA
