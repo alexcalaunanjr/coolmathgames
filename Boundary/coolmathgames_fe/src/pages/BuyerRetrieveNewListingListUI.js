@@ -18,6 +18,9 @@ import house4 from '../assets/house4.jpg';
 import house5 from '../assets/house5.jpg';
 import house6 from '../assets/house6.jpg';
 
+import BG from "../assets/bg1-30.jpg";
+
+
 function BuyerRetrieveNewListingListUI(props) {
     const [newProperties, setNewProperties] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -81,64 +84,67 @@ function BuyerRetrieveNewListingListUI(props) {
                 <img src={house6} />
             </Carousel>
             </div>
-            <div className='p-10'></div>
 
-            <div className="w-1/2 mx-auto pb-10">
-                    <UserSearchBar placeholder="Search by name..." onSubmit={handleSearch} setNewProperties={setNewProperties} token={props.token}/>
-            </div>
+            <div className="bg-cover bg-center min-h-screen" style={{ backgroundImage: `url(${BG})` }}>
+                <div className='p-10'></div>
 
-            {/* popular property */}
-            <div className='flex px-20 justify-between'>
-                <div>
-                    <h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">New Properties</h1>
-                    <p class="mb-6 text-lg font-medium italic text-gray-500 lg:text-[12pt] dark:text-gray-400">
-                        New Picks: Explore Our Newest Properties!
-                    </p>
+                <div className="w-1/2 mx-auto pb-10">
+                        <UserSearchBar placeholder="Search by name..." onSubmit={handleSearch} setNewProperties={setNewProperties} token={props.token}/>
                 </div>
-            </div>
 
-            {/* Cards of properties */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
-                {currentProperties.map(property => (
-                    <CardProperty property={property}/>
-                ))}
-            </div>
+                {/* popular property */}
+                <div className='flex px-20 justify-between'>
+                    <div>
+                        <h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-[28pt]">New Properties</h1>
+                        <p class="mb-6 text-lg font-medium italic text-gray-500 lg:text-[12pt] dark:text-gray-400">
+                            New Picks: Explore Our Newest Properties!
+                        </p>
+                    </div>
+                </div>
 
-           {/* Pagination */}
-           <nav className="flex justify-center py-6">
-                <ul className="inline-flex -space-x-px text-sm">
-                    <li>
-                        <button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >
-                            Previous
-                        </button>
-                    </li>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <li key={index}>
+                {/* Cards of properties */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-4 items-center px-20 justify-between">
+                    {currentProperties.map(property => (
+                        <CardProperty property={property}/>
+                    ))}
+                </div>
+
+            {/* Pagination */}
+            <nav className="flex justify-center py-6">
+                    <ul className="inline-flex -space-x-px text-sm">
+                        <li>
                             <button
-                                onClick={() => handlePageChange(index + 1)}
-                                className={`px-3 py-2 leading-tight ${currentPage === index + 1 ? 'text-blue-600 bg-blue-50 border-blue-300' : 'text-gray-500 bg-white border-gray-300'} hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                             >
-                                {index + 1}
+                                Previous
                             </button>
                         </li>
-                    ))}
-                    <li>
-                        <button
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                            className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >
-                            Next
-                        </button>
-                    </li>
-                </ul>
-            </nav>
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <li key={index}>
+                                <button
+                                    onClick={() => handlePageChange(index + 1)}
+                                    className={`px-3 py-2 leading-tight ${currentPage === index + 1 ? 'text-blue-600 bg-blue-50 border-blue-300' : 'text-gray-500 bg-white border-gray-300'} hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                                >
+                                    {index + 1}
+                                </button>
+                            </li>
+                        ))}
+                        <li>
+                            <button
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                                className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            >
+                                Next
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
 
-            <div className='p-10'></div>
+                <div className='p-10'></div>
+            </div>
 
             <Footer />
             </>

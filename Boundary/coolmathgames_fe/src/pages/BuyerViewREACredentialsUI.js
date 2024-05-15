@@ -138,7 +138,7 @@ function BuyerViewREACredentialsUI(props, {openModal, onClose}) {
         
                                 {/* additional information */}
                                 <div className='flex justify-center lg:justify-start md:col-span-12 lg:col-span-3 break-words'>
-                                    <div className='w-56'>
+                                    <div className='w-96'>
                                         <p><b>Experience:</b> {experience} years</p>
                                         <div className='p-0.5'></div>
                                         <p><b>License:</b> {license}</p>
