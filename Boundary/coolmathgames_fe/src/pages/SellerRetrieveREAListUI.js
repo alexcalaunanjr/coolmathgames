@@ -51,7 +51,7 @@ function SellerRetrieveREAListUI(props) {
     };
 
 
-    function displayREAList() {
+    function displaySellerRetrieveREAListUI() {
         return (
             <>
             {/* seller header component */}
@@ -106,7 +106,7 @@ function SellerRetrieveREAListUI(props) {
     }
 
     return(
-        displayREAList()
+        displaySellerRetrieveREAListUI()
     );
 }
 

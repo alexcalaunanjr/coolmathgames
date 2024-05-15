@@ -3,7 +3,7 @@ import { Button, Modal } from "flowbite-react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-function SellerViewFavoritesUI({ propertyName, openModal, onClose, token }) {
+function SellerViewFavoriteCountUI({ propertyName, openModal, onClose, token }) {
   const [favorites, setFavorites] = useState('');
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function SellerViewFavoritesUI({ propertyName, openModal, onClose, token }) {
     })
 }, []);
 
-function displaySellerViewFavorites() {
+function displaySellerViewFavoriteCountUI() {
     return (
       <>
         <Modal show={openModal} size="md" onClose={onClose} popup>
@@ -55,10 +55,7 @@ function displaySellerViewFavorites() {
   }
 
   return (
-    <>
-      {displaySellerViewFavorites()}
-    
-    </>
+    displaySellerViewFavoriteCountUI()
   );
 } 
-export default SellerViewFavoritesUI;
+export default SellerViewFavoriteCountUI;

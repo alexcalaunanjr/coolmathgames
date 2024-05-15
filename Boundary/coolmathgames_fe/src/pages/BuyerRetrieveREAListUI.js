@@ -53,7 +53,7 @@ function BuyerRetrieveREAListUI(props) {
     };
 
 
-    function displayREAList() {
+    function displayBuyerRetrieveREAUI() {
         return (
             <>
             {/* Buyer header component */}
@@ -112,7 +112,7 @@ function BuyerRetrieveREAListUI(props) {
     }
 
     return(
-        displayREAList()
+        displayBuyerRetrieveREAUI()
     );
 }
 
