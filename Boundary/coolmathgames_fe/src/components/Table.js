@@ -5,12 +5,12 @@ function CustomTable({ headers, rows, onCellClick, statusColor}) {
   return (
     <div className="w-full overflow-x-auto">
       <Table hoverable>
-        <Table.Head>
+        <Table.Head className='hover:cursor-default'>
           {headers.map((header, index) => (
             <Table.HeadCell key={index} className="bg-gray-300">{header}</Table.HeadCell>
           ))}
         </Table.Head>
-        <Table.Body className="divide-y">
+        <Table.Body className="divide-y hover:cursor-pointer">
           {rows.map((row , rowIndex) => (
             <Table.Row key={rowIndex} className="bg-white dark:border-gray-700 dark:bg-gray-800">
               {row.map((cell, cellIndex) => (

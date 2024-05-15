@@ -29,7 +29,7 @@ export default function CardProperty({ property }) {
                 />
                 {
                     property.sold && (
-                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-4xl font-bold">
+                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-3xl font-bold">
                             Sold
                         </div>
                     )

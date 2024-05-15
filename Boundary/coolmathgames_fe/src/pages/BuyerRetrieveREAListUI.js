@@ -26,7 +26,9 @@ function BuyerRetrieveREAListUI(props) {
             const READict = response.data.READict;
             const READata = READict.map(account => ({
                 fullName: account.fullName,
-                username: account.username
+                username: account.username,
+                email: account.email,
+                phoneNo: account.phoneNo
             }))
             setREAList(READata)
         })
@@ -36,8 +38,8 @@ function BuyerRetrieveREAListUI(props) {
 
     }, []);
 
-    const header = ['Full Name', 'Username'];
-    const rows = REAList.map(eachREA => [eachREA.fullName, eachREA.username]);
+    const header = ['Full Name', 'Username', 'Email', 'Phone Number'];
+    const rows = REAList.map(eachREA => [eachREA.fullName, eachREA.username, eachREA.email, eachREA.phoneNo]);
 
     const handleCellClick = (row, col) => {
         // go to clicked REA credentials
@@ -79,12 +81,12 @@ function BuyerRetrieveREAListUI(props) {
                     {/* Table */}
                     <div className="overflow-x-auto px-10 pb-10">
                         <Table hoverable>
-                            <Table.Head>
+                            <Table.Head className='hover:cursor-default'>
                                 {header.map((head, index) => (
                                     <Table.HeadCell key={index} className="bg-gray-300">{head}</Table.HeadCell>
                                 ))}
                             </Table.Head>
-                            <Table.Body className="divide-y">
+                            <Table.Body className="divide-y hover:cursor-pointer">
                                 {rows.map((row, rowIndex) => (
                                     <Table.Row key={rowIndex} className="bg-white">
                                     {row.map((cell, cellIndex) => (

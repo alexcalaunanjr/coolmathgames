@@ -24,7 +24,9 @@ function SellerRetrieveREAListUI(props) {
             const READict = response.data.READict;
             const READata = READict.map(account => ({
                 fullName: account.fullName,
-                username: account.username
+                username: account.username,
+                email: account.email,
+                phoneNo: account.phoneNo
             }))
             setREAList(READata)
         })
@@ -34,8 +36,8 @@ function SellerRetrieveREAListUI(props) {
 
     }, []);
 
-    const header = ['Full Name', 'Username'];
-    const rows = REAList.map(eachREA => [eachREA.fullName, eachREA.username]);
+    const header = ['Full Name', 'Username', 'Email', 'Phone Number'];
+    const rows = REAList.map(eachREA => [eachREA.fullName, eachREA.username, eachREA.email, eachREA.phoneNo]);
 
     const handleCellClick = (row, col) => {
         // go to clicked REA credentials

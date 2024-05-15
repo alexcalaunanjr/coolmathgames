@@ -22,7 +22,9 @@ function BuyerSearchREAUI({ id, placeholder, onSubmit, setREA, token }) {
                 const READata = READict.map(account => ({
                     id: account.id,
                     fullName: account.fullName,
-                    username: account.username
+                    username: account.username,
+                    email: account.email,
+                    phoneNo: account.phoneNo
                 }))
                 setREA(READata)
             }
