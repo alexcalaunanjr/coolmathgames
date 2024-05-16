@@ -18,7 +18,7 @@ function SAUpdateUPUI(props) {
     const profileName = localStorage.getItem('clickedProfile') // query database using profile name
 
     useEffect(() => {
-        document.title = 'SA Update User Profile';
+        document.title = 'Update User Profile';
         if (formFilled) {
             setFormFilled(false);
         };
@@ -71,23 +71,31 @@ function SAUpdateUPUI(props) {
             .then((response) => {
                 console.log('User profile updated successfully:', response.data.updatedProfile);
                 if (response.data.updatedProfile) {
-                    setMessage('User profile updated successfully!');
-                    setError('');
+                    displaySuccessMessage();
                 }
                 else {
                     setMessage('');
-                    setError('User profile not updated!');
+                    displayErrorMessage();
                 }
             })
             .catch((error) => {
                 console.log(error, 'error');
-                setMessage('');
-                setError('User updated information not sent!');
+                displayErrorMessage();
             });
         } catch (error) {
             setError('There is a problem');
         }
     };
+
+    function displayErrorMessage(){
+        setMessage('');
+        setError('User profile not updated!');
+    }
+
+    function displaySuccessMessage(){
+        setMessage('User profile updated successfully!');
+        setError('');
+    }
 
     function displayUserProfileDetails(){
         return (

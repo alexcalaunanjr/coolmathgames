@@ -27,7 +27,7 @@ function SASearchUAUI({ id, placeholder, onSubmit, setUsers, token }) {
         });
     }, [searchQuery]);
 
-    const handleInputChange = (e) => {
+    function handleInputChange (e) {
         setSearchQuery(e.target.value);
     };
 

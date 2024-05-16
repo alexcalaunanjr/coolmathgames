@@ -32,7 +32,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
     };
 
     useEffect(() => {
-        document.title = 'SA View User Account';
+        document.title = 'View User Account';
         const user = localStorage.getItem('clickedUser')
         axios.get(`http://127.0.0.1:5000/SAViewUA/${user}`, {
             headers: {
@@ -43,18 +43,22 @@ function SAViewUAUI(props, {openModal, onClose}) {
         .then(response => {
             setPToken(props.token)
             const userData = response.data;
-            setFullName(userData.fullName);
-            setPhoneNumber(userData.phoneNo);
-            setUsername(userData.username);
-            setEmail(userData.email);
-            setStatus(userData.status.toUpperCase());
-            setSelectedUserType(userData.profile);
-            setImage(userData.img)
+            setData(userData);
         })
         .catch(error => {
             console.error('Error fetching user account:', error);
         });
     }, []);
+
+    function setData(data){
+        setFullName(data.fullName);
+        setPhoneNumber(data.phoneNo);
+        setUsername(data.username);
+        setEmail(data.email);
+        setStatus(data.status.toUpperCase());
+        setSelectedUserType(data.profile);
+        setImage(data.img)
+    }
 
     const handleSuspend = () => {
         setSuspendPopUp(true);

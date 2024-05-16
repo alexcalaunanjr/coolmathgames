@@ -33,6 +33,10 @@ function SASuspendUPUI( {openModal, onClose, text, token}) {
     closeSuspendPopUp();
   };
 
+  function clickCancel(){
+    closeSuspendPopUp()
+  }
+
   function closeSuspendPopUp(){
     onClose();
   }
@@ -52,7 +56,7 @@ function SASuspendUPUI( {openModal, onClose, text, token}) {
                 <Button color="failure" onClick={handleSuspend}>
                   {"Yes, I'm sure"}
                 </Button>
-                <Button color="gray" onClick={closeSuspendPopUp}>
+                <Button color="gray" onClick={clickCancel}>
                   No, cancel
                 </Button>
               </div>

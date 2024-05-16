@@ -19,7 +19,7 @@ function REAUpdateREACredentialsUI(props) {
     const username = localStorage.getItem('username');
 
     // states for the form fields
-    const [image, setImage] = useState(Agent1);
+    const [image, setImage] = useState('');
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNo, setPhoneNo] = useState('');
@@ -112,24 +112,31 @@ function REAUpdateREACredentialsUI(props) {
             .then((response) => {
                 console.log('REA Credentials updated successfully:', response.data);
                 if (response.data) {
-                    setError('');
-                    setMessage('Credentials updated successfully!');
+                    displaySuccessMessage();
                 }
                 else {
-                    setError('Credentials not updated!');
-                    setMessage('');
+                    displayErrorMessage();
                     console.log(error, 'Credentials not updated!');
                 }
             })
             .catch((error) => {
                 console.log(error, 'error');
-                setMessage('');
-                setError("Credentials not updated!")
+                displayErrorMessage();
             });
         } catch (error) {
             setError('An error occurred during the update process.');
         }
     };
+
+    function displayErrorMessage(){
+        setMessage('');
+        setError("Credentials not updated!")
+    }
+
+    function displaySuccessMessage(){
+        setError('');
+        setMessage('Credentials updated successfully!');
+    }
 
     const handleImageUpload = (base64String) => {
         setImage(base64String);
