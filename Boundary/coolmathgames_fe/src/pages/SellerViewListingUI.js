@@ -101,6 +101,7 @@ function SellerViewPropertyListingUI(props) {
             backgroundSize: "cover",
           }}
         >
+
           {/* Property Image */}
           <div className="relative">
             <div className="border-2 border-gray-300 shadow-xl rounded-lg">
@@ -117,12 +118,15 @@ function SellerViewPropertyListingUI(props) {
               </div>
             )}
           </div>
+
           <div className="flex pb-10">
             <div className="w-1/3 pt-10">
+
               {/* Property Name */}
               <div className="flex">
                 <p className="lg:text-3xl md:text-md font-bold">{title}</p>
               </div>
+
               <div className="flex pt-1">
                 {/* Location */}
                 <svg
@@ -149,6 +153,7 @@ function SellerViewPropertyListingUI(props) {
                 </svg>
                 <p className="text-md">{location}</p>
               </div>
+
               {/* Bedroom, Bathroom, Area */}
               <div className="flex pt-5">
                 {/* Bedroom */}
@@ -166,6 +171,7 @@ function SellerViewPropertyListingUI(props) {
                     <p className="pt-2 text-md text-center">{bedrooms}</p>
                   </div>
                 </div>
+
                 {/* Bathroom */}
                 <div className="lg:w-1/4">
                   <div className="w-10">
@@ -183,6 +189,7 @@ function SellerViewPropertyListingUI(props) {
                     <p className="pt-2 text-md text-center">{bathrooms}</p>
                   </div>
                 </div>
+
                 {/* Area */}
                 <div className="lg-1/4">
                   <div>
@@ -204,103 +211,107 @@ function SellerViewPropertyListingUI(props) {
                 </div>
               </div>
             </div>
+          
             {/* Price */}
+            <div className="w-1/3 pt-10"></div>
+          
             <div className="w-1/3 pt-10">
+              <div className="flex flex-col justify-center ">
+                <div className="flex justify-end mb-2">
+                  <p className="lg:text-3xl md:text-md font-bold text-center">${price}</p>
+                </div>
 
+                <div className="flex justify-end space-x-4 pt-5">
+                  {/* Favorites */}
+                    <button
+                      className="flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white lg:w-1/3 w-1/2"
+                      onClick={handleFavorites}
+                    >
+                    <svg
+                      className="w-[24px] h-[24px] text-red-500 dark:text-white mr-2"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
+                    </svg>
+                    Favorites
+                  </button>
+
+                  {/* Pop up for favorites */}
+                  {favoritesPopUp && (
+                    <SellerViewFavorites
+                      propertyName={title}
+                      openModal={favoritesPopUp}
+                      onClose={handleReopenPopUp}
+                      token={Ptoken}
+                    />
+                  )}
+
+                  {/* Views */}
+                  <button
+                    className="flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white lg:w-1/3 w-1/2"
+                    onClick={handleViews}
+                  >
+                    <svg
+                      className="w-[24px] h-[24px] text-gray-800 dark:text-white mr-2"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"
+                      />
+                      <path
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                      />
+                    </svg>
+                    Views
+                  </button>
+
+                  {/* Pop up for views */}
+                  {viewsPopUp && (
+                    <SellerViewViewCountUI
+                      propertyName={title}
+                      openModal={viewsPopUp}
+                      onClose={handleReopenPopUp}
+                      token={Ptoken}
+                    />
+                  )}
+                </div>
+              </div>
+        
+              {/* Contact Agent */}
+              <Link to={`/SellerViewREACredentialsUI/${agentUN}`}>
+                <div className="flex justify-end pt-6">
+                  <button className="flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white sm:w-1/3">
+                    <img
+                      src={`data:image/jpeg;base64, ${agentImg}`}
+                      alt="Agent"
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <p className="text-md items-center px-3">{agentName}</p>
+                  </button>
+                </div>
+              </Link>
             </div>
-            <div className="w-1/3 pt-10">
-  <div className="flex flex-col justify-center ">
-    <div className="flex justify-end mb-2">
-    <p className="lg:text-3xl md:text-md font-bold text-center">
-      ${price}
-    </p>
-    </div>
-    <div className="flex justify-end space-x-4 pt-5">
-      {/* Favorites */}
-      <button
-        className="flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white lg:w-1/3 w-1/2"
-        onClick={handleFavorites}
-      >
-        <svg
-          className="w-[24px] h-[24px] text-red-500 dark:text-white mr-2"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path d="m12.75 20.66 6.184-7.098c2.677-2.884 2.559-6.506.754-8.705-.898-1.095-2.206-1.816-3.72-1.855-1.293-.034-2.652.43-3.963 1.442-1.315-1.012-2.678-1.476-3.973-1.442-1.515.04-2.825.76-3.724 1.855-1.806 2.201-1.915 5.823.772 8.706l6.183 7.097c.19.216.46.34.743.34a.985.985 0 0 0 .743-.34Z" />
-        </svg>
-        Favorites
-      </button>
-      {/* Pop up for favorites */}
-      {favoritesPopUp && (
-        <SellerViewFavorites
-          propertyName={title}
-          openModal={favoritesPopUp}
-          onClose={handleReopenPopUp}
-          token={Ptoken}
-        />
-      )}
-      {/* Views */}
-      <button
-        className="flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white lg:w-1/3 w-1/2"
-        onClick={handleViews}
-      >
-        <svg
-          className="w-[24px] h-[24px] text-gray-800 dark:text-white mr-2"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke="currentColor"
-            strokeWidth="2"
-            d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"
-          />
-          <path
-            stroke="currentColor"
-            strokeWidth="2"
-            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-          />
-        </svg>
-        Views
-      </button>
-      {/* Pop up for views */}
-      {viewsPopUp && (
-        <SellerViewViewCountUI
-          propertyName={title}
-          openModal={viewsPopUp}
-          onClose={handleReopenPopUp}
-          token={Ptoken}
-        />
-      )}
-    </div>
-  </div>
-  {/* Contact Agent */}
-  <Link to={`/SellerViewREACredentialsUI/${agentUN}`}>
-    <div className="flex justify-end pt-6">
-      <button className="flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white sm:w-1/3">
-        <img
-          src={`data:image/jpeg;base64, ${agentImg}`}
-          alt="Agent"
-          className="w-10 h-10 rounded-full"
-        />
-        <p className="text-md items-center px-3"> {agentName}</p>
-      </button>
-    </div>
-  </Link>
-</div>
-
           </div>
+
           {/* A straight line */}
           <div className="w-2/3 pb-10">
             <hr className="border-t-1 border-black" />
           </div>
+
           {/* Description */}
           <div className="w-2/3 pb-10">
             <p className="lg:text-2xl md:text-md font-bold pb-5">
@@ -308,16 +319,19 @@ function SellerViewPropertyListingUI(props) {
             </p>
             <p className="text-md">{description}</p>
           </div>
+
           {/* A straight line */}
           <div className="w-2/3 pb-10">
             <hr className="border-t-1 border-black" />
           </div>
+
           {/* Tabs */}
           <div className="pb-10">
             <p className="lg:text-2xl md:text-md font-bold pb-5">Amenities</p>
             <PLTabs facilities={facilities} unitFeatures={unitFeatures} />
           </div>
         </div>
+
         {/* Footer */}
         <Footer />
       </>

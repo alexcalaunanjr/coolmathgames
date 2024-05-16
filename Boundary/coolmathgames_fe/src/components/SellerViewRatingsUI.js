@@ -69,7 +69,7 @@ function SellerViewRatingsUI({openModal, onClose, REAName, token}) {
             <div className='p-4'></div>
 
             {/* post your rating */}
-            <SellerRateREAUI rating={rating} setRating={setRating} token={token}/>
+            <SellerRateREAUI rating={rating} setRating={setRating} token={token} onClose={onClose}/>
 
             <div className='p-4'></div>
 

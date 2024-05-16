@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-function SellerRateREAUI ({ rating, setRating, token }) {
+function SellerRateREAUI ({ rating, setRating, token, onClose }) {
     let {agentName} = useParams()
     const [submit, setSubmit] = useState(false);
+    const [error, setError] = useState('')
     const username = localStorage.getItem('username')
 
     useEffect(() => {
@@ -19,6 +20,7 @@ function SellerRateREAUI ({ rating, setRating, token }) {
                 }
             })
             .then(response => {
+                onClose()
             })
             .catch(error => {
                 console.error('Error rating rea:', error);
@@ -30,8 +32,15 @@ function SellerRateREAUI ({ rating, setRating, token }) {
         setSubmit(false);
         setRating(star);
     }
-    function handleSubmitRating() {
-        setSubmit(true);
+    function handleSubmitRating () {
+        if (rating < 1){
+            setError('Please select a star before submitting')
+            setSubmit(false);
+        }
+        else{
+            setError('')
+            setSubmit(true);
+        }
     }
 
     function displayRateREA(){
@@ -51,6 +60,8 @@ function SellerRateREAUI ({ rating, setRating, token }) {
                         </svg>
                     ))}
                 </div>
+
+                <div className="text-red-500 text-center pb-2">{error}</div>
 
                 <div className="flex justify-center">
                     <button type='submit' 
