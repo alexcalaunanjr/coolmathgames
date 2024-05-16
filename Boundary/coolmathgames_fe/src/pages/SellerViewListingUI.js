@@ -104,7 +104,7 @@ function SellerViewPropertyListingUI(props) {
 
           {/* Property Image */}
           <div className="relative">
-            <div className="border-2 border-gray-300 shadow-xl rounded-lg">
+            <div>
               <img
                 src={`data:image/jpeg;base64, ${image}`}
                 alt="House"
