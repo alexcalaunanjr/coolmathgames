@@ -16,13 +16,26 @@ class Properties(db.Model):
 
     #create property
     @classmethod
-    def createProperty(self, newProperty):
+    def createProperty(self, propertyName:str, propertyImage:str, price:int, location:str, aboutProperty:str, noOfBedrooms:int, noOfBathrooms:int, area:int, unitFeatures:str, facilities:str ):
+        if propertyName and propertyImage and price and location and aboutProperty and noOfBedrooms and noOfBathrooms and area and unitFeatures and facilities:
+            newProperty = Properties(
+                propertyName = propertyName,
+                propertyImage = propertyImage,
+                price = price,
+                location = location,
+                aboutProperty = aboutProperty,
+                noOfBedrooms = noOfBedrooms,
+                noOfBathrooms = noOfBathrooms,
+                area = area,
+                unitFeatures = unitFeatures,
+                facilities = facilities
+            )
         if newProperty:
             db.session.add(newProperty)
             db.session.commit()
-            return True
+            return jsonify({"propertyCreated":True})
         else:
-            return False
+            return jsonify({"propertyCreated":False})
 
     #delete property
     @classmethod

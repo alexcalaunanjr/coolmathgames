@@ -248,13 +248,21 @@ class PropertyListing(db.Model):
     # ---- REAL ESTATE AGENT ----
     #create my property
     @classmethod
-    def createListing(self, newListing):
+    def createListing(self, propertyName:str, ownerSeller:str, REA:str, sold:bool, viewsCount:int):
+        if propertyName and ownerSeller and REA and sold is not None and viewsCount is not None:
+            newListing = PropertyListing(
+                property = propertyName,
+                ownerSeller = ownerSeller,
+                REA = REA,
+                sold = sold,
+                viewsCount = viewsCount,
+            )
         if newListing:
             db.session.add(newListing)
             db.session.commit()
-            return True
+            return jsonify({"listingCreated":True})
         else:
-            return False
+            return jsonify({"listingCreated":False})
     
     #return rea's owned listing list
     @classmethod

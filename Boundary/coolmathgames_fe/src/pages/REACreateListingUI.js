@@ -88,22 +88,30 @@ function REACreateLisitngUI(props) {
             .then((response) => {
                 console.log('Property listing created successfully:', response.data.propertyCreated);
                 if (response.data.propertyCreated) {
-                    displayNewListingUI();
+                    displaySuccessMessage();
                 }
                 else {
-                    setMessage('');
-                    setError('Property listing not created!');
+                    displayErrorMessage();
                 }
             })
             .catch((error) => {
                 console.log('error', error);
-                setMessage('');
-                setError('Property listing already exists')
+                displayErrorMessage();
             });
         } catch (error) {
             setError('An error occurred during property creation.');
         }
     };
+
+    function displayErrorMessage(){
+        setMessage('');
+        setError('Property listing not created!');
+    }
+
+    function displaySuccessMessage(){
+        setMessage('Property created successfully!');
+        setError('');
+    }
 
     useEffect(() => {
         if (formFilled) {
@@ -114,11 +122,6 @@ function REACreateLisitngUI(props) {
 
     const handleImageUpload = (base64String) => {
         setImage(base64String);
-    }
-
-    const displayNewListingUI=() => {
-        setMessage('Property created successfully!');
-        setError('');
     }
 
     const displayErrorMessageUI=() => {
