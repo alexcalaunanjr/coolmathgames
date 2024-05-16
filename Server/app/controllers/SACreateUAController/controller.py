@@ -1,8 +1,8 @@
-from flask import request, jsonify, Blueprint
+from flask import request, Blueprint
 from flask_jwt_extended import jwt_required
 from app.entity.account import UserAccount
 from app.entity.userProfiles import UserProfiles
-from flask import request, jsonify
+from flask import request
 from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt()
@@ -13,8 +13,7 @@ class SACreateUAController(Blueprint):
          super().__init__(*args, **kwargs)
 
     def createAccount(self, name:str, img, username:str, email:str, password:str, phone:str, profile:str):
-        if name and username and password and email and phone and profile:
-            createAcc = UserAccount.createAccount(name, img, username, email, password, phone, profile)
+        createAcc = UserAccount.createAccount(name, img, username, email, password, phone, profile)
         return createAcc
 
     def retrieveProfileList(self):
@@ -39,7 +38,7 @@ class BaseSACreateUAController(SACreateUAController):
             phone = data.get('phone')
             profile = data.get('profile')
             accCreated = self.createAccount(name, img, username, email, password, phone, profile)
-            return jsonify({"accountCreated": accCreated})
+            return accCreated
         if request.method == 'GET':
             profileList = self.retrieveProfileList()
             return profileList

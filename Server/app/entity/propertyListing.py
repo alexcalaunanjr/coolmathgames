@@ -249,9 +249,12 @@ class PropertyListing(db.Model):
     #create my property
     @classmethod
     def createListing(self, newListing):
-        db.session.add(newListing)
-        db.session.commit()
-        return True
+        if newListing:
+            db.session.add(newListing)
+            db.session.commit()
+            return True
+        else:
+            return False
     
     #return rea's owned listing list
     @classmethod

@@ -13,7 +13,7 @@ function LoginUI(props) {
     const [email, setUserEmail] = useState('');
     const [error, setError] = useState('');
     const [options, setOptions] = useState([]);
-    const navigate = useNavigate();
+    const navigate = useNavigate();  
 
     useEffect(() => {
         document.title = 'Login';
@@ -24,7 +24,7 @@ function LoginUI(props) {
             })
             .catch(error => {
                 console.error('Error fetching user profiles:', error);
-            });
+            }); 
     }, []);
 
     const handleSelect = (selectedItem) => {
@@ -51,12 +51,12 @@ function LoginUI(props) {
             }
             })
             .then((response) => {
-                props.setToken(response.data.access_token)
+                props.setToken(response.data.accessToken)
                 //setting profile and username to local storage to be retrieved
                 localStorage.setItem('profile', selectedUserType);
                 localStorage.setItem('username', username);
                 
-                if (response.data.access_token) {
+                if (response.data.accessToken) {
                     if (selectedUserType == 'System Admin') {
                         window.location.href = "/SARetrieveUAListUI";
                     }

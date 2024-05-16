@@ -16,7 +16,7 @@ class UserProfiles(db.Model):
         profileDict = [{'profile': profile.profile,
                         'status': profile.status 
                         } for profile in profile]
-        return profileDict
+        return jsonify(profileDict)
     
     #retrieve profile data
     @classmethod
@@ -69,7 +69,14 @@ class UserProfiles(db.Model):
 
     #Create new user profile
     @classmethod
-    def createProfile(self, newProfile):
-        db.session.add(newProfile)
-        db.session.commit()
-        return True
+    def createProfile(self, profile:str, description:str):
+        newProfile = UserProfiles(
+            profile=profile,
+            desc=description
+        )
+        if newProfile:
+            db.session.add(newProfile)
+            db.session.commit()
+            return jsonify({'profileCreated': True})
+        else:
+            return jsonify({'profileCreated': False})

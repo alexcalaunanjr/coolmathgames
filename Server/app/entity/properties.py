@@ -17,9 +17,12 @@ class Properties(db.Model):
     #create property
     @classmethod
     def createProperty(self, newProperty):
-        db.session.add(newProperty)
-        db.session.commit()
-        return True
+        if newProperty:
+            db.session.add(newProperty)
+            db.session.commit()
+            return True
+        else:
+            return False
 
     #delete property
     @classmethod
