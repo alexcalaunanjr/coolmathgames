@@ -28,7 +28,7 @@ function REARetrieveListingListUI(props) {
 
 
     useEffect(() => {
-        document.title = 'REA Retrieve Listing List';
+        document.title = 'Retrieve Listing List';
 
         axios.get(`http://127.0.0.1:5000/REARetrieveListingList/${username}` , {
             headers: {

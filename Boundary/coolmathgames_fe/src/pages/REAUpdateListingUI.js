@@ -37,7 +37,7 @@ function REAUpdateListingUI(props) {
     let {propertyName} = useParams();
 
     useEffect(() => {
-        document.title = 'REA Create Property';
+        document.title = 'Create Property';
         axios.get(`http://127.0.0.1:5000/REAUpdateListing/${propertyName}`, {
             headers: {
             'Authorization': 'Bearer ' + props.token,
@@ -119,17 +119,15 @@ function REAUpdateListingUI(props) {
             .then((response) => {
                 console.log('Property updated successfully:', response.data.reaListingUpdated);
                 if (response.data.reaListingUpdated) {
-                    displayNewListingUI();
+                    displaySuccessMessage();
                 }
                 else {
-                    setMessage('');
-                    setError('Property not updated!');
+                    displayErrorMessage();
                 }
             })
             .catch((error) => {
                 console.log(error, 'error');
-                setMessage('');
-                setError('Property already exists')
+                displayErrorMessage();
             });
         } catch (error) {
             setError('An error occurred during property updation.');
@@ -149,9 +147,14 @@ function REAUpdateListingUI(props) {
         }
     }, [formFilled]);
 
-    const displayNewListingUI = () =>{
+    function displaySuccessMessage(){
         setMessage('Property updated successfully!');
         setError('');
+    }
+
+    function displayErrorMessage(){
+        setMessage('');
+        setError('Property not updated!');
     }
 
     const displayErrorMessageUI = () =>{

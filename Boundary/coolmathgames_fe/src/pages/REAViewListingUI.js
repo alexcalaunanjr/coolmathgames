@@ -43,7 +43,7 @@ function REAViewListingUI(props) {
   let { propertyName } = useParams();
 
   useEffect(() => {
-    document.title = "REA View Property Listing";
+    document.title = "View Property Listing";
 
     axios
       .get(`http://127.0.0.1:5000/REAViewListing/${propertyName}`, {
@@ -55,19 +55,8 @@ function REAViewListingUI(props) {
       .then((response) => {
         setPToken(props.token);
         if (response) {
-          setTitle(response.data.propertyName);
-          setImage(response.data.propertyImage);
-          setLocation(response.data.location);
-          setPrice(response.data.price);
-          setBedrooms(response.data.noOfBedrooms);
-          setBathrooms(response.data.noOfBathrooms);
-          setSize(response.data.area);
-          setDescription(response.data.aboutProperty);
-          setUnitFeatures(response.data.unitFeatures);
-          setFacilities(response.data.facilities);
-          setIsSold(response.data.sold);
-          // setViews(response.data.viewsCount);
-          // setFavorites(response.data.favoritesCount);
+          const data = response.data;
+          setData(data);
           localStorage.setItem("clickedProperty", response.data.propertyName);
         }
       })
@@ -75,6 +64,20 @@ function REAViewListingUI(props) {
         console.error("Error fetching property listing:", error);
       });
   }, []);
+
+  function setData(data){
+    setTitle(data.propertyName);
+    setImage(data.propertyImage);
+    setLocation(data.location);
+    setPrice(data.price);
+    setBedrooms(data.noOfBedrooms);
+    setBathrooms(data.noOfBathrooms);
+    setSize(data.area);
+    setDescription(data.aboutProperty);
+    setUnitFeatures(data.unitFeatures);
+    setFacilities(data.facilities);
+    setIsSold(data.sold);
+  }
 
   // Function to handle insights pop up
   const handleFavorites = () => {

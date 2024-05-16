@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Button, Modal } from "flowbite-react";
 
 
-function REAViewREARatingsUI({openModal, onClose, REAName, token, username}) {
+function REAViewRatingsUI({openModal, onClose, REAName, token, username}) {
     // // placeholders
 
 
@@ -43,7 +43,7 @@ function REAViewREARatingsUI({openModal, onClose, REAName, token, username}) {
     };
 
     // total average rating
-    const calculateAvgStars = (ratingsList) => {
+    function calculateAvgStars (ratingsList) {
       let totalStars = 0;
       let numRatings = ratingsList.length;
       for (let i = 0; i < numRatings; i++) {
@@ -94,4 +94,4 @@ function REAViewREARatingsUI({openModal, onClose, REAName, token, username}) {
     )
 }
 
-export default REAViewREARatingsUI;
+export default REAViewRatingsUI;

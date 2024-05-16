@@ -28,7 +28,7 @@ function REASearchListingUI({ id, placeholder, onSubmit, setNewProperties, token
         });
     }, [searchQuery]);
 
-    const handleInputChange = (e) => {
+    function handleInputChange (e)  {
         setSearchQuery(e.target.value);
     };
 
