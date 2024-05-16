@@ -39,7 +39,7 @@ function REAUpdateREACredentialsUI(props) {
     const [formFilled, setFormFilled] = useState(false);
 
     useEffect(() => {
-        document.title = 'REA Update REA Credentials';
+        document.title = 'Update REA Credentials';
         axios.get(`http://127.0.0.1:5000/REAUpdateREACredential/${username}`, {
             headers: {
             'Authorization': 'Bearer ' + props.token,

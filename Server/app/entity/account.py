@@ -37,24 +37,15 @@ class UserAccount(db.Model):
             return account
         else:
             return jsonify({'message': 'User not found'}), 404
-    
-    @classmethod
-    def checkSuspended(self, username:str):
-        user = UserAccount.query.filter_by(username=username).first()
-        if user:
-            return user.status == "active"
-
-        else:
-            return jsonify({'message': 'User not found'}), 404
 
     #verify login account
     @classmethod
     def verifyLoginInfo(self, profile:str, username:str, password:str):
         user = UserAccount.query.filter_by(username=username).first() #check if username matches in the database
-        if user and bcrypt.check_password_hash(user.password, password) and profile == user.profile:
-            return True
+        if user and bcrypt.check_password_hash(user.password, password) and profile == user.profile and user.status == 'active':
+            return jsonify({"verified": True})
         else:
-            return False
+            return jsonify({"verified": False})
     
     #retrieve account list
     @classmethod
@@ -150,7 +141,7 @@ class UserAccount(db.Model):
 
     #Create new user account
     @classmethod
-    def createAccount(self, name, img, username, email, password, phone, profile):
+    def createAccount(self, name:str, img, username:str, email:str, password:str, phone:str, profile:str):
         hashedPw = bcrypt.generate_password_hash(password)
         newUser = UserAccount(
             profile=profile,
@@ -161,7 +152,10 @@ class UserAccount(db.Model):
             email=email,
             phoneNo=phone,
         )
-        db.session.add(newUser)
-        db.session.commit()
-        return True
+        if newUser:
+            db.session.add(newUser)
+            db.session.commit()
+            return jsonify({"accountCreated": True})
+        else:
+            return jsonify({"accountCreated": False})
     

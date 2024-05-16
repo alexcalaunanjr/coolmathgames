@@ -14,7 +14,7 @@ class LoginController(Blueprint):
         profile = profile
 
         if username and password and profile:
-            if UserAccount.verifyLoginInfo(profile, username, password) and UserAccount.checkSuspended(username):
+            if UserAccount.verifyLoginInfo(profile, username, password).get_json().get("verified"):
                 access_token = create_access_token(identity=username)
                 return access_token
 
@@ -35,7 +35,7 @@ class BaseControllerLogin(LoginController):
             password = data.get("password")
             profile = data.get("profile")
             accessToken = self.sendLoginInfo(profile, username, password) #pass values onto sendLoginInfo
-            return jsonify({"access_token": accessToken})
+            return jsonify({"accessToken": accessToken})
         if request.method == 'GET':
             profileList = self.retrieveProfileList()
             return profileList

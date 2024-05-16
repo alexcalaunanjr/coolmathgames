@@ -11,12 +11,7 @@ class SACreateUPController(Blueprint):
         super().__init__(*args, **kwargs)
 
     def createProfile(self, profile:str, description:str):
-        if profile:
-            newProfile = UserProfiles(
-                profile=profile,
-                desc=description
-            )
-            createProf = UserProfiles.createProfile(newProfile)
+        createProf = UserProfiles.createProfile(profile, description)
         return createProf
 
 class BaseSACreateUPController(SACreateUPController):
@@ -30,4 +25,4 @@ class BaseSACreateUPController(SACreateUPController):
             newProfile = data.get('newProfile')
             newDescription = data.get('newDescription')
             profCreated = self.createProfile(newProfile, newDescription)
-            return jsonify({"profileCreated": profCreated})
+            return profCreated

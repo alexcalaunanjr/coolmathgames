@@ -86,19 +86,19 @@ function REACreateLisitngUI(props) {
             }
             })
             .then((response) => {
-                console.log('Property created successfully:', response.data.propertyCreated);
+                console.log('Property listing created successfully:', response.data.propertyCreated);
                 if (response.data.propertyCreated) {
                     displayNewListingUI();
                 }
                 else {
                     setMessage('');
-                    setError('Property not created!');
+                    setError('Property listing not created!');
                 }
             })
             .catch((error) => {
-                console.log(error, 'error');
+                console.log('error', error);
                 setMessage('');
-                setError('Property already exists')
+                setError('Property listing already exists')
             });
         } catch (error) {
             setError('An error occurred during property creation.');
