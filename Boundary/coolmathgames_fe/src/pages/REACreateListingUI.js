@@ -35,7 +35,7 @@ function REACreateLisitngUI(props) {
     const statusOption = ['New', 'Sold']
 
     useEffect(() => {
-        document.title = 'REA Create Listing';
+        document.title = 'Create Listing';
 
     }, []);
 

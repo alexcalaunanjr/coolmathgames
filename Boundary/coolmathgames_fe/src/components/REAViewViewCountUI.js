@@ -7,7 +7,7 @@ function REAViewViewCountUI({ propertyName, openModal, onClose, token }) {
   const [views, setViews] = useState('');
 
   useEffect(() => {
-    document.title = 'REA view view count';
+    document.title = 'View view count';
 
     axios.get(`http://127.0.0.1:5000/REAViewViewCount/${propertyName}`, {
         headers: {

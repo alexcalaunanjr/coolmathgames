@@ -7,7 +7,7 @@ class REAViewReviewController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def retrieveReview(self, username:str):
+    def retrieveReviews(self, username:str):
         cred = Review.retrieveReviews(username)
         return cred
 
@@ -18,5 +18,5 @@ class BaseREAViewReviewController(REAViewReviewController):
     @jwt_required()
     def viewReview(self, username):
         if request.method == 'GET':
-            retrieveReview = self.retrieveReview(username)
+            retrieveReview = self.retrieveReviews(username)
             return retrieveReview

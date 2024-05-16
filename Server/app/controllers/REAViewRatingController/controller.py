@@ -7,7 +7,7 @@ class REAViewRatingController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def retrieveRating(self, username:str):
+    def retrieveRatings(self, username:str):
         cred = Rating.retrieveRatings(username)
         return cred
 
@@ -18,5 +18,5 @@ class BaseREAViewRatingController(REAViewRatingController):
     @jwt_required()
     def viewRating(self, username):
         if request.method == 'GET':
-            retrieveRating = self.retrieveRating(username)
+            retrieveRating = self.retrieveRatings(username)
             return retrieveRating

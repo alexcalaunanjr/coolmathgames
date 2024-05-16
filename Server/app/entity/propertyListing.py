@@ -343,13 +343,6 @@ class PropertyListing(db.Model):
         else:
             return jsonify({'reaListingUpdated': False})
 
-    #delete listing
-    @classmethod
-    def deleteListing(self, listing):
-        PropertyListing.query.filter_by(property=listing).delete()
-        db.session.commit()
-        return True
-
     #Retrieve Property information based of search
     @classmethod
     def searchListings(cls, query, username):

@@ -4,7 +4,7 @@ import { Button, Modal } from "flowbite-react";
 import { useNavigate } from 'react-router-dom';
 
 
-function REAViewREAReviewsUI({openModal, onClose, REAName, token, username}) {
+function REAViewReviewsUI({openModal, onClose, REAName, token, username}) {
     const [reviewList, setReviewList] = useState([]);
     // const [totalReviews, setTotalReviews] = useState('')
     useEffect(() => {
@@ -67,4 +67,4 @@ function REAViewREAReviewsUI({openModal, onClose, REAName, token, username}) {
     )
 }
 
-export default REAViewREAReviewsUI;
+export default REAViewReviewsUI;
