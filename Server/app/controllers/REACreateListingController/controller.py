@@ -9,33 +9,12 @@ class REACreateListingController(Blueprint):
         super().__init__(*args, **kwargs)
 
     def createProperty(self, propertyName:str, propertyImage:str, price:int, location:str, aboutProperty:str, noOfBedrooms:int, noOfBathrooms:int, area:int, unitFeatures:str, facilities:str ):
-        if propertyName and propertyImage and price and location and aboutProperty and noOfBedrooms and noOfBathrooms and area and unitFeatures and facilities:
-            newProperty = Properties(
-                propertyName = propertyName,
-                propertyImage = propertyImage,
-                price = price,
-                location = location,
-                aboutProperty = aboutProperty,
-                noOfBedrooms = noOfBedrooms,
-                noOfBathrooms = noOfBathrooms,
-                area = area,
-                unitFeatures = unitFeatures,
-                facilities = facilities
-            )
-            createNewProperty = Properties.createProperty(newProperty)
-            return createNewProperty
+        createNewProperty = Properties.createProperty(propertyName, propertyImage, price, location, aboutProperty, noOfBedrooms, noOfBathrooms, area, unitFeatures, facilities)
+        return createNewProperty
     
     def createListing(self, propertyName:str, ownerSeller:str, REA:str, sold:bool, viewsCount:int):
-        if propertyName and ownerSeller and REA and sold is not None and viewsCount is not None:
-            newListing = PropertyListing(
-                property = propertyName,
-                ownerSeller = ownerSeller,
-                REA = REA,
-                sold = sold,
-                viewsCount = viewsCount,
-            )
-            createListing = PropertyListing.createListing(newListing)
-            return createListing
+        createListing = PropertyListing.createListing(propertyName, ownerSeller, REA, sold, viewsCount)
+        return createListing
     
 class BaseREACreateListingController(REACreateListingController):
     def __init__(self, *args, **kwargs):
@@ -66,7 +45,7 @@ class BaseREACreateListingController(REACreateListingController):
             viewsCount = 0
             listingCreated = self.createListing(propertyName, ownerSeller, REA, sold, viewsCount)
 
-            created = propertyCreated and listingCreated
+            created = propertyCreated.get_json().get('propertyCreated') and listingCreated.get_json().get('listingCreated')
             return jsonify({'propertyCreated': created})
         
             
