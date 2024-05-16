@@ -45,7 +45,7 @@ function SellerViewReviewsUI({openModal, onClose, REAName, token}) {
                     <div className='p-4'></div>
 
                     {/* post your review */}
-                    <SellerReviewREAUI review={review} setReview={setReview} token={token}/>
+                    <SellerReviewREAUI review={review} setReview={setReview} token={token} onClose={onClose}/>
 
                     <div className='p-4'></div>
 

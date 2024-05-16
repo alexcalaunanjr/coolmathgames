@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-function BuyerReviewREAUI({ review, setReview, token }) {
+function BuyerReviewREAUI({ review, setReview, token, onClose }) {
     let {agentName} = useParams()
     const [submit, setSubmit] = useState(false);
+    const [error, setError] = useState('')
     const username = localStorage.getItem('username')
 
     useEffect(() => {
@@ -19,6 +20,7 @@ function BuyerReviewREAUI({ review, setReview, token }) {
                 }
             })
             .then(response => {
+                onClose()
             })
             .catch(error => {
                 console.error('Error review rea:', error);
@@ -26,8 +28,16 @@ function BuyerReviewREAUI({ review, setReview, token }) {
         }
     }, [submit]);
 
-    function handleSubmitReview() {
-        setSubmit(true);
+    function handleSubmitReview(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        if (review === ""){
+            setError('Please write a review before submitting')
+            setSubmit(false)
+        }
+        else{
+            setError('')
+            setSubmit(true);
+        }
     }
 
     function displayReviewRea(){
@@ -41,13 +51,18 @@ function BuyerReviewREAUI({ review, setReview, token }) {
                         class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"
                         placeholder="Write a review..." 
                         onChange={(e) => setReview(e.target.value)}
-                        required></textarea>
+                        ></textarea>
                 </div>
-                <button type="submit"
-                    class="text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" 
-                    onClick={handleSubmitReview}>
-                    Submit Review
-                </button>
+
+                <div className="text-red-500 text-center pb-2">{error}</div>
+
+                <div className="flex justify-center">
+                    <button type="submit"
+                        class="flex text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" 
+                        onClick={handleSubmitReview}>
+                        Submit Review
+                    </button>
+                </div>
             </form>
         )
     }
