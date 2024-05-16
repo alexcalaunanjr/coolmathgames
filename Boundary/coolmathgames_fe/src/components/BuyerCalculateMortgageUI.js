@@ -19,7 +19,7 @@ function BuyerCalculateMortgageUI({ openModal, onClose, price, token }) {
             setError('Please fill in the required fields');
             return false;
         }
-        else if (loanAmount > price*0.75 || interestRate < 1 || interestRate > 10 || loanTenure < 5 || loanTenure > 30) {
+        else if (isNaN(loanAmount) || loanAmount > price*0.75 || loanAmount < 0 || isNaN(interestRate) || interestRate < 1 || interestRate > 10 || isNaN(loanTenure) || loanTenure < 5 || loanTenure > 30) {
             setError('Please fill in the required fields correctly');
             return false;
         }
@@ -81,8 +81,9 @@ function BuyerCalculateMortgageUI({ openModal, onClose, price, token }) {
                                         onChange = {(e) => setLoanAmount(e.target.value)}
                                     />
                                     {
-                                        (loanAmount > price*0.75) && 
-                                            <span className="text-red-500 text-sm">Loan Amount cannot exceed 75% of Property Price</span>
+                                        // if input is text, or loan amount exceeds 75% of property price, or loan amount is negative
+                                        (loanAmount > price*0.75 || loanAmount < 0) &&
+                                            <span className="text-red-500 text-sm">Loan Amount cannot exceed 75% of Property Price and cannot be negative</span>
                                     }
                                 </div>
                                 <div className="flex w-2/3 space-x-2">
