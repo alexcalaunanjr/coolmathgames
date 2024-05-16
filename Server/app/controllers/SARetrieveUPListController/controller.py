@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from app.entity.userProfiles import UserProfiles
 
@@ -8,7 +8,7 @@ class SARetrieveUPListController(Blueprint):
 
     def retrieveProfileList(self):
         profileList = UserProfiles.retrieveProfileList()
-        return jsonify(profileList)
+        return profileList
 
 class BaseSARetrieveUPListController(SARetrieveUPListController):
     def __init__(self, *args, **kwargs):

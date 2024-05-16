@@ -64,17 +64,8 @@ function REAViewREACredentialsUI(props) {
         .then(response => {
             setPToken(props.token)
             if (response) {
-                setPicture(response.data.cred.REAImage)
-                setFullName(response.data.cred.fullName)
-                setEmail(response.data.cred.email)
-                setPhoneNo(response.data.cred.phoneNo)
-                setExperience(response.data.cred.experience)
-                setMemberSince(response.data.cred.memberSince)
-                setLicense(response.data.cred.license)
-                setLanguage(response.data.cred.language)
-                setService(response.data.cred.service)
-                setAbout(response.data.cred.about)
-                setAwards(response.data.cred.award)
+                const data = response.data
+                setData(data)
             }
             else {
             }
@@ -84,8 +75,22 @@ function REAViewREACredentialsUI(props) {
         });
     }, []);
 
+    function setData(data){
+        setPicture(data.cred.REAImage)
+        setFullName(data.cred.fullName)
+        setEmail(data.cred.email)
+        setPhoneNo(data.cred.phoneNo)
+        setExperience(data.cred.experience)
+        setMemberSince(data.cred.memberSince)
+        setLicense(data.cred.license)
+        setLanguage(data.cred.language)
+        setService(data.cred.service)
+        setAbout(data.cred.about)
+        setAwards(data.cred.award)
+    }
+
     // set services and awards listed to be in bulletpoints
-    function bulletPoints(list) {
+    const bulletPoints = (list) => {
         if (!list) return null;
             const items = list.split(',').map((item, index) => (
                 <li key={index} className="list-disc ml-4">{item.trim()}</li>
