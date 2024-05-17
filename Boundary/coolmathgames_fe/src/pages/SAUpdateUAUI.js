@@ -116,6 +116,9 @@ function SAUpdateUAUI(props) {
                 console.log(response)
                 if (response.data.accountUpdated) {
                     displaySuccessMessage();
+                    if (localStorage.getItem('username') == user) {
+                        localStorage.setItem('username', username)
+                    }
                 }
                 else {
                     displayErrorMessage();

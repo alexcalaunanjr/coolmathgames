@@ -179,7 +179,7 @@ REAUpdateREACredentialsController.route('/REAUpdateREACredential/<username>', me
 REACreateListingController.route('/REACreateListing', methods=['POST'])(REACreateListingController.createAProperty)
 REARetrieveListingListController.route('/REARetrieveListingList/<username>', methods=['GET'])(REARetrieveListingListController.getListingList)
 REAViewListingController.route('/REAViewListing/<propertyName>', methods=['GET'])(REAViewListingController.viewProperty)
-REAUpdateListingController.route('/REAUpdateListing/<oldPropertyName>', methods=['GET', 'POST'])(REAUpdateListingController.updateAListing)
+REAUpdateListingController.route('/REAUpdateListing/<propertyName>', methods=['GET', 'POST'])(REAUpdateListingController.updateAListing)
 REASearchListingController.route('/REASearchListing/<username>', methods=['POST', 'GET'])(REASearchListingController.query)
 READeleteListingController.route('/READeleteListing/<propertyName>', methods=['GET'])(READeleteListingController.deleteAProperty)
 REAViewRatingController.route('/REAViewRating/<username>', methods=['GET'])(REAViewRatingController.viewRating)
