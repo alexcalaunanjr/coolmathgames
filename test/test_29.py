@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 
 class Test_31:
-    baseURL = "http://localhost:3000/login"
+    baseURL = "http://localhost:3000/"
 
     def setup_method(self, method):
         self.driver = webdriver.Chrome()
@@ -15,13 +15,13 @@ class Test_31:
 
     def test_openLogin(self):
         act_title = self.driver.title
-        assert act_title == "Login Page"
+        assert act_title == "Login"
 
     def test_loginCorrect(self):
         profile = "Seller"
         username = "tiffany"
         password = "tiffany"
-        expectedTitle = "Seller Home Page"
+        expectedTitle = "Retrieve Listing List"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -43,8 +43,8 @@ class Test_31:
 
     def test_loginWrongProfile(self):
         profile = "Buyer"
-        username = "dylan"
-        password = "dylan"
+        username = "tiffany"
+        password = "tiffany"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -61,13 +61,13 @@ class Test_31:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.alert_is_present())
         
-        assert self.driver.switch_to.alert.text == "Invalid Credentials"
+        assert self.driver.switch_to.alert.text == "Invalid User Account"
         self.driver.switch_to.alert.dismiss()
 
     def test_loginWrongUsernamePassword(self):
         profile = "Seller"
-        username = "dyla"
-        password = "dyla"
+        username = "tiff"
+        password = "tiff"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -84,7 +84,7 @@ class Test_31:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.alert_is_present())
         
-        assert self.driver.switch_to.alert.text == "Invalid Credentials"
+        assert self.driver.switch_to.alert.text == "Invalid User Account"
         self.driver.switch_to.alert.dismiss()
 
     def test_loginEmpty(self):

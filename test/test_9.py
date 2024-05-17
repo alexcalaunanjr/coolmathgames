@@ -17,9 +17,9 @@ class Test_9:
         profile = "System Admin"
         username = "carla"
         password = "carla"
-        expectedTitle1 = "SA User Account"
-        expectedTitle2 = "SA User Profile"
-        expectedTitle3 = "SA Create Profile Page"
+        expectedTitle1 = "Retrieve User Account List"
+        expectedTitle2 = "Retrieve User Profile List"
+        expectedTitle3 = "Create User Profile"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -54,14 +54,14 @@ class Test_9:
         username = "carla"
         password = "carla"
 
-        name = "pizza"
-        desc = "womp womp"
+        name = "new user profile"
+        desc = "This is a new user profile"
 
-        expectedTitle1 = "SA User Account"
-        expectedTitle2 = "SA User Profile"
-        expectedTitle3 = "SA Create Profile Page"
+        expectedTitle1 = "Retrieve User Account List"
+        expectedTitle2 = "Retrieve User Profile List"
+        expectedTitle3 = "Create User Profile"
 
-        expectedPrompt = "Profile created successfully!"
+        expectedPrompt = "User profile created successfully!"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -93,7 +93,7 @@ class Test_9:
 
         self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[5]/button[1]").click()
 
-        wait = WebDriverWait(self.driver, 3)
+        wait = WebDriverWait(self.driver, 5)
         wait.until(EC.text_to_be_present_in_element(("id","successPrompt"), expectedPrompt))
 
         message = self.driver.find_element("id","successPrompt").text
@@ -104,14 +104,14 @@ class Test_9:
         username = "carla"
         password = "carla"
 
-        name = "pizza"
-        desc = "womp womp"
+        name = "new user profile"
+        desc = "This is a new user profile"
 
-        expectedTitle1 = "SA User Account"
-        expectedTitle2 = "SA User Profile"
-        expectedTitle3 = "SA Create Profile Page"
+        expectedTitle1 = "Retrieve User Account List"
+        expectedTitle2 = "Retrieve User Profile List"
+        expectedTitle3 = "Create User Profile"
 
-        expectedPrompt = "User profile Creation Failed!"
+        expectedPrompt = "User profile already exists!"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -154,9 +154,11 @@ class Test_9:
         username = "carla"
         password = "carla"
 
-        expectedTitle1 = "SA User Account"
-        expectedTitle2 = "SA User Profile"
-        expectedTitle3 = "SA Create Profile Page"
+        name = "this user profile"
+
+        expectedTitle1 = "Retrieve User Account List"
+        expectedTitle2 = "Retrieve User Profile List"
+        expectedTitle3 = "Create User Profile"
 
         expectedPrompt = "Please enter all fields."
 
@@ -185,7 +187,7 @@ class Test_9:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.title_is(expectedTitle3))
 
-        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/input[1]").clear()
+        self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/input[1]").send_keys(name)
         self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[2]/div[2]/textarea[1]").clear()
 
         self.driver.find_element("xpath","//body/div[@id='root']/div[1]/div[1]/div[5]/button[1]").click()

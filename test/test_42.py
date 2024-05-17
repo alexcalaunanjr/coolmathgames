@@ -4,7 +4,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 
-class Test_32:
+class Test_41:
     baseURL = "http://localhost:3000/login"
 
     def setup_method(self, method):
@@ -14,11 +14,11 @@ class Test_32:
         self.driver.close()
 
     def test_logout(self):
-        profile = "Seller"
-        username = "tiffany"
-        password = "tiffany"
-        expectedCondition = "Seller Home Page"
-        expectedTitle = "Login Page"
+        profile = "Buyer"
+        username = "syella"
+        password = "syella"
+        expectedCondition = "Retrieve New Listing List"
+        expectedTitle = "Login"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -48,11 +48,11 @@ class Test_32:
         assert act_title == expectedTitle
     
     def test_logoutCancel(self):
-        profile = "Seller"
-        username = "tiffany"
-        password = "tiffany"
-        expectedCondition = "Seller Home Page"
-        expectedTitle = "Seller Home Page"
+        profile = "Buyer"
+        username = "syella"
+        password = "syella"
+        expectedCondition = "Retrieve New Listing List"
+        expectedTitle = "Retrieve New Listing List"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)

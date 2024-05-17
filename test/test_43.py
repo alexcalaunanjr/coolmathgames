@@ -15,13 +15,13 @@ class Test_40:
 
     def test_openLogin(self):
         act_title = self.driver.title
-        assert act_title == "Login Page"
+        assert act_title == "Login"
 
     def test_loginCorrect(self):
         profile = "Buyer"
         username = "syella"
         password = "syella"
-        expectedTitle = "Buyer Home Page"
+        expectedTitle = "Retrieve New Listing List"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -43,8 +43,8 @@ class Test_40:
 
     def test_loginWrongProfile(self):
         profile = "Seller"
-        username = "edrick"
-        password = "edrick"
+        username = "syella"
+        password = "syella"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -61,13 +61,13 @@ class Test_40:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.alert_is_present())
         
-        assert self.driver.switch_to.alert.text == "Invalid Credentials"
+        assert self.driver.switch_to.alert.text == "Invalid User Account"
         self.driver.switch_to.alert.dismiss()
 
     def test_loginWrongUsernamePassword(self):
         profile = "Buyer"
-        username = "edric"
-        password = "edric"
+        username = "syell"
+        password = "syell"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -84,7 +84,7 @@ class Test_40:
         wait = WebDriverWait(self.driver, 3)
         wait.until(EC.alert_is_present())
         
-        assert self.driver.switch_to.alert.text == "Invalid Credentials"
+        assert self.driver.switch_to.alert.text == "Invalid User Account"
         self.driver.switch_to.alert.dismiss()
 
     def test_loginEmpty(self):

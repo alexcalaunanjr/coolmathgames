@@ -17,8 +17,8 @@ class Test_16:
         profile = "Real Estate Agent"
         username = "alex"
         password = "alex"
-        expectedCondition = "REA Home Page"
-        expectedTitle = "Login Page"
+        expectedCondition = "Retrieve Listing List"
+        expectedTitle = "Login"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -51,8 +51,8 @@ class Test_16:
         profile = "Real Estate Agent"
         username = "alex"
         password = "alex"
-        expectedCondition = "REA Home Page"
-        expectedTitle = "REA Home Page"
+        expectedCondition = "Retrieve Listing List"
+        expectedTitle = "Retrieve Listing List"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)

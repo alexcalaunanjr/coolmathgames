@@ -17,8 +17,8 @@ class Test_2:
         profile = "System Admin"
         username = "carla"
         password = "carla"
-        expectedCondition = "SA User Account"
-        expectedTitle = "Login Page"
+        expectedCondition = "Retrieve User Account List"
+        expectedTitle = "Login"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
@@ -51,8 +51,8 @@ class Test_2:
         profile = "System Admin"
         username = "carla"
         password = "carla"
-        expectedCondition = "SA User Account"
-        expectedTitle = "SA User Account"
+        expectedCondition = "Retrieve User Account List"
+        expectedTitle = "Retrieve User Account List"
 
         select_element = self.driver.find_element("xpath",'/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/select[1]')
         select = Select(select_element)
