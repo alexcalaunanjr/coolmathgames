@@ -7,7 +7,7 @@ class SellerViewViewCountController(Blueprint):
          super().__init__(*args, **kwargs)
     
     #to view the viewcount
-    def viewViewCount(self, propertyName):
+    def viewViewCount(self, propertyName:str):
         viewViewCount = PropertyListing.viewViewCount(propertyName)
         return viewViewCount
 

@@ -4,11 +4,8 @@ import SAHeader from '../components/SAHeader';
 import { TextInput } from 'flowbite-react';
 import Button from '../components/Button';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 function SAUpdateUPUI(props) {
-    const user = localStorage.getItem('clickedProfile')
-
     const [newDescription, setNewDescription] = useState('');
     const [newProfile, setNewProfile] = useState('');
     const [error, setError] = useState('');

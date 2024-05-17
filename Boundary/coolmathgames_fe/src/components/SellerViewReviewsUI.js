@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Modal } from "flowbite-react";
-import { useNavigate } from 'react-router-dom';
+import { Modal } from "flowbite-react";
 
 import SellerReviewREAUI from './SellerReviewREAUI';
 import { useParams } from 'react-router-dom';

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import SellerHeader from "../components/SellerHeader";
 import Footer from "../components/Footer";
 import { UserContextProvider } from "../hooks/UseModalContext";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PLTabs from "../components/TabsPropertyListing";
 import SellerViewFavorites from "../components/SellerViewFavoritesUI";
@@ -10,9 +9,7 @@ import SellerViewViewCountUI from "../components/SellerViewViewCountUI";
 import { useParams, Link } from "react-router-dom";
 
 // Images
-import house2 from "../assets/house2.jpg";
 import bg from "../assets/bg3.jpeg";
-import agent from "../assets/agent3.jpg";
 
 function SellerViewPropertyListingUI(props) {
   let { propertyName } = useParams();
@@ -51,27 +48,32 @@ function SellerViewPropertyListingUI(props) {
       })
       .then((response) => {
         if (response) {
-          setTitle(response.data.propertyName);
-          setLocation(response.data.location);
-          setPrice(response.data.price);
-          setBedrooms(response.data.noOfBedrooms);
-          setBathrooms(response.data.noOfBathrooms);
-          setSize(response.data.area);
-          setDescription(response.data.aboutProperty);
-          setUnitFeatures(response.data.unitFeatures);
-          setFacilities(response.data.facilities);
-          setIsSold(response.data.sold);
-          setAgentName(response.data.RealEstateAgent);
-          setAgentUsername(response.data.AgentUsername);
-          setAgentImage(response.data.REAImage);
-          setImage(response.data.propertyImage);
-          setIsSold(response.data.sold);
+          const data = response.data
+          setData(data)
         }
       })
       .catch((error) => {
         console.error("Error fetching property listing:", error);
       });
   }, []);
+
+  function setData(data){
+    setTitle(data.propertyName);
+    setLocation(data.location);
+    setPrice(data.price);
+    setBedrooms(data.noOfBedrooms);
+    setBathrooms(data.noOfBathrooms);
+    setSize(data.area);
+    setDescription(data.aboutProperty);
+    setUnitFeatures(data.unitFeatures);
+    setFacilities(data.facilities);
+    setIsSold(data.sold);
+    setAgentName(data.RealEstateAgent);
+    setAgentUsername(data.AgentUsername);
+    setAgentImage(data.REAImage);
+    setImage(data.propertyImage);
+    setIsSold(data.sold);
+  }
 
   // Function to handle favorites and views pop up
   const handleFavorites = () => {

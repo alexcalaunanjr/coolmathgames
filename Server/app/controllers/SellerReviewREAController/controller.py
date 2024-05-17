@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request
 from flask import Blueprint
 from app.entity.review import Review
 from flask_jwt_extended import jwt_required

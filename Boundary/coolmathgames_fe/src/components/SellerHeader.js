@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
 import LogoutUI from './LogOutUI';
 import pfp from '../assets/pfp.png';
-import axios from 'axios';
 
 // try modal import
 import useModalContext from '../hooks/UseModalContext';
@@ -21,7 +20,7 @@ function SellerHeader() {
         {/* header */}
         <Navbar fluid rounded>
             {/* brand logo */}
-            <Navbar.Brand href="#">
+            <Navbar.Brand href="/SellerRetrieveListingListUI">
                 <span className="self-center text-3xl font-Limelight dark:text-white pl-2">MICASA</span>
             </Navbar.Brand>
 

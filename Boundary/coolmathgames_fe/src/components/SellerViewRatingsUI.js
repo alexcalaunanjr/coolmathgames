@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar } from "react-icons/fa6";
 import axios from 'axios';
-import { Button, Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 
 import SellerRateREAUI from './SellerRateREAUI';
 import { useParams } from 'react-router-dom';

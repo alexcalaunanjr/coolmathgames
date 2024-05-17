@@ -30,7 +30,7 @@ class UserProfiles(db.Model):
     
     #Retrieve profile information based of search
     @classmethod
-    def searchUserProfile(cls, query):
+    def searchUserProfile(cls, query:str):
         userProfileList = cls.query.filter(cls.profile.like(f"%{query}%")).all()
         userProfileDict = [{
             'profile' : profile.profile,
@@ -58,7 +58,7 @@ class UserProfiles(db.Model):
     def suspendProfile(cls, profile):
         susProfile = cls.query.filter_by(profile=profile).first()
         if not susProfile:
-            return jsonify({'message': 'profile not Suspended'}), 404
+            return jsonify({'profileSuspended': False})
         else:
             susProfile.status = "suspended"
             susAccount = UserAccount.query.filter(UserAccount.profile == profile).all()

@@ -53,7 +53,6 @@ function SARetrieveUPListUI(props) {
     // Function to handle click on profile card
     const handleProfileClick = (profileName) => {
         setClickedProfile(profileName);
-        console.log(clickedProfile)
     };
 
     function displayUserProfileList() {

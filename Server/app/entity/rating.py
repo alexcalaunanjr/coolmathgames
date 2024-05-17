@@ -13,7 +13,7 @@ class Rating(db.Model):
     rating_obj = db.relationship("UserAccount",  backref="rate", foreign_keys=[rater])
 
     @classmethod #to post a rating (stars)
-    def postRating(cls, raterUsername, reaUsername, rating):
+    def postRating(cls, raterUsername:str, reaUsername:str, rating:int):
         post = cls.query.filter(and_(cls.rater==raterUsername, cls.rea==reaUsername)).first()
         if post: #checks if there is an existing row
             post.rating = rating
@@ -32,7 +32,7 @@ class Rating(db.Model):
         
     #retrieve rating
     @classmethod
-    def retrieveRatings(cls, reaUsername):
+    def retrieveRatings(cls, reaUsername:str):
         ratingList = cls.query.filter(cls.rea==reaUsername).all()
         ratingDict = [{'id': rate.id, 
                         'rea': rate.rea, 

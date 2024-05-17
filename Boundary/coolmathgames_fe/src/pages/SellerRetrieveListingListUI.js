@@ -9,15 +9,6 @@ import axios from 'axios';
 // assets
 // background image
 import BG from "../assets/bg1-30.jpg";
-// property images
-import Prop1 from "../assets/prop1.jpg";
-import Prop2 from "../assets/prop2.jpg";
-import Prop3 from "../assets/prop3.jpg";
-import Prop4 from "../assets/prop4.jpg";
-// agent images
-import Agent1 from "../assets/agent1.jpg";
-import Agent2 from "../assets/agent2.jpg";
-import Agent3 from "../assets/agent3.jpg";
 
 function SellerRetrieveListingListUI(props) {
     const [sellerProperties, setSellerProperties] = useState([]);

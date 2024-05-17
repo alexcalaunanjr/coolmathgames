@@ -6,7 +6,7 @@ class SAViewUAController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def retrieveUserAccount(self, username):
+    def retrieveUserAccount(self, username:str):
         account = UserAccount.retrieveUserAccount(username)
         return account
 

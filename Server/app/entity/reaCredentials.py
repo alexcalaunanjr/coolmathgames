@@ -57,7 +57,7 @@ class REACredentials(db.Model):
             # Create account fields
             cls.createCreds(accUsername, updatedData['REAImage'], updatedData['experience'], updatedData['license'], updatedData['language'], updatedData['service'], updatedData['about'], updatedData['award'])
             return jsonify({'reaCredentialsUpdated': True})
-        
+
         # Update account fields
         if 'experience' in updatedData:
             credentials.experience = updatedData['experience']
