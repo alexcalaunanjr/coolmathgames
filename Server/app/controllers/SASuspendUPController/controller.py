@@ -5,7 +5,7 @@ from app.entity.userProfiles import UserProfiles
 class SASuspendUPController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
-    
+
     #suspend profile
     def suspendProfile(self, profile):
         updateAcc = UserProfiles.suspendProfile(profile)

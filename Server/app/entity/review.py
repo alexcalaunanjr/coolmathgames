@@ -13,7 +13,7 @@ class Review(db.Model):
     reviewer_obj = db.relationship("UserAccount",  backref="review", foreign_keys=[reviewer])
     
     @classmethod #to post a review
-    def postReview(cls, reviewerUsername, reaUsername, review):
+    def postReview(cls, reviewerUsername:str, reaUsername:str, review:str):
         post = cls.query.filter(and_(cls.reviewer==reviewerUsername, cls.rea==reaUsername)).first()
         if post: #checks if there is an existing row
             post.review = review
@@ -33,7 +33,7 @@ class Review(db.Model):
 
     #retrieve review
     @classmethod
-    def retrieveReviews(cls, reaUsername):
+    def retrieveReviews(cls, reaUsername:str):
         reviewList = cls.query.filter(cls.rea==reaUsername).all()
         reviewListDict = [{'id': review.id, 
                         'rea': review.rea, 

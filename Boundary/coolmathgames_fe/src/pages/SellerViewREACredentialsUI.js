@@ -7,7 +7,6 @@ import axios from 'axios'
 
 // assets
 import bgCredential from "../assets/bgCredentials.png";
-import Agent1 from '../assets/agent1.jpg'
 // components
 import SellerHeader from "../components/SellerHeader";
 import Footer from "../components/Footer";
@@ -22,7 +21,6 @@ function SellerViewREACredentialsUI(props, {openModal, onClose}) {
     const [email, setEmail] = useState('');
     const [phoneNo, setPhoneNo] = useState('');
     const [experience, setExperience] = useState('');
-    const [memberSince, setMemberSince] = useState('');
     const [license, setLicense] = useState('');
     const [language, setLanguage] = useState('');
     const [service, setService] = useState('');
@@ -58,16 +56,8 @@ function SellerViewREACredentialsUI(props, {openModal, onClose}) {
         })
         .then(response => {
             if (response) {
-                setPicture(response.data.REAImage)
-                setFullName(response.data.fullName)
-                setEmail(response.data.email)
-                setPhoneNo(response.data.phoneNo)
-                setExperience(response.data.experience)
-                setLicense(response.data.license)
-                setLanguage(response.data.language)
-                setAbout(response.data.about)
-                setAwards(response.data.award)
-                setService(response.data.service)
+                const data = response.data
+                setData(data)
             }
             else {
             }
@@ -76,6 +66,19 @@ function SellerViewREACredentialsUI(props, {openModal, onClose}) {
             console.error('Error fetching REA credentials:', error);
         });
     }, []);
+
+    function setData(data) {
+        setPicture(data.REAImage)
+        setFullName(data.fullName)
+        setEmail(data.email)
+        setPhoneNo(data.phoneNo)
+        setExperience(data.experience)
+        setLicense(data.license)
+        setLanguage(data.language)
+        setAbout(data.about)
+        setAwards(data.award)
+        setService(data.service)
+    }
 
     // set services and awards listed to be in bulletpoints
     const bulletPoints = (list) => {

@@ -99,7 +99,7 @@ function REACreateLisitngUI(props) {
                 displayErrorMessage();
             });
         } catch (error) {
-            setError('An error occurred during property creation.');
+            setError('An error occurred during property listing creation.');
         }
     };
 
@@ -109,7 +109,7 @@ function REACreateLisitngUI(props) {
     }
 
     function displaySuccessMessage(){
-        setMessage('Property created successfully!');
+        setMessage('Property listing created successfully!');
         setError('');
     }
 
@@ -153,7 +153,7 @@ function REACreateLisitngUI(props) {
 
             <div className='flex-col'>
                 <div className="flex w-full text-2xl font-bold p-10">
-                    <h1>Property Details</h1>
+                    <h1>Property Listing Details</h1>
                 </div>
                 <div className='flex pl-10'>
                     {/* Left side */}

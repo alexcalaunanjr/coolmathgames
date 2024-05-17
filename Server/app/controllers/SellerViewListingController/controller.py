@@ -6,7 +6,7 @@ class SellerViewListingController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def retrieveListing(self, propertyName):
+    def retrieveListing(self, propertyName:str):
         sellerProperty = PropertyListing.retrieveListing(propertyName)
         return sellerProperty
 

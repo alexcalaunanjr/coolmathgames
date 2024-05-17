@@ -6,7 +6,7 @@ class SellerViewReviewsController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def retrieveReviews(self, reaUsername):
+    def retrieveReviews(self, reaUsername:str):
         reviews = Review.retrieveReviews(reaUsername) # Retrieve a list of reviews
         return reviews
 

@@ -6,7 +6,7 @@ class SASearchUPController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def searchUserProfiles(self, query):
+    def searchUserProfiles(self, query:str):
         searchUP = UserProfiles.searchUserProfile(query) #query based of search keywords
         return searchUP
 

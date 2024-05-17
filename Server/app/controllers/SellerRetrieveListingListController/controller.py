@@ -6,7 +6,7 @@ class SellerRetrieveListingListController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def retrieveMyProperties(self, username):
+    def retrieveMyProperties(self, username:str):
         myProperties = PropertyListing.retrieveMyProperties(username) # Retrieve a list of the sellers properties
         return myProperties
 

@@ -77,7 +77,7 @@ class PropertyListing(db.Model):
 
     #function to return a seller's owned properties and all its information
     @classmethod
-    def retrieveMyProperties(cls, username):
+    def retrieveMyProperties(cls, username:str):
         sellerPropertiesList = cls.query.filter_by(ownerSeller=username).all()
         sellerPropertiesDict = []
         for listing in sellerPropertiesList:
@@ -284,7 +284,7 @@ class PropertyListing(db.Model):
     
     #view rea's owned listing
     @classmethod
-    def retrieveListing(cls, propertyName):
+    def retrieveListing(cls, propertyName:str):
         REAListing = cls.query.filter_by(property=propertyName).first()
         if REAListing:
             property = jsonify({
