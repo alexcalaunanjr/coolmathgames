@@ -37,7 +37,7 @@ function REAUpdateListingUI(props) {
     let {propertyName} = useParams();
 
     useEffect(() => {
-        document.title = 'Create Property';
+        document.title = 'Create Property Listing';
         axios.get(`http://127.0.0.1:5000/REAUpdateListing/${propertyName}`, {
             headers: {
             'Authorization': 'Bearer ' + props.token,
@@ -117,7 +117,7 @@ function REAUpdateListingUI(props) {
             }
             })
             .then((response) => {
-                console.log('Property updated successfully:', response.data.reaListingUpdated);
+                console.log('Property listing updated successfully:', response.data.reaListingUpdated);
                 if (response.data.reaListingUpdated) {
                     displaySuccessMessage();
                 }
@@ -130,7 +130,7 @@ function REAUpdateListingUI(props) {
                 displayErrorMessage();
             });
         } catch (error) {
-            setError('An error occurred during property updation.');
+            setError('An error occurred during property listing update.');
         }
 
         {error === '' && setChangesPopUp(true)}
@@ -148,18 +148,18 @@ function REAUpdateListingUI(props) {
     }, [formFilled]);
 
     function displaySuccessMessage(){
-        setMessage('Property updated successfully!');
+        setMessage('Property listing updated successfully!');
         setError('');
     }
 
     function displayErrorMessage(){
         setMessage('');
-        setError('Property not updated!');
+        setError('Property listing not updated!');
     }
 
     const displayErrorMessageUI = () =>{
         // Check if all fields are filled
-        if (!name || !location || !bed || !bathroom || !area || !price || !image || !facilities || !description || !features || !status || !/^\d+$/.test(area) || !/^\d+$/.test(price)) {
+        if (!name || !location || !bed || !bathroom || !area || !price || !image || !facilities || !description || !features || !status) {
             setError('Please enter all fields.');
         }
 
@@ -186,7 +186,7 @@ function REAUpdateListingUI(props) {
 
             <div className='flex-col'>
                 <div className="flex w-full text-2xl font-bold p-10">
-                    <h1>Property Details</h1>
+                    <h1>Property Listing Details</h1>
                 </div>
                 <div className='flex pl-10'>
                     {/* Left side */}
@@ -197,7 +197,7 @@ function REAUpdateListingUI(props) {
                             <TextInput
                                 type="text"
                                 value={name}
-                                onChange = {(e) => setName(e.target.value)}
+                                readOnly
                             />
                         </div>
                         {/* Location */}
