@@ -25,7 +25,7 @@ function SACreateUAUI(props) {
     const [selectedUserType, setSelectedUserType] = useState('');
 
     useEffect(() => {
-        document.title = 'SA Create User Account';
+        document.title = 'Create User Account';
         axios.get('http://127.0.0.1:5000/SACreateUA', {
             headers: {
             'Authorization': 'Bearer ' + props.token,
