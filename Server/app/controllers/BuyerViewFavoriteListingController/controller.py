@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from app.entity.favorite import Favorite
 

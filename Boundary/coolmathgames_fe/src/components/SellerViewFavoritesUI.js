@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 

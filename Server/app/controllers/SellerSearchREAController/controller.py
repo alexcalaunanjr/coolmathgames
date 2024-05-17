@@ -6,7 +6,7 @@ class SellerSearchREAController(Blueprint):
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
 
-    def searchREA(self, query):
+    def searchREA(self, query:str):
         searchREA = UserAccount.searchREA(query) #query based of search keywords
         return searchREA
 

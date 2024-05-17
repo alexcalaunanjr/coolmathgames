@@ -1,7 +1,6 @@
 from .sqlAlchemy import db
 from flask import jsonify
 from sqlalchemy import and_
-from sqlalchemy import text
 from app.entity.properties import Properties
 from app.entity.account import UserAccount
 from sqlalchemy.orm import subqueryload
@@ -12,7 +11,7 @@ class Favorite(db.Model):
     property = db.Column(db.String(50), db.ForeignKey('Properties.propertyName'), nullable=False)
     buyer = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     property_obj = db.relationship("Properties", backref="favorite")
-    
+
     @classmethod
     def retrieveFavoriteList(cls, username):
         favoriteProperties = cls.query\
@@ -39,9 +38,9 @@ class Favorite(db.Model):
             'sold': listings.property_obj.listings[0].sold
         } for listings in favoriteProperties]
         return jsonify({"properties": properties})
-    
+
     @classmethod
-    def viewFavoriteProperty(cls, propertyName):
+    def viewFavoriteProperty(cls, propertyName:str):
         favoriteProperty = cls.query.join(cls.property_obj).options(subqueryload(cls.property_obj)).filter(cls.property==propertyName).first()
         if favoriteProperty:
             property = ({
@@ -65,7 +64,7 @@ class Favorite(db.Model):
             return jsonify({"properties": property})
         else:
             return jsonify({"properties": "Not found"})
-    
+
     @classmethod
     def postFavorite(cls, username:str, propertyName:str):
         propertyExist = cls.query.join(cls.property_obj).filter(and_(Properties.propertyName==propertyName, cls.buyer==username)).first()
@@ -83,6 +82,6 @@ class Favorite(db.Model):
             return jsonify({"enteredFavorite": True})
     
     @classmethod
-    def viewFavoriteCount(cls, propertyName):
+    def viewFavoriteCount(cls, propertyName:str):
         favoriteCount = cls.query.filter_by(property=propertyName).count()
         return jsonify({'favorites':favoriteCount})

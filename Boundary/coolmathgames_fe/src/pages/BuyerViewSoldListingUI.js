@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import BuyerHeader from "../components/BuyerHeader";
 import Footer from "../components/Footer";
 import { UserContextProvider } from "../hooks/UseModalContext";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import PLTabs from "../components/TabsPropertyListing";
 
 // Images
-import house2 from "../assets/house2.jpg";
 import bg from "../assets/bg3.jpeg";
-import agent from "../assets/agent3.jpg";
 
 function BuyerViewSoldListingUI(props) {
   let { propertyName } = useParams();

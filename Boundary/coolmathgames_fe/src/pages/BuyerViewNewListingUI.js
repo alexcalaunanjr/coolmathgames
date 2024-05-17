@@ -111,7 +111,7 @@ function BuyerViewNewListingUI(props) {
           }
         )
         .then((response) => {
-          if (response) {
+          if (response.data.enteredFavorite) {
             console.log("Added to favorite");
           } else {
             console.log("Unfavorited");
