@@ -25,6 +25,7 @@ function BuyerCalculateMortgageUI({ openModal, onClose, price, token }) {
         }
         else {
             setError('');
+            setCalculate(true);
         }
         return true;
     }
@@ -42,7 +43,6 @@ function BuyerCalculateMortgageUI({ openModal, onClose, price, token }) {
         setCalculate(false);
         if (handleErrorMessage())
         {
-            error === '' && setCalculate(true);
             calculateMortgage();
         }
     }

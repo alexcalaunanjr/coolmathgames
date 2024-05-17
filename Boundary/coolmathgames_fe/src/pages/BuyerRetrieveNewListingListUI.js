@@ -34,7 +34,7 @@ function BuyerRetrieveNewListingListUI(props) {
     };
 
     useEffect(() => {
-        document.title = 'Buyer Retrieve New Property Listing';
+        document.title = 'Retrieve New Listing List';
         axios.get(`http://127.0.0.1:5000/BuyerRetrieveNewListingList`, {
             headers: {
                 Authorization: 'Bearer ' + props.token,
