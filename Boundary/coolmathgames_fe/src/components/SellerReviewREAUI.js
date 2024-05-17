@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-function SellerReviewREAUI({ review, setReview, token, onClose }) {
+function SellerReviewREAUI({ review, setReview, token, onClose}) {
     let {agentName} = useParams()
     const [submit, setSubmit] = useState(false);
     const [error, setError] = useState('')

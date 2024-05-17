@@ -16,6 +16,7 @@ function SellerRetrieveListingListUI(props) {
     useEffect(() => {
         document.title = 'Seller Retrieve Listing List UI';
         const username = localStorage.getItem('username');
+        console.log(username)
         axios.get(`http://127.0.0.1:5000/SellerRetrieveListing/${username}`, {
             headers: {
                 Authorization: 'Bearer ' + props.token,

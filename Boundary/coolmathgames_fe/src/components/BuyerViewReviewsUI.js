@@ -20,7 +20,9 @@ function BuyerViewReviewsUI({openModal, onClose, REAName, token}) {
             }
         })
         .then(response => {
-            setReviewsList(response.data.reviewListDict)
+            // sort date descending order
+            const sortedReview = response.data.reviewListDict.sort((a, b) => new Date(b.date) - new Date(a.date));
+            setReviewsList(sortedReview)
         })
         .catch(error => {
             console.error('Error retrieving reviews:', error);
@@ -33,7 +35,7 @@ function BuyerViewReviewsUI({openModal, onClose, REAName, token}) {
     function displayREAReviewsUI() {
         return(
             <>
-            <Modal show={openModal} onClose={onClose}>
+            <Modal show={openModal} onClose={onClose} dismissible>
                 <Modal.Header><p class="text-2xl font-semibold text-gray-900">{REAName}'s Reviews</p></Modal.Header>
                 <Modal.Body>
                     {/* total reviews */}

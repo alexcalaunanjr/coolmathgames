@@ -16,9 +16,9 @@ function SAUpdateUPUI(props) {
 
     useEffect(() => {
         document.title = 'Update User Profile';
-        if (formFilled) {
-            setFormFilled(false);
-        };
+        // if (formFilled) {
+        //     setFormFilled(false);
+        // };
         axios.get(`http://127.0.0.1:5000/SAUpdateUP/${profileName}`, {
             headers: {
             'Authorization': 'Bearer ' + props.token,
@@ -38,7 +38,7 @@ function SAUpdateUPUI(props) {
             .catch(error => {
                 console.error('Error fetching profile:', error);
             });
-    }, [formFilled]);
+    }, [profileName, props.token]);
 
     function handleUpdate(event) {
         event.preventDefault();
@@ -69,6 +69,8 @@ function SAUpdateUPUI(props) {
                 console.log('User profile updated successfully:', response.data.updatedProfile);
                 if (response.data.updatedProfile) {
                     displaySuccessMessage();
+                    setNewProfile(response.data.updatedProfile.profile)
+                    setNewDescription(response.data.updatedProfile.description)
                 }
                 else {
                     setMessage('');
@@ -129,9 +131,7 @@ function SAUpdateUPUI(props) {
                     </div>
                     {/* Succesful Message */}
                     <div className="flex justify-center">
-                        <div id="successPrompt" className="text-green-500 pt-10">
-                            {error === '' && message}
-                        </div>
+                        {error === '' && <div id="successPrompt" className="text-green-500 pt-10">{message}</div>}
                     </div>
                     <div className="w-40 mx-auto pt-5">
                         <Button
