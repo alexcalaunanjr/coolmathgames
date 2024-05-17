@@ -51,7 +51,7 @@ function BuyerViewSoldListingUI(props) {
       )
       .then((response) => {
         if (response) {
-          data = response.data;
+          const data = response.data;
           setData(data);
         }
       })
