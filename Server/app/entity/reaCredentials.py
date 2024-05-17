@@ -21,7 +21,7 @@ class REACredentials(db.Model):
         reaAdded = REACredentials(username=accUsername, experience=experience, license=license, language=language, service=service, about=about, award=award)
         db.session.add(reaAdded)
         db.session.commit()
-        return True
+        return jsonify({'message':True})
 
     #retrieve a user account based of username
     @classmethod
