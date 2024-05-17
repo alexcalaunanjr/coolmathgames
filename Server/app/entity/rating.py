@@ -17,6 +17,7 @@ class Rating(db.Model):
         post = cls.query.filter(and_(cls.rater==raterUsername, cls.rea==reaUsername)).first()
         if post: #checks if there is an existing row
             post.rating = rating
+            post.date = date.today()
             db.session.commit()
             return jsonify({"updatedRating": True})
         else: # if row doesnt exist make a new post

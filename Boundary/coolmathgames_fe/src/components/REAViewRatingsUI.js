@@ -46,10 +46,15 @@ function REAViewRatingsUI({openModal, onClose, REAName, token, username}) {
     function calculateAvgStars (ratingsList) {
       let totalStars = 0;
       let numRatings = ratingsList.length;
-      for (let i = 0; i < numRatings; i++) {
-        totalStars += ratingsList[i].rating;
+      if (numRatings==0){
+        return 0;
       }
-      return (totalStars/numRatings).toFixed(1);
+      else{
+        for (let i = 0; i < numRatings; i++) {
+          totalStars += ratingsList[i].rating;
+        }
+        return (totalStars/numRatings).toFixed(1);
+      }
     }
 
     function displayREARatingsUI() {

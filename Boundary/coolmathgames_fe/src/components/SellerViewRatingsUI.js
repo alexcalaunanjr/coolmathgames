@@ -20,7 +20,9 @@ function SellerViewRatingsUI({openModal, onClose, REAName, token}) {
           }
       })
       .then(response => {
-          setRatingsList(response.data.ratingDict)
+        // sort date descending order
+        const sortedRatings = response.data.ratingDict.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setRatingsList(sortedRatings)
       })
       .catch(error => {
           console.error('Error retreiving ratings:', error);
@@ -45,16 +47,21 @@ function SellerViewRatingsUI({openModal, onClose, REAName, token}) {
     function calculateAvgStars(ratingsList) {
       let totalStars = 0;
       let numRatings = ratingsList.length;
-      for (let i = 0; i < numRatings; i++) {
-        totalStars += ratingsList[i].rating;
+      if (numRatings==0){
+        return 0;
       }
-      return (totalStars/numRatings).toFixed(1);
+      else{
+        for (let i = 0; i < numRatings; i++) {
+          totalStars += ratingsList[i].rating;
+        }
+        return (totalStars/numRatings).toFixed(1);
+      }
     }
 
     function displayREARatingsUI() {
       return(
         <>
-        <Modal show={openModal} onClose={onClose}>
+        <Modal show={openModal} onClose={onClose} dismissible>
           <Modal.Header><p class="text-2xl font-semibold text-gray-900">{REAName}'s Ratings</p></Modal.Header>
           <Modal.Body>
             {/* total average rate */}
