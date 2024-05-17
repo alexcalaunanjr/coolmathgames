@@ -38,7 +38,7 @@ function BuyerRetrieveSoldListingListUI(props) {
     };
 
     useEffect(() => {
-        document.title = 'Buyer Retrieve Sold Property Listing';
+        document.title = 'Retrieve Sold Property Listing';
 
         axios.get(`http://127.0.0.1:5000/BuyerRetrieveSoldListingList`, {
             headers: {
