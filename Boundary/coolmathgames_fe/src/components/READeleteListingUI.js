@@ -19,7 +19,7 @@ function READeleteListingUI( {openModal, onClose, text, token}) {
     })
     .then((response) => {
       if (response.data.propertyDeleted) {
-        setSuccess("Property deleted")
+        setSuccess("Property listing deleted")
       }
       else {
         setError("Error occured while trying to delete")

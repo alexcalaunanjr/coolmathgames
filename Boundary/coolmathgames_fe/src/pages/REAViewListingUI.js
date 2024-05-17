@@ -28,6 +28,7 @@ function REAViewListingUI(props) {
   const [description, setDescription] = useState("");
   const [unitFeatures, setUnitFeatures] = useState("");
   const [facilities, setFacilities] = useState("");
+  const [sellerName, setSellerName] = useState("");
   const [views, setViews] = useState("");
   const [favorites, setFavorites] = useState("");
 
@@ -77,6 +78,7 @@ function REAViewListingUI(props) {
     setUnitFeatures(data.unitFeatures);
     setFacilities(data.facilities);
     setIsSold(data.sold);
+    setSellerName(data.ownerSeller)
   }
 
   // Function to handle insights pop up
@@ -168,6 +170,10 @@ function REAViewListingUI(props) {
                   />
                 </svg>
                 <p className="text-md">{location}</p>
+              </div>
+              {/* seller name */}
+              <div className="pt-3">
+                <p className="text-gray-600">Property Owned By {sellerName}</p>
               </div>
               {/* Bedroom, Bathroom, Area */}
               <div className="flex pt-5">
@@ -305,7 +311,7 @@ function REAViewListingUI(props) {
           {/* Description */}
           <div className="w-2/3 pb-10">
             <p className="lg:text-2xl md:text-md font-bold pb-5">
-              About this property
+              About This Property
             </p>
             <p className="text-md">{description}</p>
           </div>
@@ -339,7 +345,7 @@ function REAViewListingUI(props) {
               <READeletePLUI
                 openModal={READeletePLUI}
                 onClose={handleReopenDelPopUp}
-                text="Are you sure to delete this property?"
+                text="Are you sure to delete this property listing?"
                 token={Ptoken}
               />
             )}

@@ -302,7 +302,8 @@ class PropertyListing(db.Model):
                 'unitFeatures': REAListing.property_obj.unitFeatures,
                 'facilities': REAListing.property_obj.facilities,
                 'viewsCount': REAListing.viewsCount,
-                'sold': REAListing.sold
+                'sold': REAListing.sold,
+                'ownerSeller': REAListing.ownerSeller
             })
             return property
         else:
