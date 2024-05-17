@@ -11,7 +11,7 @@ I think it'll be confusing for Terence that we're doing Real Estate but we are c
  - Flask
 
  ### Database
-- ?
+- SQLlite
 
 <br>
 Initial commit on 3 April 2024
