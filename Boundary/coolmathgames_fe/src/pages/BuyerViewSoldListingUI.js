@@ -35,7 +35,7 @@ function BuyerViewSoldListingUI(props) {
   const [isClick, setIsClick] = useState(false);
 
   useEffect(() => {
-    document.title = "Buyer View Sold Property Listing";
+    document.title = "View Sold Property Listing";
     axios
       .post(
         `http://127.0.0.1:5000/BuyerViewSoldListing/${propertyName}`,
@@ -51,27 +51,32 @@ function BuyerViewSoldListingUI(props) {
       )
       .then((response) => {
         if (response) {
-          setTitle(response.data.propertyName);
-          setLocation(response.data.location);
-          setPrice(response.data.price);
-          setBedrooms(response.data.noOfBedrooms);
-          setBathrooms(response.data.noOfBathrooms);
-          setSize(response.data.area);
-          setDescription(response.data.aboutProperty);
-          setUnitFeatures(response.data.unitFeatures);
-          setFacilities(response.data.facilities);
-          setIsSold(response.data.sold);
-          setAgentName(response.data.RealEstateAgent);
-          setAgentUsername(response.data.AgentUsername);
-          setAgentImage(response.data.REAImage);
-          setImage(response.data.propertyImage);
-          setIsFavorited(response.data.favorited);
+          const data = response.data;
+          setData(data);
         }
       })
       .catch((error) => {
         console.error("Error fetching property listing:", error);
       });
   }, []);
+
+  function setData(data){
+    setTitle(data.propertyName);
+    setLocation(data.location);
+    setPrice(data.price);
+    setBedrooms(data.noOfBedrooms);
+    setBathrooms(data.noOfBathrooms);
+    setSize(data.area);
+    setDescription(data.aboutProperty);
+    setUnitFeatures(data.unitFeatures);
+    setFacilities(data.facilities);
+    setIsSold(data.sold);
+    setAgentName(data.RealEstateAgent);
+    setAgentUsername(data.AgentUsername);
+    setAgentImage(data.REAImage);
+    setImage(data.propertyImage);
+    setIsFavorited(data.favorited);
+  }
 
   useEffect(() => {
     if (isClick) {

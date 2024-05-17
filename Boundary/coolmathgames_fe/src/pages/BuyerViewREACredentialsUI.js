@@ -59,16 +59,8 @@ function BuyerViewREACredentialsUI(props, {openModal, onClose}) {
         })
         .then(response => {
             if (response) {
-                setPicture(response.data.REAImage)
-                setFullName(response.data.fullName)
-                setEmail(response.data.email)
-                setPhoneNo(response.data.phoneNo)
-                setExperience(response.data.experience)
-                setLicense(response.data.license)
-                setLanguage(response.data.language)
-                setAbout(response.data.about)
-                setAwards(response.data.award)
-                setService(response.data.service)
+                const data = response.data
+                setData(data)
             }
             else {
             }
@@ -77,6 +69,19 @@ function BuyerViewREACredentialsUI(props, {openModal, onClose}) {
             console.error('Error fetching REA credentials:', error);
         });
     }, []);
+
+    function setData(data){
+        setPicture(data.REAImage)
+        setFullName(data.fullName)
+        setEmail(data.email)
+        setPhoneNo(data.phoneNo)
+        setExperience(data.experience)
+        setLicense(data.license)
+        setLanguage(data.language)
+        setAbout(data.about)
+        setAwards(data.award)
+        setService(data.service)
+    }
 
     // set services and awards listed to be in bulletpoints
     function bulletPoints(list) {
