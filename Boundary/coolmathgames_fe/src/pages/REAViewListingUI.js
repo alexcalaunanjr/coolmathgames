@@ -230,13 +230,14 @@ function REAViewListingUI(props) {
                 </div>
               </div>
             </div>
-            {/* Price */}
+            {/* Middle */}
             <div className="w-1/3 pt-10">
-              <p className="lg:text-3xl md:text-md font-bold text-center">
+            </div>
+            {/* Right */}
+            <div className="w-1/3 pt-10">
+              <p className="lg:text-3xl md:text-md font-bold text-end">
                 ${price}
               </p>
-            </div>
-            <div className="w-1/3 pt-10">
               <div className="flex justify-end space-x-4 pt-5">
                 {/* Favoties */}
                 <button
