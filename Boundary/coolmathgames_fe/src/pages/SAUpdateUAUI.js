@@ -230,7 +230,7 @@ function SAUpdateUAUI(props) {
                         </div>
                         {/* Type */}
                         <div className="mb-8 w-2/3">
-                            Type
+                            User Profile
                             <CustomDropdown 
                                 label={selectedUserType} 
                                 options={options} 

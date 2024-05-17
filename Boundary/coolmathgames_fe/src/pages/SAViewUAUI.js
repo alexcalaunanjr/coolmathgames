@@ -150,7 +150,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
                         </div>
                         {/* Type */}
                         <div className="mb-8 w-2/3">
-                            Type
+                            User Profile
                             <TextInput
                                 type="text"
                                 value={selectedUserType}
