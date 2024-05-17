@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar } from "react-icons/fa6";
 import axios from 'axios';
-import { Button, Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 
 
 function REAViewRatingsUI({openModal, onClose, REAName, token, username}) {
-    // // placeholders
-
-
     const [ratingsList, setRatingsList] = useState([])
 
     useEffect(() => {

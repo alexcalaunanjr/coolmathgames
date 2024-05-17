@@ -12,10 +12,6 @@ import BG from "../assets/bg1-30.jpg";
 
 function BuyerRetrieveFavoriteListUI(props) {
   const [favoriteProperties, setFavoriteProperties] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  // Check if property is sold
-  const [isSold, setIsSold] = useState(props.isSold);
-  const [isFavorite, setIsFavorite] = useState(true);
 
   useEffect(() => {
     document.title = "Buyer Retrieve Favorite Property Listing";

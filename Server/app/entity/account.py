@@ -2,7 +2,6 @@ from .sqlAlchemy import db
 from flask import jsonify
 from flask_bcrypt import Bcrypt
 from sqlalchemy import and_
-from sqlalchemy.orm import relationship
 
 bcrypt = Bcrypt()
 
@@ -115,7 +114,7 @@ class UserAccount(db.Model):
     
     #Retrieve new REA information based of search
     @classmethod
-    def searchREA(cls, query):
+    def searchREA(cls, query:str):
         REAList = cls.query.filter(and_(cls.username.like(f"%{query}%"), cls.profile=="Real Estate Agent")).all()
         READict = [{
             'username' : rea.username,

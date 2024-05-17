@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import BuyerHeader from "../components/BuyerHeader";
 import Footer from "../components/Footer";
 import { UserContextProvider } from "../hooks/UseModalContext";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { MdOutlineCalculate } from "react-icons/md";
 import axios from "axios";
 import PLTabs from "../components/TabsPropertyListing";
@@ -62,23 +62,9 @@ function BuyerViewFavoriteListingUI(props) {
           }
         )
         .then((response) => {
-          console.log("Test", response.data);
           if (response) {
-            setTitle(response.data.properties.propertyName);
-            setLocation(response.data.properties.location);
-            setPrice(response.data.properties.price);
-            setBedrooms(response.data.properties.noOfBedrooms);
-            setBathrooms(response.data.properties.noOfBathrooms);
-            setSize(response.data.properties.area);
-            setDescription(response.data.properties.aboutProperty);
-            setUnitFeatures(response.data.properties.unitFeatures);
-            setFacilities(response.data.properties.facilities);
-            setIsSold(response.data.properties.sold);
-            setAgentName(response.data.properties.RealEstateAgent);
-            setAgentImage(response.data.properties.REAImage);
-            setImage(response.data.properties.propertyImage);
-            setIsFavorited(response.data.properties.favorited);
-            setLoad(false);
+            const data = response.data
+            setData(data)
           }
         })
         .catch((error) => {
@@ -86,6 +72,24 @@ function BuyerViewFavoriteListingUI(props) {
         });
     }
   }, []);
+
+  function setData(data) {
+    setTitle(data.properties.propertyName);
+    setLocation(data.properties.location);
+    setPrice(data.properties.price);
+    setBedrooms(data.properties.noOfBedrooms);
+    setBathrooms(data.properties.noOfBathrooms);
+    setSize(data.properties.area);
+    setDescription(data.properties.aboutProperty);
+    setUnitFeatures(data.properties.unitFeatures);
+    setFacilities(data.properties.facilities);
+    setIsSold(data.properties.sold);
+    setAgentName(data.properties.RealEstateAgent);
+    setAgentImage(data.properties.REAImage);
+    setImage(data.properties.propertyImage);
+    setIsFavorited(data.properties.favorited);
+    setLoad(false);
+  }
 
   useEffect(() => {
     if (isClick) {

@@ -7,7 +7,7 @@ class SellerViewFavoriteCountController(Blueprint):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def viewFavoriteCount(self, propertyName):
+    def viewFavoriteCount(self, propertyName:str):
         favoriteCount = Favorite.viewFavoriteCount(propertyName)
         return favoriteCount
     
