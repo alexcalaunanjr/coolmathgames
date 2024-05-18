@@ -24,6 +24,8 @@ function SAViewUAUI(props, {openModal, onClose}) {
     // Pop up for suspending account
     const [suspendPopUp, setSuspendPopUp] = useState(false);
     const [Ptoken, setPToken] = useState('');
+    // Prompt success suspend user account
+    const [message, setMessage] = useState('')
     // Navigate to update account page
     const navigate = useNavigate();
 
@@ -170,8 +172,14 @@ function SAViewUAUI(props, {openModal, onClose}) {
                         </div>
                     </div>
                 </div>
+
+                {/* Error Message */}
+                <div className="flex justify-center">
+                    {message && <div className="text-green-500 pt-10">{message}</div>}
+                </div>
+
                 {/* Button */}
-                <div className="flex justify-center space-x-4 pt-14">
+                <div className="flex justify-center space-x-4 pt-5">
                     <div className="w-40">
                         <Button color="bg-blue-500 text-md" text="Update" onClick={handleNavigate}/>
                     </div>
@@ -184,6 +192,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
                         onClose={handleReopenPopUp}
                         text="Are you sure to suspend this user account?"
                         token={Ptoken}
+                        setMessage={setMessage}
                     />
                 )}
                 </div>

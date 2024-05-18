@@ -4,6 +4,7 @@ import SAViewUPUI from './SAViewUPUI';
 
 function UPCard({ profile, profileDesc, onClick, token }) {
     const [popUp, setPopUp] = useState(false);
+    const [status, setStatus] = useState('');
     // const [description, setDescription] = useState('');
 
     const handleClick = () => {
@@ -14,9 +15,9 @@ function UPCard({ profile, profileDesc, onClick, token }) {
 
     function displayUPDetails(){
         return (
-            <div className={`p-5 flex w-full rounded-xl bg-white shadow-xl ${profile.status === 'suspended' ? 'text-red-500' : ''}`}>
+            <div className={`p-5 flex w-full rounded-xl bg-white shadow-xl ${profile.status === 'suspended' || status === 'suspended' ? 'text-red-500' : ''}`}>
                 <div className="flex w-2/3 items-center">
-                    <div style={{ color: profile.status === 'suspended' ? 'red' : 'inherit' }}>
+                    <div style={{ color: profile.status === 'suspended' || status === 'suspended' ? 'red' : 'inherit' }}>
                         {profile.profile}
                     </div>
                 </div>
@@ -32,6 +33,7 @@ function UPCard({ profile, profileDesc, onClick, token }) {
                         // Close the pop up
                         onClose={() => setPopUp(false)} 
                         token={token}
+                        setStatus={setStatus}
                     />
                 )}
             </div>
