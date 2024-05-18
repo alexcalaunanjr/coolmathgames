@@ -84,7 +84,7 @@ function SARetrieveUAListUI(props) {
                         <div className="w-1/4 mx-auto">
                         </div>
                         <div className="w-1/4 mx-auto">
-                            <SASearchUAUI placeholder="Search by username" onSubmit={handleSearch} setUsers={users} token={props.token}/>
+                            <SASearchUAUI placeholder="Search by username" onSubmit={handleSearch} setUsers={setUsers} token={props.token}/>
                         </div>
                         <Link to="/SACreateUAUI">
                             <div className="lg:w-full  md:w-40 w-20 mx-auto">
