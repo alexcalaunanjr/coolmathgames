@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
 
-function REACreateLisitngUI(props) {
+function REACreateListingUI(props) {
     const token = localStorage.getItem('');
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
@@ -289,4 +289,4 @@ function REACreateLisitngUI(props) {
     )
 }
 
-export default REACreateLisitngUI;
+export default REACreateListingUI;

@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import { UserContextProvider } from "../hooks/UseModalContext";
 import axios from "axios";
 import PLTabs from "../components/TabsPropertyListing";
-import SellerViewFavorites from "../components/SellerViewFavoritesUI";
+import SellerViewFavoriteCountUI from "../components/SellerViewFavoriteCountUI";
 import SellerViewViewCountUI from "../components/SellerViewViewCountUI";
 import { useParams, Link } from "react-router-dom";
 
@@ -261,7 +261,7 @@ function SellerViewPropertyListingUI(props) {
 
                 {/* Pop up for favorites */}
                 {favoritesPopUp && (
-                  <SellerViewFavorites
+                  <SellerViewFavoriteCountUI
                     propertyName={title}
                     openModal={favoritesPopUp}
                     onClose={handleReopenPopUp}
