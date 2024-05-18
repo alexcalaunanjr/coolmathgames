@@ -5,10 +5,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function SASuspendUAUI( {openModal, onClose, text, token}) {
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  
+function SASuspendUAUI( {openModal, onClose, text, token, setMessage}) {
   function handleSuspend() {
     const user = localStorage.getItem('clickedUser')
     axios.post('http://127.0.0.1:5000/SASuspendUA', {
@@ -21,14 +18,13 @@ function SASuspendUAUI( {openModal, onClose, text, token}) {
     })
     .then((response) => {
       if (response.data.accountSuspended) {
-        setSuccess("Suspended User Account")
+        setMessage("User account suspended successfully!")
       }
-      else {
-        setError("Error occured while trying to suspend")
-      }
+      onClose();
     })
     .catch((error) => {
       console.error('there was an error:', error);
+      setMessage('Error occured while trying to suspend');
     });
     closeSuspendPopUp();
   };

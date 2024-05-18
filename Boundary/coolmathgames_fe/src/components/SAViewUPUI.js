@@ -6,12 +6,15 @@ import Button from "./Button";
 import SASuspendUPUI from "./SASuspendUPUI";
 import { Link, useNavigate } from "react-router-dom";
 
-function SAViewUPUI({header, description, openModal, onClose, token}) {
+function SAViewUPUI({header, description, openModal, onClose, token, setStatus}) {
   const navigate = useNavigate();
   const [suspendPopUp, setSuspendPopUp] = useState(false);
   const [clickedProfile, setClickedProfile] = useState(localStorage.getItem('clickedProfile'));
   const [clickedProfileDesc, setclickedProfileDesc] = useState('');
   
+  // Prompt success suspend user profile
+  const [message, setMessage] = useState('');
+
   const handleSuspend = () => {
     setSuspendPopUp(true);
   }
@@ -55,7 +58,12 @@ function SAViewUPUI({header, description, openModal, onClose, token}) {
           </p>
         </div>
       </Modal.Body>
-      <Modal.Footer className="flex justify-center gap-4">
+      <Modal.Footer className="flex flex-col">
+        {/* Error Message */}
+        <div className="flex justify-center">
+          {message && <div className="text-green-500">{message}</div>}
+        </div>
+
         {/* Button */}
         <div className="flex justify-center space-x-4 pt-5">
           <div className="w-40">
@@ -70,6 +78,8 @@ function SAViewUPUI({header, description, openModal, onClose, token}) {
                   onClose={handleReopenPopUp}
                   text="Are you sure to suspend this user profile?"
                   token={token}
+                  setMessage={setMessage}
+                  setStatus={setStatus}
               />
           )}
         </div>
