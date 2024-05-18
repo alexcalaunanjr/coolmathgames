@@ -104,7 +104,7 @@ function BuyerViewSoldListingUI(props) {
     }
   }, [isFavorited]);
 
-  const handleFavorite = () => {
+  function handleFavorite () {
     setIsFavorited(!isFavorited);
     setIsClick(true);
   };

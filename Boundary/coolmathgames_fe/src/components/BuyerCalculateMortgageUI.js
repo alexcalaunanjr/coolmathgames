@@ -34,8 +34,9 @@ function BuyerCalculateMortgageUI({ openModal, onClose, price, token }) {
     function calculateMortgage() {
         let loanTenureMo = loanTenure * 12;
 
-        let monthlyPayment = (loanAmount * interestRate) / loanTenureMo
-        setMortgage(monthlyPayment.toFixed(2));
+        let monthlyPaymentFull = (loanAmount * interestRate) / loanTenureMo
+        let monthlyPayment = monthlyPaymentFull.toFixed(2)
+        setMortgage(monthlyPayment);
     }
 
     // Function to calculate the mortgage

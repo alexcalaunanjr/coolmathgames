@@ -7,7 +7,7 @@ import axios from "axios";
 import PLTabs from "../components/TabsPropertyListing";
 import Button from "../components/Button";
 import READeletePLUI from "../components/READeleteListingUI";
-import REAViewFavorites from "../components/REAViewFavoritesUI";
+import REAViewFavoriteCountUI from "../components/REAViewFavoriteCountUI";
 import REAViewViews from "../components/REAViewViewCountUI";
 
 // Images
@@ -259,7 +259,7 @@ function REAViewListingUI(props) {
                 </button>
                 {/* Pop up for favorotes */}
                 {favoritesPopUp && (
-                  <REAViewFavorites
+                  <REAViewFavoriteCountUI
                     propertyName={title}
                     openModal={favoritesPopUp}
                     onClose={handleReopenPopUp}
