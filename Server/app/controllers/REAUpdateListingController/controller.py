@@ -24,7 +24,7 @@ class REAUpdateListingController(Blueprint):
                 'area' : area,
                 'unitFeatures' : unitFeatures,
                 'facilities' : facilities,
-                'sold': False,
+                'sold': sold,
             }
             updatedPropertyDetails = PropertyListing.updateListing(propertyName, updatedProperty)
         return updatedPropertyDetails

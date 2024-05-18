@@ -33,7 +33,7 @@ function READeleteListingUI( {openModal, onClose, text, token}) {
 
   function closeDeletePopUp(){
     onClose();
-    navigate('/REARetrieveListingListUI');
+    // navigate('/REARetrieveListingListUI');
   }
 
   function clickCancel(){
