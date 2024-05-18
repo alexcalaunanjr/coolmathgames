@@ -20,9 +20,10 @@ function SellerSearchREAUI({ id, placeholder, onSubmit, setREA, token }) {
             else {
                 const READict = response.data.userREA;
                 const READata = READict.map(account => ({
-                    id: account.id,
                     fullName: account.fullName,
-                    username: account.username
+                    username: account.username,
+                    email: account.email,
+                    phoneNo: account.phoneNo
                 }))
                 setREA(READata)
             }
