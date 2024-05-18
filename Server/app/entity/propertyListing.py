@@ -279,6 +279,7 @@ class PropertyListing(db.Model):
             'noOfBedrooms': listings.property_obj.noOfBedrooms,
             'noOfBathrooms': listings.property_obj.noOfBathrooms,
             'area': listings.property_obj.area,
+            'sold': listings.sold
         } for listings in REAListingList]
         return jsonify({"REAListingList": REAListingListDict})
     
