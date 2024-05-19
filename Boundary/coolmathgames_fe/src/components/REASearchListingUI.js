@@ -19,7 +19,10 @@ function REASearchListingUI({ id, placeholder, onSubmit, setNewProperties, token
                 setNewProperties([])
             }
             else {
-                const properties = response.data.properties;
+                const properties = response.data.properties.map(property => ({
+                    ...property,
+                    propertyLink: `/REAViewListingUI/${property.propertyName}`
+                }));
                 setNewProperties(properties)
             }
         })

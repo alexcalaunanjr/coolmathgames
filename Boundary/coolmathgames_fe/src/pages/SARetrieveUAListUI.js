@@ -34,7 +34,7 @@ function SARetrieveUAListUI(props) {
                 username: account.username,
                 email: account.email,
                 profile: account.profile,
-                status: account.status.toUpperCase()
+                status: account.status
             }))
             setUsers(userData)
         })
@@ -55,7 +55,7 @@ function SARetrieveUAListUI(props) {
         setSearchQuery(query);
     };
 
-    const rows = users.map(user => [user.fullName, user.username, user.email, user.profile, user.status]);
+    const rows = users.map(user => [user.fullName, user.username, user.email, user.profile, user.status.toUpperCase()]);
 
     // Function to handle status color
     const statusColor = (status) => {
