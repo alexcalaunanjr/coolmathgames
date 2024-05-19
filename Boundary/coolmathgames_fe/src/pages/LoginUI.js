@@ -57,18 +57,7 @@ function LoginUI(props) {
                 localStorage.setItem('username', username);
                 
                 if (response.data.accessToken) {
-                    if (selectedUserType == 'System Admin') {
-                        window.location.href = "/SARetrieveUAListUI";
-                    }
-                    else if (selectedUserType == 'Real Estate Agent') {
-                        window.location.href = "/REARetrieveListingListUI";
-                    }
-                    else if (selectedUserType == 'Buyer') {
-                        window.location.href = "/BuyerRetrieveNewListingListUI";
-                    }
-                    else if (selectedUserType == 'Seller') {
-                        window.location.href = "/SellerRetrieveListingListUI";
-                    }
+                    redirectToHomepage();
                 }
                 else {
                     displayErrorMessage();
@@ -97,6 +86,21 @@ function LoginUI(props) {
           document.removeEventListener('keypress', handleKeyPress);
         };
     }, [username, password]);
+
+    function redirectToHomepage(){
+        if (selectedUserType == 'System Admin') {
+            window.location.href = "/SARetrieveUAListUI";
+        }
+        else if (selectedUserType == 'Real Estate Agent') {
+            window.location.href = "/REARetrieveListingListUI";
+        }
+        else if (selectedUserType == 'Buyer') {
+            window.location.href = "/BuyerRetrieveNewListingListUI";
+        }
+        else if (selectedUserType == 'Seller') {
+            window.location.href = "/SellerRetrieveListingListUI";
+        }
+    }
 
     function displayErrorMessage(){
         if (!username && !password && !selectedUserType) {
