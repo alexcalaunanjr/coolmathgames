@@ -14,7 +14,7 @@ function BuyerRetrieveFavoriteListUI(props) {
   const [favoriteProperties, setFavoriteProperties] = useState([]);
 
   useEffect(() => {
-    document.title = "Buyer Retrieve Favorite Property Listing";
+    document.title = "My List of Favorites";
     axios
       .post(
         `http://127.0.0.1:5000/BuyerRetrieveFavoriteList`,

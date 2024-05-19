@@ -33,7 +33,7 @@ function BuyerViewSoldListingUI(props) {
   const [isClick, setIsClick] = useState(false);
 
   useEffect(() => {
-    document.title = "View Sold Property Listing";
+    document.title = "Sold Property Listing";
     axios
       .post(
         `http://127.0.0.1:5000/BuyerViewSoldListing/${propertyName}`,

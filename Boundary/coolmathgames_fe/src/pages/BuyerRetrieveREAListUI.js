@@ -15,7 +15,7 @@ function BuyerRetrieveREAListUI(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.title = 'Buyer Retrieve REA List';
+        document.title = 'List of Real Estate Agents';
         axios.get('http://127.0.0.1:5000/BuyerRetrieveREAList', {
             headers: {
                 Authorization: 'Bearer ' + props.token,
