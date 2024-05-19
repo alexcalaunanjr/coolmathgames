@@ -151,8 +151,6 @@ function REAViewREACredentialsUI(props) {
                                     <div className='w-56'>
                                         <p><b>Experience:</b> {experience} years</p>
                                         <div className='p-0.5'></div>
-                                        <p><b>Member since:</b> {memberSince}</p>
-                                        <div className='p-0.5'></div>
                                         <p><b>License:</b> {license}</p>
                                         <div className='p-0.5'></div>
                                         <p><b>Language:</b> {language}</p>
