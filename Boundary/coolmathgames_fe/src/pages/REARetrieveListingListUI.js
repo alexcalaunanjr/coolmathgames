@@ -28,7 +28,7 @@ function REARetrieveListingListUI(props) {
 
 
     useEffect(() => {
-        document.title = 'Retrieve Listing List';
+        document.title = 'List of Created Property Listings';
 
         axios.get(`http://127.0.0.1:5000/REARetrieveListingList/${username}` , {
             headers: {
@@ -89,6 +89,7 @@ function REARetrieveListingListUI(props) {
                     ))}
                     
                 </div>
+                <div className="p-10"></div>
             </div>
 
 

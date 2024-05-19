@@ -14,7 +14,7 @@ function SellerRetrieveListingListUI(props) {
     const [sellerProperties, setSellerProperties] = useState([]);
 
     useEffect(() => {
-        document.title = 'Retrieve Listing List';
+        document.title = 'List of Owned Property Listings';
         const username = localStorage.getItem('username');
         console.log(username)
         axios.get(`http://127.0.0.1:5000/SellerRetrieveListing/${username}`, {

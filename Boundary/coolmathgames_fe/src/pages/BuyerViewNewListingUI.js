@@ -49,7 +49,7 @@ function BuyerViewNewListingUI(props) {
   };
 
   useEffect(() => {
-    document.title = "View New Property Listing";
+    document.title = "New Property Listing";
     if (load) {
       axios
         .post(

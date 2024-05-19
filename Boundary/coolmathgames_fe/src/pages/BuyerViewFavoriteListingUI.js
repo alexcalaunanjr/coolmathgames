@@ -49,7 +49,7 @@ function BuyerViewFavoriteListingUI(props) {
   };
 
   useEffect(() => {
-    document.title = "Buyer View Favorite Listing";
+    document.title = "Favorite Property Listing";
     if (load) {
       axios
         .post(

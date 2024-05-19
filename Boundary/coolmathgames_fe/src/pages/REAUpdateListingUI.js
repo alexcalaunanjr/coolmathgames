@@ -37,7 +37,7 @@ function REAUpdateListingUI(props) {
     let {propertyName} = useParams();
 
     useEffect(() => {
-        document.title = 'Create Property Listing';
+        document.title = 'Update Property Listing';
         axios.get(`http://127.0.0.1:5000/REAUpdateListing/${propertyName}`, {
             headers: {
             'Authorization': 'Bearer ' + props.token,

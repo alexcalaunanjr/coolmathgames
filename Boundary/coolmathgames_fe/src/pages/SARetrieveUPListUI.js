@@ -18,7 +18,7 @@ function SARetrieveUPListUI(props) {
     const [Ptoken, setPToken] = useState('');
 
     useEffect(() => {
-        document.title = 'Retrieve User Profile List';
+        document.title = 'User Profile List';
         axios.get('http://127.0.0.1:5000/SARetrieveUPList', {
             headers: {
                 Authorization: 'Bearer ' + props.token,

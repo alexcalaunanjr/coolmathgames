@@ -53,7 +53,7 @@ function REAViewREACredentialsUI(props) {
     }
 
     useEffect(() => {
-        document.title = 'View REA Credentials';
+        document.title = 'My Credentials';
         
         axios.get(`http://127.0.0.1:5000/REAViewREACredential/${username}`, {
         headers: {

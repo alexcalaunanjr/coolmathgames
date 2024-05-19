@@ -37,7 +37,7 @@ function SellerViewPropertyListingUI(props) {
   const [viewsPopUp, setViewsPopUp] = useState(false);
 
   useEffect(() => {
-    document.title = "Seller View Property Listing";
+    document.title = "View Property Listing";
 
     axios
       .get(`http://127.0.0.1:5000/SellerViewListing/${propertyName}`, {
