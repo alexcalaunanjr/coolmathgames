@@ -8,7 +8,7 @@ from sqlalchemy.orm import subqueryload
 class Favorite(db.Model):
     __tablename__ = 'Favorite'
     id = db.Column(db.Integer, primary_key=True)
-    property = db.Column(db.String(50), db.ForeignKey('Properties.propertyName'), nullable=False)
+    property = db.Column(db.String(50), db.ForeignKey('Properties.propertyName', ondelete="CASCADE"), nullable=False)
     buyer = db.Column(db.String(50), db.ForeignKey('UserAccounts.username'), nullable=False)
     property_obj = db.relationship("Properties", backref="favorite")
 
