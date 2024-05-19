@@ -39,7 +39,9 @@ function BuyerViewFavoriteListingUI(props) {
 
   // Function to handle delete button
   const handleMortgage = () => {
-    setMortgagePopUp(true);
+    if (!isSold){
+      setMortgagePopUp(true);
+    }
   };
 
   const handleReopenPopUp = () => {
@@ -317,13 +319,14 @@ function BuyerViewFavoriteListingUI(props) {
               </Link>
               {/* Calculate mortgage */}
               <div className="flex justify-end pt-10">
-                <button
+                {!isSold && (<button
                   className="flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white w-full md:w-1/2 sm:w-2/3"
                   onClick={handleMortgage}
                 >
                   <MdOutlineCalculate className="w-16 h-16" />
                   <p className="text-md items-center"> Calculate Mortgage </p>
                 </button>
+                )}
                 {
                   // calculate mortgage pop up
                   mortgagePopUp && (

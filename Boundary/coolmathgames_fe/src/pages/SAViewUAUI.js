@@ -50,7 +50,7 @@ function SAViewUAUI(props, {openModal, onClose}) {
         .catch(error => {
             console.error('Error fetching user account:', error);
         });
-    }, []);
+    }, [message]);
 
     function setData(data){
         setFullName(data.fullName);
