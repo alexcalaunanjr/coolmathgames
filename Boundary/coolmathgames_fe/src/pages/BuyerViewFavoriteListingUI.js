@@ -25,6 +25,7 @@ function BuyerViewFavoriteListingUI(props) {
   const [unitFeatures, setUnitFeatures] = useState("");
   const [facilities, setFacilities] = useState("");
   const [agentName, setAgentName] = useState("");
+  const [agentUN, setAgentUN] = useState("");
   const [agentImg, setAgentImage] = useState("");
   const [load, setLoad] = useState(true);
 
@@ -86,6 +87,7 @@ function BuyerViewFavoriteListingUI(props) {
     setIsSold(data.properties.sold);
     setAgentName(data.properties.RealEstateAgent);
     setAgentImage(data.properties.REAImage);
+    setAgentUN(data.properties.REAUN);
     setImage(data.properties.propertyImage);
     setIsFavorited(data.properties.favorited);
     setLoad(false);
@@ -300,7 +302,7 @@ function BuyerViewFavoriteListingUI(props) {
                 </div>
               </div>
               {/* Contact Agent */}
-              <Link to={`/BuyerViewREACredentialsUI/${agentName}`}>
+              <Link to={`/BuyerViewREACredentialsUI/${agentUN}`}>
                 <div className="flex justify-end pt-10">
                   <button className="flex items-center justify-center bg-transparent text-black p-3 border border-black rounded-lg hover:bg-white md:w-1/2">
                     {/* Contact Agent */}

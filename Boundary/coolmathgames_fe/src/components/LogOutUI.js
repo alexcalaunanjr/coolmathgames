@@ -13,8 +13,12 @@ function LogoutUI() {
         localStorage.removeItem('token');
         //redirect user to login page
         console.log("Logout Successful!")
-        navigate("/login"); 
+        redirectToLoginUI();
         setOpenModal(false);
+    }
+
+    function redirectToLoginUI(){
+        navigate("/login"); 
     }
 
     function displayLogoutUI(){
