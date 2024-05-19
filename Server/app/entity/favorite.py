@@ -21,7 +21,7 @@ class Favorite(db.Model):
             .all()
 
         properties =   [{
-            'RealEstateAgent': listings.property_obj.listings[0].REA_account.fullame,
+            'RealEstateAgent': listings.property_obj.listings[0].REA_account.fullName,
             'REAImage': {fav.property: UserAccount.query.filter_by(username=listings.property_obj.listings[0].REA).first().profileImage for fav in favoriteProperties}.get(listings.property),
             'propertyName': listings.property,
             'propertyImage': listings.property_obj.propertyImage,
