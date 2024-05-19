@@ -10,7 +10,7 @@ function SAViewUPUI({header, description, openModal, onClose, token, setStatus})
   const navigate = useNavigate();
   const [suspendPopUp, setSuspendPopUp] = useState(false);
   const [clickedProfile, setClickedProfile] = useState(localStorage.getItem('clickedProfile'));
-  const [clickedProfileDesc, setclickedProfileDesc] = useState('');
+  const [clickedProfileDesc, setclickedProfileDescription] = useState('');
   
   // Prompt success suspend user profile
   const [message, setMessage] = useState('');
@@ -38,14 +38,16 @@ function SAViewUPUI({header, description, openModal, onClose, token, setStatus})
                 }
             })
             .then((response) => {
-                const data = response.data.desc
+                const data = response.data
                 setclickedProfileDesc(data)
             })
             .catch((error) => {
                 console.error('Error fetching profile description', error);
             });
   }, []);
-  
+  function setclickedProfileDesc(data){
+    setclickedProfileDescription(data.desc)
+  }
 
   function displayUPDetails(){
     return(
