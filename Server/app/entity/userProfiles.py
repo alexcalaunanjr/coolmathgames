@@ -34,6 +34,7 @@ class UserProfiles(db.Model):
         userProfileList = cls.query.filter(cls.profile.like(f"%{query}%")).all()
         userProfileDict = [{
             'profile' : profile.profile,
+            'status' : profile.status,
         } for profile in userProfileList]
         if userProfileDict:
             return jsonify({"userProfile": userProfileDict})
