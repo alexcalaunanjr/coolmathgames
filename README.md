@@ -22,10 +22,10 @@ npm start
     
 
 3. Tailwind CSS (for styling):  
-- Please follow this tutorial: https://tailwindcss.com/docs/guides/create-react-app
+    Please follow this tutorial: https://tailwindcss.com/docs/guides/create-react-app
 
 4. Flowbite-React (download Tailwind first):
-- Please follow this tutorial: https://flowbite-react.com/docs/guides/create-react-app
+    Please follow this tutorial: https://flowbite-react.com/docs/guides/create-react-app
 
 5. axios
 ```npm install axios```
@@ -65,7 +65,7 @@ pip install flask-jwt-extended
 - SQLAlchemy
 ##### To run
 1. Open new terminal
-2. Type in "sqlite3 (directory)/instance/database.db
+2. Type in `sqlite3 (directory)/instance/database.db`
 
 #### Test Driven Development (TDD)
 ```
