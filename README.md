@@ -1,24 +1,19 @@
-# COOLMATHGAMES.COM
+# MICASA
+<br>
 
-I think it'll be confusing for Terence that we're doing Real Estate but we are called COOLMATHGAMES.COM
-
-### Development tools:
-### Frontend
-- React
-- Tailwind CSS
- 
- ### Backend
- - Flask
-
- ### Database
-- SQLlite
+# Development tools:
+<br>
+* Frontend: React, Tailwind CSS, Flowbite
+* Backend: Flask
+* Database: SQLlite, SQLAlchemy
 
 <br>
 Initial commit on 3 April 2024
 
-# FRONTEND:
-## Libraries to install (DO THIS FIRST BEFORE PULLING): 
-## DO THIS ONLY ONCE
+# SETUP
+<br>
+## 1. Libraries to install
+### Frontend:
 1. React Framework:  
 ```
 npx create-react-app coolmathgames_fe
@@ -40,11 +35,10 @@ npm start
 5. axios
 ```npm install axios```
 
-### To see which versions of packages, check:
+#### To see which versions of packages, check:
 `frontend/coolmathgames_fe/package.json`
 
-# BACKEND:
-## Libraries to install:
+### BACKEND:
 ```
 pip install -U Flask
 pip install -U Flask-SQLAlchemy
@@ -56,8 +50,18 @@ pip install jwt
 pip install flask-jwt-extended
 ```
 
-<br>
+### DATABASE:
+- SQLite
+  `pip install SQLAlchemy`
+- SQLAlchemy
 
-# DATABASE:
-## Libraries to install:
-- ?
+### Test Driven Development (TDD)
+```
+pip install Selenium
+pip install  Pytest
+pip install pytest-html
+pip install pytest-xdist
+pip install Openpyxl
+pip install Allure-pytest
+```
+ 
