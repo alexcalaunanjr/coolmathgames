@@ -1,17 +1,14 @@
 # MICASA
 The project aims to develop a real estate system for various users, including system administrators, real estate agents, sellers, and buyers. By incorporating the B-C-E (Boundary, Controller, Entity) framework during development, the system is designed to streamline property management, enhancing efficiency and user experience
 <br>
-# Development tools:
+# DEVELOPMENT TOOLS:
 - Frontend: React, Tailwind CSS, Flowbite
 - Backend: Flask
 - Database: SQLlite, SQLAlchemy
 
 <br>
-Initial commit on 3 April 2024
-
 # SETUP
-<br>
-## Libraries to install
+## 1. Libraries to install
 ### Frontend:
 1. React Framework:  
 ```
@@ -34,10 +31,18 @@ npm start
 5. axios
 ```npm install axios```
 
+#### To run
+```
+cd Boundary
+cd coolmathgames_fe
+npm start
+```
+
 #### To see which versions of packages, check:
 `frontend/coolmathgames_fe/package.json`
 
-### BACKEND:
+<br>
+### Backend:
 ```
 pip install -U Flask
 pip install -U Flask-SQLAlchemy
@@ -48,12 +53,24 @@ pip install -U flask-cors
 pip install jwt
 pip install flask-jwt-extended
 ```
+#### To run
+1. Open new terminal
+2. ```
+    cd Server
+    cd app
+    flask run
+    ```
 
-### DATABASE:
+<br>
+### Database:
 - SQLite
   `pip install SQLAlchemy`
 - SQLAlchemy
+#### To run
+1. Open new terminal
+2. Type in "sqlite3 (directory)/instance/database.db
 
+<br>
 ### Test Driven Development (TDD)
 ```
 pip install Selenium
@@ -63,4 +80,5 @@ pip install pytest-xdist
 pip install Openpyxl
 pip install Allure-pytest
 ```
- 
+#### To run
+pytest filepath/testfile.py
