@@ -1,18 +1,17 @@
 # MICASA
+The project aims to develop a real estate system for various users, including system administrators, real estate agents, sellers, and buyers. By incorporating the B-C-E (Boundary, Controller, Entity) framework during development, the system is designed to streamline property management, enhancing efficiency and user experience
 <br>
-
 # Development tools:
-<br>
-* Frontend: React, Tailwind CSS, Flowbite
-* Backend: Flask
-* Database: SQLlite, SQLAlchemy
+- Frontend: React, Tailwind CSS, Flowbite
+- Backend: Flask
+- Database: SQLlite, SQLAlchemy
 
 <br>
 Initial commit on 3 April 2024
 
 # SETUP
 <br>
-## 1. Libraries to install
+## Libraries to install
 ### Frontend:
 1. React Framework:  
 ```
