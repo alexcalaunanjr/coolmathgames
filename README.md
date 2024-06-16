@@ -1,12 +1,11 @@
 # MICASA
 The project aims to develop a real estate system for various users, including system administrators, real estate agents, sellers, and buyers. By incorporating the B-C-E (Boundary, Controller, Entity) framework during development, the system is designed to streamline property management, enhancing efficiency and user experience
-<br>
+
 # DEVELOPMENT TOOLS:
 - Frontend: React, Tailwind CSS, Flowbite
 - Backend: Flask
 - Database: SQLlite, SQLAlchemy
 
-<br>
 # SETUP
 ## 1. Libraries to install
 ### Frontend:
@@ -41,7 +40,6 @@ npm start
 #### To see which versions of packages, check:
 `frontend/coolmathgames_fe/package.json`
 
-<br>
 ### Backend:
 ```
 pip install -U Flask
@@ -61,7 +59,6 @@ pip install flask-jwt-extended
     flask run
     ```
 
-<br>
 ### Database:
 - SQLite
   `pip install SQLAlchemy`
@@ -70,7 +67,6 @@ pip install flask-jwt-extended
 1. Open new terminal
 2. Type in "sqlite3 (directory)/instance/database.db
 
-<br>
 ### Test Driven Development (TDD)
 ```
 pip install Selenium
