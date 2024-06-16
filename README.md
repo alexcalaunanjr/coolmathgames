@@ -1,14 +1,14 @@
 # MICASA
 The project aims to develop a real estate system for various users, including system administrators, real estate agents, sellers, and buyers. By incorporating the B-C-E (Boundary, Controller, Entity) framework during development, the system is designed to streamline property management, enhancing efficiency and user experience
 
-# DEVELOPMENT TOOLS:
+## DEVELOPMENT TOOLS:
 - Frontend: React, Tailwind CSS, Flowbite
 - Backend: Flask
 - Database: SQLlite, SQLAlchemy
 
-# SETUP
-## 1. Libraries to install
-### Frontend:
+## SETUP
+### 1. Libraries to install
+#### Frontend:
 1. React Framework:  
 ```
 npx create-react-app coolmathgames_fe
@@ -30,17 +30,17 @@ npm start
 5. axios
 ```npm install axios```
 
-#### To run
+##### To run
 ```
 cd Boundary
 cd coolmathgames_fe
 npm start
 ```
 
-#### To see which versions of packages, check:
+##### To see which versions of packages, check:
 `frontend/coolmathgames_fe/package.json`
 
-### Backend:
+#### Backend:
 ```
 pip install -U Flask
 pip install -U Flask-SQLAlchemy
@@ -51,7 +51,7 @@ pip install -U flask-cors
 pip install jwt
 pip install flask-jwt-extended
 ```
-#### To run
+##### To run
 1. Open new terminal
 2. ```
     cd Server
@@ -59,15 +59,15 @@ pip install flask-jwt-extended
     flask run
     ```
 
-### Database:
+#### Database:
 - SQLite
   `pip install SQLAlchemy`
 - SQLAlchemy
-#### To run
+##### To run
 1. Open new terminal
 2. Type in "sqlite3 (directory)/instance/database.db
 
-### Test Driven Development (TDD)
+#### Test Driven Development (TDD)
 ```
 pip install Selenium
 pip install  Pytest
@@ -76,5 +76,5 @@ pip install pytest-xdist
 pip install Openpyxl
 pip install Allure-pytest
 ```
-#### To run
-pytest filepath/testfile.py
+##### To run
+`pytest filepath/testfile.py`
